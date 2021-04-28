@@ -1,0 +1,313 @@
+\subsection{Protocol and statement of results}
+
+
+Throughout this section we 
+let $\Sigma=\{X,Y,Z,F,G\}$, and let $m=\Theta(n+t)$ be chosen 
+large enough so that each symbol in $\Sigma$ appears at least $n+t$ times in a uniform random $W\in\Sigma^m$, with probability close to $1$.
+Let $\mu({W})$ denote the probability that a player receives input ${W}$ while playing $\rigid(\Sigma,m)$ (recall that both players have the same marginals in $\rigid$). Let $\mu({W}'|{W})$ denote the probability that one player receives ${W}'$ given that the other player receives~${W}$. 
+
+The full protocols are presented in Figure \ref{fig:dogwalker-protocol-V} (verifier's point of view), Figure \ref{fig:dogwalker-protocol-PV} ($\pv$'s point of view) and Figure \ref{fig:dogwalker-protocol-PP} ($\pp$'s point of view). The protocol has two 
+types of rounds: 
+EPR and Rigidity. Within an EPR round are three 
+types of sub-rounds: 
+Computation sub-round, $X$-test sub-round, and $Z$-test sub-round. We will generally think of $X$- and $Z$-test sub-rounds as one sub-round type (Test sub-round). Within a Rigidity round are two types of sub-rounds: Tomography sub-round, which should be thought of as the Rigidity version of the EPR-Computation round; and Clifford sub-round, which should be thought of as the Rigidity version of the EPR-Test round. With some probability $p_1$, $\ver$ runs a Rigidity round, Clifford sub-round; with some probability $p_2$, $\ver$ runs an EPR round, Test sub-round; with some probability $p_3$, $\ver$ runs an EPR round, Computation sub-round; and with probability $p_4=1-p_1-p_2-p_3$, $\ver$ runs a Rigidity round, Tomography sub-round. We call this the Dog-Walker Protocol with parameters $(p_1,p_2,p_3,p_4)$.
+
+
+The following theorem states the guarantees of the Dog-Walker Protocol.
+
+\begin{theorem}\label{thm:dog-walker}
+There exist constants $p_1$, $p_2$, $p_3$, $p_4=1-p_1-p_2-p_3$, and $\Delta>0$ such that the following hold of the Dog-Walker Protocol with parameters $(p_1,p_2,p_3,p_4)$, when executed on input $(Q,\ket{\vec{x}})$.
+\begin{itemize}
+\item (Completeness: ) Suppose that $\norm{\Pi_0Q\ket{\vec{x}}}^2\geq 2/3$. Then
+  there is a strategy for $\pv$ and $\pp$ that is accepted with probability at
+    least $p_{\mathrm{compl}}=p_1(1-e^{-\Omega(n+t)})+p_2+\frac{2}{3}p_3 +
+    p_4$. 
+\item (Soundness: ) Suppose that $\norm{\Pi_0Q\ket{\vec{x}}}^2\leq 1/3$. Then any strategy for $\pv$ and $\pp$ is accepted with probability at most $p_{\mathrm{sound}}=p_{\mathrm{compl}}-\Delta$. 
+\end{itemize}
+\end{theorem}
+\noindent The proof of completeness is given in Lemma \ref{lem:dogwalker-completeness}, and proof of soundness is given in Lemma \ref{lem:dogwalker-soundness}. 
+
+%----------------%
+\begin{figure}[H]
+\rule[1ex]{\textwidth}{0.5pt}
+\vspace{-20pt}
+\justify
+1. Select a round type \textbf{EPR} or \textbf{Rigidity}, and disjoint sets $N,T^0,T^1\subset \{1,\ldots,m\}$ of sizes $n$, $t_0$ and $t-t_0$.  
+\begin{description}
+\item[EPR] Choose $\vec{z}$ uniformly at random from $\{0,1\}^t$ and send it, along with $N$, $T^0$ and $T^1$, to $\pp$. Receive measurement outcomes $\vec{c}\in\{0,1\}^t$ and $c_f\in\{0,1\}$ from $\pp$.
+\item[Rigidity] Choose $W'$ according to $\mu(\cdot)$ and send it to $\pp$. Receive $\vec{e}'\in \{0,1\}^m$ from $\pp$. 
+\end{description}
+2. Select a sub-round type at random from \textbf{Computation}, \textbf{X Test} or \textbf{Z Test}. 
+\begin{description}
+\item[Computation] Based on whether it's an \text{EPR} or a \text{Rigidity} Round:
+	\begin{description}
+	\item[EPR]
+		\begin{enumerate}
+		\item[(i)] Send $\vec{x}$, $\vec{z}$, $\vec{c}$ and sets $N$, $T^0$ and $T^1$ to $\pv$, and receive measurement outcomes $\vec{a},\vec{b}\in \{0,1\}^n$ and $\vec{e}\in\{0,1\}^t$.
+		\item[(ii)] Apply the update rules from Table \ref{tab:EPR-key-updates} gate-by-gate to obtain the final $\sf X$ key for the output wire $a_f'$. If $c_f+a_f'\neq 0$, $\sf reject$. 
+		\end{enumerate}
+	\item[Rigidity (Tomography)]
+		\begin{enumerate}
+		\item[(i)] Choose uniform random strings $\vec{c},\vec{z}\in\{0,1\}^t$, $\vec{x} \in \{0,1\}^n$ 
+		to send to $\pv$, along with $N$ and $T$, and receive measurement outcomes $\vec{d}\in \{0,1\}^n$ and $\vec{e}\in\{0,1\}^t$. 
+		\item[(ii)]
+		From $\vec{x}$, $\vec{c}$, $\vec{z}$, $\vec{d}$, and $\vec{e}$, determine the adaptive measurements $W\in\Sigma^{n+t}$ that $V_{EPR}^0$ would have performed (based on Figure \ref{fig:original-protocol-VEPRr}), and $\sf reject$ if the input-output pairs $(W',\vec{e}')$ and $(N\cup T,(W,\vec{e}))$ do not satisfy the winning criterion for $\tom(\Sigma,n+t,m)$.
+		\end{enumerate}
+	\end{description}
+\item[$X$-Test] Based on whether it's an \text{EPR} or a \text{Rigidity} Round:
+\begin{description}
+	\item[EPR] 
+	\begin{enumerate}
+		\item[(i)] Choose $W\in\Sigma^m$ uniformly at random among all strings satisfying: $W_i=Z$ for all $i\in N$; $W_i=Z$ for all $i\in T^0$; and $W_i\in\{X,Y\}$ for all $i\in T^1$. Send $W$ to $\pv$ and receive measurement results $\vec{e}\in\{0,1\}^m$. Let $(\vec{a},\vec{b})=(\vec{e}_N,0^n)$. 
+		\item[(ii)] Apply update rules from Table \ref{tab:EPR-key-updates} gate-by-gate to obtain $\forall i\in [t]$ the $\sf X$ key before the $i$-th $\sf T$ gate is applied, $a_i'$, and the final $\sf X$ key for the output wire, $a_f'$. 
+If $\exists i$ s.t.\ the $i$-th $\sf T$ gate is even and $c_i\neq a_i'+e_i$, $\sf reject$. If $c_f+a_f'\neq 0$, $\sf reject$. 
+	\end{enumerate}
+	\item[Rigidity (Clifford)] Choose ${W}$ according to the marginal conditioned on ${W}'$, $\mu(\cdot|{W}')$. 
+	Send ${W}$ to $\pv$ and receive $\vec{e}\in\{0,1\}^m$. Reject if   $({W}',\vec{e}',{W},\vec{e})$ doesn't win $\rigid(\Sigma,m)$. 
+\end{description}
+
+\item[$Z$-Test] Based on whether it's an \text{EPR} or a \text{Rigidity} Round:
+\begin{description}
+	\item[EPR] 
+	\begin{enumerate}
+		\item[(i)] Choose $W\in\Sigma^m$ uniformly at random among all strings satisfying: $W_i=X$ for all $i\in N$; $W_i\in\{X,Y\}$ for all $i\in T^0$; and $W_i=Z$ for all $i\in T^1$. Send $W$ to $\pv$ and receive measurement results $\vec{e}\in\{0,1\}^m$. Let $(\vec{a},\vec{b})=(0^n,\vec{e}_N)$.
+		\item[(ii)] Apply update rules from Table \ref{tab:EPR-key-updates} gate-by-gate to obtain $\forall i\in [t]$, the $\sf X$ key before the $i$-th $\sf T$ gate is applied, $a_i'$. 
+If $\exists i$ s.t.\ the $i$-th $\sf T$ gate is odd and $c_i\neq a_i'+e_i$, $\sf reject$. 
+	\end{enumerate}
+	\item[Rigidity (Clifford)] Identical to $X$-Test case.
+\end{description}
+\end{description}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{The Dog-Walker Protocol: Verifier's point of view.}\label{fig:dogwalker-protocol-V}
+\end{figure}
+
+
+\begin{figure}[H]
+\rule[1ex]{\textwidth}{0.5pt}
+\vspace{-20pt}
+\begin{enumerate}
+  \item If $\pp$ receives a question ${W}'$ from $\ver$ (he is playing $\tom$ or $\rigid$):
+\begin{enumerate}
+     \item[]  Measure the $m$ qubits in the observable indicated by $W'$ --- for example, if $W'\in\Sigma^m$, for $i\in \{1,\ldots,m\}$, measure the $i$-th qubit in the basis indicated by $W_i'$ --- and report
+       the outcomes $\vec{e}'$ to~$\ver$.
+\end{enumerate}
+\item If $\pp$ receives $\vec{z}$, and sets $N$, $T^0$ and $T^1$ from $\ver$ (he is playing the role of $P_{EPR}$ from the EPR Protocol):
+\begin{enumerate}
+     \item[] Run the prover $P_{EPR}$ from Figure \ref{fig:original-protocol-PEPR} on input $\vec{z}$, the $n$ qubits in $N$, and the $t$ qubits in $T^0\cup T^1$.
+     Report the outputs $\vec{c}\in\{0,1\}^t$ and $c_f\in\{0,1\}$ of $P_{EPR}$  to $\ver$. 
+\end{enumerate}
+\end{enumerate}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{The Dog-Walker Protocol: Honest strategy for $\pp$.}\label{fig:dogwalker-protocol-PP}
+\end{figure}
+
+
+\begin{figure}[H]
+\rule[1ex]{\textwidth}{0.5pt}
+\vspace{-20pt}
+\begin{enumerate}
+  \item If $\pv$ receives a question ${W}$ from $\ver$ (he is playing $\rigid$ or an $X$- or $Z$-Test Round):
+\begin{enumerate}
+     \item[]  Measure the $m$ qubits in the observable indicated by $W$ --- for example, if $W\in \Sigma^m$, for $i\in \{1,\ldots,m\}$, measure the $i$-th qubit in the basis indicated by $W_i$ --- and report the outcomes $\vec{e}$ to $\ver$.
+\end{enumerate}
+
+  \item If $\pv$ receives $\vec{x}$, $\vec{z}$, $\vec{c}$ and sets $N$, $T^0$ and $T^1$ from $\ver$ (he is playing $\tom$ or a Computation Round):
+\begin{enumerate}
+	\item[] Run the procedure $V_{EPR}^0$ from Figure \ref{fig:original-protocol-VEPRr} on input $\vec{x}$, $\vec{c}$, $\vec{z}$, the $n$ qubits in $N$, and the $t$ qubits in $T^0\cup T^1$. Report the outputs  $\vec{d}$ and $\vec{e}$ of $V_{EPR}^0$ to $\ver$.
+\end{enumerate}
+\end{enumerate}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{The Dog-Walker Protocol: Honest strategy for $\pv$.}\label{fig:dogwalker-protocol-PV}
+\end{figure}
+
+
+\subsection{Completeness}
+
+\begin{lemma}\label{lem:dogwalker-completeness}
+Suppose $\ver$ executes the Dog-Walker Protocol with parameters $(p_1,p_2,p_3,p_4)$.
+There is a strategy for the provers such that, on any input $(Q,\ket{\vec{x}})$
+  such that $\norm{\Pi_0 Q\ket{\vec{x}}}^2\geq \frac{2}{3}$, $\ver$ accepts with
+  probability at least
+  $p_{\mathrm{compl}}=p_1(1-\delta_c)+p_2+\frac{2}{3}p_3+p_4$, for some $\delta_c = e^{-\Omega(n+t)}$.
+\end{lemma}
+
+\begin{proof}
+The provers $\pv$ and $\pp$ play the strategy described in Figures
+  \ref{fig:dogwalker-protocol-PV} and \ref{fig:dogwalker-protocol-PP}
+  respectively. In the Rigidity-Tomography round, the verification performed by
+  $\ver$ amounts to playing $\tom(\Sigma,n+t,m)$ with the provers (with an extra
+  constraint on the output $W$ of $\pv$ that is always satisfied by the honest
+  strategy). This game has perfect
+  completeness, which makes the $\ver$
+  accept with probability $1$ in the Rigidity-Tomography round.
+  In the Rigidity-Clifford round, $\ver$ plays $\rigid(\Sigma,m)$
+  with the provers. The game
+  has completeness at least $1-\delta_c$ for some $\delta_c=e^{-\Omega(n+t)}$,
+  since $m=\Omega(n+t)$, therefore their success probability in this round is
+  at least $1-\delta_c$.
+
+In the EPR round, the provers are exactly carrying out the EPR Protocol, with $\ver$ using $\pv$ to run $V_{EPR}^r$, and $\pp$ playing the role of $P_{EPR}$. Thus, test rounds result in acceptance with probability $1$, and the computation round results in acceptance with probability $\norm{\Pi_0 Q\ket{\vec{x}}}^2$, by Theorem \ref{thm:EPR-correctness}. 
+\end{proof}
+
+
+\subsection{Soundness}
+
+Figure~\ref{fig:full-dog-walker} summarizes the high-level structure of the soundness analysis. Intuitively, our ultimate goal is to argue that both provers either apply the correct operations in EPR-Computation rounds, or are rejected with constant probability. This will be achieved by employing a form of ``hybrid argument'' whereby it is argued that the provers, if they are not caught, must be using the honest strategies described in Figure~\ref{fig:dogwalker-protocol-PP} and Figure~\ref{fig:dogwalker-protocol-PV} in the different types of rounds considered in the protocol. Towards this, we divide the round types into the following four scenarios:
+\begin{enumerate}
+\item Rigidity-Clifford: The round type is \textbf{Rigidity} and the sub-round type is either \textbf{$X$-Test} or \textbf{$Z$-Test}. (When the provers are honest) $\pv$ behaves as in Item 1 of Figure \ref{fig:dogwalker-protocol-PV}, and $\pp$ behaves as in Item 1 of Figure \ref{fig:dogwalker-protocol-PP}. 
+\item EPR-Test: The round type is \textbf{EPR} and the sub-round type is either \textbf{$X$-Test} or \textbf{$Z$-Test}. $\pv$ behaves as  in Item 1 of Figure \ref{fig:dogwalker-protocol-PV}, and $\pp$ behaves as in Item 2 of Figure \ref{fig:dogwalker-protocol-PP}. 
+\item EPR-Computation: The round type is \textbf{EPR} and the sub-round type is \textbf{Computation}. $\pv$ behaves as in Item 2 of Figure \ref{fig:dogwalker-protocol-PV}, and $\pp$ behaves as in Item 2 of Figure \ref{fig:dogwalker-protocol-PP}. 
+\item Rigidity-Tomography: The round type is \textbf{Rigidity} and the sub-round type is \textbf{Computation}. $\pv$ behaves as in Item 2 of Figure \ref{fig:dogwalker-protocol-PV}, and $\pp$ behaves as in Item 1 of Figure \ref{fig:dogwalker-protocol-PP}. 
+\end{enumerate}
+Examining Figure \ref{fig:dogwalker-protocol-V}, we can see the following. In the Rigidity-Clifford scenario, the verifier is precisely playing the game $\rigid$ with the provers, as the provers receive questions $W'$ and $W$ distributed according to $\mu(\cdot,\cdot)$, the distribution of questions for $\rigid(\Sigma,m)$; their answers are tested against the winning conditions of $\rigid(\Sigma,m)$. In the Rigidity-Tomography scenario, the verifier plays a variant of the game $\tom$ with the provers, in which $\pv$'s choice of observable $W$ is uniquely determined by his inputs $\vec{x}$, $\vec{c}$ and $\vec{z}$: it should match the observable implemented by $V_{EPR}^0$ on these inputs. In EPR rounds, $\pv$ plays the part of $V_{EPR}^r$ from the EPR Protocol, and $\pp$ play the part of $P_{EPR}$. The EPR-Test scenario corresponds to $X$- and $Z$-tests from the EPR Protocol, whereas the EPR-Computation scenario corresponds to computation rounds from the EPR Protocol.
+
+
+
+\noindent The structure of the proof is as follows (see also Figure~\ref{fig:full-dog-walker}):
+\begin{enumerate}
+\item[(i)] By the game $\rigid$, in the Rigidity-Clifford rounds, both $\pp$ and $\pv$ must be honest, or they would lose the game.
+\item[(ii)] Since $\pv$ can't distinguish between Rigidity-Clifford and EPR-Test (both are Figure \ref{fig:dogwalker-protocol-PV} Item 1 from his perspective, and the input distributions, while not identical, are within constant total variation distance), $\pv$ must be honest in the EPR-Test rounds, by (i). 
+\item[(iii)] Since $\pp$ can't distinguish between Rigidity-Clifford and Rigidity-Tomography (both are Figure~\ref{fig:dogwalker-protocol-PP} Item 1 from his perspective), $\pp$ must be honest in the Rigidity-Tomography rounds, by~(i). 
+\item[(iv)] Since $\pv$ is honest in EPR-Test rounds by (ii), $\pp$ must be honest in EPR-Test rounds or he will get caught, but in particular, he must output values $\{c_i\}_{i\in [t]}$ that are uniform random and independent of $\vec{z}$. Since $\pp$ can't distinguish between EPR-Test and EPR-Computation rounds, this is also true in EPR-Computation rounds, when the verifier sends the values $\{c_i\}_i$ to $\pv$. 
+\item[(v)] $\pv$ must be honest in Rigidity-Tomography rounds, or the provers would lose the game $\tom$.
+\item[(vi)] Since $\pv$ can't distinguish between Rigidity-Tomography rounds and EPR-Computation rounds (both are Figure \ref{fig:dogwalker-protocol-PV} Item 2 from his perspective), $\pv$ must be honest in EPR-Computation rounds, by~(v), and his input distribution to both rounds is within constant total variation distance, by (iv).
+\item[(vii)] Since $\pv$ is honest in EPR-Test rounds by (ii), and EPR-Computation rounds by (vi), the combined behavior of $\ver$ and $\pv$ in the EPR rounds is that of $V_{EPR}$ in the EPR Protocol, so
+by the soundness of the EPR Protocol, $\pp$ must be honest in EPR-Computation rounds, or get caught in the EPR-Test rounds with high probability.
+\end{enumerate}
+
+ The following lemma establishes (i), (ii) and (iii). 
+
+\begin{lemma}\label{lem:PV-2-PP-4}
+Suppose the verifier executes the Dog-Walker Protocol 
+with provers $(\pv^*,\pp^*)$ such that the provers are accepted with probability $q_1\geq 1-\eps$ in the Rigidity-Clifford Round, $q_2$ in the EPR-Test Round, $q_3$ in the EPR-Computation Round, and $q_4$ in the Rigidity-Tomography Round. Then there exist provers $(\pv',\pp')$ such that:
+\begin{itemize}[nolistsep]
+\item $\pv'$ and $\pp'$ both apply the honest strategy in the Rigidity-Clifford rounds, $\pv'$ applies the honest strategy in the EPR-Test rounds, and $\pp'$ applies the honest strategy in the Rigidity-Tomography rounds; in particular, the state shared by the provers at the beginning of the protocol is a tensor product of the honest state consisting of $m$ shared EPR pairs and an arbitrary shared ancilla;
+\item The provers are accepted with probability $q_2'=q_2-O(\mathrm{poly}(\eps))$ in the EPR-Test Round, $q_3'=q_3$ in the EPR-Computation Round, and $q_4'=q_4-O(\mathrm{poly}(\eps))$ in the Rigidity-Tomography Round. 
+\end{itemize}
+\end{lemma}
+
+\begin{proof}
+Using a similar argument as in Lemma~\ref{soundlemma}, the strategy of $\pv^*$ in
+Rigidity-Clifford rounds, which is also his strategy in EPR-Test rounds (Figure \ref{fig:dogwalker-protocol-PV} Item 1); and the strategy of $\pp^*$ in Rigidity-Clifford rounds, which is also his strategy in Rigidity-Tomography rounds (Figure \ref{fig:dogwalker-protocol-PP} Item 1);
+ can both be replaced with the honest strategies. Since the distribution of inputs to $\pp^*$ in the Rigidity-Tomography rounds and Rigidity-Clifford rounds is the same, the success probability in the Rigidity-Tomography rounds is changed by at most $O(\mathrm{poly}(\eps))$ by using the honest strategy. 
+On the other hand, $\pv^*$'s input distribution in EPR-Test rounds is uniform on $\Sigma^m$, whereas his distribution in Rigidity-Clifford rounds is given by $\mu$. However, from the description of the test $\rigid$ it is clear that for all $W\in\Sigma^m$, $\mu(W)\geq \frac{1}{c|\Sigma|^m}$ for some constant $c>1$, thus the total variation distance between the two distributions is at most $1-\frac{1}{c}$. Thus, replacing $\pv^*$ with the honest strategy in the EPR-Test  rounds will change the success probability by at most  $O(\mathrm{poly}(\eps))$. 
+
+Finally, since the provers' strategy in the EPR-Computation round has not changed, the
+  acceptance probability in it remains unchanged.
+\end{proof}
+
+Next, we will show that whenever $\pv^*$ is honest in the EPR-Test rounds this forces $\pp^*$ to output (close to) uniformly random $\{c_i\}_{i\in [t]}$ that are independent of the round type, even given $\vec{z}$. This will allow us to verify that $\pp^*$ is unable to signal to $\pv^*$ whether the round is an EPR Round in the EPR-Computation round, when $\pv^*$ is sent $\vec{z}$ and $\vec{c}$. This establishes (iv). 
+
+
+\begin{lemma}\label{lem:ci-unif}
+Suppose the verifier executes the Dog-Walker Protocol with provers $(\pv^*,\pp^*)$ such that the initial shared state of the provers consists of $m$ shared EPR pairs, together with an arbitrary shared auxiliary state; $\pv^*$ plays the honest strategy in the EPR-Test rounds; the provers are accepted with probability $q_1$ in the Rigidity-Clifford Round, $q_2 = 1-\eps'$ in the EPR-Test Round, $q_3$ in the EPR-Computation Round, and $q_4$ in the Rigidity-Tomography Round. Then the input $(\vec{c},\vec{z})$ given by the verifier to $\pv^*$ in the EPR-Computation rounds has a distribution that is within $O(\eps')$ total variation distance of uniform on $\{0,1\}^t\times\{0,1\}^t$. 
+\end{lemma}
+
+\begin{proof}
+Let $a_i'$ denote the $\sf X$ key of the wire to which the $i$-th $\sf T$ gate is applied, just before the $i$-th $\sf T$ gate is applied, and let $D_i$ be a random variable defined as follows. If the $i$-th $\sf T$ gate is even, let $D_i=e_i+a_i'$, where we interpret $e_i$ and $a_i'$ as the random variables representing the measurement result and key $\ver$ would get if she chooses to execute an $X$-Test round. If the $i$-th $\sf T$ gate is odd, let $D_i=e_i+a_i'$, where we interpret $e_i$ and $a_i'$ as the measurement result and key $\ver$ would get if she chooses to execute an $Z$-Test round. Since $\pv^*$ is assumed to play honestly in EPR-Test rounds, $\vec{D}$ is uniformly distributed in $\{0,1\}^t$. In particular, we have, for any $\vec{d},\vec{z}\in\{0,1\}^t$,
+\begin{equation}
+\Pr[\vec{D}=\vec{d},\vec{Z}=\vec{z}]=\frac{1}{4^t}.\label{eq:D-unif}
+\end{equation}
+
+Let $C_i$ be the random variable that corresponds to the measurement output of
+  the $i$-th $\sf T$ gadget by $\pp^*$ in $X$-Test round if the $i$-th $\sf T$
+  gate is even, or the measurement output of the $i$-th $\sf T$ gadget 
+  by $\pp^*$ in $Z$-Test round if the $i$-th $\sf T$ gate is odd.
+
+Let $T^0\subset[t]$ be the set of even $\sf T$ gates and $T^1\subset[t]$ the set of odd $\sf T$ gates. In an $X$-Test Round, the provers are rejected whenever $i\in T^0$ and $c_i\neq d_i$, and in a $Z$-Test Round, they are rejected whenever $i\in T^1$ and $c_i\neq d_i$. An EPR-Test Round consists of running one of these two rounds with equal probability, so:
+\begin{equation}
+\Pr[\vec{C}\neq\vec{D}]  \leq  2\eps'.\label{eq:C-D-equal}
+\end{equation}
+We can express \eqref{eq:C-D-equal} as
+\begin{equation*}
+\Pr[(\vec{C},\vec{Z})\neq(\vec{D},\vec{Z})]  \leq  2\eps'.
+\end{equation*}
+We conclude by using the easily verifiable fact that for any random variables $X$ and $Y$ such that $\Pr[X= Y]\geq 1-2\eps'$, the total variation distance between the marginal distributions on $X$ and $Y$ is at most $2\eps'$. 
+\end{proof}
+
+Next, we can use the tomography test $\tom$ to establish (v), and then the fact that by Lemma \ref{lem:ci-unif} the input to $\pv$ is not very different in EPR-Computation and Rigidity-Tomography rounds to establish (vi):
+
+\begin{lemma}\label{lem:PV-34}
+Suppose the verifier executes the Dog-Walker Protocol with provers $(\pv^*,\pp^*)$ such that: $\pv^*$ applies the honest strategy in EPR-Test rounds; 
+$\pp^*$ applies the honest strategy in the Rigidity-Tomography rounds; and the provers are accepted with probability $q_1$ in the Rigidity-Clifford Round, $q_2 = 1-\eps'$ in the EPR-Test Round, $q_3$ in the EPR-Computation Round, and $q_4=1-\eps$ in the Rigidity-Tomography Round. Then there exist provers $(\pv',\pp')$ such that $\pv'$ applies the honest strategy in the Rigidity-Tomography rounds and EPR-Computation rounds, $\pp'$ applies the honest strategy in Rigidity-Tomography rounds, and
+the provers are accepted with probability $q_1$ in the Rigidity-Clifford Round, $q_2 = 1-\eps'$ in the EPR-Test Round and $q_3-\mathrm{poly}(\eps)-O(\eps')$ in the EPR-Computation round. 
+\end{lemma}
+
+\begin{proof}
+The Rigidity-Tomography rounds can be seen as $\ver$ playing the Tomography Game
+  with the provers, except that whereas $\pv^*$ gets no non-trivial input in the
+  Tomography Game, in the Rigidity-Tomography round, he gets random values
+  $\vec{c}$ and $\vec{z}$ on which his strategy can depend. Fix $\vec{x}$, and let
+  $\{Q_{\vec{c},\vec{z}}^{u}\}_{u}$ be the projective measurement that $\pv^*$
+  applies upon receiving $\vec{c},\vec{z},\vec{x}$, where  $u = (\vec{d},\vec{e})$ is
+  the string of outcomes obtained by $\pv$ on the $n+t$ single-qubit
+  measurements he is to perform according to Step 2 in
+  Figure~\ref{fig:dogwalker-protocol-PV}. 
+
+By Corollary \ref{cor:clifford-rigid-adaptive}, since the provers win the Rigidity-Tomography round with probability $1-\eps$, for every $\vec{c},\vec{z}\in\{0,1\}^t$,
+there exist distributions $q_{\vec{c},\vec{z}}$ on $\Sigma^m\times\{\pm\}$ such that the following is $O(\mathrm{poly}(\eps))$:
+\begin{equation}\label{eq:big-dist}
+\Es{\vec{c},\vec{z}}\sum_{ u\in \{0, 1\}^m}
+\Big\| \Tr_{\reg{A},\hat{\reg{B}}}\left((\Id_{\reg{A}}\otimes V_{\reg{B}} Q_{\vec{c},\vec{z}}^{u})\ket{\psi}\bra{\psi}_{\reg{AB}}(\Id_{\reg{A}}\otimes V_{\reg{B}} Q_{\vec{c},\vec{z}}^{u})^\dagger\right)
+- \sum_{\lambda\in\{\pm\}}q_{\vec{c},\vec{z}}(W',\lambda)\left(\bigotimes_{i=1}^m \frac{\sigma^{u_i}_{W_i',\lambda}}{2}\right)\Big\|_1. 
+\end{equation}
+Here we use the notation from Corollary \ref{cor:clifford-rigid} and
+  \ref{cor:clifford-rigid-adaptive}. The string
+  $W'=W(\vec{c},\vec{z},\vec{u})\in\Sigma^m$ is uniquely determined by
+  $\vec{c},\vec{z}$, and the outcomes ${u}$ reported by $\pv^*$; indeed it
+  is using this string that $\pv^*$'s answers are checked against the
+  measurement outcomes obtained by $\pp^*$, who by assumption applies the
+  honest strategy. For any fixed $(W',\lambda)$ the distribution on
+  outcomes $u$ obtained in the ``honest'' strategy represented by the right-hand
+  side in~\eqref{eq:big-dist} is uniform. Thus the outcomes $u$ reported by
+  $\pv^*$ are within $\poly(\eps)$ of uniform. From this it follows that the joint distribution on transcripts $(\vec{c},\vec{z},u,W'=W(\vec{c},\vec{z},u))$ that results from an interaction with $\pv^*$ is within statistical distance $\poly(\eps)$ of the distribution generated by an interaction with the honest $\pv$; furthermore, by~\eqref{eq:big-dist} the resulting post-measurement states on $\pp^*$ are also $\poly(\eps)$ close to the honest ones, on average over this distribution. 
+
+We can now consider two provers $\pv'$ and $\pp'$ who, in Rigidity-Tomography rounds, first apply the isometries $V_A$, $V_B$ from Corollary~\ref{cor:clifford-rigid-adaptive}, then  measure their auxiliary systems $\hat{\reg{A}}$ and $\hat{\reg{B}}$ using $\Delta_Y$, obtaining a shared outcome $\lambda\in\{\pm\}$, and finally apply the honest strategy shown in Item 2 of Figure \ref{fig:dogwalker-protocol-PV} ($\lambda=+$) or its conjugate ($\lambda = -$). Furthermore, conjugating the honest strategy produces exactly the same statistics as the honest strategy itself, so we may in fact assume that $\pv'$ and $\pp'$ both apply the honest strategy in Rigidity-Tomography rounds. 
+
+
+A consequence of $\pv'$ applying the honest strategy in Figure \ref{fig:dogwalker-protocol-PV} Item 2 is that $\pv'$ also plays the honest strategy in EPR-Computation rounds. Since $\pv'$ is still honest in the EPR-Test round and $q_2 = 1-\eps'$, Lemma \ref{lem:ci-unif} implies that the distribution of the input to $\pv'$ in EPR-Computation rounds is within $\poly(\eps)+O(\eps')$ total variation distance of his input in
+Rigidity-Tomography rounds, therefore the provers' success probability in EPR-Computation rounds changes at most by $\mathrm{poly}(\eps)+O(\eps')$. 
+\end{proof}
+
+
+Finally, we show that if $\pv$ is honest, $\pp$ must be honest in EPR computation rounds, or the acceptance probability would be low, establishing (vii):
+\begin{lemma}\label{lem:PP-3}
+Suppose $\ver$ %the verifier
+ executes the Dog-Walker Protocol on an input $(Q,\ket{\vec{x}})$ such that $\norm{\Pi_0 Q\ket{\vec{x}}}^2\leq 1/3$, with provers $(\pv,\pp)$ such that $\pv$ plays the honest strategy. Let $q_2$ be the provers' acceptance probability in EPR-Test rounds. Then the verifier accepts with probability at most
+  $p_1(1-\delta_c) +p_2q_2+p_3(5/3-4q_2/3)+p_4$. 
+\end{lemma}
+\begin{proof}
+With probability $p_2+p_3$, $\ver$ executes an EPR round, in which case, he executes EPR-Computation with probability $\frac{p_3}{p_2+p_3}$ and EPR-Test with probability $\frac{p_2}{p_2+p_3}$. In the former case, since $\pv$ is honest, he is executing $V_{EPR}^0$. In fact, the behavior of an honest $\pv$ in the EPR-Test rounds is also that of $V_{EPR}^r$. Thus, the combined behavior of $\ver$ and $\pv$ is that of $V_{EPR}$. Then the result follows from Theorem \ref{thm:EPR-soundness}. 
+\end{proof}
+
+We can now combine Lemmas \ref{lem:PV-2-PP-4}, \ref{lem:PV-34}, and \ref{lem:PP-3} to get the main result of this section, the ``soundness'' part of Theorem~\ref{thm:dog-walker}.
+
+\begin{lemma}[Constant soundness-completeness gap]\label{lem:dogwalker-soundness}
+ There exist constants $p_1$, $p_2$, $p_3$, $p_4=1-p_1-p_2-p_3$ and $\Delta>0$ such that if the verifier executes the Dog-Walker Protocol with parameters $(p_1,p_2,p_3,p_4)$ on input $(Q,\ket{\vec{x}})$ such that $\norm{\Pi_0 Q\ket{\vec{x}}}^2\leq 1/3$, then any provers $(\pv^*,\pp^*)$ are accepted with probability at most $p_{\mathrm{sound}}=p_{\mathrm{compl}}-\Delta$. 
+\end{lemma}
+
+\begin{proof}
+Suppose the provers $\pv^*$ and $\pp^*$ are such that the lowest acceptance probability in either the Rigidity-Clifford round or the Rigidity-Tomography round is $1- \eps$, and they are accepted with probability $1-\eps'$ in the EPR-Test round, and with probability $1/3+w$ in the Computation Round. Applying  Lemma \ref{lem:PV-2-PP-4} and Lemma \ref{lem:PV-34} in sequence, we deduce the existence of provers $(\pv',\pp')$ for which
+\begin{align*}
+q_1' &= 1- O(\delta_c), \\  q_2' &= 1-\eps'- \poly(\eps), \\ q_3' &= \frac13+w-
+  \poly(\eps)-O(\eps'),\\ q_4' &= 1,
+\end{align*}
+where $q'_1$, $q'_2$, $q'_3$ and $q'_4$ are their success probabilities in the
+  four types of rounds, and $1-\delta_c$ is the completeness of the
+  $\rigid$ test; from Corollary~\ref{cor:clifford-rigid} we have $\delta_c = 2^{-\Omega(n+t)}$. Moreover $\pv'$ applies the honest strategy in all rounds, while $\pp'$ applies the honest strategy in the Rigidity-Clifford and Rigidity-Tomography rounds. Applying Lemma \ref{lem:PP-3}, it follows that 
+$$w \,\leq\, O(\eps') + \poly(\eps) +p_1 \cdot O(\delta_c).$$
+Therefore the prover's overall success probability is at most 
+\begin{align*}
+& \min(p_1,p_4)(1-\eps)+\max(p_1,p_4) + p_2(1-\eps')+p_3\left(\frac{1}{3}+w\right) \\
+\leq & p_{\mathrm{compl}} - \left( \frac{p_3}{3} + \eps' p_2+\eps\min(p_1,p_4)\right)+ p_3\left(O(\eps')+\poly(\eps)\right)+ (p_1 + p_3p_1) \cdot O(\delta_c),
+\end{align*}
+where recall from Lemma~\ref{lem:dogwalker-completeness} that
+  $p_{\mathrm{compl}} =  p_1(1-\delta_c)+p_2+p_4+\frac{2}{3}p_3$. Fixing $p_2$
+  to be a large enough multiple of $p_1$ and of $p_3$ we can ensure that the net contribution
+  of the terms involving $\eps'$ and $\delta_c$ on the right-hand side is always
+  non-positive. Choosing $p_1=p_4$ and $p_3$ so that the ratio $p_3/p_1$ is small
+  enough we can ensure that the right-hand side is less than $p_{\mathrm{compl}}
+  -\Delta$, for some universal constant $\Delta>0$ and all $\eps,\eps'\geq 0$.
+\end{proof}
+
+

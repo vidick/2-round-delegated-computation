@@ -1,0 +1,19 @@
+
+
+  In the last part, the authors claimed that their protocol can be extended to give the first two-prover protocol for QMA but the proof is only sketched. Given that the result will be much stronger and implies the delegation of BQP as a special case, I think it worths giving a more careful treatment.
+
+Already in the paper:  For the rigidity of Clifford operators, the authors chose to include the Y operator which makes the discussion complicated. Is it necessary to have Y for the EPR protocol to work? There may be a way to get around this and it may suffice to talk about operators on the X,Z plane.
+
+Already in the paper:  In table 1, NV 2017 should be a 1-round protocol.
+
+  I can see that the authors have strived to make the discussion more intuitive and try to convey ideas behind the constructions. But, still, the protocols and their analysis are hard to follow.
+
+
+Stacey note:
+ I also have a note for us to add a reference to Masahito's paper, and an
+ explanation of how his work also tries to test the measurement device to turn a
+ single-prover quantum-verifier protocol into a 2-prover classical-verifier
+ protocol, but doesn't achieve the same thing as our result, because it needs to
+ assume the verifier controls the prover's system, so you can enforce how it is
+ carved up into qubits. Overcoming this usually requires very high overhead,
+ which we overcome with the new rigidity game. 

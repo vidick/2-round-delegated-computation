@@ -1,0 +1,1561 @@
+\documentclass[11pt]{article}
+%\documentclass[runningheads]{llncs}
+\usepackage[margin=1in]{geometry}
+\usepackage{fullpage}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{amsmath,amsfonts}
+\usepackage{mathrsfs}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+\usepackage{graphicx}
+\usepackage{xspace}
+\usepackage{endnotes}
+\usepackage{color}
+\usepackage{bm}
+\usepackage{times}
+\usepackage{amssymb,latexsym}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{tikz}
+\usepackage{multirow}
+\usepackage{floatrow}
+\usepackage{float}
+\usepackage{ragged2e}
+\usepackage{wrapfig}
+\usepackage[normalem]{ulem}
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newtheorem{remark}[theorem]{Remark}
+
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+
+\newcommand{\meas}{
+\begin{tikzpicture}
+\filldraw[fill=white] (0,.25) rectangle (.7,-.25);
+\draw (.67,-.1) arc (50:130:.5);
+\draw (.35,-.2)--(.525,.2);
+\end{tikzpicture}
+}
+
+\newcommand{\beq}{\begin{eqnarray}}
+\newcommand{\eeq}{\end{eqnarray}}
+
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\kb}[1]{|#1\rangle\langle#1|}
+\newcommand{\proj}[1]{\ket{#1}\!\bra{#1}}
+\newcommand{\Tr}{\mbox{\rm Tr}}
+\newcommand{\Id}{\ensuremath{\mathop{\rm Id}\nolimits}}
+\newcommand{\Es}[1]{\ensuremath{\mathop{\textsc{E}}}_{#1}}
+
+\newcommand{\CON}{C}
+\newcommand{\DIS}{d}
+\newcommand{\Drho}{\DIS_\rho}
+\newcommand{\Trho}{\Tr_\rho}
+
+
+\newcommand{\setft}[1]{\mathrm{#1}}
+\newcommand{\Density}{\setft{D}}
+\newcommand{\Pos}{\setft{Pos}}
+\newcommand{\Proj}{\setft{Proj}}
+\newcommand{\Obs}{\setft{Obs}}
+\newcommand{\Channel}{\setft{C}}
+\newcommand{\Unitary}{\setft{U}}
+\newcommand{\Herm}{\setft{Herm}}
+\newcommand{\Lin}{\setft{L}}
+\newcommand{\Trans}{\setft{T}}
+\DeclareMathOperator{\poly}{poly}
+
+\newcommand{\reg}[1]{{\textsf{#1}}}
+
+\newcommand{\norm}[1]{\left\|#1\right\|}
+
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\F}{\ensuremath{\mathbb{F}}}
+\newcommand{\K}{\ensuremath{\mathbb{K}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+
+\newcommand{\mH}{\mathcal{H}}
+\newcommand{\mT}{\mathcal{T}}
+\newcommand{\Alg}{\mathcal{A}}
+\newcommand{\mM}{\mathcal{M}}
+\newcommand{\mC}{\mathcal{C}}
+\newcommand{\mR}{\mathcal{R}}
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ph}{\ensuremath{\varphi}}
+
+\newcommand{\Acc}{\textsc{Acc}}
+\newcommand{\Samp}{\textsc{Samp}}
+\newcommand{\Ext}{\ensuremath{\text{Ext}}}
+
+\newcommand{\Hmin}{H_\infty}
+\newcommand{\Hmax}{H_{\ensuremath{\text{max}}}}
+
+\newcommand{\CHSH}{{\rm CHSH}}
+\newcommand{\EPR}{{\rm EPR}}
+\newcommand{\MS}{{\rm MS}}
+\newcommand{\basis}{\mathcal{B}}
+\newcommand{\pauli}{\mathcal{P}}
+\newcommand{\paulip}{\tilde{\mathcal{P}}}
+\newcommand{\pbt}{\textsc{pbt}}
+\newcommand{\qauli}{\mathcal{Q}}
+\newcommand{\rauli}{\mathcal{R}}
+\newcommand{\raulip}{\tilde{\mathcal{R}}}
+\newcommand{\qaulip}{\tilde{\mathcal{Q}}}
+\newcommand{\magic}{\mathcal{M}}
+\newcommand{\wagon}{\mathcal{W}}
+\newcommand{\aux}{\textsc {aux}}
+\newcommand{\ctl}{\textsc {ctl}}
+\newcommand{\swap}{\textsc {swap}}
+\newcommand{\conj}{\textsc{conj}}
+\newcommand{\perm}{\textsc{tens}}
+\newcommand{\prodt}{\textsc{prod}}
+\newcommand{\comt}{\textsc{com}}
+\newcommand{\act}{\textsc{ac}}
+\newcommand{\idt}{\textsc{id}}
+\newcommand{\bellt}{\textsc{Bell}}
+
+\newcommand{\rigid}{\textsc{rigid}}
+\newcommand{\conjc}{\textsc{conj-cliff}}
+\newcommand{\ecliff}{\textsc{e-cliff}}
+\newcommand{\cliff}{\textsc{cliff}}
+\newcommand{\tom}{\textsc{tom}}
+\newcommand{\SWAP}{\textsc{SW}}
+\newcommand{\clifford}{\mathcal{C}}
+\newcommand{\cliffordga}{{\mathcal{C}_1}}
+\newcommand{\cliffordgb}{{\mathcal{C}_2}}
+\newcommand{\heisg}{{\mathcal{H}^{(1)}}}
+\newcommand{\heisgn}{{\mathcal{H}^{(n)}}}
+\newcommand{\heisga}{{\mathcal{H}_1}}
+\newcommand{\heisgb}{{\mathcal{H}_{2}}}
+\newcommand{\cliffordgan}{{\mathcal{C}^{(n)}_1}}
+\newcommand{\cliffordgbn}{{\mathcal{C}^{(n)}_2}}
+\newcommand{\cliffordn}{G_\mathcal{C}^{(n)}}
+\newcommand{\paulig}{G_{\mathcal{P}}}
+\newcommand{\pauligb}{G_{\mathcal{P}_2}}
+\newcommand{\paulign}{G_{\mathcal{P}}^{(n)}}
+\newcommand{\conjn}{\mathcal{J}^{(n)}\!}
+\newcommand{\conjr}{\mathcal{J}\!}
+\newcommand{\tr}{\mathcal{T}\!}
+\newcommand{\epaulin}{\hat{\mathcal{P}}^{(n)}\!}
+\newcommand{\tpaulin}{\tilde{\mathcal{P}}^{(n)}\!}
+\newcommand{\paulin}{\mathcal{P}^{(m)}\!}
+\newcommand{\ver}{\textsc{V}}
+\newcommand{\pv}{\textsc{PV}}
+\newcommand{\pp}{\textsc{PP}}
+\newcommand{\sk}{\ensuremath{\text{sk}}}
+
+\newcommand{\phase}{\Lambda}
+
+\newcommand{\ekeyspace}{\mR_{ek}}
+\newcommand{\messagespace}{\mM}
+\newcommand{\cipherspace}{\mC}
+\newcommand{\mE}{\mathcal{E}}
+\newcommand{\HEEnc}{\mbox{HE.Enc}_{pk}}
+\newcommand{\QHEKeyGen}{\mbox{QHE.KeyGen}}
+\newcommand{\QHEEnc}{\mbox{QHE.Enc}_{pk}}
+\newcommand{\QHEEval}{\mbox{QHE.Eval}}
+\newcommand{\QHEDec}{\mbox{QHE.Dec}_{sk}}
+
+
+%\newcommand{\anote}[1]{\textcolor{blue}{\small {\textbf{(Andrea:} #1 \textbf{) }}}}
+%\newcommand{\snote}[1]{\textcolor{green}{\small {\textbf{(Stacey:} #1 \textbf{) }}}}
+%\newcommand{\agnote}[1]{\textcolor{cyan}{\small {\textbf{(Alex:} #1 \textbf{) }}}}
+%\newcommand{\tnote}[1]{\textcolor{red}{\small {\textbf{(Thomas:} #1 \textbf{) }}}}
+%\newcommand{\agnew}[1]{\textcolor{cyan}{#1}}
+%\newcommand{\agftnote}[1]{\footnote{\textcolor{cyan}{\small {\textbf{(Alex:} #1\textbf{) }}}}}
+%\newcommand{\anew}[1]{\textcolor{blue}{#1}}
+
+
+
+%\newcommand{\aftnote}[1]{\footnote{\textcolor{blue}{\small {\textbf{(Andrea:} #1 \textbf{) }}}}}
+
+\newcommand{\highlight}[1]{\uline{#1}}
+
+
+\bibliographystyle{alpha}
+
+\newif\ifnotes\notestrue
+%\newif\ifnotes\notesfalse
+
+%\input{../marginnotes}
+%\input{marginnotes}
+
+\begin{document}
+
+\title{Verifier-on-a-Leash: new schemes for verifiable delegated quantum computation, with quasilinear resources}
+%\titlerunning{VoL: new schemes for verifiable delegated quantum computation}
+
+\author{Andrea Coladangelo\thanks{Department of Computing and Mathematical Sciences, Caltech, Pasadena, USA. acoladan@cms.caltech.edu}
+  \and Alex B. Grilo\thanks{QuSoft and CWI, Amsterdam, the Netherlands. alexg@cwi.nl}
+  \and Stacey Jeffery\thanks{QuSoft and CWI, Amsterdam, the Netherlands. jeffery@cwi.nl} % Supported by an NWO Veni Innovational Research Grant under project number 639.021.752 and an NWO WISE Grant.}%\inst{2}
+  \and Thomas Vidick\thanks{Department of Computing and Mathematical Sciences, Caltech, Pasadena, USA. vidick@cms.caltech.edu}}%\inst{1}}
+%%Supported by ERC QCC.
+%%Supported by AFOSR YIP award number FA9550-16-1-0495.
+%%Supported by an NWO WISE Grant.
+%%Supported by NSF CAREER Grant CCF-1553477, AFOSR YIP award number FA9550-16-1-0495, and the IQIM, an NSF Physics Frontiers Center (NSF Grant PHY-1125565) with support of the Gordon and Betty Moore Foundation (GBMF-12500028).
+%%
+%\authorrunning{A. Coladangelo, A. Grilo, S. Jeffery and T. Vidick}
+%% First names are abbreviated in the running head.
+%% If there are more than two authors, 'et al.' is used.
+%%
+%\institute{$^1$
+%Department of Computing and Mathematical Sciences, California
+%Institute of Technology, Pasadena, USA. 
+%CMS, Caltech, Pasadena, USA \\
+%\email{ \{acoladan,
+%vidick\}@cms.caltech.edu } \\ $^2$ QuSoft and CWI, Amsterdam, the Netherlands \\ \email{\{alexg,
+%jeffery\}@cwi.nl}}
+
+
+\date{}
+\maketitle
+
+
+\begin{abstract}
+The problem of reliably certifying the outcome of a computation performed by a quantum device is rapidly gaining relevance. We present two protocols for a classical verifier to verifiably delegate a quantum computation to two non-communicating but entangled quantum provers. Our protocols have near-optimal complexity in terms of the total resources employed by the verifier and the honest provers, with the total number of operations of each party, including the number of entangled pairs of qubits required of the honest provers, scaling as $O(g\log g)$ for delegating a circuit of size $g$. This is in contrast to previous protocols, whose overhead in terms of resources employed, while polynomial, is
+far beyond what is feasible in practice. 
+%This is in contrast to previous protocols, which all require a prohibitively large polynomial overhead. 
+Our first protocol requires a number of rounds that is linear in the depth of the circuit being delegated, and is blind, meaning neither prover can learn the circuit or its input. The second protocol is not blind, but requires only a constant number of rounds of interaction. 
+
+Our main technical innovation is an efficient rigidity theorem that allows a verifier to test that two entangled provers perform measurements specified by an arbitrary $m$-qubit tensor product of single-qubit Clifford observables on their respective halves of $m$ shared EPR pairs, with a robustness that is independent of $m$. Our two-prover classical-verifier delegation protocols are obtained by combining this rigidity theorem with a single-prover quantum-verifier protocol for the verifiable delegation of a quantum computation, introduced by Broadbent (Theory of Computing, 2018).
+\end{abstract}
+
+
+
+\section{Introduction}
+
+Quantum computers hold the potential to speed up a wide range of computational tasks (see, for example, \cite{montanaro2016survey}). Recent progress towards implementing limited quantum devices has added urgency to the already important question of how a classical verifier can test a quantum device. This verifier could be an experimentalist running a new experimental setup; a consumer who has purchased a purported quantum device; or a client who wishes to delegate some task to a quantum server. In all cases, the user would like to exert some form of control over the quantum device. For example, the experimentalist may think that she is testing that a particular experiment prepares a certain quantum state by performing a series of measurements, i.e.\ by state tomography, but this assumes some level of trust in the measurement apparatus being used.  For a classical party to truly test a quantum system, that system should be modeled in a device-independent way, having classical inputs (e.g.\ measurement settings) and classical outputs (e.g.\ measurement results). 
+
+Tests of quantum mechanical properties of a system first appeared in the form of Bell tests \cite{Bell:64a,Clauser:69a}. In a Bell test, a verifier asks classical questions to a quantum-device and receives classical answers. These tests make one crucial assumption on the system to be tested: that it consists of two spatially isolated components that %changed which to that
+are unable to communicate throughout the experiment. One can then upper bound the value of some statistical quantity of interest subject to the constraint that the two devices do not share any entanglement. Such a bound is referred to as a Bell inequality. While the violation of a Bell inequality can be seen as a certificate of entanglement, the area of self-testing, first introduced in \cite{mayers2004selftesting}, allows for the certification of much stronger statements, including  which measurements are being performed, and on which state.  Informally, a \emph{robust rigidity theorem} is a statement about which kind of apparatus, quantum state and measurements, must be used by a pair of isolated devices in order to succeed in a given statistical test. Following a well-established tradition, we will refer to such tests as \emph{games}, call the devices \emph{players} (or \emph{provers}), and the quantum state and measurements that they implement the \emph{strategy} of the players. A rigidity theorem is a statement about the necessary structure of near-optimal strategies for a game.  
+
+In 2012, Reichardt, Unger and Vazirani proved a robust rigidity theorem for
+playing a sequence of $n$ CHSH games \cite{reichardt2012classical}. Aside from
+its intrinsic interest, this rigidity theorem had two important consequences.
+One was the first device-independent protocol for quantum key distribution. The
+second was a protocol whereby a completely classical verifier can test a
+universal quantum computer consisting of two non-communicating devices.  The resulting
+ protocol for delegating quantum
+computations has received a lot of attention as the first classical-verifier delegation protocol. 
+%Moreover, until now it remained the only such protocol to require interaction with two servers only. 
+The task is well-motivated: for the foreseeable future, making use of a quantum computer will likely require delegating the computation to a potentially untrusted cloud service, such as that provided by IBM~\cite{ibmcloud}.  
+
+Unfortunately, the complexity overhead of the delegation protocol from~\cite{reichardt2012classical}, in terms of both the number of EPR pairs needed for the provers and the overall time complexity of the provers as well as the (classical) verifier, while polynomial, is prohibitively large. Although the authors of~\cite{reichardt2012classical} do not provide an explicit value for the exponent, in~\cite{hajdusek2015} it is estimated that their protocol requires resources that scale like $\Omega(g^{8192})$, where $g$ is the number of gates in the delegated circuit (notwithstanding the implicit constant, this already makes the approach thoroughly impractical for even a $2$-gate circuit!).
+The large overhead is in part due to a very small (although still inverse polynomial) gap between the completeness and soundness parameters of the rigidity theorem; this requires the verifier to perform many more Bell tests than the actual number of EPR pairs needed to implement the computation, which would scale linearly with the circuit size. 
+
+Subsequent work has presented significantly more efficient protocols for achieving the same, or similar,  functionality~\cite{McKague16,Gheorghiu15,hajdusek2015}. We refer to Table \ref{tab:comparison}
+for a summary of our estimated lower bounds on the complexity of each of these
+results (not all papers provide explicit bounds, in which case our estimates,
+although generally conservative, should be taken with caution). Prior to our
+work, the best two-prover delegation protocol required resources scaling like
+$g^{2048}$ for delegating a $g$-gate circuit. Things improve significantly if we
+allow for more than two provers, however, the most efficient multi-prover
+delegation protocols still required resources that scale
+as at least $\Omega(g^4\log{g})$ for delegating a $g$-gate circuit on $n$ qubits.
+Since we expect that in the foreseeable future most quantum computations will be delegated to a third-party server, even such small polynomial overhead is unacceptable, as it already negates the quantum advantage for a number of problems, such as quantum search.
+
+The most efficient classical-verifier delegation protocols known~\cite{hajdusek2015posthoc,natarajan2016robust}, with $\mathrm{poly}(n)$ and 7 provers, respectively,
+require resources that scale as $O(g^3)$, but this efficiency comes at the cost of a technique of ``post-hoc''
+verification. In this technique, the provers must learn the
+verifier's input even before they are separated, so that they can prepare the
+history state for the computation.\footnote{Using results of Ji~\cite{Ji16},
+this allows the protocol to be single-round. Alternatively, the state can be created by a single prover and teleported to the others with the help of the verifier, resulting in a two-round protocol.} As a result, these protocols are not blind\footnote{
+\emph{Blindness} is a property of delegation protocols, which informally states that the prover learns nothing about the verifier's private circuit.}. 
+Moreover, while the method does provide a means for verifying the outcome
+of an arbitrary quantum computation, in contrast
+to~\cite{reichardt2012classical} it does not provide a means for the verifier to test the provers' implementation of the
+required circuit on a gate-by-gate basis. 
+Other works, such as ~\cite{HayashiH16},
+achieve two-prover verifiable delegation with complexity that scales like $O(g^4\log g)$,  but in much weaker models; for example, in~\cite{HayashiH16} the provers' private system is assumed a priori to be in tensor product form, with well-defined registers.  General techniques are available to remove the strong assumption, but they would lead to similar large overhead as previous results.
+
+In contrast, in the setting where the verifier is allowed to have some limited quantum power, such as the ability to generate single-qubit states and measure them with observables from a small finite set, efficient schemes for blind verifiable delegation do exist \cite{aharonov10qpip,fitzsimons12vubqc,Morimae14,broadbent15howtoverify,HayashiM15,MF16,FujiiH17,MorimaeTH17} (see also~\cite{fitzsimons2016survey} for a recent survey). In this case, only a single prover is needed, and the most efficient \emph{single-prover quantum-verifier} protocols can evaluate a quantum circuit with $g$ gates in time $O(g)$. The main reason these protocols are much more efficient than the classical-verifier multi-prover protocols is that they avoid the need for directly testing any of the qubits used by the prover, instead requiring the trusted verifier to directly either prepare or measure the qubits used for the computation. 
+
+
+Recently, another model has been considered where the classical verifier delegates her quantum computation to a single quantum prover~\cite{mahadev2018,GheorghiuV19}. The protocols proposed in this setting are {\em computationally secure}, i.e.\ the security of the protocol rests on the assumption that the prover cannot solve an (expected to be) hard problem for quantum computers (specifically, the Learning with Errors problem). 
+
+
+\begin{table}[t]
+\centering
+\begin{tabular}{l|llll}
+& Provers & Rounds & Total Resources & Blind\\
+\hline\\[-8pt]
+RUV 2012 \cite{reichardt2012classical}  &2 & poly$(n)$ & $\geq g^{8192}$ & yes\\[3pt]
+McKague 2013 \cite{McKague16} &  $\mathrm{poly}(n)$ & poly$(n)$ & $\geq 2^{153}g^{22}$ & yes \\[3pt]
+GKW 2015 \cite{Gheorghiu15} &  2 & poly$(n)$ & $\geq g^{2048}$ & yes \\[3pt]
+HDF 2015 \cite{hajdusek2015} &  poly$(n)$& poly$(n)$ & $\Theta(g^4\log g)$ & yes \\[3pt]
+%FH 2015 \cite{hajdusek2015posthoc} & 5 & poly$(n)$ & $>g^2(g+n)^2$ & no\\[3pt]
+%NV 2017 \cite{natarajan2016robust} &  7 & 2 & $>g^2 (g+n)$ & no\\[3pt]
+\hline\\[-8pt]
+Verifier-on-a-Leash Protocol (Section \ref{sec:leash})   & 
+2 & $O(\mbox{depth})$  & $\Theta(g\log g)$ & yes \\[3pt]
+Dog-Walker Protocol (Section \ref{sec:dog-walker})  & 2 & $O(1)$ & $\Theta(g\log g)$ & no 
+\end{tabular}
+\caption{Resource requirements of various delegation protocols in the multi-prover model. 
+We use $n$ to denote the number of qubits and $g$ the number of gates in the
+  delegated circuit. ``depth'' refers to the depth of the delegated circuit. ``Total Resources'' refers to the gate complexity of the
+  provers, the number of EPR pairs of entanglement needed, and the number of
+  bits of communication in the protocol. To ensure fair comparison, 
+  each protocol is required to produce the correct answer with probability $99\%$.
+  For all protocols except %~NV 2017, and 
+our two new protocols, this requires a
+  polynomial number of sequential repetitions, which is taken into account when
+  computing the total resources. %(In~\cite{natarajan2016robust} the gap
+%  amplification is performed by taking tensor powers and executing the
+%  verification procedure in parallel, so that the protocol achieves a constant
+%  gap with a single round of interaction; an additional round is needed to
+%  distribute the history state between the provers.
+% Here $O(g+n)$ corresponds to the number of qubits in the history state, and $O(g^{-2})$ is the promise gap prior to amplification~\cite{bausch2016increasing}.)
+}
+\label{tab:comparison}
+\end{table}
+
+
+
+\paragraph{New rigidity results.} We overcome the efficiency limitations of
+multi-prover delegation protocols by introducing a new robust rigidity theorem. Our theorem allows a classical verifier to certify that two non-communicating provers apply a measurement associated with an arbitrary $m$-qubit tensor product of single-qubit Clifford observables on their respective halves of $m$ shared EPR pairs.
+This is the first result to achieve self-testing for such a large class of
+measurements. The majority of previous works in self-testing have been primarily
+concerned with certifying the state and were limited to simple single-qubit
+measurements in the $X$-$Z$ plane. Prior self-testing results for multi-qubit
+measurements only allow one to test for tensor products of $\sigma_X$ and $\sigma_Z$
+observables. While this is sufficient for verification in the post-hoc model
+of~\cite{hajdusek2015posthoc}, testing for $\sigma_X$ and $\sigma_Z$ observables
+does not directly allow for the verification of a general computation (unless
+one relies on techniques such as process
+tomography~\cite{reichardt2012classical}, which introduce substantial additional
+overhead).  
+
+Our first contribution is to extend the ``Pauli braiding test'' of~\cite{natarajan2016robust}, which allows one to test tensor products of $\sigma_X$ and $\sigma_Z$ observables with constant robustness, to allow for $\sigma_Y$ observables as well. This is somewhat subtle due to an ambiguity in the complex phase that cannot be detected by any classical two-player test; we formalize the ambiguity and show how it can be effectively accounted for. Our second contribution is to substantially increase the set of elementary gates that can be tested, to include arbitrary $m$-qubit tensor products of single-qubit Clifford observables. This is achieved by introducing a new ``conjugation test'', which tests how an observable applied by the provers acts on the Pauli group. The test is inspired by general results of Slofstra~\cite{slofstra2016tsirelson}, but is substantially more direct. 
+
+ A key feature of our rigidity results is that their robustness scales independently of the number of EPR pairs tested, as in \cite{natarajan2016robust}. This is crucial for the efficiency of our delegation protocols. The robustness for previous results in parallel self-testing typically had a polynomial dependence on the number of EPR pairs tested. We give an informal statement of our robust rigidity theorem.
+ 
+\begin{theorem}[Informal]\label{thm:rigid-informal}
+Let $m\in\mathbb{Z}_{>0}$. Let $\cal G$ be a fixed, finite set of single-qubit Clifford observables. Then there exists an efficient two-prover test $\textsc{rigid}({\cal G},m)$ with $O(m)$-bit questions (a constant fraction of which are of the form $W\in{\cal G}^m$) and answers such that the following properties hold:
+\begin{itemize}[nolistsep]
+\item (Completeness) There is a strategy for the provers that uses $m+1$ EPR pairs and succeeds with probability at least $1 - e^{-\Omega(m)}$ in the test.
+\item (Soundness) For any $\eps>0$, any strategy for the provers that succeeds with probability $1-\eps$ in the test must be $\poly(\eps)$-close, up to local isometries, to a strategy in which the provers begin with $(m+1)$ EPR pairs and is such that upon receipt of a question of the form $W\in {\cal G}^m$ the prover measures the ``correct'' observable $W$. 
+\end{itemize}
+\end{theorem}
+
+Although we do not strive to obtain the best dependence on $\eps$, we believe it
+should be possible to obtain a scaling of the form $C\sqrt{\eps}$ for a
+reasonable constant~$C$. We discuss the test in Section~\ref{sec:intro-rigidity}. %The complete analysis can be found in the full version of the paper.
+
+
+\paragraph{New delegation protocols.}
+We employ the new rigidity theorem to obtain two new efficient
+two-prover classical-verifier protocols in which the complexity of verifiably
+delegating a $g$-gate quantum circuit solving a BQP problem scales as $O(g\log g)$.\footnote{The $\log
+g$ overhead is due to the complexity of sampling from the right distribution in
+rigidity tests. We leave the possibility of removing this by derandomization for
+future work. Another source of overhead is in achieving blindness: in order to
+hide the circuit, we encode it as part of the input to a universal circuit,
+introducing a factor of $O(\log g)$ overhead.} 
+
+We achieve our protocols by adapting the efficient single-prover quantum-verifier delegation
+protocol introduced by Broadbent~\cite{broadbent15howtoverify} (we refer to this as the ``EPR protocol''), which has the advantage of offering a direct implementation of the delegated circuit, in the circuit model of computation and with very little modification needed to ensure verifiability, as well as an elegantly simple and intuitive analysis. 
+ 
+Our first protocol is blind, and requires a number of rounds of interaction that
+scales linearly with the depth of the circuit being delegated. The second
+protocol is not blind, but only requires a constant number of rounds of
+interaction with the provers. Our work is the first to propose verifiable two-prover delegation protocols that overcome the prohibitively large resource requirements of all previous multi-prover protocols, requiring only a quasilinear amount of resources, in terms of number of EPR pairs and time. However, notwithstanding our improvements, a physical implementation  of verifiable delegation protocols remains a challenging task for the available technology.
+ 
+
+
+%This theorem is proven in Section \ref{sec:rigidity}. The key point in the theorem is the ``robustness'', which scales polynomially in $\eps$ but independently of $m$. (Although we do not strive to obtain the best dependence on $\eps$, we believe it should be possible to obtain a scaling of the form $C\sqrt{\eps}$ for a reasonably controlled constant~$C$.) The test is also very efficient. The analysis builds upon the ``Pauli braiding test'' of~\cite{natarajan2016robust}, which establishes a similar result for the more restricted case of Pauli $\sigma_X$ and $\sigma_Z$ observables. A first contribution of our result is to show how to also test for $\sigma_Y$ observables. This is somewhat subtle due to an ambiguity in the complex phase that cannot be detected by a classical two-player test. In addition, we show how to test for more general Clifford observables by introducing a new ``conjugation test'' which tests how an observable applied by the provers acts on the Pauli group. We give a more detailed overview of the test in  Section \ref{sec:rigidity}. 
+
+We introduce the protocols in more detail. The protocols provide different methods to delegate the quantum computation performed by the quantum verifier from~\cite{broadbent15howtoverify} to a second prover (call him $\pv$ for Prover $V$). The rigidity test is used to verify that the second prover indeed performs the same actions as the honest verifier, which are sequences of single-qubit measurements of Clifford observables from the set $\Sigma = \{X,Y,Z,F,G\}$ (where $F$ and $G$ are defined in~\eqref{eq:pauli-matrix-2}).
+
+In the first protocol, one of the provers plays the role of Broadbent's prover
+(call him $\pp$ for Prover $P$), and the other plays the role of Broadbent's
+verifier ($\pv$). As $\pv$  just performs
+single-qubit and Bell-basis measurements, universal quantum
+computational power is not needed for this prover.
+The protocol is divided into two sub-games; which game is played is chosen by the verifier by flipping a biased coin with appropriately chosen probabilities.
+\begin{itemize}[nolistsep]
+\item The first game is a sequential version of the rigidity game $\rigid(\Sigma,m)$ (from Theorem~\ref{thm:rigid-informal}) described in Figure~\ref{fig:consistency-game}. This aims to enforce that $\pv$ performs precisely the right measurements;
+\item The second game is the delegation game, described in Figures \ref{fig:leash-protocol-V}, \ref{fig:leash-protocol-PV}, and \ref{fig:leash-protocol-PP}, and whose structure is summarized in Figure~\ref{fig:full-picture}. Here the verifier guides $\pp$ through the computation in a similar way as in the EPR Protocol.
+\end{itemize}
+
+We remark that in both sub-games, the questions received by $\pv$ are of the form $W\in \Sigma^m$, where $\Sigma = \{X,Y,Z,F,G\}$ is the set of measurements performed by the verifier in Broadbent's EPR protocol. 
+The questions for $\pv$ in the two sub-games are sampled from the same distribution. This ensures that the $\pv$ is not able to tell which kind of game is being played. Hence, we can use our rigidity result of Theorem~\ref{thm:rigid-informal} to guarantee honest behavior of $\pv$ in the delegation sub-game. 
+We call this protocol \emph{Verifier-on-a-Leash
+Protocol}, or ``leash protocol'' for short.
+
+The protocol requires $(2d+1)$ rounds of interaction, where $d$ is the depth of the circuit being delegated (see Section \ref{sec:EPR-protocol} for a precise definition of how this is computed). %The first round of interaction requires communication linear in the size of the circuit; the subsequent $2d$ rounds have communication that totals to an amount linear in the circuit size --- in particular, each round corresponds to a \emph{layer} of the circuit, and the communication in that round scales as the number of gates in that layer. 
+The protocol requires $O(n+g)$ EPR pairs to delegate a $g$-gate circuit on $n$ qubits, and the overall time complexity of the protocol is $O(g\log g)$.
+The input to the circuit is hidden from the provers, meaning that the protocol can be made blind by encoding the circuit in the input, and delegating a universal circuit. We note that using universal circuits incurs a $\log{n}$ factor increase in the depth of the circuit~\cite{BeraFGH10}.
+
+The completeness of the protocol follows directly from the completeness of \cite{broadbent15howtoverify}. Once we ensure the correct behavior of $\pv$ using our rigidity test, soundness follows from \cite{broadbent15howtoverify} as well, since the combined behavior of our verifier and an honest $\pv$ is nearly identical to that of Broadbent's verifier. 
+
+The second protocol also starts from Broadbent's protocol, but modifies it in a
+different way to achieve a protocol that only requires a constant number of rounds of
+interaction. The proof of security is slightly more involved, but the key ideas are the same: we use a combination of our new self-testing results and the techniques of Broadbent's protocol to control the two provers, one of which plays the role of Broadbent's verifier, and the other the role of the prover. Because of the more complicated ``leash'' structure in this protocol, we call it the \emph{Dog-Walker Protocol}. 
+ Like the leash protocol, the Dog-Walker Protocol has overall time complexity $O(g\log g)$. Unlike the leash protocol, the Dog-Walker protocol is not blind. In particular, while $\pv$ and $\pp$ would have to collude after the protocol is terminated to learn the input in the leash protocol, in the Dog-Walker protocol, $\pv$ simply receives the input in the clear.
+
+ %A constant-round protocol for verifiable, but not blind, delegated computation was previously given in~\cite{hajdusek2015posthoc}. There the idea is to ask the provers to share an encoding of the history state of the computation. The encoding can  be verified with a single round of interaction by using a technique from~\cite{Ji16}. This ``post-hoc'' verification requires the provers to learn the verifier's input even before they are separated, so that they can exchange the required history state. Alternatively, the state can be created by a single prover and teleported to the others with the help of the verifier; in this case the protocol requires two rounds of communication. In comparison with~\cite{hajdusek2015posthoc}, our protocol has a lower overhead in terms of the computation required of the provers, and it only requires two provers, instead of five for~\cite{hajdusek2015posthoc}.
+
+Based on the Dog-Walker Protocol, it is possible to design a classical-verifier  two-prover protocol for all languages in QMA. This is achieved along the same lines as the proof that QMIP = MIP$^*$ from~\cite{reichardt2012classical}. The first prover, given the input, creates the QMA witness and teleports it to the second prover with the help of the verifier. The verifier then delegates the verification circuit to the second prover, as in the Dog-Walker Protocol; the first prover can be re-used to verify the operations of the second one.
+
+\paragraph{Subsequent work.}
+Bowles et al. \cite{BowlesSCA18}  have independently re-derived a
+variant of our rigidity test for multi-qubit $\sigma_X$, $\sigma_Y$ and $\sigma_Z$ observables
+%(see Lemma~\ref{lem:xyz-rigid}) 
+in the context of entanglement certification protocols in
+quantum networks.
+Their self-test result has a slightly smaller set of questions but  significantly weaker robustness
+bounds.
+
+Grilo \cite{Grilo17} presented a protocol  for verifiable
+two-prover delegation of quantum computation by classical clients with a single round of communication, in which case space-like
+separation can replace the non-communication assumption.
+
+\paragraph{Open questions and directions for future work.}
+We have introduced a new rigidity theorem and shown how it can be used to transform a specific quantum-verifier delegation protocol, due to Broadbent, into a classical-verifier protocol with an additional prover, while suffering very little overhead in terms of the efficiency of the protocol. We believe that a similar transformation could be performed starting from delegation protocols based on other models of computation, such as the protocol in the measurement-based model of~\cite{fitzsimons12vubqc} or the protocol based on computation by teleportation considered in~\cite{reichardt2012classical}, and would lead to similar efficiency improvements. 
+
+Recently,~\cite{experiment_ruv} provided an experimental demonstration of a
+two-prover delegation protocol based on~\cite{reichardt2012classical} for a
+$3$-qubit quantum circuit based on Shor's algorithm to factor the number $15$;
+in order to obtain an actual implementation, necessitating ``only'' on the order
+of $6000$ CHSH tests, the authors had to make the strong assumption that the
+devices behave in an i.i.d.\ manner at each use, and could not use the most
+general testing results from~\cite{reichardt2012classical}. We believe that our
+improved rigidity theorem could lead to an implementation that does not require
+any additional assumption. We also leave as an open problem investigating whether (a
+variant of) our protocol can be made fault-tolerant, making it more suitable for
+future implementation.
+
+
+We note that our protocols require the verifier to communicate with one
+prover after at least one round of communication with the other has been
+completed. Therefore, the requirement that the provers do not
+communicate throughout the protocol cannot be enforced through space-like
+separation, and must be taken as an a priori assumption.
+Since the protocol of \cite{Grilo17} is not blind, it is an open question
+whether there exists a two-prover
+delegation protocol that consists of a single round of simultaneous
+communication with each prover, and is blind and verifiable. 
+We also wonder if the fact that blindness is compromised after the provers
+collude is unavoidable in this model.
+A different
+avenue to achieve this is to rely on computational assumptions on the power of
+the provers to achieve protocols with more properties (non-interactive, blind,
+verifiable)~\cite{dulek16,alagic2017quantum,mahadev2017,mahadev2018}, albeit not
+necessarily in a truly efficient manner.
+
+Finally, due to its efficiency and robustness, our ridigity theorem is a
+potentially useful tool in many other cryptographic protocols. For instance, an
+interesting direction to explore is the possibility of exploiting our theorem to
+achieve more efficient protocols for device-independent quantum key
+distribution, entanglement certification or other cryptographic protocols
+involving more complex untrusted computation of the users.
+
+
+
+
+\paragraph{Organization.}
+In Section \ref{sec:prelim}, we give the necessary preliminaries, including
+outlining Broadbent's EPR Protocol (Section \ref{sec:EPR-protocol}). In Section
+\ref{sec:intro-rigidity}, we introduce our new rigidity theorems. In Section
+\ref{sec:leash}, we present our first protocol, the leash protocol, and in
+Section~\ref{sec:dog-walker}, we discuss our second protocol, the
+Dog-Walker Protocol. In Section~\ref{sec:sequential}, we discuss the sequential repetition of our protocols.
+% In Section \ref{sec:intro-sequential}, we show that the constant soundness-completeness gap of our protocols can be amplified by sequential repetition.
+
+
+
+\paragraph{Acknowledgments.} We thank Anne Broadbent for useful discussions in the early stages of this work. All authors acknowledge the IQIM, an NSF Physics Frontiers Center at the California Institute of Technology, where this research was initiated.
+AC is supported by AFOSR YIP award number FA9550-16-1-0495.
+AG was partially supported by ERC Consolidator Grant 615307-QPROGRESS and ERC QCC.
+SJ is supported by an NWO Veni Innovational Research Grant under project number 639.021.752 and an NWO WISE Grant.
+TV is supported by NSF CAREER Grant CCF-1553477, MURI Grant FA9550-18-1-0161, AFOSR YIP award number FA9550-16-1-0495, and the IQIM, an NSF Physics Frontiers Center (NSF Grant PHY-1125565) with support of the Gordon and Betty Moore Foundation (GBMF-12500028).
+
+
+
+\section{Preliminaries}\label{sec:prelim}
+
+
+\subsection{Notation}
+\label{sec:prelim-notation}
+
+We often write $\vec{x} =(x_1,\ldots,x_n)\in \{0,1\}^n$ for a string of bits, and $W=W_1\cdots W_m\in\Sigma^m$ for a string, where $\Sigma$ is a finite alphabet. If $S\subseteq \{1,\ldots,m\}$ we write $W_S$ for the sub-string of $W$ indexed by $S$. For an event $E$, we use $1_{E}$ to denote the indicator variable for that event, so $1_E=1$ if $E$ is true, and otherwise $1_E=0$. We write $\poly(\eps)$ for $O(\eps^c)$, where $c$ is a universal constant that may change each time the notation is used. 
+
+$\mH$ is a finite-dimensional Hilbert space.  We denote by $\Unitary(\mH)$ the set of unitary operators, $\Obs(\mH)$ the set of binary observables (we omit the term ``binary'' from here on; in this paper all observables are binary) and $\Proj(\mH)$ the set of projective measurements on $\mH$ respectively.  
+We let $\ket{\EPR}$ denote an EPR pair: 
+$$\ket{\EPR}\,=\,\frac{1}{\sqrt{2}}\left(\ket{00}+\ket{11}\right).$$
+
+
+\paragraph{Observables.}
+We use capital letters $X,Z,W,\ldots$ to denote observables. We use greek letters $\sigma$, $\tau$ with a subscript $\sigma_W$, $\tau_W$, to emphasize that the observable $W$ specified as subscript acts in a particular basis. For example, $X$ is an arbitrary observable but $\sigma_X$ is specifically the Pauli $X$ matrix defined in~\eqref{eq:pauli-matrix}.
+
+For $a\in\{0,1\}^n$ and commuting observables $\sigma_{W_1},\ldots,\sigma_{W_n}$, we write $\sigma_W(a) = \prod_{i=1}^n (\sigma_{W_i})^{a_i}$. The associated projective measurements are $\sigma_{W_i} = \sigma_{W_i}^0 - \sigma_{W_i}^1$ and $\sigma_W^u = \Es{a} (-1)^{u\cdot a} \sigma_W(a)$.  Often the $\sigma_{W_i}$ will be single-qubit observables acting on distinct qubits, in which case each is implicitly tensored with identity outside of the qubit on which it acts. 
+
+
+\paragraph{Pauli and Clifford groups.}
+Let 
+\begin{equation}\label{eq:pauli-matrix}
+\sigma_I = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix},\quad\; \sigma_X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix},\quad\; \sigma_Y = \begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix}\quad\;\text{and}\quad\; \sigma_Z = \begin{pmatrix} 1 & 0 \\ 0 & -1\end{pmatrix}
+\end{equation}
+denote the standard Pauli matrices acting on a qubit.  The single-qubit Weyl-Heisenberg group
+$$\heisg = H(\Z_2)=\Big\{(-1)^c\sigma_X(a)\sigma_Z(b),\;a,b,c\in\{0,1\}\Big\} $$
+is the matrix group generated by the Pauli $\sigma_X$ and $\sigma_Z$. We let $\heisgn = H(\Z_2^n)$ be the direct product of $n$ copies of $\heisg$.  
+The $n$-qubit Clifford group is the normalizer of $\heisgn$ in the unitary group, up to phase: 
+$$\cliffordn = \big\{G\in\Unitary((\C^2)^{\otimes n}):\, G \sigma G^\dagger \in \heisgn \quad\forall \sigma \in \heisgn\big\}.$$
+Some Clifford observables we will use include 
+\begin{equation}\label{eq:pauli-matrix-2}
+ \sigma_H = \frac{\sigma_X+\sigma_Z}{\sqrt{2}},\quad\; \sigma_{H'} = \frac{\sigma_X-\sigma_Z}{\sqrt{2}},\quad\; \sigma_F = \frac{-\sigma_X+\sigma_Y}{\sqrt{2}},\quad\; \sigma_{G} = \frac{\sigma_X+\sigma_Y}{\sqrt{2}}.
+\end{equation}
+Note that  $\sigma_H$ and $\sigma_{H'}$ are characterized by $\sigma_X \sigma_H \sigma_X = \sigma_{H'}$ and $\sigma_Z \sigma_H \sigma_Z = -\sigma_{H'}$. Similarly, $\sigma_F$ and $\sigma_G$ are characterized by $\sigma_X \sigma_F \sigma_X = -\sigma_G$ and $\sigma_Y \sigma_F \sigma_Y = \sigma_G$. 
+
+
+
+\subsection{Quantum circuits} 
+
+We use capital letters in sans-serif font to denote gates. We work with the universal quantum gate set $\{{\sf CNOT}, {\sf H}, {\sf T}\}$, where the controlled-not gate is the two-qubit gate with the unitary action 
+$${\sf CNOT}\ket{b_1,b_2}=\ket{b_1,b_1\oplus b_2},$$ 
+and the Hadamard and $\sf T$ gates are single-qubit gates with actions 
+$${\sf H}\ket{b}=\frac{1}{\sqrt{2}}\left(\ket{0}+(-1)^b\ket{1}\right)\;\;\mbox{and}\;\;{\sf T}\ket{b}=e^{ib\pi/4}\ket{b},$$ respectively. We will also use the following gates:
+$${\sf X}\ket{b}=\ket{b\oplus 1},\;\; {\sf Z}\ket{b}=(-1)^b\ket{b},\;\;\mbox{and}\;\;{\sf P}\ket{b}=i^b\ket{b}.$$
+Measurements in the $Z$ basis (or computational basis) will be denoted by the standard measurement symbol:
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0)--(2,0);
+\node at (1,0) {\meas};
+\end{tikzpicture}
+\end{center}
+To measure another observable, $W$, we can perform a unitary change of basis
+$\mathsf{U}_{W}$ before the measurement in the computational basis.
+%, so that the following circuit meaures in the eigenbasis of $W$:
+%\begin{center}
+%\begin{tikzpicture}
+%\draw (-1,0)--(2,0);
+%\filldraw[fill=white] (-.5,.25) rectangle (.25,-.25);
+%\node at (-.125,0) {$\mathsf{U}_W$};
+%\node at (1,0) {\meas};
+%\end{tikzpicture}
+%\end{center}
+
+We assume that every circuit has a specified output wire, which is measured at the end of the computation to obtain the output bit. Without loss of generality, we can assume this is always the first wire. For an $n$-qubit system, we let $\Pi_b$, for $b \in \{0,1\}$, denote the orthogonal projector onto states with $\ket{b}$ in the output wire: $\ket{b}\bra{b}\otimes \Id$. For example, the probability that a circuit $Q$ outputs 0 on input $\ket{\vec{x}}$ is $\norm{\Pi_0 Q\ket{\vec{x}}}^2$. 
+
+We can always decompose a quantum circuit into layers such that each layer contains at most one $\sf T$ gate applied to each wire. The minimum number of layers for which this is possible is called the \emph{$\sf T$ depth} of the circuit. 
+We note that throughout this work, we will assume circuits are compiled in a specific form that introduces extra $\sf T$ gates (see the paragraph on the $\sf H$ gadget in Section~\ref{sec:EPR-protocol}). The $\sf T$ depth of the resulting circuit is proportional to the depth of the original circuit. 
+
+
+
+\subsection{Broadbent's EPR Protocol}
+\label{sec:EPR-protocol}
+
+
+In this section we summarize the main features of a delegation protocol introduced in~\cite{broadbent15howtoverify}, highlighting the aspects that will be relevant to understanding our subsequent adaptation into two-prover protocols. The ``EPR Protocol'' from \cite{broadbent15howtoverify} involves the interaction between a verifier $V_{EPR}$ and a prover $P$. We write $P_{EPR}$ for the ``honest'' behavior of the prover. The verifier $V_{EPR}$ has limited quantum powers. Her goal is to delegate a BQP computation to the prover $P$ in a verifiable way. Specifically, the verifier has as input a quantum circuit $Q$ on $n$ qubits and an input string $\vec{x}\in\{0,1\}^n$, and the prover gets as input $Q$. The verifier and prover interact. At the end of the protocol, the verifier outputs either $\sf accept$ or $\sf reject$. The protocol is such that there exist values $p_{\mathrm{sound}}$ and $p_{\mathrm{compl}}$ with $p_{\mathrm{sound}}< p_{\mathrm{compl}}$ such that $p_{\mathrm{compl}}-p_{\mathrm{sound}}$, called the \emph{soundness-completeness gap}, is a constant independent of input size, and moreover:
+
+\begin{description}
+\item[Completeness:] If the prover is honest and $\norm{\Pi_0Q\ket{\vec{x}}}^2 \geq 2/3$, then the verifier outputs $\sf accept$ with probability at least $p_{\mathrm{compl}}$;  
+\item[Soundness:] If $\norm{\Pi_0Q\ket{\vec{x}}}^2 \leq 1/3$, then the probability the verifier outputs $\sf accept$ is at most $p_{\mathrm{sound}}$.
+\end{description}
+
+%In Section \ref{sec:sequential}, we show that sequential repetition can be used to turn any such protocol, including our two-prover variants, into one in which the verifier outputs $0$, $1$, or $\sf abort$, and we have the following: (1) If the prover(s) is/are honest, the verifier outputs $\sf abort$ with probability at most $.01$; and (2) If $\norm{\Pi_b Q\ket{\vec{x}}}^2 \geq 2/3$ for some $b\in\{0,1\}$ then the probability that the verifier outputs $1-b$ is at most~$.01$.
+
+
+
+In the EPR protocol, $V_{EPR}$ and $P_{EPR}$ are assumed to share $(n+t)$ EPR pairs at the start of the protocol, where $t$ is the number of $\sf T$ gates in $Q$ and $n$ the number of input bits. 
+ The first $n$ EPR pairs correspond to the input to the computation; they are indexed by $N=\{1,\dots,n\}$. The remaining pairs are indexed by $T=\{n+1,\dots,n+t\}$; they will be used as ancilla qubits to  implement each of the $\sf T$ gates in the delegated circuit. 
+ In~\cite{broadbent15howtoverify} the EPR protocol is only considered in the analysis, and it is assumed that the EPR pairs are prepared by the verifier.
+
+The behavior of $V_{EPR}$ depends on a \emph{round type} randomly chosen by $V_{EPR}$ {\em after} her interaction with $P_{EPR}$. There are three possible round types:
+\begin{itemize}[nolistsep]
+\item Computation round ($r=0$): the verifier delegates the computation to $P_{EPR}$, and at the end of the round can recover its output if $P_{EPR}$ behaves honestly;
+\item $X$-test round ($r=1$) and $Z$-test round ($r=2$): the verifier tests that  $P_{EPR}$  behaves honestly, and rejects if malicious behavior is detected.
+\end{itemize}
+For some constant $p$, $\ver$ chooses $r=0$ with probability $p$, and otherwise chooses $r\in\{1,2\}$ with equal probability. Since the choice of round type is made after interaction with $P_{EPR}$, $P_{EPR}$'s behavior cannot depend on the round type. In particular, any deviating behavior in a computation round is reproduced in both types of test rounds. The analysis amounts to showing that any deviating behavior that affects the outcome of the computation will be detected in at least one of the test rounds. 
+
+In slightly more detail, the high-level structure of the protocol is the following. $V_{EPR}$ measures her halves of the $n$ qubits in $N$ in order to prepare the input state on $P_{EPR}$'s system. As a result the input is quantum one-time padded with keys that depend on $V_{EPR}$'s measurement results. For example, in a computation round, $V_{EPR}$ measures each input qubit in the $Z$ basis, and gets some result $\vec{d}\in\{0,1\}^n$, meaning the input on $P_{EPR}$'s side has been prepared as ${\sf X}^{\vec{d}}\ket{0}^{\otimes n}$. In \cite{broadbent15howtoverify}, the input is always considered to be $\vec{0}$, but we can also prepare an arbitrary classical input $\vec{x}\in\{0,1\}^n$ by reinterpreting the one-time pad key as $\vec{a}=\vec{d}\oplus \vec{x}$ so that the input state on $P_{EPR}$'s side is ${\sf X}^{\vec{a}}\ket{\vec{x}}$. In a test round, on the other hand, the input is prepared as the one-time pad of either $\ket{0}^{\otimes n}$ or $\ket{+}^{\otimes n}$. Note that as indicated in Figure~\ref{fig:EPR-high-level} this choice of measurements will be made after the interaction with $P_{EPR}$ has taken place.
+
+The honest prover $P_{EPR}$ applies the circuit $Q$, which we assume is compiled in the universal gate set $\{{\sf H},{\sf T},{\sf CNOT}\}$, to his one-time padded input. We will shortly describe gadgets that $P_{EPR}$ can apply in order to implement each of the three gate types. The gadgets are designed in a way that in a test round each gadget amounts to an application of an identity gate; this is what enables $V_{EPR}$ to perform certain tests in those rounds that are meant to identify deviating behavior of a dishonest prover. After each gadget, the one-time padded keys can be updated by $V_{EPR}$, who is able to keep track of the keys at any point in the circuit using the \emph{update rules} in Table \ref{tab:EPR-key-updates}. 
+
+%---------------------------------------%
+\begin{table}[H]
+\resizebox{1.0\textwidth}{!}{%
+\begin{tikzpicture}
+\draw (8,3)--(16,3);
+\draw (0,2.5)--(16,2.5);
+\draw (1.5,2)--(16,2);
+\draw (1.5,1.5)--(16,1.5);
+\draw (0,1)--(16,1);
+\draw (0,.5)--(16,.5);
+\draw (0,0)--(16,0);
+
+\node at (.75,1.75) {$\sf T$};
+\node at (.75,.75) {$\sf H$};
+\node at (.75,.25) {$\sf CNOT$};
+
+\node at (12,2.75) {Key Update Rule};
+\node at (12,2.25) {$(a_j,b_j)\leftarrow(a_j+ c_i,b_j+e_i+a_j+c_i+(a_j+c_i)z_i)$};
+\node at (12,1.75) {$(a_j,b_j)\leftarrow(e_i,0)$};
+\node at (12,1.25) {$(a_j,b_j)\leftarrow(0,b_j+e_i+z_i)$};
+\node at (12,.75) {$(a_j,b_j)\leftarrow(b_j,a_j)$};
+\node at (12,.25) {$(a_j,b_j,a_{j'},b_{j'})\leftarrow(a_j,b_j+b_{j'},a_{j}+a_{j'},b_{j'})$};
+
+\node at (4.75,2.25) {Computation Round};
+\node at (4.75,1.75) {$X$-Test, even parity; or $Z$-test, odd parity};
+\node at (4.75,1.25) {$Z$-Test, even parity; or $X$-test, odd parity};
+
+\draw (0,2.5)--(0,0);
+\draw (1.5,2.5)--(1.5,1);
+\draw (8,3)--(8,0);
+\draw (16,3)--(16,0);
+\end{tikzpicture}
+  }
+
+
+\caption{Rules for updating the one-time-pad keys after applying each type of gate in the EPR Protocol, in particular: after applying the $i$-th $\sf T$ gate to the $j$-th wire; applying an $\sf H$ gate to the $j$-th wire; or applying a $\sf CNOT$ gate controlled on the $j$-th wire and targeting the $j'$-th wire. 
+}\label{tab:EPR-key-updates}
+\end{table}
+%-------------------------------%
+
+We now describe the three gadgets, before giving a complete description of the protocol. 
+
+\paragraph{CNOT Gadget} To implement a $\sf CNOT$ gate on wires $j$ and $j'$, $P_{EPR}$ simply performs the $\sf CNOT$ gate on those wires of his input qubits. The one-time pad keys are changed by the update rule in Table \ref{tab:EPR-key-updates}, because ${\sf CNOT}\cdot {\sf X}^{a_j}{\sf Z}^{b_j}\otimes {\sf X}^{a_{j'}}{\sf Z}^{b_{j'}}={\sf X}^{a_j}{\sf Z}^{b_j+b_{j'}}\otimes {\sf X}^{a_j+a_{j'}}{\sf Z}^{b_{j'}}\cdot {\sf CNOT}$. Note that ${\sf CNOT}\ket{0}\ket{0}=\ket{0}\ket{0}$ and ${\sf CNOT}\ket{+}\ket{+}=\ket{+}\ket{+}$, so in the test runs, $P_{EPR}$ is applying the identity. 
+
+
+
+\paragraph{H Gadget} To implement an $\sf H$ gate on wire $j$, $P_{EPR}$ simply performs the $\sf H$ on wire $j$, and the one-time-pad keys are changed as in Table \ref{tab:EPR-key-updates}. Unlike $\sf CNOT$, $\sf H$ does not act as the identity on $\ket{0}$ and $\ket{+}$, so it is not the identity in a test round. To remedy this, assume that $Q$ is compiled so that every $\sf H$ gate appears in a pattern ${\sf H}({\sf TTH})^k$, where the maximal such $k$ is odd. This can be accomplished by replacing each $\sf H$ by $\sf HTTHTTHTTH$, which implements the same unitary. In test rounds, the $\sf T$ gadget, described shortly, implements the identity, and since ${\sf H}(\Id {\sf H})^k$ for odd $k$ implements the identity, ${\sf H}({\sf TTH})^k$ will also have no effect in test rounds. 
+
+\paragraph{Parity of a T Gate} Within a pattern ${\sf H}({\sf TTH})^k$, the $\sf H$ has the effect of switching between an $X$-test round scenario (the state $\ket{0}$) and a $Z$-test round scenario (the state $\ket{+})$. In order to consistently talk about the type of a round while evaluating the circuit, we can associate a parity with each $\sf T$ gate in the circuit. The parity of the $\sf T$ gates that are not part of the pattern ${\sf H}({\sf TTH})^k$ will be defined to be even. A ${\sf H}$ will always flip the parity, so that within such a pattern, the first two ${\sf T}$ gates will be odd, the next two will be even, etc., until the last two $\sf T$ gates will be odd again. 
+
+\paragraph{T Gadget} The gadget for implementing the $i$-th $\sf T$ gate on the $j$-th wire is performed on $P_{EPR}$'s $j$-th input qubit, and his $i$-th auxiliary qubit (indexed by $n+i$), which we can think of as being prepared in a particular auxiliary state by $V_{EPR}$ measuring her half of the corresponding EPR pair, as shown in Figure~\ref{fig:tgadget-EPR}. The gadget depends on a random bit $z_i$ that is chosen by $V_{EPR}$ and sent to the prover. 
+
+
+
+%------------------------------------%
+
+\begin{figure}[H]
+\centering
+\resizebox{0.9\textwidth}{!}{%
+\begin{tikzpicture}
+
+\node at (1,4.25) {$j$};
+\node at (1,3.25) {$n+i$};
+
+\draw (.75,4) -- (4,4) -- (5,3) -- (5.5,3);
+\filldraw[white] (4.5,3.5) circle (.1);
+\draw (0,2.25) -- (.75,3) -- (4,3) -- (5,4) -- (5.5,4);
+\draw (0,2.25) -- (.75,1.5) -- (10,1.5);
+
+
+
+\draw (2,4) circle (.15);
+\filldraw (2,3) circle (.075);
+\draw (2,4.15) -- (2,3);
+
+\filldraw[fill=white] (3,3.25) rectangle (3.5,2.75);
+\node at (3.25,3) {${\sf P}^{z_i}$};
+
+\draw (6,3.025) -- (6.525,3.025) -- (6.525,2.025) -- (7,2.025);
+\draw (6,2.975) -- (6.475,2.975) -- (6.475,1.975) -- (7,1.975);
+\node at (5.75,3) {\meas};
+\filldraw (6.5,3) circle (.075);
+\filldraw (6.5,2) circle (.075);
+\node at (7.25,2) {$c_i$};
+
+
+\draw[dashed] (-1,2.5) -- (10.5,2.5);
+
+
+%%%%%%%%%%%
+
+\filldraw[fill=white] (8.5,1.25) rectangle (9.25,1.75);
+\node at (8.875,1.5) {$\mathsf{U}_{W_i}$};
+
+
+\draw (10,1.525) -- (10.5,1.525);
+\draw (10,1.475) -- (10.5,1.475);
+\node at (9.75,1.5) {\meas};
+\node at (10.75,1.5) {$e_i$};
+
+
+\node at (-2.3,3.45) {Prover ($P_{EPR}$)};
+\node[yscale=4,xscale=2] at (-.95,3.4) {$\{$};
+\node at (-2.4,1.65) {Verifier ($V_{EPR}$)};
+\node[yscale=4,xscale=2] at (-.95,1.6) {$\{$};
+
+\end{tikzpicture}
+  }
+\caption{The gadget for implementing the $i$-th $\sf T$ gate on the $j$-th wire. The gate $\mathsf{U}_{W_i}$ implementing the change of basis associated with observable $W_i$ is applied as part of the procedure $V_{EPR}^r$ (see Figure \ref{fig:original-protocol-VEPRr}) and is determined by the round type $r$, the parity of the $i$-th $\sf T$ gate, $z_i$, $c_i$, and $a_i'$ (the $\sf X$-key going into the $i$-th $\sf T$ gate), as in Table~\ref{tab:Oy}. }\label{fig:tgadget-EPR}
+\end{figure}
+%------------------------------------%
+
+
+%-------------------------------%
+\begin{table}[H]
+\resizebox{0.7\textwidth}{!}{%
+\begin{tikzpicture}
+\node at (-2.5,3.25) {Computation Round};
+\node at (-2.5,2) {$X$-Test Round};
+\node at (-2.5,.5) {$Z$-Test Round};
+
+\node at (1.25,3.5) {$a_i'\oplus c_i\oplus z_i=0$};
+\node at (1.25,3) {$a_i'\oplus c_i\oplus z_i=1$};
+\node at (.5,2.5) {even $\sf T$ gate};
+\node at (.5,1.75) {odd $\sf T$ gate}; 	\node at (2.5,2) {$z_i=0$};
+						\node at (2.5,1.5) {$z_i=1$};
+\node at (.5,1) {odd $\sf T$ gate};
+\node at (.5,.25) {even $\sf T$ gate}; 	\node at (2.5,.5) {$z_i=0$};
+						\node at (2.5,0) {$z_i=1$};
+
+\node at (5,4) {$\mathsf{U}_{W_i}$ (observable $W_i$)};
+\node at (5,3.5) {${\sf HT}$ (observable $G$)};
+\node at (5,3) {${\sf HPT}$ (observable $F$)};
+\node at (5,2.5) {$\Id$ (observable $Z$)};
+\node at (5,2) {${\sf H}$ (observable $X$)};
+\node at (5,1.5) {${\sf HP}$ (observable $Y$)};
+\node at (5,1) {$\Id$ (observable $Z$)};
+\node at (5,.5) {${\sf H}$ (observable $X$)};
+\node at (5,0) {${\sf HP}$ (observable $Y$)};
+
+\draw (3.25,4.25)--(6.75,4.25);
+\draw (-4.25,3.75)--(6.75,3.75);
+\draw (-.75,3.25)--(6.75,3.25);
+\draw (-4.25,2.75)--(6.75,2.75);
+\draw (-.75,2.25)--(6.75,2.25);
+\draw (1.75,1.75)--(6.75,1.75);
+\draw (-4.25,1.25)--(6.75,1.25);
+\draw (-.75,.75)--(6.75,.75);
+\draw (1.75,.25)--(6.75,.25);
+\draw (-4.25,-.25)--(6.75,-.25);
+
+\draw (-4.25,3.75)--(-4.25,-.25);
+\draw (-.75,3.75)--(-.75,-.25);
+\draw (1.75,2.25)--(1.75,1.25); \draw (1.75,.75)--(1.75,-.25);
+\draw (3.25,4.25)--(3.25,-.25);
+\draw (6.75,4.25)--(6.75,-.25);
+\end{tikzpicture}
+  }
+\caption{The choice of $\mathsf{U}_{W_i}$ in the $\sf T$ gadget. We also indicate the observable $W_i$ associated with the final measurement $W_i=\mathsf{U}_{W_i}^\dagger Z \mathsf{U}_{W_i}$.}\label{tab:Oy}
+\end{table}
+%---------------------------------------%
+
+
+%------------------------------------%
+
+\begin{figure}[t]
+\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,top},capbesidewidth=0.5\textwidth}}]{figure}[\FBwidth]
+{
+  
+\resizebox{0.35\textwidth}{!}{%
+\begin{tikzpicture}
+
+
+\draw (2.5,2)--(2.5,5.25)-- (4.5,6) --(6.5,5.25)--(6.5,5);
+\draw (3,2)--(3,5.25)-- (5,6) --(7,5.25)--(7,5);
+
+
+\draw (2,5) rectangle (4,-1.25);
+\node at (2.45,-1) {$V_{EPR}$};
+
+\filldraw[fill=white] (6,5) rectangle (7.5,2);
+\node at (6.75,3.5) {$P_{EPR}$};
+
+
+\node at (5,4.5) {$\vec{z}\in\{0,1\}^t$};
+\draw[->] (4,4.25)--(6,4.25);
+
+\node at (5,3.5) {$\vec{c}\in\{0,1\}^t$};
+\node at (5,3) {$c_f\in\{0,1\}$};
+\draw[<-] (4,2.75)--(6,2.75);
+
+\filldraw[fill=white] (2.25,2) rectangle (3.75,.5);
+\node at (3,1.25) {$V_{EPR}^{r}$};
+
+\draw[->] (3.5,2.5)--(3.5,2);
+\node at (3.5,2.75) {$\vec{x},\vec{c},\vec{z}$};
+
+\draw[->] (3,.5)--(3,0);
+\node at (3,-.25) {$\vec{a},\vec{b},\vec{e}$};
+
+\draw[white] (8,0) circle (.1);
+
+\end{tikzpicture}}}
+{\caption{This figure describes how different pieces of the protocol fit together. $V_{EPR}$ and $P_{EPR}$ share $n+t$ EPR pairs. The honest prover $P_{EPR}$ can be seen as a procedure that acts on $n+t$ qubits --- the EPR pair halves --- depending on a $t$-bit string $\vec{z}$.  We have separated the quantum part of $V_{EPR}$ into its own procedure, called $V_{EPR}^{r}$, where $r\in\{0,1,2\}$ indicates the \emph{round type}, which $V_{EPR}$ runs on her $n+t$ EPR halves, and the $2t$ bits $\vec{c}$ and $\vec{z}$. Aside from running $V_{EPR}^r$, $V_{EPR}$ is classical. }\label{fig:EPR-high-level}}
+\end{figure}
+
+% ------------------------------------------ %
+
+
+\paragraph{The EPR Protocol.} We show how the gadgets just described are used in the complete protocol. We first describe the protocol for $V_{EPR}$ below.  For later convenience we have divided the action of $V_{EPR}$ into classical actions and a single quantum subroutine $V_{EPR}^r$ depending on the round type. 
+
+The procedure $V_{EPR}^r$ measures each of the $n+t$ EPR halves according to
+some observable that depends on $r$, $\vec{c}$, and $\vec{z}$. In the case of a
+computation round, $V_{EPR}^0$ measures the qubits in $T$ adaptively.  We
+describe the steps of $V_{EPR}$, $V_{EPR}^r$ and the honest behaviour of
+$P_{EPR}$ in Fig.~\ref{fig:original-protocol}.
+
+
+%----------------%
+\begin{figure}[H]
+  \begin{subfigure}{\textwidth}
+\rule[1ex]{\textwidth}{0.5pt}
+\begin{enumerate}
+\item $V_{EPR}$ sends $\vec{z}\in_R\{0,1\}^t$ to $P_{EPR}$,
+% \footnote{We note that in the original EPR Protocol of \cite{broadbent15howtoverify}, this is accomplished by $P_{EPR}$ and $V_{EPR}$ both measuring $t$ EPR pairs in the $Z$ basis to get a shared random string $\vec{z}$.} 
+and receives back $\vec{c}\in\{0,1\}^t$ and $c_f\in\{0,1\}$.
+\item $V_{EPR}$ chooses a random round type $r\in\{0,1,2\}$ and runs $V_{EPR}^r$ (see Figure \ref{fig:original-protocol-VEPRr}) on her EPR halves, $\vec{x}$, $\vec{c}$ and $\vec{z}$, to obtain bits $\vec{a},\vec{b}\in\{0,1\}^n$ and $\vec{e}\in\{0,1\}^t$. 
+\item $V_{EPR}$ applies the update rules from Table \ref{tab:EPR-key-updates} on the initial keys $(\vec{a},\vec{b})$, gate-by-gate, to obtain, for every $i\in [t]$, the $\sf X$-key before the $i$-th $\sf T$ gate is applied, $a'_i$, and the final $\sf X$ key for the output wire, $a_f'$. If $r=1$ ($X$-test round) and there exists an $i$ such that the $i$-th $\sf T$ gate is even and $c_i\neq a'_i\oplus e_i$, output $\sf reject$. If $r=2$ ($Z$-test round) and there exists an $i$ such that the $i$-th $\sf T$ gate is odd and $c_i\neq a'_i\oplus e_i$, output $\sf reject$. If $r\in\{0,1\}$ (computation or $X$-test round) and $c_f\oplus a_f'\neq 0$, output $\sf reject$. Otherwise, output $\sf accept$. 
+\end{enumerate}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+    \caption{ $V_{EPR}$'s point of view.}
+  \label{fig:original-protocol-VEPR}
+    \end{subfigure}
+
+\begin{subfigure}{\textwidth}
+\rule[1ex]{\textwidth}{0.5pt}
+\raggedright
+Input: A circuit $Q$ with $t$ $\sf T$ gates, $\vec{x}\in\{0,1\}^n$, $\vec{c},\vec{z}\in\{0,1\}^t$, an $n$-qubit system indexed by $N$, and a $t$-qubit system indexed by $T$.
+\begin{enumerate}
+\item If $r\in\{0,1\}$, measure each qubit in $N$ in the $Z$ basis, and otherwise measure in the $X$ basis, to get results $\vec{d}\in\{0,1\}^n$. If $r=0$, set $(\vec{a},\vec{b})=(\vec{d}\oplus \vec{x},0^n)$; if $r=1$, set $(\vec{a},\vec{b})=(\vec{d},0^n)$; and if $r=2$ set $(\vec{a},\vec{b})=(0^n,\vec{d})$. 
+\item Going through $Q$ gate-by-gate, use the update rules in Table
+  \ref{tab:EPR-key-updates} to update the one-time-pad keys. For every
+    $i\in[t]$, when the $i$-th $\sf T$ gate is reached, let $a_i'$ be the $\sf
+    X$ key before the $i$-th $\sf T$ gate is applied. Choose an observable $W_i$ according to Table \ref{tab:Oy} in which to measure the $i$-th qubit in $T$, corresponding to the $i$-th $\sf T$ gate, obtaining result $e_i$.  
+\end{enumerate}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{ The procedure $V_{EPR}^r$, employed by $V_{EPR}$.  }
+  \label{fig:original-protocol-VEPRr}
+\end{subfigure}
+%----------------%
+
+%----------------%
+\begin{subfigure}{\textwidth}
+\rule[1ex]{\textwidth}{0.5pt}
+\begin{enumerate}
+\item Receive $\vec{z}\in\{0,1\}^t$ from $V_{EPR}$. 
+\item Evaluate $Q$ gate-by-gate using the appropriate gadget for each gate.
+In particular, use $z_i$ to implement the $i$-th $\sf T$ gadget, and obtain measurement result $c_i$. 
+\item Measure the output qubit to obtain $c_f$, and return $\vec{c}$ and $c_f$ to $V_{EPR}$.
+\end{enumerate}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{Honest prover strategy $P_{EPR}$}
+  \label{fig:original-protocol-PEPR}
+\end{subfigure}
+  
+  \caption{The EPR Protocol.  }\label{fig:original-protocol}
+\end{figure}
+%----------------%
+
+%%%
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\paragraph{Completeness and Soundness.} 
+We summarize the relevant part of the analysis of the EPR protocol from~\cite{broadbent15howtoverify}. First suppose $P_{EPR}$ behaves honestly. If $\norm{\Pi_0 Q\ket{0^n}}^2=p$, then in a computation round, $V_{EPR}$ outputs $\sf accept$ with probability $p$, whereas in a test round, $V_{EPR}$ outputs $\sf accept$ with probability $1$. This establishes completeness of the protocol:
+
+\begin{theorem}[Completeness]\label{thm:EPR-correctness} 
+Suppose the verifier executes the EPR Protocol, choosing $r=0$ with probability $p$, on an input $(Q,\ket{\vec{x}})$ such that $\norm{\Pi_0 Q\ket{\vec{x}}}^2\geq 1-\delta$. Then the probability that $V_{EPR}$ accepts when interacting with the honest prover $P_{EPR}$ is at least $(1-p)+p(1-\delta)$. 
+\end{theorem}
+
+The following theorem is implicit in~\cite[Section 7.6]{broadbent15howtoverify}, but we include a brief proof sketch:
+
+\begin{theorem}[Soundness]\label{thm:EPR-soundness} 
+Suppose the verifier executes the EPR Protocol, choosing $r=0$ with probability~$p$, on an input $(Q,\ket{\vec{x}})$ such that $\norm{\Pi_0 Q\ket{\vec{x}}}^2\leq \delta$. Let $P_{EPR}^*$ be an arbitrary prover such that $P_{EPR}^*$ is accepted by  $V_{EPR}$ with probability $q_t$ conditioned on $r\neq 0$, and $q_c$ conditioned on $r=0$. Then the prover's overall acceptance probability is $pq_c+(1-p)q_t$, and
+$$q_c \,\leq\, 2\left(q_t\,\delta+(1-q_t)\right)-\delta.$$ 
+\end{theorem}
+\begin{proof}[Proof sketch]
+Using the notation of \cite{broadbent15howtoverify}, let $E(\rho) = \sum_{k} K_k \rho K_k^\dagger$ be the Kraus decomposition of an arbitrary attack  performed by a malicious prover on the $m$-qubit state resulting from an honest run of the protocol.\footnote{Note that we can assume such behaviour by the malicious prover without loss of generality since  all measurements can be performed coherently, with the first step of the attack undoing all honest operations.}  We write the $k$-th Kraus operator of $E$ as a sum of Paulis $K_k = \sum_{Q\in
+  \paulin} \alpha_{k,Q} Q$. Finally, we define the set of benign attacks $B_{t,m} \subseteq \paulin$ as the subset of Paulis containing $I$ or $Z$ in the positions that are measured (in the computational basis) during the protocol.
+  
+  Notice that the benign attacks do not affect the the acceptance of the protocol, and therefore the value 
+$A=\sum_k\sum_{Q 
+\not\in
+  B_{t,n}}|\alpha_{k,Q}|^2$ can be interpreted then as the total weight on attacks that could change the outcome of the computation. By \cite{broadbent15howtoverify}, the probability of rejecting in a computation round is $1-q_c\geq (1-\delta)(1-A)$, whereas the probability of rejecting in a test round is $1-q_t\geq \frac{1}{2}A$. Combining these gives $q_c\leq 2(q_t\delta+(1-q_t))-\delta$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Rigidity}
+\label{sec:intro-rigidity}
+
+Each of our delegation protocols includes a \emph{rigidity test} that is meant to verify that one of the provers measures his half of shared EPR pairs in a basis specified by the verifier, thereby preparing one of a specific family of post-measurement states on the other prover's space; the post-measurement states will form the basis for the delegated computation. This will be used to certify that one of the provers in our two-prover schemes essentially behaves as the quantum part of $V_{EPR}$ would in the EPR protocol. 
+
+In this section we outline the structure of the test, giving the important elements for its use in our delegation protocols. The test is parametrized by the number $m$ of EPR pairs to be used. The test  consists of a single round of classical interaction between the verifier and the two provers. With constant probability the verifier sends one of the provers a string $W$ chosen uniformly at random from $\Sigma^m$ where the set $\Sigma = \{X,Y,Z,F,G\}$ contains a label for each single-qubit observable to be tested. With the remaining probability, other queries, requiring the measurement of observables not in $\Sigma^m$ (such as the measurement of pairs of qubits in the Bell basis), are sent. 
+
+In general, an arbitrary strategy for the provers consists of an arbitrary entangled state $\ket{\psi} \in \mH_\reg{A} \otimes \mH_\reg{B}$ (which we take to be pure), and measurements (which we take to be projective) for each possible question.\footnote{We make the assumption that the players employ a pure-state strategy for convenience, but it is easy to check that all proofs extend to the case of a mixed strategy. Moreover, it is always possible to consider (as we do)  projective strategies only by applying Naimark's dilation theorem, and adding an auxiliary local system to each player as necessary, since no bound is assumed on the dimension of their systems.} This includes an $m$-bit outcome projective measurement $\{W^u\}_{u\in\{0,1\}^{m}}$ for each of the queries $W\in\Sigma^m$. Our rigidity result states that any strategy that succeeds with probability $1-\eps$ in the test is within $\poly(\eps)$ of the honest strategy, up to local isometries (see Theorem~\ref{thm:clifford-rigid} for a precise statement). This is almost true, but for an irreconcilable ambiguity in the definition of the complex phase $\sqrt{-1}$. The fact that complex conjugation of observables 
+leaves correlations invariant implies that no classical test can distinguish between the two nontrivial inequivalent irreducible representations of the Pauli group, which are given by the Pauli matrices $\sigma_X,\sigma_Y,\sigma_Z$ and their complex conjugates $\overline{\sigma_X}=\sigma_X$, $\overline{\sigma_Z}=\sigma_Z$, $\overline{\sigma_Y}=-\sigma_Y$ respectively. In particular, the provers may use a strategy that uses a combination of both representations; as long as they do so consistently, no test will be able to detect this behavior.\footnote{See~\cite[Appendix A]{reichardt2012classicalarxiv} for an extended discussion of this issue, with a similar resolution to ours.}.  The formulation of our result accommodates this irreducible degree of freedom by forcing the provers to use a single qubit, the $(m+1)$-st, to make their choice of representation (so honest provers require the use of $(m+1)$ EPR pairs to test the operation of $m$-fold tensor products of observables from $\Sigma$s). 
+
+Theorem \ref{thm:clifford-rigid} below summarizes the guarantees of our main
+test, which is denoted as $\rigid(\Sigma,m)$. Informally, Theorem \ref{thm:clifford-rigid} establishes that a strategy that succeeds in $\rigid(\Sigma,m)$ with probability at least  $1-\epsilon$ must be such that (up to local isometries):
+\begin{itemize}
+    \item The players' joint state is close to a tensor product of $m$ EPR pairs, together with an arbitrary ancilla register;
+    \item The projective measurements performed by either player upon receipt of a query of the form $W\in\Sigma^m$ are, on average over the uniformly random choice of $W\in\Sigma^m$, close to a measurement that consists of first, measuring the ancilla register to extract a single bit that specifies whether to perform the ideal measurements or their conjugated counterparts, and second, measuring the player's $m$ half-EPR pairs in either the bases indicated by $W$, or their complex conjugate, depending on the bit obtained from the ancilla register. 
+\end{itemize}
+
+For an observable $W\in\Sigma$, let $\sigma_W = \sigma_W^{+1} - \sigma_W^{-1}$ be its eigendecomposition, where $\sigma_W$ are the ``honest'' Pauli matrices defined in~\eqref{eq:pauli-matrix} and~\eqref{eq:pauli-matrix-2}. For $u\in\{\pm 1\}$ let $\sigma_{W,+}^u = \sigma_W^u$ for $W\in \Sigma$, and 
+$$ \sigma_{X,-}^u = \sigma_X^u,\quad\sigma_{Z,-}^u = \sigma_Z^u,\quad\sigma_{Y,-}^u = \sigma_Y^{-u},\quad\sigma_{F,-}^u = \sigma_G^{-u},\quad\sigma_{G,-}^u = \sigma_F^{-u}\;.$$
+(In words, $\sigma_{W,-}^u$ is just the complex conjugate of $\sigma_W^u$.) We note that for the purpose of our delegation protocols, we made a particular choice of the set $\Sigma$. The result generalizes to any constant-sized set of single-qubit Clifford observables,  yielding a test for $m$-fold tensor products of single-qubit Clifford observables from $\Sigma$.
+
+\begin{theorem}\label{thm:clifford-rigid}
+Let $\eps>0$ and $m$ an integer. Suppose a strategy for the players succeeds with probability $1-\eps$ in test $\rigid(\Sigma,m)$. For $W\in\Sigma^m$ and $D\in\{A,B\}$ let $\{W^u_\reg{D}\}_u$ be the measurement performed by prover $D$ on question $W$. Let also $\ket{\psi}$ be the state shared by the players.
+Then for $D\in\{A,B\}$ there exists an isometry 
+$$V_D: \mathcal{H}_\reg{D} \to (\C^2)^{\otimes m}_{\reg{D}'} \otimes {\mH}_{\widehat{\reg{D}}}$$
+such that
+\begin{equation}
+ \big\| (V_A \otimes V_B) \ket{\psi}_{\reg{AB}}  - \ket{\EPR}^{\otimes m} \otimes \ket{\aux}_{\widehat{\reg{A}}\widehat{\reg{B}}} \big\|^2 = O(\sqrt{\eps}),
+\end{equation}
+and positive semidefinite matrices $\tau_\lambda$ on $\widehat{\reg{A}}$ with orthogonal support, for $\lambda\in\{+,-\}$, such that $\Tr(\tau_+)+\Tr(\tau_-)=1$ and
+\begin{align*}
+  &\mathop{\textsc{E}}_{W\in\Sigma^m} \sum_{u\in\{\pm 1\}^{m}} \Big\|V_A
+  \Tr_{\reg{B}}\big((\Id_A \otimes W_{\reg{B}}^u) \proj{\psi}_{\reg{AB}} (\Id_A
+  \otimes W_{\reg{B}}^u)^\dagger\big) V_A^\dagger \\
+  &\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;- \sum_{\lambda\in\{\pm\}} \Big( \bigotimes_{i=1}^m \frac{\sigma_{W_{i},\lambda}^{u_{i}}}{2}\Big)\otimes \tau_\lambda  \Big\|_1\\
+  &= O(\poly(\eps)).&\nonumber
+\end{align*}
+Moreover, players employing the honest strategy succeed with probability $1-e^{-\Omega(m)}$ in the test.  
+\end{theorem}
+
+The proof of the theorem is based on standard techniques developed in the literature on ``rigidity theorems'' for nonlocal games. We highlight two components. The first is a ``conjugation test'' that allows us to extend the guarantees of elementary tests based on the CHSH game or the Magic Square game, which test for Pauli $\sigma_X$ and $\sigma_Z$ observables, to a test for single-qubit Clifford observables --- since the latter are characterized by their action on the Pauli group. The second is an extension of the ``Pauli braiding test'' from~\cite{natarajan2016robust} to handle tensor products of not only $\sigma_X$ and $\sigma_Z$, but also $\sigma_Y$ Pauli observables. As already emphasized in the introduction, the improvements in efficiency of our scheme are partly enabled by the strong guarantees of Theorem~\ref{thm:clifford-rigid}, and specifically the independence of the final error dependence from the parameter $m$. 
+
+In the remainder of this section, we prove Theorem~\ref{thm:clifford-rigid}.
+\input{toc/rigidity.tex}
+
+%===============================%
+\section{The Verifier-on-a-Leash Protocol}
+\label{sec:leash}
+%===============================%
+
+
+
+
+\subsection{Protocol and statement of results}
+
+The Verifier-on-a-Leash Protocol (or ``Leash Protocol'' for short) involves a classical verifier and two quantum provers.
+The idea behind the Leash Protocol is to have a first prover, nicknamed $\pv$ for Prover $V$, carry out the quantum part of $V_{EPR}$ from Broadbent's EPR Protocol by implementing the procedure $V_{EPR}^r$. (See Section~\ref{sec:EPR-protocol} for a summary of the protocol and a description of $V_{EPR}$. Throughout this section we assume that the circuit $Q$ provided as input is compiled in the format described in Section~\ref{sec:EPR-protocol}.). A second prover, nicknamed $\pp$ for Prover $P$, will play the part of the prover $P_{EPR}$. Unlike in the EPR Protocol, the interaction with $\pv$ (i.e. running $V_{EPR}^r$) will take place {first}, and $\pv$ will be asked to perform {random} measurements from the set $\Sigma = \{X,Y,Z,F,G\}$. The values $\vec{z}$, rather than being chosen at random, will be chosen based on the corresponding choice of observable. We let $n$ be the number of input bits and $t$ number of $\sf T$ gates in $Q$. 
+
+The protocol is divided into two sub-games; which game is played is chosen by the verifier by flipping a biased coin with probability $(p_r,p_d=1-p_r)$.
+\begin{itemize}[nolistsep]
+\item The first game is a sequential version of the rigidity game $\rigid(\Sigma,m)$ described in Figure~\ref{fig:consistency-game}. This aims to enforce that $\pv$ performs precisely the right measurements;
+
+\item The second game is the delegation game, described in Figures \ref{fig:leash-protocol-V}, \ref{fig:leash-protocol-PV}, and \ref{fig:leash-protocol-PP}, and whose structure is summarized in Figure~\ref{fig:full-picture}. Here the verifier guides $\pp$ through the computation in a similar way as in the EPR Protocol.
+\end{itemize}
+
+We call the resulting protocol the Leash Protocol with parameters $(p_r,p_d)$. In both sub-games the parameter $m=\Theta(n+t)$ is chosen large enough so that with probability close to $1$ each symbol in $\Sigma$ appears in a random $W\in \Sigma^m$ at least $n+t$ times. It is important that $\pv$ is not able to tell which kind of game is being played. Notice also that in order to ensure blindness, we will require that the interaction with $\pv$ in the delegation game is sequential (more details on this are found in Section \ref{sec:leash-blind}). In order for the two sub-games to be indistinguishable, we also require that the rigidity game $\rigid(\Sigma,m)$ be played sequentially (i.e. certain subsets of questions and answers are exchanged sequentially, but the acceptance condition in the test is the same). Note, importantly, that the rigidity guarantees of $\rigid(\Sigma,m)$ hold verbatim when the game is played sequentially, since this only reduces the number of ways that the provers can cheat. The following theorem states the guarantees of the Leash Protocol.
+
+\begin{theorem}\label{thm:leash}
+There are constants $p_r,p_d=1-p_r$, and $\Delta>0$ such that the following hold of the Verifier-on-a-Leash Protocol with parameters $(p_r,p_d)$, when executed on an input $(Q,\ket{\vec{x}})$.
+\begin{itemize}
+\item \emph{(Completeness:)} Suppose that $\|\Pi_0 Q\ket{\vec{x}}\|^2 \geq 2/3$. Then there is a strategy for $\pv$ and $\pp$ that is accepted with probability at least $p_{\mathrm{compl}} = p_r(1-e^{-\Omega(n+t)})+8p_d/9$. 
+\item \emph{(Soundness:)} Suppose that $\|\Pi_0 Q\ket{\vec{x}}\|^2 \leq 1/3$. Then any strategy for $\pv$ and $\pp$ is accepted with probability at most $p_{\mathrm{sound}} = p_{\mathrm{compl}} - \Delta$. 
+\end{itemize}
+Further, the protocol leaks no information about $\vec{x}$ to either prover individually, aside from an upper bound on the length of $\vec{x}$. 
+\end{theorem}
+
+
+
+The proof of the completeness property is given in Lemma~\ref{lem:leash-completeness}. The soundness property is shown in Lemma~\ref{lem:leash-soundness}. Blindness is established in Section~\ref{sec:leash-blind}. 
+We first give a detailed description of the protocol. We start by describing the delegation game, specified in Figures \ref{fig:leash-protocol-V}, \ref{fig:leash-protocol-PV} and \ref{fig:leash-protocol-PP}, which describe the protocol from the verifier's view, an honest $\pv$'s view, and an honest $\pp$'s view respectively. This will motivate the need for a sequential version of the game $\rigid(\Sigma,m)$, described in Figure \ref{fig:consistency-game}. As we will show, the rigidity game forces $\pv$ to behave honestly. Thus, for the purpose of exposition, we assume for now that $\pv$ behaves honestly, which results in the joint behavior of $\pv$ and $\ver$ being similar to that of the verifier $V_{EPR}$ in the EPR Protocol. 
+
+%\begin{figure}
+\begin{wrapfigure}{L}{.4\textwidth}
+\centering
+\resizebox{1.0\textwidth}{!}{%
+\begin{tikzpicture}
+\node at (1,4.25) {Verifer};
+\draw (0,-.75) rectangle (2,9.25); 
+
+\node at (6,6.875) {Prover $V$};
+\draw (5,9.25) rectangle (7,4.5);
+
+\node at (6,1.625) {Prover $P$};
+\draw (5,4) rectangle (7,-.75);
+
+\draw[->] (2,9)--(5,9);
+\node at (3.5,9.25) {$A, W_{A}\in\Sigma^{|A|}$};
+\draw[->] (5,8.25)--(2,8.25);
+\node at (3.5,8.5) {$\vec{e}_{A}\in\{0,1\}^{|A|}$};
+\draw[->] (2,7.5)--(5,7.5);
+\node at (3.5,7.75) {$B_1,W_{B_1}\in\Sigma^{|B_1|}$};
+\draw[->] (5,6.75)--(2,6.75);
+\node at (3.5,7) {$\vec{e}_{B_1}\in\{0,1\}^{|B_1|}$};
+\node at (3.5,6.5) {$\vdots$};
+\draw[->] (2,5.5)--(5,5.5);
+\node at (3.5,5.75) {$B_d,W_{B_d}\in \Sigma^{|B_d|}$};
+\draw[->] (5,4.75)--(2,4.75);
+\node at (3.5,5) {$\vec{e}_{B_d}\in\{0,1\}^{|B_d|}$};
+
+\draw[->] (2,3.75)--(5,3.75);
+\node at (3.5,4) {$T,N\subset [m]$};
+\draw[->] (5,3)--(2,3);
+\node at (3.5,3.25) {$\vec{c}_{T_1}\in \{0,1\}^{T_1}$};
+\draw[->] (2,2.25)--(5,2.25);
+\node at (3.5,2.5) {$\vec{z}_{T_1}\in\{0,1\}^{T_1}$};
+\node at (3.5,2) {$\vdots$};
+\draw[->] (5,1)--(2,1);
+\node at (3.5,1.25) {$\vec{c}_{T_\ell}\in \{0,1\}^{T_\ell}$};
+\draw[->] (2,0.25)--(5,0.25);
+\node at (3.5,0.5) {$\vec{z}_{T_\ell}\in\{0,1\}^{T_\ell}$};
+\draw[->] (5,-.5)--(2,-.5);
+\node at (3.5,-.25) {$c_f\in\{0,1\}$};
+
+\end{tikzpicture}
+  }
+\caption{Structure of the delegation game.}\label{fig:full-picture}
+\end{wrapfigure}
+%\end{figure}
+
+From the rigidity game we may also assume that $\pv$ and $\pp$ share $m$ EPR pairs, labeled $\{1,\ldots,m\}$, for $m=\Theta(n+t)$. We will assume that the circuit $Q$ is broken into $d$ layers, $Q=Q_1\dots Q_d$, such that in every $Q_\ell$, each wire has at most one $\sf T$ gate applied to it, after which no other gates are applied to that wire. We will suppose the $\sf T$ gates are indexed from $1$ to $t$, in order of layer.
+ 
+The protocol begins with an interaction between the verifier and $\pv$. The verifier selects a uniformly random partition $A,B_1,\dots,B_d$ of $\{1,\dots,m\}$, with $|A|=\Theta(n)$, and for every $\ell\in\{1,\dots,d\}$, $|B_{\ell}|=\Theta(t_\ell)$, where $t_{\ell}$ is the number of $\sf T$ gates in $Q_\ell$. The verifier also selects a uniformly random $W\in\Sigma^m$, and partitions it into substrings $W_A$ and $W_{B_1},\ldots,W_{B_d}$, meant to contain observables to initialize the computation qubits and auxiliary qubits for each layer of ${\sf T}$ gates respectively. The verifier instructs $\pv$ to measure his halves of the EPR pairs using the observables $W_A$ first, and then $W_{B_1},\ldots,W_{B_d}$, sequentially. Upon being instructed to measure a set of observables, $\pv$ measures the corresponding half-EPR pairs and returns the results $\vec{e}$ to the verifier. Breaking this interaction into multiple rounds is meant to enforce that, for example, the results output by $\pv$ upon receiving $W_{B_{\ell}}$, which we call $\vec{e}_{B_{\ell}}$, cannot depend on the choice of observables $W_{B_{\ell+1}}$. This is required for blindness. 
+
+Once the interaction with $\pv$ has been completed, as in the EPR Protocol, $\ver$ selects one of three round types: computation $(r=0)$, $X$-test ($r=1$), and $Z$-test $(r=2)$. 
+The verifier selects a subset $N\subset A$ of size $n$ of qubits to play the role of inputs to the computation. These are chosen from the subset of $A$ corresponding to wires that $\pv$ has measured in the appropriate observable for the round type (see Table~\ref{tab:index-choices}). For example, in an $X$-test round, $\pv$'s EPR halves corresponding to input wires should be measured in the $Z$ basis so that $\pp$ is left with a one-time pad of the state $\ket{0}^{\otimes n}$, so in an $X$-test round, the computation wires are chosen from the set $\{i\in A:W_i=Z\}$. The input wires $N$ are labeled by ${\cal X}_1,\dots,{\cal X}_n$. 
+
+
+
+
+The verifier also chooses subsets $T_\ell = T_\ell^0 \cup T_\ell^1 \subset B_\ell$ of sizes $t_{\ell,0}$ and $t_{\ell,1} = t_\ell-t_{\ell,0}$ respectively, where $t_{\ell,0}$ is the number of odd $\sf T$ gates in the $\ell$-th layer of $Q$ (recall the definition of even and odd $\sf T$ gates from Section~\ref{sec:EPR-protocol}). The wires $T^0_\ell$ and $T^1_\ell$ will play the role of auxiliary states used to perform $\sf T$ gates from the $\ell$-th layer. They are chosen from those wires from $B_\ell$ whose corresponding EPR halves have been measured in a correct basis, depending on the round type.  For example, in an $X$-test round, the auxiliaries corresponding to odd $\sf T$ gates should be prepared by measuring the corresponding EPR half in either the $X$ or $Y$ basis (see Table \ref{tab:Oy}), so in an $X$-test round, $T_\ell^1$ is chosen from $\{i\in B_\ell:\,W_i\in \{X,Y\}\}$ (see Table \ref{tab:index-choices}). We will let ${\cal T}_1,\dots,{\cal T}_t$ label those EPR pairs that will be used as auxiliary states. In particular, the system ${\cal T}_i$ will be used for the $i$-th $\sf T$ gate in the circuit, so if the $i$-th $\sf T$ gate is even, ${\cal T}_i$ should be chosen from $T^0=\cup_\ell T_\ell^0$, and otherwise it should be chosen from $T_1=\cup_\ell T_\ell^1$. The verifier sends labels ${\cal T}_1,\dots,{\cal T}_t$ and ${\cal X}_1,\dots,{\cal X}_n$ to $\pp$, who will act as $P_{EPR}$ on the $n+t$ qubits specified by these labels.
+
+
+Just as in the EPR Protocol, the input on $\pp$'s system specified by ${\cal X}_1,\dots,{\cal X}_n$ is a quantum one-time pad of either $\ket{\vec{x}}$, $\ket{0}^{\otimes n}$, or $\ket{+}^{\otimes n}$, depending on the round type, with $\ver$ holding the keys (determined by~$\vec{e}$). Throughout the interaction, $\pp$ always maintains a one-time pad of the current state of the computation, with the verifier in possession of the one-time-pad keys. The verifier updates her keys as the computation is carried out, using the rules in Table \ref{tab:EPR-key-updates}. 
+
+
+
+
+From $\pp$'s perspective, the protocol works just as the EPR Protocol, except that he does not receive the bit $z_i$ needed to implement the $\sf T$ gadget until \emph{during} the $\sf T$ gadget, after he has sent $\ver$ his measurement result $c_i$ (see Figure \ref{fig:leash-T-gadget}).
+
+
+ 
+To perform the $i$-th $\sf T$ gate on the $j$-th wire, $\pp$ performs the circuit shown in Figure \ref{fig:leash-T-gadget}. As Figure~\ref{fig:leash-T-gadget} shows, $\pv$ has already applied the observable specified by $\ver$ to his half of the EPR pair. The $\sf T$ gadget requires interaction with the verifier, to compute the bit $z_i$, which depends on the measured $c_i$, the value $W_i$, and one-time-pad key $a_j$, however, this interaction can be done in parallel for $\sf T$ gates in the same layer. 
+
+
+
+
+
+\begin{figure}[H]
+  \resizebox{0.8\textwidth}{!}{
+  \begin{tikzpicture}
+
+
+\draw (0,4) -- (2,4) -- (3,3) -- (4,3);
+\filldraw[white] (2.5,3.5) circle (.1);
+\draw (-.75,2.25)--(0,3)--(2,3)--(3,4)--(8,4);
+\draw (-.75,2.25)--(0,1.5)--(1.5,1.5);
+
+
+\node at (.5,4.25) {${\cal X}_{j}$};
+\node at (7.5,4.25) {${\cal X}_{j}$};
+\node at (.25,3.25) {${\cal T}_{i}$};
+
+\draw (1.5,4) circle (.15);
+\filldraw(1.5,3) circle (.075);
+\draw (1.5,4.15)--(1.5,3);
+
+\draw (4,3.025)--(4.525,3.025)--(4.525,1.775)--(5,1.775);
+\draw (4,2.975)--(4.475,2.975)--(4.475,1.725)--(5,1.725);
+\filldraw (4.5,3) circle (.075);
+\filldraw (4.5,1.75) circle (.075);
+\node at (3.75,3) {\meas};
+\node at (5.25,1.75) {$c_i$};
+
+
+%%%%%%%%%%%%%% P correction
+
+\filldraw[fill=white] (6.25,3.75) rectangle (6.75,4.25);
+\node at (6.5,4) {${\sf P}^{z_i}$};
+
+\draw (6.25,1.775)--(6.525,1.775)--(6.525,3.75);
+\draw (6.25,1.725)--(6.475,1.725)--(6.475,3.75);
+\filldraw (6.5,1.75) circle (.075);
+\node at (6,1.75) {$z_i$};
+
+%%%%%%%%%%%%%%%%%%%%%
+
+
+\node at (8,.25) {$z_i=\left\{\begin{array}{ll}
+a_{j}+ c_i & \mbox{if }W_i=G\\
+a_{j}+ c_i+1 & \mbox{if }W_i=F\\
+z\in_R\{0,1\} & \mbox{if }W_i=Z\\
+0 & \mbox{if }W_i=X\\
+1 & \mbox{if }W_i=Y
+\end{array}\right.$};
+
+\draw (0,0.025)--(.475,0.025)--(.475,1.25);
+\draw (0,-0.025)--(.525,-0.025)--(.525,1.25);
+\filldraw[fill=white] (.15,1.75) rectangle (.9,1.25);
+\node at (.525,1.5) {$\mathsf{U}_{W_i}$};
+\node at (-1.85,0) {$W_i\in_R\{X,Y,Z,G,F\}$};
+\filldraw (.5,0) circle (.075);
+
+\draw (1.5,1.525)--(2.025,1.525)--(2.025,0.025)--(2.5,0.025);
+\draw (1.5,1.475)--(1.975,1.475)--(1.975,-0.025)--(2.5,-0.025);
+\node at (1.4,1.5) {\meas};
+\filldraw (2,1.5) circle (.075);
+\filldraw (2,0) circle (.075);
+\node at (2.75,0) {$e_i$};
+
+\draw[dashed] (-2.5,5) rectangle (9,2.5);
+\node at (-2.2,2.75) {$\pp$};
+
+\draw[dashed] (-.5,2) rectangle (2.5,.75);
+\node at (-.15,1) {$\pv$};
+
+\draw[dotted] (-3.75,.5) rectangle (3.25,-1);
+\node at (-3.5,-.75) {$\ver$};
+
+
+\draw[dotted] (3.75,2) rectangle (11,-1);
+\node at (4,-.75) {$\ver$};
+\end{tikzpicture}
+}
+\caption{The gadget for implementing the $i$-th $\sf T$ gate, on the $j$-th wire.}\label{fig:leash-T-gadget}
+\end{figure}
+
+It is simple to check that the $\sf T$ gadget in Figure \ref{fig:leash-T-gadget} is the same as the $\sf T$ gadget for the EPR Protocol shown in Figure \ref{fig:tgadget-EPR}. In the case of the leash protocol, $W$ is chosen at random, and then $\vec{z}$ is chosen accordingly, whereas in the case of the EPR Protocol, $\vec{z}$ is chosen at random and then $W$ is chosen accordingly. 
+
+
+
+
+\begin{table}[H]
+\centering
+\setlength\tabcolsep{1.5pt}
+\begin{tabular}{|l|lll|}
+\hline
+& Computation Round & $X$-test Round & $Z$-test Round\\
+\hline
+$N$ %, input/computation qubits 
+& $\{i\in A:W_i=Z\}$ & $\{i\in A:W_i=Z\}$ & $\{i\in A:W_i=X\}$\\
+$T^0_{\ell}$ %, even $\sf T$ gate auxiliaries 
+& $\{i\in B_{\ell}:W_i\in \{G,F\}\}$ & $\{i\in B_{\ell}:W_i=Z\}$ & $\{i\in B_{\ell}:W_i\in \{X,Y\}\}$ \\
+$T^1_{\ell}$ %, odd $\sf T$ gate auxiliaries 
+& $\{i\in B_{\ell}:W_i\in \{G,F\}\}$ & $\{i\in B_{\ell}:W_i\in \{X,Y\}\}$ & $\{i\in B_{\ell}:W_i=Z\}$ \\
+\hline
+\end{tabular}
+\caption{How the verifier chooses index sets $T=T^0\cup T^1$ and $N$ for each type of round. These sets determine which systems are labeled by $\{{\cal T}_{i}\}_{i=1}^t$ and $\{{\cal X}_{j}\}_{j=1}^n$, respectively.}\label{tab:index-choices}
+\end{table}
+
+\noindent We now give the precise protocols for $\ver$ (Figure \ref{fig:leash-protocol-V})
+and honest provers $\pv$ (Figure \ref{fig:leash-protocol-PV}) and $\pp$ (Figure~
+\ref{fig:leash-protocol-PP}). 
+
+%----------------%
+\begin{figure}[H]
+\rule{\textwidth}{0.5pt}
+\justify 
+Let $(Q,\vec{x})$ be the input to the verifier, where $Q$ is compiled in the form described in Section~\ref{sec:EPR-protocol}. Let $n$ be the size of the input to $Q$. Let $d$ be the $\sf T$-depth, and for $\ell\in\{1,\ldots,d\}$ let $t_\ell$ be the number of {\sf T} gates in the $\ell$-th layer. 
+\begin{enumerate}
+\item The verifier selects $W \in_R\Sigma^{m}$. She partitions $\{1,\ldots,m\}$ arbitrarily into non-overlapping subsets $A$ and $B_1,\ldots,B_d$ such that $W_A$ contains at least $n$ copies of each symbol in $\Sigma$, and for each $\ell\in\{1,\ldots,d\}$, $W_{B_\ell}$ contains at least $t_\ell$ copies of each symbol in $\Sigma$.
+\item The verifier sends $A,W_A$ to $\pv$, who returns $\vec{e}_A \in \{0,1\}^A$. The verifier sequentially sends  $(B_1,W_{B_1}),\ldots,(B_d,W_{B_d})$ to $\pv$, each time receiving $\vec{e}_{B_\ell}\in \{0,1\}^{B_\ell}$ as answer. 
+\item The verifier selects a round type uniformly at random. She selects sets $N \subseteq A$ and  $T_\ell \subseteq B_\ell$, for $\ell\in\{1,\ldots,d\}$, of sizes $|N|=n$ and $|T_\ell|=t_\ell$, as follows:
+\begin{description}
+\item[Computation Round:] $N$ is chosen at random from 
+$\{i\in A: W_i=Z\}$. $T_\ell$ is chosen at random from $\{i\in B_\ell:\,W_i\in \{G,F\}\}$. 
+She sets $\vec{a} = \vec{e}_N + \vec{x}$ and $\vec{b} = 0^n$.
+\item[$X$-test Round:] $N$ is chosen at random from 
+$\{i\in A:W_i=Z\}$. $T_\ell = T_\ell^0 \cup T_\ell^1$, where $T_\ell^0$ is of size $t_{\ell,0}$ chosen at random from $\{i\in B_\ell:W_i=Z\}$ and $T_\ell^1$ is of size $t_{\ell,1}$ chosen at random from $\{i\in B_\ell:W_i\in \{X,Y\}\}$.
+She sets $\vec{a} = \vec{e}_N$ and $\vec{b} = 0^n$.
+\item[$Z$-test Round:] $N$ is chosen at random from 
+$\{i\in A:W_i=X\}$. $T_\ell = T_\ell^0 \cup T_\ell^1$, where $T_\ell^0$ is of size $t_{\ell,0}$ chosen at random from $\{i\in B_\ell:W_i\in\{X,Y\}\}$ and $T_\ell^1$ is of size $t_{\ell,1}$ chosen at random from $\{i\in B_\ell:W_i=Z\}$.
+She sets $\vec{a} = 0^n$ and $\vec{b} = \vec{e}_N$.
+\end{description}
+The verifier sends the sets $N$ and $T_\ell^0$, $T_\ell^1$, for all $\ell\in\{1,\ldots,d\}$, to $\pp$.
+\item For $\ell=1,\dots,d$, 
+\begin{enumerate}
+  \item For each Clifford gate in the $\ell$-th layer, perform the appropriate
+    key update (Table \ref{tab:EPR-key-updates}).
+ \item The verifier receives $\vec{c} = \{c_i\}_{i\in T_{\ell}}$ from $\pp$. If it's an $X$-test round and $i\in T_\ell^0$, or it's a $Z$-test round and $i\in T_\ell^1$, $\sf reject$ if $c_i\neq a_{j}+ e_i$, where $j$ is the wire to which the $i$-th $\sf T$ gate is applied.
+\item For each $i\in T_\ell$, the verifier computes $\vec{z}=\{z_i\}_{i\in T_\ell}$ as follows: 
+\begin{description}
+\item[Computation Round] $z_i=a_{j}+ 1_{W_i=F} + c_i$ ;
+\item[$X$-test Round] if $i\in T_\ell^0$, $z_i\in_R\{0,1\}$; else if $i\in T_\ell^1$, $z_i=1_{W_i=Y}$;
+\item[$Z$-test Round] if $i\in T_\ell^0$, $z_i=1_{W_i=Y}$; else if $i\in T_\ell^1$, $z_i\in_R\{0,1\}$.
+\end{description}
+\item The verifier sends $\vec{z}$ to $\pp$ and updates keys for each $\sf T$
+  gate applied (Table \ref{tab:EPR-key-updates}).
+\end{enumerate} 
+\item The verifier receives a bit $c_f$ from $\pp$. She outputs $\sf reject$ if it's a computation or $X$-test round and $c_f+ a_f\neq 0$, where $a_f$ is the final $\sf X$-key on the output wire; and $\sf accept$ otherwise.
+\end{enumerate}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{The Delegation Game: Verifier's point of view.}\label{fig:leash-protocol-V}
+\end{figure}
+
+  \begin{figure}[H]
+\rule{\textwidth}{0.5pt}
+\begin{enumerate}
+\item For $\ell=0,1,\ldots,d$,
+\begin{enumerate}
+\item $\pv$ receives a string $W_{S} \in\Sigma^{S}$, for some subset $S$ of $\{1,\ldots,m\}$, from $\ver$. 
+\item For $i\in S$, $\pv$ measures his half of the $i$-th EPR pair using the observable indicated by $W_i$, obtaining an outcome $e_i\in\{0,1\}$. 
+\item $\pv$ returns $\vec{e}_S$ to $\ver$. 
+\end{enumerate}
+\end{enumerate}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{Honest strategy for $\pv$}\label{fig:leash-protocol-PV}
+  \end{figure}
+  \begin{figure}
+\rule[1ex]{\textwidth}{0.5pt}
+\begin{enumerate}
+\item $\pp$ receives subsets $N$ and $T_\ell^0,T_\ell^1$ of $\{1,\ldots,m\}$, for $\ell\in\{1,\ldots,d\}$, from the verifier. 
+\item For $\ell=1,\dots,d$, 
+\begin{enumerate}
+\item $\pp$ does the Clifford computations in the $\ell$-th layer.
+ \item For each $i\in T_\ell = T_\ell^0\cup T_\ell^1$, $\pp$ applies a $\sf CNOT$ from ${\cal T}_i$ into the input register corresponding to the wire on which this $\sf T$ gate should be performed, ${\cal X}_{j}$, and measures this wire to get a value $c_i$. The register ${\cal T}_i$ is relabeled ${\cal X}_{j}$. He sends $\vec{c}_{T_\ell} = \{c_i\}_{i\in T_{\ell}}$ to $\ver$.
+\item $\pp$ receives $\vec{z}_{T_{\ell}}=\{z_i\}_{i\in T_\ell}$ from $\ver$. For each $i\in T_\ell$, he applies ${\sf P}^{z_i}$ to the corresponding~${\cal X}_{j}$. 
+\end{enumerate} 
+\item $\pp$ performs the final computations that occur after the $d$-th layer of $\sf T$ gates, measures the output qubit, ${\cal X}_1$, and sends the resulting bit, $c_f$, to $\ver$. 
+\end{enumerate}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{Honest strategy for $\pp$}\label{fig:leash-protocol-PP}
+%\caption{The Delegation Game: Honest strategies for the provers.}
+\end{figure}
+
+Finally, we describe the sequential version of the game $\rigid(\Sigma,m)$ in
+Figure~\ref{fig:consistency-game}. It is no different than $\rigid(\Sigma,m)$,
+except for the fact that certain subsets of questions and answers are exchanged
+sequentially, but the acceptance condition is the same. As mentioned earlier,
+running the game sequentially only reduces the provers' ability to cheat. Hence the guarantees from $\rigid(\Sigma,m)$ 
+hold verbatim for the sequential version. 
+
+\begin{figure}[H]
+\rule[1ex]{\textwidth}{0.5pt}
+\vspace{-25pt}
+\justify 
+Let $m$, $n$, and $t_1,\ldots,t_d$ be parameters provided as input, such that $m = \Theta(n+t_1+\cdots+t_d)$. 
+\begin{enumerate}
+\item The verifier selects questions $W,W' \in \Sigma^{m}$, for the first and second player respectively, according to the distribution of questions in the game $\rigid(\Sigma,m)$. She partitions $\{1,\ldots,m\}$ at random into subsets $A$ and $B_\ell$, for $\ell\in\{1,\ldots,d\}$, of size $|A|=\Theta(n)$ and $|B_\ell|=\Theta(t_\ell)$, exactly as in Step 1 of the Delegation Game. 
+\item The verifier sends $(A,W_A), (B_1,W_{B_1}),.., (B_d,W_{B_d})$ and $(A,W'_A), (B_1,W'_{B_1}), .., (B_d,W'_{B_d})$ in sequence to the first and second prover respectively. They sequentially return respectively $\vec{e}_A \in \{0,1\}^{|A|}$, $\vec{e}_{B_1} \in \{0,1\}^{|B_1|},.., \vec{e}_{B_d} \in \{0,1\}^{|B_d|}$ and $\vec{e}'_A \in \{0,1\}^{|A|}$, $\vec{e}'_{B_1} \in \{0,1\}^{|B_1|},.., \vec{e}'_{B_d} \in \{0,1\}^{|B_d|}$.
+\item The verifier accepts if and only if $\vec{e},\vec{e}'$ and $W,W'$ satisfy the winning condition of $\rigid(\Sigma,m)$.
+\end{enumerate}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{Sequential version of $\rigid(\Sigma,m)$.}
+\label{fig:consistency-game}
+\end{figure} 
+
+
+
+
+\subsection{Completeness}
+
+\begin{lemma}\label{lem:leash-completeness}
+Suppose the verifier executes the rigidity game with probability $p_r$ and the delegation game with probability $p_d=1-p_r$, on an input $(Q,\ket{\vec{x}})$ such that $\|\Pi_0 Q \ket{\vec{x}}\|^2 \geq 2/3$. Then there is a strategy for the provers which is accepted with probability at least $p_{\mathrm{compl}} = p_r(1-e^{-\Omega(n+t)}) + \frac{8}{9}p_d$. 
+\end{lemma}
+
+\begin{proof}
+The provers $\pv$ and $\pp$ play the rigidity game according to the honest strategy, and the delegation game as described in Figures~\ref{fig:leash-protocol-PV} and~\ref{fig:leash-protocol-PP} respectively. Their success probability in the delegation game is the same as the honest strategy in the EPR Protocol, which is at least $\frac{2}{3}+\frac{2}{3}\frac{1}{3}=\frac{8}{9}$, by Theorem \ref{thm:EPR-correctness} and since in our protocol the verifier chooses each of the three types of rounds uniformly.
+\end{proof}
+
+\subsection{Soundness}
+
+
+
+We divide the soundness analysis into three parts. First we analyze the case of an honest $\pv$, and a cheating $\pp$ (Lemma \ref{lem:soundness-leash-pp}). Then we show that if $\pv$ and $\pp$ pass the rigidity game with almost optimal probability, then one can construct new provers $\pv'$ and $\pp'$, with $\pv'$ honest, such that the probability that they are accepted in the delegation game is not changed by much (Lemma \ref{soundlemma}). In Lemma \ref{lem:leash-soundness}, we combine the previous to derive the desired constant soundness-completeness gap, where we exclude that the acceptance probability of the provers in the rigidity game is too low by picking a $p_r$ large enough.
+
+
+\begin{lemma}[Soundness against $\pp$]\label{lem:soundness-leash-pp}
+Suppose the verifier executes the delegation  game on input $(Q,\ket{\vec{x}})$ such that $\|\Pi_0 Q\ket{\vec{x}}\|^2 \leq 1/3$ with provers $(\pv,\pp^*)$ such that $\pv$ plays the honest strategy. Then the verifier accepts with probability at most $7/9$. 
+\end{lemma}
+
+\begin{proof}
+Let $\pp^*$ be any prover. Assume that $\pv$ behaves honestly and applies the measurements specified by his query $W$ on halves of EPR pairs shared with $\pp^*$. As a result the corresponding half-EPR pair at $\pp^*$ is projected onto the post-measurement state associated with the outcome reported by $\pv$ to $\ver$. 
+
+
+From $\pp^*$, we define another prover, $P^*$, such that if $P^*$ interacts with $V_{EPR}$,  the honest verifer for the EPR Protocol (Figure \ref{fig:original-protocol-VEPR}), then $V_{EPR}$ rejects with the same probability that $\ver$ would reject on interaction with $\pp^*$. The main idea of the proof can be seen by looking at Figure \ref{fig:leash-T-gadget}, and noticing that: (1) the combined action of $\ver$ and $\pv$ is unchanged if instead of choosing the $W_i$-values at random and then choosing $z_i$ as a function of these, the $z_i$ are chosen uniformly at random, and then the $W_i$ are chosen as a function of these; and (2) with this transformation, the combined action of $\ver$ and $\pv$ is now the same as the action of $V_{EPR}$ in the EPR Protocol. 
+
+We now define $P^*$. $P^*$ acts on a system that includes $n+t$ qubits that, in an honest run of the EPR Protocol, are halves of EPR pairs shared with $V_{EPR}$. $P^*$ receives $\{{z}_i\}_{i=1}^t$ from $V_{EPR}$. $P^*$ creates $m-(n+t)$ half EPR pairs (i.e. single-qubit maximally mixed states) and randomly permutes these with his $n+t$ unmeasured qubits, $n$ of which correspond to computation qubits on systems ${\cal X}_1,\dots,{\cal X}_n$ --- he sets $N$ to be the indices of these qubits --- and $t$ of which correspond to $\sf T$-auxiliary states --- he sets $T^0$ and $T^1$ to be the indices of these qubits. $P^*$ simulates $\pp^*$ on these $m$ qubits in the following way. First, $P^*$ gives $\pp^*$ the index sets $N$, $T^0$, and $T^1$. In the $\ell$-th iteration of the loop (Step 2.\ in Figure~\ref{fig:leash-protocol-PP}), $\pp^*$ returns some bits $\{c_i\}_{i\in T_\ell}$, and then expects inputs $\{z_i\}_{i\in T_\ell}$, which $P^*$ provides, using the bits he received from $V_{EPR}$. Finally, at the end of the computation, $\pp^*$ returns a bit $c_f$, and $P^*$ outputs $\{c_i\}_{i\in T}$ and ${c_f}$. 
+
+This completes the description of $P^*$. To show the lemma we argue that for any input $(Q,\ket{\vec{x}})$ the probability that $V$ outputs $\sf accept$ on interaction with $\pv$ and $\pp^*$ is the same as the probability that $V_{EPR}$ outputs $\sf accept$ on interaction with $P^*$, which is at most $\frac{2}{3}q_t+\frac{1}{3}q_c$ whenever $\|\Pi_0 Q \ket{\vec{x}}\|^2 \leq 1/3$, by Theorem \ref{thm:EPR-soundness}. Using $\delta=\frac{1}{3}$, Theorem \ref{thm:EPR-soundness} gives $q_c\leq \frac{5}{3}-\frac{4}{3}q_t$, which yields
+$$\frac{2}{3}q_t+\frac{1}{3}q_c\leq \frac{5}{9}+\frac{2}{9}q_t\leq \frac{7}{9}.$$
+
+
+There are two reasons that $V_{EPR}$ might reject: (1) in a computation or $X$-test round, the output qubit decodes to $1$; or (2) in an evaluation of the gadget in Figure \ref{fig:leash-T-gadget} (either an $X$-test round for an even $\sf T$ gate, or a $Z$-test round for an odd $\sf T$ gate) the condition ${c}_i=a_j\oplus e_i$ fails. 
+
+We first consider case (1). This occurs exactly when ${c_f}\oplus a_f=1$, where $a_f$ is the final $\sf X$ key of the output wire, held by $V_{EPR}$. We note that $a_f$ is exactly the final $\sf X$ key that $\ver$ would hold in the Verifier-on-a-Leash Protocol, which follows from the fact that the update rules in both the EPR Protocol and the leash protocol are the same. Thus, the probability that $V_{EPR}$ finds ${v_f}\oplus a_f=1$ on interaction with $P^*$ is exactly the probability that $\ver$ finds $c_f\oplus a_f=1$ in Step 5 of Figure \ref{fig:leash-protocol-V}. 
+
+Next, consider case (2). The condition ${c}_i\neq a_{j}\oplus e_i$ is exactly
+ the condition in which a verifier interacting with $P^*$ as in Figure \ref{fig:leash-protocol-V} would reject (see Step 4.(b)).
+
+Thus, the probability that $V_{EPR}$ outputs $\sf reject$ upon interaction with $P^*$ is exactly the probability that $\ver$ outputs $\sf reject$ on interaction with $\pp^*$, which, as discussed above, is at most $7/9$.
+\end{proof}
+
+
+
+
+
+\noindent The following lemma shows soundness against cheating $\pv^*$.
+
+\begin{lemma}\label{soundlemma}
+Suppose the verifier executes the leash protocol  on input $(Q,\ket{\vec{x}})$ such that $\|\Pi_0 Q\ket{\vec{x}}\|^2 \leq 1/3$ with provers $(\pv^*,\pp^*)$, such that the provers are accepted with probability $1-\eps$, for some $\eps>0$, in the rigidity game, and with probability at least $q$ in the delegation game. Then there exist provers $\pp'$ and $\pv'$ such that $\pv'$ applies the honest strategy and $\pp'$ and $\pv'$ are accepted with probability at least $q-\poly(\eps)$ in the delegation game.
+\end{lemma}
+
+\begin{proof}
+By assumption, $\pp^*$ and $\pv^*$ are accepted in the rigidity game with
+  probability at least $1-\eps$. Let $V_A$, $V_B$ be the local isometries
+  guaranteed to exist by Theorem~\ref{thm:clifford-rigid}, and
+  $\{\tau_\lambda\}$ the sub-normalized densities associated with $\pp^*$'s
+  Hilbert space (recall that playing the rigidity game sequentially leaves the
+  guarantees from Theorem~\ref{thm:clifford-rigid} unchanged, since it only reduces the provers' ability to cheat).
+
+First define provers $\pv''$ and $\pp''$ as follows. $\pp''$ and $\pv''$ initially share the state 
+$$\ket{\psi'}_{\reg{AB}} = \otimes_{i=1}^{m} \proj{\EPR}_{\reg{AB}} \otimes \sum_{\lambda\in\{\pm\}}  \proj{\lambda}_{\reg{A}'}\otimes \proj{\lambda}_{\reg{B}'}\otimes (\tau_\lambda)_{\reg{A}''}\;,$$
+with registers $\reg{A}\reg{A}'\reg{A}''$ in the possession of $\pp''$ and $\reg{BB}'$ in the possession of $\pv''$. 
+Upon receiving a query $W\in \Sigma^m$, $\pv''$ measures $\reg{B}'$ to obtain a $\lambda\in\{\pm\}$. If $\lambda=+$ he proceeds honestly, measuring his half-EPR pairs exactly as instructed. If $\lambda=-$ he proceeds honestly except that for every honest single-qubit observable specified by $W$, he instead measures the complex conjugate observable. Note that this strategy can be implemented irrespective of whether $W$ is given at once, as in the game $\rigid$, or sequentially, as in the Delegation Game. $\pp''$ simply acts like $\pp^*$, just with the isometry $V_A$ applied. 
+
+First note that by Theorem~\ref{thm:clifford-rigid}, the distribution of answers of $\pv''$ to the verifier, as well as the subsequent interaction between the verifier and $\pp$, generate (classical) transcripts that are within statistical distance $\poly(\eps)$ from those generated by $\pv^*$ and $\pp^*$ with the same verifier. 
+
+Next we observe that taking the complex conjugate of both provers' actions does not change their acceptance probability in the delegation game, since the interaction with the verifier is completely classical. Define $\pp'$ as follows: $\pp'$ measures $\reg{A}'$ to obtain the same $\lambda$ as $\pv''$, and then executes $\pp''$ or its complex conjugate depending on the value of $\lambda$. Define $\pv'$ to execute the honest behavior (he measures to obtain $\lambda$, but then discards it and does not take any complex conjugates). 
+
+Then $\pv'$ applies the honest strategy, and $(\pv',\pp')$ applies either the same strategy as $(\pv'',\pp'')$ (if $\lambda=+$) or its complex conjugate (if $\lambda=-$). Therefore they are accepted in the delegation game with exactly the same probability. 
+\end{proof}
+
+\noindent Combining Lemma~\ref{lem:soundness-leash-pp} and Lemma~\ref{soundlemma} gives us the final soundness guarantee.
+
+\begin{lemma}\label{lem:leash-soundness} (Constant soundness-completeness gap)
+There exist constants $p_r,p_d=1-p_r$ and $\Delta>0$ such that if the verifier executes the leash protocol with parameters $(p_r,p_d)$ on input $(Q,\ket{\vec{x}})$ such that $\|\Pi_0 Q\ket{\vec{x}}\|^2 \leq 1/3$, any provers $(\pv^*,\pp^*)$ are accepted with probability at most \mbox{$p_{\mathrm{sound}}=p_{\mathrm{compl}}-\Delta$}.  
+\end{lemma}
+
+\begin{proof}
+Suppose provers $\pp^*$ and $\pv^*$ succeed in the delegation game with probability $\frac79+w$ for some $w>0$, and the testing game with probability $1-\eps_*(w)$, where $\eps_*(w)$ will be specified below. By Lemma~\ref{soundlemma}, this implies that there exist provers $\pp'$ and $\pv'$ such that $\pv'$ is honest and the provers succeed in the delegation game with probability at least $\frac79+w-g(\eps_*(w))$, where $g(\eps) = \poly(\eps)$ is the function from the guarantee of Lemma~\ref{soundlemma}. Let $\eps_*(w)$ be such that $g(\eps_*(w)) \leq \frac{w}{2}$. In particular, $\frac79+w-g(\eps_*(w)) \geq \frac79+\frac{w}{2}>\frac79$. This contradicts Lemma~\ref{lem:soundness-leash-pp}. 
+
+Thus if provers $\pp$ and $\pv$ succeed in the delegation game with probability $\frac79+w$ they must succeed in the rigidity game with probability less than $1-\eps_*(w)$. 
+This implies that for any strategy of the provers, on any \textit{no} instance, the probability that they are accepted is at most
+\begin{equation}
+\max\Big\{p_r+(1-p_r)\Big(\frac79+\frac{1}{18}\Big),\,\, p_r\Big(1-\eps_*\Big(\frac{1}{18}\Big)\Big)+(1-p_r)\cdot 1\Big\}.
+\end{equation}
+Since $\eps_*(\frac{1}{18})$ is a positive constant, it is clear that one can pick $p_r$ large enough so that 
+\begin{equation}
+p_r\Big(1-\eps_*\Big(\frac{1}{18}\Big)\Big)+(1-p_r)\cdot 1 < p_r+(1-p_r)\Big(\frac79+\frac{1}{18}\Big).
+\end{equation}
+Select the smallest such $p_r$. Then the probability that the two provers are accepted is at most 
+\begin{align*}
+p_{\mathrm{sound}} &:= p_r+(1-p_r)\Big(\frac79+\frac{1}{18}\Big)
+< p_r\big(1-e^{-\Omega(n+t)}\big)+(1-p_r)\frac89 
+= p_{\mathrm{compl}} \,,
+\end{align*}
+which gives the desired constant completeness-soundness gap $\Delta$.
+\end{proof}
+
+\subsection{Blindness}
+\label{sec:leash-blind}
+
+We now establish blindness of the Leash Protocol. In Lemma \ref{lem:blindness}, we will prove that the protocol has the property that neither prover can learn anything about the input to the circuit, $\vec{x}$, aside from its length. Thus, the protocol can be turned into a blind protocol, where $Q$ is also hidden, by modifying any input $(Q,\vec{x})$ where $Q$ has $g$ gates and acts on $n$ qubits, to an input $(U_{g,n},(Q,\vec{x}))$, where $U_{g,n}$ is a universal circuit that takes as input a description of a $g$-gate circuit $Q$ on $n$ qubits, and a string $\vec{x}$, and outputs $Q\ket{\vec{x}}$. The universal circuit $U_{g,n}$ can be implemented in $O(g\log n)$ gates. By Lemma \ref{lem:blindness}, running the Leash Protocol on $(U_{g,n},(Q,\vec{x}))$ reveals nothing about $Q$ or $\vec{x}$ aside from $g$ and $n$.
+
+In the form presented in Figure~\ref{fig:leash-protocol-V}, the verifier $\ver$ interacts first with $\pv$, sending him random questions that are independent from the input $\vec{x}$, aside from the input length $n$. It is thus clear that the protocol is blind with respect to $\pv$. 
+
+In contrast, the questions to $\pp$ depend on $\pv$'s answers and on the input, so it may a priori seem like the questions can leak information to $\pp$. To show that the protocol is also blind with respect to $\pp$, we show that there is an alternative formulation, in which the verifier first interacts with $\pp$, sending him random messages, and then only with $\pv$, with whom the interaction is now adaptive. We argue that, for an arbitrary strategy of the provers, the reduced state of all registers available to either prover, $\pp$ or $\pv$, is exactly the same in both formulations of the protocol --- the \emph{original} and the \emph{alternative} one. This establishes blindness for both provers. This technique for proving blindness is already used in~\cite{reichardt2012classical} to establish blindness of a two-prover protocol based on computation by teleportation. 
+
+
+\begin{lemma}[Blindness of the Leash Protocol]\label{lem:blindness}
+For any strategy of $\pv^*$ and $\pp^*$, the reduced state of $\pv^*$ (resp. $\pp^*$) at the end of the leash protocol
+is independent of the input $\vec{x}$, aside from its length.
+\end{lemma}
+
+\begin{proof}
+Let $\pv^*$ and $\pp^*$ denote two arbitrary strategies for the provers in the leash protocol. Each of these strategies can be modeled as a super-operator 
+$$\mathcal{T}_\pv:\, \Lin(\mH_{T_\pv} \otimes \mH_\pv) \to \Lin(\mH_{T'_\pv} \otimes \mH_\pv),$$
+$$\mathcal{T}_{\pp,ad}: \,\Lin(\mH_{T_\pp} \otimes \mH_\pp) \to \Lin(\mH_{T'_\pp} \otimes \mH_\pp).$$
+%respectively. 
+Here $\mH_{T_\pv}$ and $\mH_{T'_\pv}$ (resp.\ $\mH_{T_\pp}$ and $\mH_{T'_\pp}$) are classical registers containing the inputs and outputs to and from $\pv^*$ (resp.\ $\pp^*$), and $\mH_\pv$ (resp.\ $\mH_\pp$) is the private space of $\pv^*$ (resp.\ $\pp^*$). Note that the interaction of each prover with the verifier is sequential, and we use $\mathcal{T}_{\pv}$ and $\mathcal{T}_{\pp,ad}$ to denote the combined action of the prover and the verifier across all rounds of interaction (formally these are sequences of superoperators).
+
+Consider an alternative protocol, which proceeds as follows. The verifier first interacts with $\pp$. From Figure~\ref{fig:leash-protocol-PP} we see that the inputs required for $\pp$ are subsets $N$ and $T_1,\ldots,T_d$, and values $\{z_i\}_{i\in T_\ell}$ for each $\ell\in\{1,\ldots,d\}$. To select the former, the verifier proceeds as in the first step of the Delegation Game. She selects the latter uniformly at random. The verifier collects values $\{c_i\}_{i\in T_\ell}$ from $\pp$ exactly as in the original Delegation Game. 
+
+Once the interaction with $\pp$ has been completed, the verifier interacts with $\pv$. First, she selects a random string $W_N\in \Sigma^N$, conditioned on the event that $W_N$ contains at least $n$ copies of each symbol in $\Sigma$, and sends it to $\pv$, collecting answers $\vec{e}_N$. The verifier then follows the same update rules as in the delegation game. We describe this explicitly for computation rounds. First, the verifier sets $\vec{a} = \vec{e}_N$. Depending on the values $\{c_i\}_{i\in T_1}$ and $\{z_i\}_{i\in T_1}$ obtained in the interaction with $\pp$, using the equation $z_i = a_j + 1_{W_i=F}+c_i$ she deduces a value for $1_{W_i=F}$ for each $i\in T_1 \subseteq B_1$. She then selects a uniformly random $W_{B_1} \in \Sigma^{B_1}$, conditioned on the event that $W_{B_1}$ contains at least $t_1$ copies of each symbol from $\Sigma$, and for $i\in T_1$ it holds that $W_i=F$ if and only if $z_i = a_j + 1+c_i$. The important observation is that, if $T_1$ is a uniformly random, unknown subset, the marginal distribution on $W_{B_1}$ induced by the distribution described above is independent of whether $z_i = a_j + 1+c_i$ or $z_i = a_j + 0 +c_i$: precisely, it is uniform conditioned on the event that $W_{B_1}$ contains at least $t_1$ copies of each symbol from $\Sigma$. 
+The verifier receives outcomes $\vec{e}_{B_1}\in \{0,1\}^{B_1}$ from $\pv$, and using these outcomes performs the appropriate key update rules; she then proceeds to the second layer of the circuit, until the end of the computation. Finally, the verifier accepts using the same rule as in the last step of the original delegation game. 
+
+We claim that both the original and alternative protocols generate the same joint final state:
+%We claim that both executions of the protocol, original and alternative, generate the same joint final state: 
+\begin{equation}\label{eq:super-states}
+\mT_{\pp,ad}\circ\mT_\pv(\rho_{orig}) \,=\, \mT_{\pv,ad}\circ \mT_\pp(\rho_{alt}) \,\in\,  \mH_{\pp}\otimes \mH_{T'_{\pp}}\!\! \otimes \mH_\ver \otimes \mH_{T'_\pv}\! \otimes \mH_\pv,
+\end{equation}
+where we use $\rho_{orig}$ and $\rho_{alt}$ to denote the joint initial state
+  of the provers, as well as the verifier's initialization of her workspace, in
+  the original and alternative protocols respectively, and $\mT_{\pv,ad}$ and $\mT_\pp$ are the equivalent of $\mT_\pv$ and $\mT_{\pp,ad}$ for the reversed protocol (in particular they correspond to the same strategies $\pv^*$ and $\pp^*$ used to define $\mT_\pv$ and  $\mT_{\pp,ad}$). Notice that $\mT_{\pv,ad}$ and $\mT_\pp$ are well-defined since neither prover can distinguish %between 
+an execution of the original 
+%and 
+from 
+the alternative protocol.\footnote{One must ensure that a prover does not realize if the  alternative protocol is executed instead of the original; this is easily enforced by only interacting with any of the provers at specific, publicly decided times.}
+To see that 
+%the equality \eqref{eq:super-states} holds, 
+equality holds in \eqref{eq:super-states},
+it is possible to re-write the final state of the protocol as the
+  result of the following sequence of operations. First, the verifier
+  initializes the message registers with $\pp^*$ and $\pv^*$ using half-EPR
+  pairs, keeping the other halves in her private workspace. This simulates the
+  generation of 
+%uniformly 
+uniform
+random messages to both provers. Then, the
+  superoperator $\mT_\pv \otimes \mT_\pp$ is executed. Finally, the verifier
+  post-selects by applying a projection operator on $\mH_{T_\pv} \otimes \mH_{T'_\pv} \otimes \mH_{T_\pp} \otimes \mH_{T'_\pp}$ 
+%which 
+that 
+projects onto valid transcripts for the
+  original protocol (i.e.\ transcripts in which the adaptive questions are chosen
+  correctly). This projection can be implemented in two equivalent ways: either
+  the verifier first measures $ \mH_{T_\pv} \otimes \mH_{T'_\pv}$, and then
+  $\mH_{T_\pp} \otimes \mH_{T'_\pp}$; based on the outcomes she accepts a valid transcript for the
+  original protocol or she rejects. Or, she first measures $ \mH_{T_\pp} \otimes \mH_{T'_\pp}$, and then
+  $\mH_{T_\pv} \otimes \mH_{T'_\pv}$; based on the outcomes she accepts a
+  valid transcript for the alternative protocol or she rejects. Using the
+  commutation of the provers' actions, conditioned on the transcript being
+  accepted, the first gives rise to the first final state
+  in~\eqref{eq:super-states}, and the second to the second final state. The two are equivalent because the acceptance condition for a valid transcript is identical in the two versions of the protocol.
+
+
+Since in the first case the reduced state on $\mH_{T'_{\pv}} \otimes \mH_\pv$ is independent of the input to the computation, $\vec{x}$, and in the second  the reduced state on $ \mH_\pp\otimes \mH_{T'_{\pp}} $ is independent of $\vec{x}$, we deduce that the protocol hides the input from each of $\pv^*$ and $\pp^*$. 
+\end{proof}
+
+
+
+\section{Dog-Walker protocol}
+\label{sec:dog-walker}
+The Dog-Walker Protocol again involves a classical verifier $\ver$ and two provers $\pv$ and $\pp$. As in the leash protocol presented in Section \ref{sec:leash}, $\pp$ and $\pv$ take the roles of $P_{EPR}$ and $V_{EPR}$ from \cite{broadbent15howtoverify} respectively. 
+The main difference is that the Dog-Walker Protocol gives up blindness in order to reduce the number of rounds to two (one round of interaction with each prover, played sequentially). After 
+one
+round of communication with $\pp$, who returns a sequence of measurement outcomes, %the verifier 
+$\ver$ communicates all of $\pp$'s outcomes, except for the one corresponding to the output bit of the computation, as well as the input 
+%$\vec{x}$ of the computation, 
+$\vec{x}$,
+to $\pv$.  
+%Using
+With 
+these, $\pv$ can perform the required adaptive measurements without the need to interact with 
+%the verifier.  
+$\ver$.
+It may seem %quite 
+risky to communicate bits sent by $\pp$ directly to $\pv$ --- this seems to allow for communication between the two provers! Indeed, blindness is lost. However, if $\pp$ is honest, his outcomes $\{c_i\}_i$ in the computation round are the result of measurements he performs on half-EPR pairs, and are uniform random bits. If he is dishonest, and does not return the outcomes  obtained by performing the right measurements, he will be caught in the test rounds. It is only in computation rounds that $\ver$ sends the measurement results $\{c_i\}_i$ to $\pv$. 
+
+We notice that $\pv$ has a much more important role in this protocol: he
+decides himself the measurements to perform according to previous measurements'
+outcomes as well as the input $x$. For this reason, we must augment the test
+discussed in Section~\ref{sec:intro-rigidity} in order to test if $\pv$ remains
+honest with respect to these new tasks.  For this reason, we introduce the Tomography test and prove a
+rigidity theorem that will allow us to prove the soundness of the Dog-walker
+protocol
+(see Figure~\ref{fig:full-dog-walker} for a glimpse of the proof
+structure).
+
+
+Finally, the Dog-Walker Protocol can be easily extended to a classical-verifier  two-prover protocol for all languages in QMA. 
+Along the same lines of the proof that QMIP = MIP$^*$ from~\cite{reichardt2012classical}, one of the provers plays the role of $\pp$, running the  QMA verification circuit, while the second prover creates and teleports the corresponding QMA witness. In our case, it is not hard to see that the second prover can be  re-used as $\pv$ in the Dog-Walker Protocol, creating the necessary gadgets for the computation and allowing the Verifier to check the operations performed by the first prover.  We describe the protocol in Section~\ref{sec:qma}.
+
+\input{toc/dogwalker.tex}
+
+
+\section{Running our protocols in sequence}
+\label{sec:sequential}
+
+In order to make a fair comparison between previous delegated computation protocols and ours (see Figure~\ref{tab:comparison}) we analyzed their resource requirements under the condition that they produce the correct outcome of the computation with $99\%$ probability. For most protocols, this is achieved by sequentially repeating the original version, in order to amplify the completeness-soundness gap. 
+
+In this section, we describe a sequential procedure that, starting from our protocols in Sections \ref{sec:leash} and \ref{sec:dog-walker}, ensures that either the verifier aborts, or she obtains the correct outcome of the computation with probability $99\%$. Moreover, for honest provers, the probability that the procedure aborts is exponentially small in the number of sequential repetitions. Our sequential procedure has a number of rounds which depends on the desired soundness. As long as one only requires amplification of an arbitrarily small, but constant, soundness, to a fixed constant, the number of sequential repetitions remains constant.
+
+To emphasize the importance of having such a sequential procedure, we note that, firstly, the current completeness-soundness gap between acceptance probability on \textit{yes} and \textit{no} instances, for both the leash and the Dog-Walker protocol, is a very small constant. Secondly, if a classical client wishes to employ our protocols to delegate a computation, we need to specify what the client interprets, at the end of the protocol, as the outcome of the delegated computation. The natural approach is to have the verifier interpret $\sf accept$ as a \textit{yes} outcome and $\sf reject$ as a \textit{no} outcome. However, this is not enough, as our security model based on the constant gap between acceptance probability for \textit{yes} and \textit{no} instances means that, while the provers have a low probability of making the verifier accept a \textit{no} instance as a $\textit{yes}$, they can always make the verifier accept a \textit{yes} instance as a \textit{no}, simply by behaving so that they are rejected.
+
+The first point is addressed by running copies of the original protocol in sequence to amplify the completeness-soundness gap. The second point is addressed by having the verifier run the protocol twice: once for the circuit $Q$, and once for the circuit $Q'$ defined by appending an $\sf X$ gate to the output wire of $Q$. If $f:X\rightarrow \{0,1\}$ for some $X\subseteq \{0,1\}^n$ is defined by $f(x)=1$ if $\norm{\Pi_0 Q\ket{x}}^2\geq 2/3$, and $f(x)=0$ if $\norm{\Pi_0 Q\ket{x}}^2\leq 1/3$, i.e.\ $Q$ decides $f$ with bounded error $1/3$, then it is easy to see that $Q'$ decides $1-f$ with bounded error $1/3$. Thus, the verifier will accept $x$ as a \textit{yes} instance of $f$ if the protocol outputs ${\sf accept}$ when running $Q$ on $x$ and outputs $\sf reject$ when running $Q'$ on $x$. The verifier accepts $x$ as a \textit{no} instance of $f$ if the protocol outputs $\sf reject$ when running $Q$ on $x$ and outputs $\sf accept$ when running $Q'$ on $x$. The verifier aborts if she sees $\sf accept$-$\sf accept$ or $\sf reject$-$\sf reject$. 
+
+
+
+\subsection{Sequential version of our protocols}
+
+
+Let $P$ denote either the Verifier-on-a-leash or the Dog-Walker protocol from Sections \ref{sec:leash} and \ref{sec:dog-walker} respectively, and let $c$ and $\Delta$ denote the completeness and completeness-soundness gap. Let $\kappa$ be a security parameter.
+
+\begin{figure}[H]
+\rule[1ex]{16.5cm}{0.5pt}
+\justify
+Protocol $\mbox{Seq}(P,c,\Delta, \kappa)$: Let $(Q,x)$ be the verifier's input. 
+\begin{enumerate}
+\item The verifier runs $\kappa$ copies of protocol $P$ in sequence on input $(Q,x)$ with $\pp$ and $\pv$. Then she runs $\kappa$ copies in sequence on input $(Q',x)$. 
+\item Let $\vec{o}, \vec{\tilde{o}} \in \{0,1\}^{\kappa}$ be such that $o_i = 1$ iff the $i$-th copy on input $(Q,x)$ accepts, and $\tilde{o}_i = 1$ iff the $i$-th copy on input $(Q',x)$ accepts. Let $wt(\vec{o})$ and $wt(\vec{\tilde{o}})$ be their Hamming weights. Then, the verifier accepts $1$ as the outcome of the delegated computation if $wt(\vec{o}) \geq (c- \frac{\Delta}{2}) \cdot \kappa$ and $wt(\vec{\tilde{o}}) < (c- \frac{\Delta}{2}) \cdot \kappa$, and she accepts $0$ as the outcome of the computation if $wt(\vec{o}) < (c- \frac{\Delta}{2})\cdot \kappa$ and $wt(\vec{\tilde{o}}) \geq (c- \frac{\Delta}{2}) \cdot \kappa$. Otherwise the verifier aborts.
+
+\end{enumerate}
+\rule[2ex]{16.5cm}{0.5pt}\vspace{-.5cm}
+\caption{Sequential version of our protocols} \label{fig: gardenhose-protocol-parallel}
+\end{figure}
+
+\noindent We state and prove completeness and soundness for the sequential protocol.
+
+\begin{theorem}
+Let $c$ and $\Delta$ be respectively the completeness and completeness-soundness gap of protocol P. On input $(Q,x)$:
+\begin{itemize}
+\item If the provers are honest, $$ \Pr\big(\mbox{Seq}(P, c, \Delta, \kappa) \mbox{  outputs } f(x)\big) \geq 1 - 2\exp \left(-\frac{\Delta^2\kappa}{2}\right) .$$ 
+\item For any cheating provers, $$\Pr\big(\mbox{Seq}(P, c, \Delta, \kappa) \mbox{  outputs } 1-f(x)\big) \leq \exp \left(-\frac{\Delta^2\kappa}{8}\right) .$$
+\end{itemize}
+
+\end{theorem}
+
+\begin{proof} We first show completeness. 
+Let $s = c- \Delta$ be the soundness of protocol P.
+Suppose $f(x) = 1$ (the case $f(x) = 0$ is analogous). If the provers are honest, then the probability that the verifier outputs~$1$~is:
+\begin{align*}
+\Pr(\mbox{Verifier outputs $1$}) &= \Pr \left(wt(\vec{o}) \geq \left(c - \frac{\Delta}{2}\right)\cdot \kappa \,\, \land \,\, wt(\vec{\tilde{o}}) < \left(c - \frac{\Delta}{2}\right)\cdot \kappa \right)\\
+&\geq 1-\Pr \left(wt(\vec{o}) < \left(c - \frac{\Delta}{2}\right)\cdot \kappa \right) - \Pr \left(wt(\vec{\tilde{o}}) \geq \left(c - \frac{\Delta}{2}\right)\cdot \kappa \right) \\
+&\geq 1 - 2\exp \left(-\frac{\Delta^2\kappa}{2}\right)
+\end{align*}
+by Hoeffding's inequality.
+
+Next we show soundness.
+Again suppose $f(x) = 1$ (the case $f(x) = 0$ is analogous). Let $W_j$ be an indicator random variable for the event $\tilde{o}_j = 1$, and let $F_j = W_j - s$. One might be tempted to immediately assert that $\mathbb{E}(F_j|F_{j-1},..,F_1) \leq 0$. However, because of the sequentiality of the runs of protocol $P$, this is not in general true, and an analysis that treats protocol $P$ as a black-box does not suffice when $P$ is the verifier-on-a-leash protocol (because such a protocol is blind). We argue more precisely that $\mathbb{E}(F_j|F_{j-1},..,F_1) \leq 0$:
+\begin{itemize}
+    \item When $P$ is the Dog-Walker protocol from section \ref{sec:dog-walker} (which is not blind): suppose for a contradiction that there were provers $\pv$ and $\pp$, and a $j$ such that $\mathbb{E}(F_j|F_{j-1},..,F_1) \leq 0$. Then one can construct provers $\pv'$ and $\pp'$ which break the soundness of protocol $P$. Namely $\pv'$ and $\pp'$ simulate $j-1$ runs of protocol $P$. They then respectively invoke $\pv$ and $\pp$ and forward to them the transcripts previously generated. $\pv'$ and $\pp'$ then participate in the challenge protocol $P$ by forwarding all of the incoming messages to the invocations of $\pv$ and $\pp$ respectively. By the initial hypothesis, such $\pv'$ and $\pp'$ would break the soundness of $P$.
+    \item When $P$ is the Verifier-on-a-leash protocol from section \ref{sec:leash}: the key observation is that protocol $P$ remains sound even when $x$ is revealed to the provers. Then, notice that if it is possible for provers to force $\mathbb{E}(F_j|F_{j-1},..,F_1) \leq 0$ when $x$ is not revealed, it is clearly also possible to do so when $x$ is revealed. However, the latter is not possible, by an analogous reduction to the one for the dog-walker protocol. 
+\end{itemize}
+Define $X_l = \sum_{j=1}^l F_j$, for $l=1,..,\kappa$. The sequence of $X_l$'s defines a super-martingale with $|X_l-X_{l-1}| = |F_l| \leq 1 \,\, \forall j$.  Hence, by Azuma's inequality, for any $\kappa\geq 1$, $\Pr(X_\kappa \geq t) \leq \exp(-\frac{t^2}{2\kappa})$. This implies that 
+\begin{equation*}
+\Pr \left(\sum_{j=1}^{\kappa} W_j - \kappa \cdot s \geq t \right) = \Pr \left(\sum_{j=1}^{\kappa}F_j \geq t \right) = \Pr \left(X_{\kappa} \geq t \right) \leq \exp\left(-\frac{t^2}{2\kappa}\, \right).
+\end{equation*}
+Then, for any provers $\pp$ and $\pv$,
+\begin{align*}
+\Pr(\mbox{Verifier outputs $0$}) &\leq \Pr \Big(wt(\vec{\tilde{o}}) \geq (c - \frac{\Delta}{2})\cdot \kappa \Big) \\
+&= \Pr \left(\sum_{j=1}^\kappa W_j \geq (c - \frac{\Delta}{2})\cdot \kappa \right) \\
+&= \Pr \left(\sum_{j=1}^{\kappa} W_j - \kappa \cdot s \geq \kappa \cdot \frac{\Delta}{2} \right) \\
+&\leq \exp \left(-\frac{\Delta^2\kappa}{8}\right). \qedhere
+\end{align*}
+\end{proof}
+ Finally, one can check that when $P$ is the verifier-on-a-leash protocol, then $\mbox{Seq}(P,c,\Delta, \kappa)$ remains blind. This follows from a similar argument as in the proof of Lemma \ref{lem:blindness}.
+
+
+
+\bibliography{delegation}
+\input{toc/appendix.tex}
+
+%\notesendofpaper
+
+\end{document}

@@ -1,0 +1,286 @@
+\appendix
+
+\section*{Supplemental material}
+
+%===============================%
+\section{Rigidity}
+\label{sec:rigidity}
+%===============================%
+
+
+
+\input{rigidity.tex}
+
+%===============================%
+\section{The Dog-Walker Protocol}
+\label{sec:dog-walker}
+%===============================%
+
+\input{dogwalker.tex}
+
+\subsection{Multi-prover game for QMA}\label{sec:qma}
+
+In this section we propose a new multi-prover game for QMA, which is based on the Dog-Walker
+protocol.
+Recently, there has been an effort to devise such games~\cite{FitzsimonsV15,Ji16,natarajan2016robust},
+due to their connections to the quantum PCP conjecture~\cite{AharonovAV13}.
+
+
+A promise problem $L$ is in QMA if there is a uniform family
+of quantum circuits $\{V_x\}_{x \in L}$ such that if $x$ is a yes-instance, then there exists a
+quantum state $\ket{\psi} \in \left(\C^2\right)^{\otimes n_w}$, such that
+$V_x$  accepts on input $\ket{\psi}\ket{0}^{\otimes n_a}$ with probability at least
+$\frac{2}{3}$, while for a no-instance $x$ and  all states $\ket{\psi} \in
+\left(\C^2\right)^{\otimes n_w}$, $V_x$
+rejects on input $\ket{\psi}\ket{0}^{\otimes n_a}$ with probability at
+least $\frac{2}{3}$. The run-time of the circuit $V_x$ and the values $n_w$ and $n_a$ are polynomially bounded in $|x|$.
+
+ In a multi-prover game for a promise problem $L$, an
+ instance $x \in L$ is reduced to ja game $G_x$ such that if $x$ is a yes-instance, then the maximum
+ acceptance probability in the game is at least $c$, whereas if $x$ is a
+ no-instance,
+ then the maximum acceptance probability in the game is  at most $s$, for $c
+ > s$.
+
+ Here, we are interested in multi-prover games where the verifier is classical,
+ the honest provers run a polynomially bounded quantum computation on copies
+ of an accepting witness and the completeness-soundness gap $c-s$ is constant.
+Using the Dog-Walker protocol, we are able to construct, to the best of our knowledge, the first two-prover
+game for QMA with these parameters. In our protocol the Verifier and provers exchange messages of polynomial size 
+in two rounds of communication, one with each
+prover.
+
+Our protocol consists in the Verifier running the Dog-Walker protocol,
+  with the following changes:
+  \begin{itemize}
+    \item On X-Test rounds (resp.\ $Z$ Test-rounds), the Verifier randomly selects  positions where
+      $\pv$ has measured in the $Z$ basis (resp.\ $X$ basis) and sends them to $\pp$. $\pp$ uses the EPR pair halves in these positions as the witness register when he executes the circuit $V_x$.
+    \item On Rigidity-Computation rounds, the Verifier
+      informs $\pv$ of the halves of EPR pairs that should be used to teleport the witness
+      state to $\pp$, and $\pv$ reports the outcomes of the teleportation
+      measurements along with the answers for the original Dog-Walker protocol. The Verifier ignores the measurements corresponding to the teleportation and uses the remaining bits to perform the same checks as in the original Dog-Walker protocol.
+      \item On EPR-Computation rounds, the Verifier informs $\pp$ of the
+      EPR pair halves that should be used as the witness when he performs the circuit $V_x$.  
+      The Verifier
+      also informs $\pv$ of these positions, who should use them to teleport the witness
+      state to $\pp$.  The outcomes of the teleportation      measurements are reported to the Verifier along with the answers for the original Dog-Walker protocol, in order that the Verifier can decrypt the output of the computation.
+  \end{itemize}
+
+The full description of the protocol is presented in Figures~\ref{fig:qma-protocol-V}, \ref{fig:qma-protocol-PP} and \ref{fig:qma-protocol-PV}, where the differences to the original Dog-Walker protocol are underlined. We state the result and sketch its proof. 
+
+
+%----------------%
+\begin{figure}[H]
+\rule[1ex]{\textwidth}{0.5pt}
+\vspace{-20pt}
+\justify
+Let $x$ be an instance of a language $L \in$ QMA and $V_x$ the associated verification circuit. $V_x$ takes as input  an $n_w$-qubit witness register and an $n_a$-qubit ancilla register. It has $t$ $\sf T$ gates, $t_0$ of which are even and $t-t_0$ are odd (see Section~\ref{sec:EPR-protocol} for the definition of even and odd $\sf T$ gates).
+
+\justify
+1. Select a round type \textbf{EPR} or \textbf{Rigidity}, and disjoint sets
+  $N^w,N^a, T^0,T^1\subset \{1,\ldots,m\}$ of sizes $n_w$, $n_a$,  $t_0$ and $t-t_0$ respectively. 
+\begin{description}
+\item[EPR] Choose $\vec{z}$ uniformly at random from $\{0,1\}^t$ and send it,
+  along with $\vec{x}$, $N^w$, $N^a$, $T^0$ and $T^1$, to $\pp$. Receive measurement outcomes $\vec{c}\in\{0,1\}^t$ and $c_f\in\{0,1\}$ from $\pp$.
+\item[Rigidity] Choose $W'$ according to $\mu(\cdot)$ and send it to $\pp$. Receive $\vec{e}'\in \{0,1\}^m$ from $\pp$. 
+\end{description}
+2. Select a sub-round type at random from \textbf{Computation}, \textbf{X-Test} or \textbf{Z-Test}. 
+\begin{description}
+\item[Computation] Based on whether it's an \text{EPR} or a \text{Rigidity} Round:
+	\begin{description}
+	\item[EPR]
+		\begin{enumerate}
+		\item[(i)] Send $\vec{x}$, $\vec{z}$, $\vec{c}$ and sets \highlight{$N^w$}, $N^a$, $T^0$
+      and $T^1$ to $\pv$, and receive measurement outcomes $\vec{a},\vec{b}\in
+        \{0,1\}^{n_w + n_a}$ and $\vec{e}\in\{0,1\}^t$.
+		\item[(ii)] Apply the update rules from Table \ref{tab:EPR-key-updates} gate-by-gate to obtain the final $\sf X$ key for the output wire $a_f'$. If $c_f+a_f'\neq 0$, $\sf reject$. 
+		\end{enumerate}
+	\item[Rigidity (Tomography)]
+		\begin{enumerate}
+		\item[(i)] Choose uniform random strings $\vec{c},\vec{z}\in\{0,1\}^t$, $\vec{x} \in \{0,1\}^n$ 
+      to send to $\pv$, along with \highlight{$N^w$}, $N^a$ and $T$, and receive measurement outcomes $\vec{a}, \vec{b}\in \{0,1\}^{n_w + n_a}$ and $\vec{e}\in\{0,1\}^t$. 
+		\item[(ii)]
+		From $\vec{x}$, $\vec{c}$, $\vec{z}$, $\vec{a}$, $\vec{b}$ and $\vec{e}$, determine the adaptive measurements $W\in\Sigma^{n+t}$ that $V_{EPR}^0$ would have performed (based on Figure \ref{fig:original-protocol-VEPRr}), and $\sf reject$ if the input-output pairs $(W',\vec{e}')$ and $(N\cup T,(W,\vec{e}))$ do not satisfy the winning criterion for $\tom(\Sigma,n+t,m)$.
+		\end{enumerate}
+	\end{description}
+\item[$X$-Test] Based on whether it's an \text{EPR} or a \text{Rigidity} Round:
+\begin{description}
+	\item[EPR] 
+	\begin{enumerate}
+		\item[(i)] Choose $W\in\Sigma^m$ uniformly at random among all strings
+      satisfying: $W_i=Z$ for all $i\in \highlight{N^w} \cup N^a$; $W_i=Z$ for all $i\in T^0$; and $W_i\in\{X,Y\}$ for all $i\in T^1$. Send $W$ to $\pv$ and receive measurement results $\vec{e}\in\{0,1\}^m$. Let $(\vec{a},\vec{b})=(\vec{e}_N,0^n)$. 
+		\item[(ii)] Apply update rules from Table \ref{tab:EPR-key-updates} gate-by-gate to obtain $\forall i\in [t]$ the $\sf X$ key before the $i$-th $\sf T$ gate is applied, $a_i'$, and the final $\sf X$ key for the output wire, $a_f'$. 
+If $\exists i$ s.t.\ the $i$-th $\sf T$ gate is even and $c_i\neq a_i'+e_i$, $\sf reject$. If $c_f+a_f'\neq 0$, $\sf reject$. 
+	\end{enumerate}
+	\item[Rigidity (Clifford)] Choose ${W}$ according to the marginal conditioned on ${W}'$, $\mu(\cdot|{W}')$. 
+	Send ${W}$ to $\pv$ and receive $\vec{e}\in\{0,1\}^m$. Reject if   $({W}',\vec{e}',{W},\vec{e})$ doesn't win $\rigid(\Sigma,m)$. 
+\end{description}
+
+\item[$Z$-Test] Based on whether it's an \text{EPR} or a \text{Rigidity} Round:
+\begin{description}
+	\item[EPR] 
+	\begin{enumerate}
+		\item[(i)] Choose $W\in\Sigma^m$ uniformly at random among all strings
+      satisfying: $W_i=X$ for all $i\in \highlight{N^w} \cup N^a$; $W_i\in\{X,Y\}$ for all $i\in T^0$; and $W_i=Z$ for all $i\in T^1$. Send $W$ to $\pv$ and receive measurement results $\vec{e}\in\{0,1\}^m$. Let $(\vec{a},\vec{b})=(0^n,\vec{e}_N)$.
+		\item[(ii)] Apply update rules from Table \ref{tab:EPR-key-updates} gate-by-gate to obtain $\forall i\in [t]$, the $\sf X$ key before the $i$-th $\sf T$ gate is applied, $a_i'$. 
+If $\exists i$ s.t.\ the $i$-th $\sf T$ gate is odd and $c_i\neq a_i'+e_i$, $\sf reject$. 
+	\end{enumerate}
+	\item[Rigidity (Clifford)] Identical to $X$-Test case.
+\end{description}
+\end{description}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{QMA Protocol: Verifier's point of view.}\label{fig:qma-protocol-V}
+\end{figure}
+
+
+\begin{figure}[H]
+\rule[1ex]{\textwidth}{0.5pt}
+\vspace{-20pt}
+\begin{enumerate}
+  \item If $\pp$ receives a question ${W}'$ from $\ver$ (he is playing $\tom$ or $\rigid$):
+\begin{enumerate}
+     \item[]  Measure the $m$ qubits in the observable indicated by $W'$ --- for example, if $W'\in\Sigma^m$, for $i\in \{1,\ldots,m\}$, measure the $i$-th qubit in the basis indicated by $W_i'$ --- and report
+       the outcomes $\vec{e}'$ to~$\ver$.
+\end{enumerate}
+\item If $\pp$ receives $\vec{x}, \vec{z}$, and sets $N^w$,$N^a$, $T^0$ and $T^1$ from $\ver$ (he is playing the role of $P_{EPR}$ from the EPR Protocol):
+\begin{enumerate}
+     \item[] Run  prover $P_{EPR}$ from Figure
+       \ref{fig:original-protocol-PEPR} with the $V_x$ as the circuit $Q$, on input $\vec{z}$, \highlight{the $n_w$ qubits in $N^w$ as the witness}, the $n_a$ qubits in 
+        $N^a$ as the ancilla, and the $t$ qubits in $T^0\cup T^1$ for $\sf T$ gadgets.
+     Report the outputs $\vec{c}\in\{0,1\}^t$ and $c_f\in\{0,1\}$ of $P_{EPR}$  to $\ver$. 
+\end{enumerate}
+\end{enumerate}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{QMA Protocol: Honest strategy for $\pp$.}\label{fig:qma-protocol-PP}
+\end{figure}
+
+
+\begin{figure}[H]
+\rule[1ex]{\textwidth}{0.5pt}
+\vspace{-20pt}
+\begin{enumerate}
+  \item If $\pv$ receives a question ${W}$ from $\ver$ (he is playing $\rigid$ or an $X$- or $Z$-Test Round):
+\begin{enumerate}
+     \item[]  Measure the $m$ qubits in the observable indicated by $W$ --- for example, if $W\in \Sigma^m$, for $i\in \{1,\ldots,m\}$, measure the $i$-th qubit in the basis indicated by $W_i$ --- and report the outcomes $\vec{e}$ to $\ver$.
+\end{enumerate}
+
+  \item If $\pv$ receives $\vec{x}$, $\vec{z}$, $\vec{c}$ and sets $N^w$, $N^a$, $T^0$ and $T^1$ from $\ver$ (he is playing $\tom$ or a Computation Round):
+\begin{enumerate}
+  \item[] \highlight{Using the EPR pairs in $N^w$, teleports the witness state
+    $\ket{\psi}$ that makes $V_x$ accept with high probability. Let $(\vec{a}_{N^w}, \vec{b}_{N^w})$ be the corresponding
+    outcomes of the teleportation measurements.}
+  \item[] Measure each qubit in $N^a$ in the $Z$ basis with outcomes $\vec{d}$  and let $(\vec{a}_{N^a},
+    \vec{b}_{N^a}) = (\vec{d}, \vec{0} )$ 
+	\item[] Run the second step of procedure $V_{EPR}^0$ from Figure
+    \ref{fig:original-protocol-VEPRr} with $V_x$ as the circuit $Q$, and the
+    values $\vec{c}$, $\vec{z}$, \highlight{the $n_w$ qubits in $N^w$ as the witness}, the $n_a$ qubits in 
+        $N^a$ as the ancilla, and the $t$ qubits in $T^0\cup T^1$ for $\sf T$ gadgets. Report the outputs  $\vec{a}$, $\vec{b}$ and $\vec{e}$ of $V_{EPR}^0$ to $\ver$.
+\end{enumerate}
+\end{enumerate}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{QMA Protocol: Honest strategy for $\pv$.}\label{fig:qma-protocol-PV}
+\end{figure}
+
+
+
+
+\begin{lemma}
+There
+  exists universal constants $0\leq p_{compl}\leq 1$ and $\Delta >0$ such that the following holds. 
+Let $L$ be a language in QMA and $x$ an instance of $L$ such that $n = |x|$. Let  $V_x$ be the
+  verification circuit for this instance and $g$ the number of gates in $V_x$
+  (in the compiled form as described in Section \ref{sec:prelim}). Then there exists a two-round interactive protocol
+between a classical verifier and two entangled provers where the Verifier
+sends  $O(n + g)$-bit questions to the provers, the provers answer with $O(n + g)$ bits and the protocol satisfies the following properties.
+\begin{description}
+\item[Completeness:] If $x$ is a yes-instance, then  there is a strategy for the provers such that the Verifier accepts with probability  at least $p_{compl}$.
+\item[Soundness:] If $x$ is a no-instance, then for all strategies of the provers, the Verifier accepts with  probability at most
+$p_{sound} = p_{compl} - \Delta$.
+\end{description}
+\end{lemma}
+\begin{proof}[Proof sketch]
+The Verifier performs the operations described in Figure~\ref{fig:qma-protocol-V}. 
+
+  The completeness of the protocol is straightforward: if $\pp$ and $\pv$ use the strategy in Figures~\ref{fig:qma-protocol-PP} and \ref{fig:qma-protocol-PV}, respectively, then the Verifier accepts with  high probability.
+
+  The soundness of the protocol follows from the combination of the soundness of the
+  Dog-Walker protocol and the soundness of the QMA verification circuit. Along the same lines as 
+  Lemmas~\ref{lem:PV-2-PP-4}, \ref{lem:ci-unif} and \ref{lem:PV-34},
+  we can show that if
+  the acceptance probability in Rigidity-Test, Rigidity-Computation and
+  EPR-Test rounds
+  is sufficiently high, then there is a strategy where the provers follow the honest
+  strategy and the acceptance probability in EPR-Computation round is only slightly
+  changed.  
+  In the case where the provers are honest in the Rigidity-Test, Rigidity-Computation and EPR-Test rounds, no matter which state is held
+  by $\pp$ as witness state, $V_x$ rejects with high probability in the EPR-Computation round, by the
+  soundness of the QMA verification circuit.  The proof of soundness can be completed by repeating the
+  arguments in Lemma~\ref{lem:dogwalker-soundness}.
+\end{proof}
+
+
+
+\section{Running our protocols in sequence}
+\label{sec:sequential}
+
+
+In this section, we describe a sequential procedure that, starting from our protocols in Sections \ref{sec:leash} and \ref{sec:dog-walker}, ensures that either the verifier aborts, or she obtains the correct outcome of the computation with probability $99\%$. Moreover, for honest provers, the probability that the procedure aborts is exponentially small in the number of sequential repetitions. Our sequential procedure has a number of rounds which depends on the desired soundness. As long as one only requires amplification of an arbitrarily small, but constant, soundness, to a fixed constant, the number of sequential repetitions remains constant.
+
+To emphasize the importance of having such a sequential procedure, we note that, firstly, the current completeness-soundness gap between acceptance probability on \textit{yes} and \textit{no} instances, for both the leash and the Dog-Walker protocol, is a very small constant. Secondly, if a classical client wishes to employ our protocols to delegate a computation, we need to specify what the client interprets, at the end of the protocol, as the outcome of the delegated computation. The natural approach is to have the verifier interpret $\sf accept$ as a \textit{yes} outcome and $\sf reject$ as a \textit{no} outcome. However, this is not enough, as our security model based on the constant gap between acceptance probability for \textit{yes} and \textit{no} instances means that, while the provers have a low probability of making the verifier accept a \textit{no} instance as a $\textit{yes}$, they can always make the verifier accept a \textit{yes} instance as a \textit{no}, simply by behaving so that they are rejected.
+
+The first point is addressed by running copies of the original protocol in sequence to amplify the completeness-soundness gap. The second point is addressed by having the verifier run the protocol twice: once for the circuit $Q$, and once for the circuit $Q'$ defined by appending an $\sf X$ gate to the output wire of $Q$. If $f:X\rightarrow \{0,1\}$ for some $X\subseteq \{0,1\}^n$ is defined by $f(x)=1$ if $\norm{\Pi_0 Q\ket{x}}^2\geq 2/3$, and $f(x)=0$ if $\norm{\Pi_0 Q\ket{x}}^2\leq 1/3$, i.e.\ $Q$ decides $f$ with bounded error $1/3$, then it is easy to see that $Q'$ decides $1-f$ with bounded error $1/3$. Thus, the verifier will accept $x$ as a \textit{yes} instance of $f$ if the protocol outputs ${\sf accept}$ when running $Q$ on $x$ and outputs $\sf reject$ when running $Q'$ on $x$. The verifier accepts $x$ as a \textit{no} instance of $f$ if the protocol outputs $\sf reject$ when running $Q$ on $x$ and outputs $\sf accept$ when running $Q'$ on $x$. The verifier aborts if she sees $\sf accept$-$\sf accept$ or $\sf reject$-$\sf reject$. 
+
+
+
+\subsection{Sequential version of our protocols}
+
+Let $P$ denote either the Verifier-on-a-leash or the Dog-Walker protocol from Sections \ref{sec:leash} and \ref{sec:dog-walker} respectively, and let $c$ and $\Delta$ denote the completeness and completeness-soundness gap. Let $\kappa$ be a security parameter.
+
+\begin{figure}[H]
+\rule[1ex]{\textwidth}{0.5pt}
+\justify
+Protocol $\mbox{Seq}(P,c,\Delta, \kappa)$: Let $(Q,x)$ be the verifier's input. 
+\begin{enumerate}
+\item The verifier runs $\kappa$ copies of protocol $P$ in sequence on input $(Q,x)$ with $\pp$ and $\pv$. Then she runs $\kappa$ copies in sequence on input $(Q',x)$. 
+\item Let $\vec{o}, \vec{\tilde{o}} \in \{0,1\}^{\kappa}$ be such that $o_i = 1$ iff the $i$-th copy on input $(Q,x)$ accepts, and $\tilde{o}_i = 1$ iff the $i$-th copy on input $(Q',x)$ accepts. Let $wt(\vec{o})$ and $wt(\vec{\tilde{o}})$ be their Hamming weights. Then, the verifier accepts $1$ as the outcome of the delegated computation if $wt(\vec{o}) \geq (c- \frac{\Delta}{2}) \cdot \kappa$ and $wt(\vec{\tilde{o}}) < (c- \frac{\Delta}{2}) \cdot \kappa$, and she accepts $0$ as the outcome of the computation if $wt(\vec{o}) < (c- \frac{\Delta}{2})\cdot \kappa$ and $wt(\vec{\tilde{o}}) \geq (c- \frac{\Delta}{2}) \cdot \kappa$. Otherwise the verifier aborts.
+
+\end{enumerate}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{Sequential version of our protocols} \label{fig: gardenhose-protocol-parallel}
+\end{figure}
+
+\noindent We state and prove completeness and soundness for the sequential protocol.
+
+\begin{theorem}
+Let $c$ and $\Delta$ be respectively the completeness and completeness-soundness gap of protocol P. On input $(Q,x)$:
+\begin{itemize}
+\item If the provers are honest, $$ \Pr\big(\mbox{Seq}(P, c, \Delta, \kappa) \mbox{  outputs } f(x)\big) \geq 1 - 2\exp \left(-\frac{\Delta^2\kappa}{2}\right) .$$ 
+\item For any cheating provers, $$\Pr\big(\mbox{Seq}(P, c, \Delta, \kappa) \mbox{  outputs } 1-f(x)\big) \leq \exp \left(-\frac{\Delta^2\kappa}{8}\right) .$$
+\end{itemize}
+
+\end{theorem}
+
+\begin{proof} We first show completeness. 
+Let $s = c- \Delta$ be the soundness of protocol P.
+Suppose $f(x) = 1$ (the case $f(x) = 0$ is analogous). If the provers are honest, then the probability that the verifier outputs~$1$~is:
+\begin{align*}
+\Pr(\mbox{Verifier outputs $1$}) &= \Pr \left(wt(\vec{o}) \geq \left(c - \frac{\Delta}{2}\right)\cdot \kappa \,\, \land \,\, wt(\vec{\tilde{o}}) < \left(c - \frac{\Delta}{2}\right)\cdot \kappa \right)\\
+&\geq 1-\Pr \left(wt(\vec{o}) < \left(c - \frac{\Delta}{2}\right)\cdot \kappa \right) - \Pr \left(wt(\vec{\tilde{o}}) \geq \left(c - \frac{\Delta}{2}\right)\cdot \kappa \right) \\
+&\geq 1 - 2\exp \left(-\frac{\Delta^2\kappa}{2}\right)
+\end{align*}
+by Hoeffding's inequality.
+
+Next we show soundness.
+Again suppose $f(x) = 1$ (the case $f(x) = 0$ is analogous). Let $W_j$ be an indicator random variable for the event $\tilde{o}_j = 1$, and let $F_j = W_j - s$. Define $X_l = \sum_{j=1}^l F_j$, for $l=1,..,\kappa$. The $F_j$ define a submartingale with $|F_j| \leq 1 \,\, \forall j$. Hence, by Azuma's inequality, for any $\kappa\geq 1$, $\Pr(X_\kappa \geq t) \leq \exp(-\frac{t^2}{2\kappa})$. This implies that 
+\begin{equation*}
+\Pr \left(\sum_{j=1}^{\kappa} W_j - \kappa \cdot s \geq t \right) = \Pr \left(\sum_{j=1}^{\kappa}F_j \geq t \right) = \Pr \left(X_{\kappa} \geq t \right) \leq \exp\left(-\frac{t^2}{2\kappa}\, \right).
+\end{equation*}
+Then, for any provers $\pp$ and $\pv$,
+\begin{align*}
+\Pr(\mbox{Verifier outputs $0$}) &\leq \Pr \Big(wt(\vec{\tilde{o}}) \geq (c - \frac{\Delta}{2})\cdot \kappa \Big) \\
+&= \Pr \left(\sum_{j=1}^\kappa W_j \geq (c - \frac{\Delta}{2})\cdot \kappa \right) \\
+&= \Pr \left(\sum_{j=1}^{\kappa} W_j - \kappa \cdot s \geq \kappa \cdot \frac{\Delta}{2} \right) \\
+&\leq \exp \left(-\frac{\Delta^2\kappa}{8}\right). 
+\end{align*}
+\end{proof}
+

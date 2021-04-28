@@ -1,0 +1,165 @@
+\documentclass[11pt]{article}
+
+\usepackage{fullpage}
+\usepackage{amsmath,amsfonts,amsthm,mathrsfs,mathpazo,xspace,hyperref,graphicx}
+\usepackage{endnotes}
+\usepackage{color}
+\usepackage{bm}
+\usepackage{times}
+\usepackage{amssymb,latexsym}
+\usepackage{float}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\beq}{\begin{eqnarray}}
+\newcommand{\eeq}{\end{eqnarray}}
+
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\proj}[1]{\ket{#1}\!\bra{#1}}
+\newcommand{\Tr}{\mbox{\rm Tr}}
+\newcommand{\Id}{\ensuremath{\mathop{\rm Id}\nolimits}}
+\newcommand{\Es}[1]{\textsc{E}_{#1}}
+
+\newcommand{\CON}{C}
+\newcommand{\DIS}{d}
+\newcommand{\Drho}{\DIS_\rho}
+\newcommand{\Trho}{\Tr_\rho}
+
+\newcommand{\reg}[1]{{\textsf{#1}}}
+
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\F}{\ensuremath{\mathbb{F}}}
+\newcommand{\K}{\ensuremath{\mathbb{K}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+
+\newcommand{\mH}{\mathcal{H}}
+\newcommand{\Alg}{\mathcal{A}}
+
+\newcommand{\setft}[1]{\mathrm{#1}}
+\newcommand{\Density}{\setft{D}}
+\newcommand{\Pos}{\setft{Pos}}
+\newcommand{\Proj}{\setft{Proj}}
+\newcommand{\Channel}{\setft{C}}
+\newcommand{\Unitary}{\setft{U}}
+\newcommand{\Herm}{\setft{Herm}}
+\newcommand{\Lin}{\setft{L}}
+\newcommand{\Trans}{\setft{T}}
+\DeclareMathOperator{\poly}{poly}
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\ph}{\ensuremath{\varphi}}
+
+\newcommand{\Acc}{\textsc{Acc}}
+\newcommand{\Samp}{\textsc{Samp}}
+\newcommand{\Ext}{\ensuremath{\text{Ext}}}
+
+\newcommand{\Hmin}{H_\infty}
+\newcommand{\Hmax}{H_{\ensuremath{\text{max}}}}
+
+\newcommand{\CHSH}{{\rm CHSH}}
+\newcommand{\EPR}{{\rm EPR}}
+\newcommand{\MS}{{\rm MS}}
+\newcommand{\basis}{\mathfrak{B}}
+\newcommand{\pauli}{\mathcal{P}}
+\newcommand{\paulip}{\tilde{\mathcal{P}}}
+\newcommand{\pbt}{\mathfrak{P}}
+\newcommand{\qauli}{\mathcal{Q}}
+\newcommand{\rauli}{\mathcal{R}}
+\newcommand{\raulip}{\tilde{\mathcal{R}}}
+\newcommand{\qaulip}{\tilde{\mathcal{Q}}}
+\newcommand{\magic}{\mathcal{M}}
+\newcommand{\wagon}{\mathcal{W}}
+\newcommand{\aux}{\textsc {aux}}
+\newcommand{\ctl}{\textsc {ctl}}
+\newcommand{\anote}[1]{\textcolor{blue}{\small {\textbf{(Andrea:} #1 \textbf{) }}}}
+\newcommand{\snote}[1]{\textcolor{green}{\small {\textbf{(Stacey:} #1 \textbf{) }}}}
+\newcommand{\agnote}[1]{\textcolor{cyan}{\small {\textbf{(Alex:} #1 \textbf{) }}}}
+\newcommand{\agftnote}[1]{\footnote{\textcolor{cyan}{\small {\textbf{(Alex:} #1\textbf{) }}}}}
+
+\newcommand{\norm}[1]{\left\|#1\right\|}
+
+
+\bibliographystyle{alpha}
+
+\newif\ifnotes\notestrue
+%\newif\ifnotes\notesfalse
+
+%\input{../marginnotes}
+\input{marginnotes}
+
+\begin{document}
+
+
+\section{Introduction}
+
+An urgent question in the near future of quantum computing is the question of how a classical verifier can test a quantum device. This verifier could be an experimentalist running a new experimental setup, a consumer who has purchased a quantum device, or a client who wishes to delegate some task to a server who claims to have a quantum computer. For example, an experimentalist may test that a particular experiment is producing a certain predicted quantum state by performing a series of measurements, i.e. by state tomography, but this assumes some level of trust in the measurement apparatus being used. For a classical party to truly test a quantum system, that system should be models as having classical inputs, for example, representing measurement settings, and classical outputs, for example, representing measurement results. 
+
+Such tests of some quantum mechanical properties of a system first appeared in the form of Bell tests \cite{}. While violating Bell inequalities can be seen as a test of the existence of entanglement, the area of self-testing, first introduced in \cite{mayers2004selftesting}, allows for much stronger statements about precisely which measurements are being performed, on precisely which states.  Informally, a \emph{robust rigidity theorem} is a statement about precisely which kind of quantum strategy must be used to win a non-local game with close to optimal probability. Given such a theorem for a particular game, this game is a means of testing that such a strategy is being employed. 
+
+In 2012, Reichardt, Unger and Vazirani proved a robust rigidity theorem for playing a sequence of $n$ CHSH games \cite{reichardt2010classical}. This rigidity theorem had two important consequences. One was the first was a device-independent protocol for quantum key distribution. The second, and perhaps surprising consequence of this rigidity theorem was a protocol whereby a completely classical verifier can test a universal quantum computer, consisting of two space-like separated devices. This latter test also models a situation in which a classical verifier wants to delegate an arbitrary quantum computation to an untrusted pair of non-communicating provers.
+
+However, the overhead required, while polynomial, is prohibitively large. This is largely due to a very small (although still inverse polynomial) gap between the completeness and soundness of the rigidity theorem. 
+The protocol in \cite{reichardt2010classical} requires resources that scale like $O(m^{8192})$ to perform an $m$-gate quantum circuit, making the approach infeasible for even a 2-gate circuit. Subsequent work has presented signifcantly mor efficient protocols for achieving the same functionality \cite{McKague16,Gheorghiu15,hajdusek2015,hajdusek2015posthoc,natarajan2016robust} (see Table \ref{tab:comparison}, but the most efficient of these still requires resources that scale like $O(m^4\log m)$ \snote{find the constant so we can claim that this is still infeasible for $m=2$. Also check subsequent protocols. In particular, do they scale like $m^4$, or $n^4$?}.  
+
+In contrast, more efficient schemes for verifiable delegation exist in the cases where we allow the verifer the ability to generate single-qubit states \cite{}.
+\snote{more detail}
+For a survey, see \cite{fitzsimons2016survey}.
+
+
+\begin{table}[t]
+\begin{tabular}{llllll}
+& sc-gap & provers & rounds & total resources & blind\\
+RUV 2012 \cite{reichardt2012classical} & $1/\mbox{poly}(n)$ &2 &  & $\geq m^{8192}$ & yes\\
+McKague 2013 \cite{McKague16} & $1/\mbox{poly}(n)$ & $\mathrm{poly}(n)$ & & $\geq 2^{153}g^{22}$ & yes \\
+HPF 2015 \cite{hajdusek2015} & $1/\mbox{poly}(n)$ & poly$(n)$& & $m^4\log m$ & yes \\
+GKW 2015 \cite{Gheorghiu15} & $1/\mbox{poly}(n)$ & 2 & & $m^{2048}$ & yes \\
+HH 2016 \cite{hayashi2016self} & $1/\mbox{poly}(n)$ & & & $m^4\log m$ & yes\\
+FH 2015 \cite{hajdusek2015posthoc} & & 5 & 1 & $>n^4$ & no\\
+NV 2016 \cite{natarajan2016robust} & const$(n)$ & 7 &  & $>n^4$ & no\\
+V-on-a-leash (Section \ref{sec:leash})  & const$(n)$ & 2 & $T$-depth$+1$  & $m$ & yes\\
+Dog walker (Section \ref{sec:dog-walker}) & const$(n)$ & 2 & 2 & $m$ & no 
+\end{tabular}
+\caption{\snote{I think a explicit comparison with previous results is useful, but I don't know exactly how we want to present it (i.e., which columns). For example, right now, I have the round complexity reflecting the number of rounds in the protocol, but this increases if you want to amplify the gap, so perhaps it's misleading. I think the total resources is actually our most impressive thing.}
+Above, $m$ is the number of gates in the delegated circuit, $g$ is the number of vertices of a graph state, $n\leq m$ is the size of the input to the circuit. \snote{tab:comparison}}\label{tab:comparison}
+\end{table}
+
+
+\snote{The dog walker protocol might have a property called ``cheat sensitivity'', meaning a prover that tries to learn the input will be caught.}
+
+\paragraph{Our contributions} We present new self-testing results, and use them to modify Broadbent's EPR protocol to get two new two-prover classical-verifier protocols in which the complexity of verifiably delegating an $m$-gate quantum circuit is $O(m)$ \cite{}. \snote{Since constants have been an issue in the past, maybe we should give an upper bound on the hidden constant.}
+Specifically, we show the following:
+
+\begin{theorem}[Informal]
+Let $\eps>0$ and $n\in\mathbb{Z}_{>0}$. For any finite set of pairs of commuting two-qubit Clifford observables $\cal G$, there exists a constant $c$ and a test $\textsc{e-cliff}({\cal G},n)$ with questions ${\cal G}^{n}$ such that any strategy that succeeds with probability $1-\eps$ must be $\eps^c$-close to a strategy in which the players begin with $2n$ EPR-pairs and each player, on input $W$, applies the observable $W$, up to isometry. 
+\end{theorem}
+
+This theorem is proven in Section \ref{sec:rigidity}. 
+
+As a first application, we give a protocol in which a classical verifier delegates a quantum computation to a pair of entangled provers, one of which plays the role of Broadbent's prover, and the other of which plays the role of Broadbent's verifer. We ensure the correct behavior of the verifier-simulating prover using the new self-tests from Theorem \ref{}. We call this protocol the \emph{Verifier-on-a-Leash Protocol}. This protocol has constant soundness-completeness gap, and requires $d+1$ rounds of linear interaction (in $n$), where $d$ is the $T$-depth of the circuit being delegated. The input to the circuit is hidden from the provers, meaning that the protocol can be made blind by encoding the circuit in the input, and delegating a universal circuit. 
+
+Next, we modify Broadbent's protocol in a different way to achieve a second classical-verifier two-prover protocol. This protcol also has constant soundness gap, and in contrast to the Verifier-on-a-leash protocol, it uses only two rounds of linear communication, one round with each prover. One drawback of this protocol is that it is not blind. 
+
+This second protocol is similar to the first in that it has one prover simulating the prover in Broadbent's protocol, and one simulating the verifier. We are able to achieve much better round complexity, at the expense of a slightly more complicated proof, but the key ideas are still the same: we use a combination of the new self-testing results, and the techniques of Broadbent's protocol to control the two provers. Because of a more complicated ``leash'' structure in this protocol, we call it the \emph{Dog Walker Protocol}.
+
+
+The remainder of this paper is organized as follows. In Section \ref{sec:prelim}, we give the necessary preliminaries including outlining Broadbent's EPR protocol (Section \ref{sec:EPR-protocol}). In Section \ref{sec:rigidity}, we present our new rigidity theorems. In Section \ref{sec:leash}, we present our first protocol, the leash protocol, and in Section \ref{sec:dog-walker}, we present our second protocol, the dog walker protocol. In Section \ref{sec:open} we mention several open problems. 
+
+\paragraph{Open Questions} One way to unconditionally force the two provers to refrain from communicating would be to ensure that they are far enough apart that messages from one will not reach the other before he must prepare his answer. In our schemes, this is not sufficient, because the input to one prover depends on the output of the other. 
+
+\end{document}

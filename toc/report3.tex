@@ -1,0 +1,96 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in,letterpaper]{geometry}
+\usepackage{amsmath,amssymb, amsthm}
+\usepackage[right, modulo]{lineno}
+\linenumbers
+%remove space between enum items
+\usepackage{enumitem}
+\setenumerate[1]{label=\thesection.\arabic*.}
+\setenumerate[2]{label*=\arabic*.}
+%\setlist{nolistsep}
+
+\usepackage{color}
+\definecolor{darkblue}{rgb}{0,0,0.5}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usepackage[colorlinks=true,linkcolor=darkblue,urlcolor=darkblue,citecolor=darkgreen]{hyperref}
+
+\usepackage{cleveref}
+
+
+
+
+\newcommand{\bra}[1]{\langle#1|}
+\newcommand{\Bra}[1]{\left\langle#1\right|}
+\newcommand{\ket}[1]{|#1\rangle}
+\newcommand{\Ket}[1]{\left|#1\right\rangle}
+\newcommand{\egoketbra}[1]{\ketbra{#1}{#1}}			% Ket-Bra with the same argument
+\newcommand{\ketbra}[2]{\ket{#1}\bra{#2}}			% Ket-Bra (|.><.|)
+\newcommand{\DW}{{\sf Dog-Walker }}
+\newcommand{\Leash}{{\sf Leash }}
+\newcommand{\Broad}{{\sf Broadbent }}
+\newcommand{\EPR}{{\sf EPR }}
+
+\title{Review of ``Verifier-on-a-Leash: new schemes for verifiable delegated quantum
+computation, with quasilinear resources''\\
+\normalsize submitted to \emph{Theory of Computing}  }
+\author{}
+\date{}
+
+
+
+\begin{document}
+
+\maketitle
+\section{Summary of contributions and techniques}
+\label{sec:summary}
+
+This submission considers the scenario of \emph{delegated} or \emph{cloud} quantum computing. That is, how to delegate securely a quantum computation to a quantum cloud. This scenario has been examined from many perspectives already (the submission gives an overview of selected related work in the introduction).
+
+The setting that is considered here in particular was, as far as I know, solved for the first time by [RUV13]: a classical, poly-time bounded verifier wants to delegate a quantum poly-time computation to \emph{two} entangled and isolated, poly-time quantum computers. The reason we have two provers is that we do not know how to do this with one prover (unless we at willing to make computational assumptions, but this is not the case here).
+
+Prior work has shown achievability of the above type of delegated quantum computation. However, it is fair to say that, so far, no work had been particularly concerned about the efficiency of such scheme (other than polynomial bounds). Efficiency is calculated in terms of the total resources and operations employed by the verifier and the honest provers (including:  shared entanglement and gate operations).
+Here, the authors show \emph{two} methods for delegating quantum computations, both with $O(g\log g)$ resources. They differ in the number of rounds as follows:
+
+\begin{itemize}
+\item \textbf{Verifier-on-a-Leash} protocol (\Leash protocol for short): The Leash protocol uses a linear (in the depth of the quantum circuit) number of communication rounds.
+\item \textbf{Dog-Walker} protocol: The \DW protocol uses a constant number of communication rounds.
+\end{itemize}
+
+One reason to prefer the \Leash protocol is that it is relatively simple, and also hides the input (this is called ``blind'').  On the other hand, the \DW is conceptually more involved, and the price to pay for the lower communication complexity is that the protocol is not blind.
+
+The main ingredients to achieve both results are:
+
+\textbf{Broadbent} protocol: This is a relatively recent method for verifiable delegation of  quantum computations, between an almost-classical verifier and a quantum poly-time server. In the \Broad scheme, the verifier needs to be able to prepare random eigenstates of some Clifford observables. In other words, it is assumed that the verifier fully trusts a quantum device that prepares these states. As a proof technique (in order to show soundness), this paper [Bro18] (incidentally, published in ToC) introduces an alternative (but equivalent) protocol called the \EPR protocol. This \EPR protocol takes advantage of the way that entanglement (hence ``EPR'') allows us to view a protocol according to a different order of operations. Instead of the verifier sending eigenstates, we assume the verifier and prover start with EPR pairs (maximally entangled states). Then a sequence of operations will lead to the same accept/reject situation as in the original \Broad protocol. This sequence of operations has the prover do all of his operations \emph{before} the verifier selects her input. This way, the \emph{blindness} property is obvious, and the prover's strategy must be independent of the input of the verifier.
+
+Here, the authors adapt both the \Broad and \EPR protocol, essentially showing how, using the technical tools described below:
+\begin{enumerate} \item a classical verifier can \emph{delegate} the preparation of the eigenstates in the \Broad protocol (the result is the \Leash protocol); and
+\item a classical verifier can \emph{delegate} the preparation the preparation of the EPR pairs, together with the operations of the honest verifier in the \EPR protocl (the result is the \DW protocol).
+    \end{enumerate}
+    Note that the above presentation is mine; the authors only present the results in terms of adapting the \EPR protocol. More on that later.
+
+\textbf{New Rigidity Results}
+The method to achieve the main result is a new \emph{rigidity theorem}. These types of theorems (starting with [RUV13]) show that essentially the \emph{only} way to win at a nonlocality game is for players to play according to a fixed quantum strategy (up to local isomorphisms), even approximately. In this work, the class of rigid states and measurements is expanded so as to fit the requirements for \Broad and \EPR. This is adequately explained on pages 3-4
+
+A minor further result is how the \DW protocol can be used for delegated QMA proofs.
+
+
+\section{Appreciation and Recommendation}
+
+The submission presents a timely result on the delegation of quantum computations, and makes an important contribution towards our understanding of these methods, and what it would take to realize them. The technical contribution of the rigidity result is important in itself.
+
+Already (the paper has been on the arXiv since August 2017, and presented at various conferences), the work has had an important impact on the field, leading to an improvement to a \emph{relativistic} protocol (meaning a single, simulteanous round of communication between the verifier and provers) in [Gril17].
+
+However, the presentation is very much lacking in clarity. From reading the paper, it is very difficult to appreciate the constructions. There are ambiguities which would make it difficult to actually implement the protocols (if one so desires). In preparing this review, I found a video by one of the authors that was useful and made a better synthesis IMHO of the work than the paper itself: \url{https://www.youtube.com/watch?v=tLss4HQn5bk}.
+
+
+
+\subsection{Recommendation}
+
+This is an important contribution to the subject. The science appears sound, and the main lines of the paper are correct. With an adequate presentation, I think this would make a nice addition to the ToC journal.
+
+However, I recommend major revisions in order to improve the presentation. Please see below for some suggestions. However, the authors might want to apply the benefit of hind-sight, and  re-write their paper (taking into account the feedback below) so that it is more clear. I think this will tremendously improve the impact of the paper since it will make is accessible to a wider audience, and would bring the submission in-line with the high standards of the ToC journal.
+
+\texttt{**end of review**}
+
+\end{document}
