@@ -22,7 +22,8 @@ Leash and Dog-Walker protocols.
 In this section we recall the standard formalisms from self-testing, including state-dependent distance measure, local isometries, etc. We also introduce a framework of ``tests for relations'' that will be convenient to formulate our results. 
 
 
-\paragraph{Distance measures.}
+\subsubsection{Distance measures}
+
 Ultimately our goal is to test that a player implements a certain tensor product of single-qubit or two-qubit measurements defined by observables such as $\sigma_X$, $\sigma_Y$, or $\sigma_G$. Since it is impossible to detect whether a player applies a certain operation $X$ on state $\ket{\psi}$, or $VXV^\dagger$ on state $V\ket{\psi}$, for any isometry $V:\Lin(\mH)\to\Lin(\mH')$ such that $V^\dagger V = \Id$, we will (as is standard in testing) focus on testing identity up to \emph{local isometries}. Towards this, we introduce the following important piece of notation: 
 
 \begin{definition}
@@ -33,18 +34,28 @@ If $V$ is the identity, then we further say that $R$ and $S$ are $\delta$-equiva
 
 The notation $R\simeq_\delta S$ carries some ambiguity, as it does not specify the state $\ket{\psi}$. The latter should always be clear from context: we will often simply write that $R$ and $S$ are $\delta$-isometric, without explicitly specifying $\ket{\psi}$ or the isometry. The relation is transitive, but not reflexive: the operator on the right will always act on a space of dimension at least as large as that on which the operator on the left acts. The notion of $\delta$-equivalence is both transitive (its square root obeys the triangle inequality) and reflexive, and we will use it as our main notion of distance. 
 
-\paragraph{Tests.}
-We formulate our tests as two-player games in which both players are treated symmetrically.  We often use the same symbol, a capital letter $X,Z,W,\ldots,$ to denote a question in the game and the associated projective measurement $\{W^a\}$ applied by the player upon receipt of that question. To a projective measurement with outcomes in $\{0,1\}^n$ we  associate a family of observables $W(u)$ parametrized by $n$-bit strings $u\in\{0,1\}^n$, defined by $W(u) = \sum_a (-1)^{u\cdot a} W^a$. If $n=1$ we simply write $W=W(1)=W^0-W^1$; note that $W(0)=\Id$.
+\subsubsection{Strategies}
+
+Given a two-player game, or test, a strategy for the players consists of a bipartite entangled state $\ket{\psi} \in \mH_\reg{A} \otimes \mH_\reg{B}$ together with families of projective  measurements $\{W^a_\reg{A}\}$ for Alice and $\{W_\reg{B}^a\}$ for Bob, one for each question $W$ that can be sent to either player in the test. (We often use the same symbol, a capital letter $X,Z,W,\ldots,$ to denote a question in the game and the associated projective measurement $\{W^a\}$ applied by the player upon reception of that question.) 
+ Recall that to a projective measurement with outcomes in $\{0,1\}^n$ we  associate a family of observables $W(u)$ parametrized by $n$-bit strings $u\in\{0,1\}^n$, defined by $W(u) = \sum_a (-1)^{u\cdot a} W^a$. If $n=1$ we simply write $W=W(1)=W^0-W^1$; note that $W(0)=\Id$.
+
+As already mentioned, for convenience we restrict our attention to pure-state strategies employing projective measurements. 
+We will loosely refer to a strategy for the players as $(W,\ket{\psi})$, with the symbol $W$ referring to the complete set of projective measurements used by the players in the game.
+
+\subsubsection{Consistency tests}
+
+We formulate our tests as two-player games in which both players are treated symmetrically. Specifically, when in a test we write ``send one player the question $X$ and the other the question $Y$'' we implicitly mean that the role of ``first player'' and ``second player'' have been assigned at random, and moreover a player only gets told its question, not its ``role'' as assigned by the referee. 
+ Taking advantage of this symmetry we often omit the subscript $\reg{A}$ or $\reg{B}$, as all statements involving observables for one player hold verbatim with the other player's observables as well. 
 
 With the exception of the Tomography Test $\tom$ presented in Section~\ref{subsec:tomography}, 
-all the games, or tests, we consider implicitly include a ``consistency test'' which is meant to enforce that whenever both players are sent identical questions, they produce matching answers. More precisely, let $T$ be any of the two-player tests described in the paper. Let $\Pr_T(W,W')$ be the distribution on questions $(W,W')$ to the players that is specified by $T$. Since the players are always treated symmetrically, $\Pr_T(\cdot,\cdot)$ is permutation-invariant. Let $\Pr_T(\cdot)$ denote the marginal on either player. Then, instead of executing the test $T$ as described, the verifier performs the following: 
+all the games tests we consider implicitly include a ``consistency test'' which is meant to enforce that whenever both players are sent identical questions, they produce matching answers.\footnote{Here by a ``test'' we mean a named test, such as $\conj(A,B,R)$ or $\act(X,Z)$. Since $\conj(A,B,R)$ uses $\act(X,Z)$ as a subroutine, both the named subtest $\act(X,Z)$ and the named test $\conj(A,B,R)$ are endowed with an additional consistency test.} More precisely, let $T$ be any of the two-player tests described in the paper. Let $\Pr_T(W,W')$ be the distribution on questions $(W,W')$ to the players that is specified by $T$. Since the players are always treated symmetrically, $\Pr_T(\cdot,\cdot)$ is permutation-invariant. Let $\Pr_T(\cdot)$ denote the marginal on either player. Then, instead of executing the test $T$ as described, the verifier performs the following: 
 \begin{enumerate}
 \item[(i)] With probability $1/2$, execute $T$.
 \item[(ii)] With probability $1/2$, select a random question $W$ according to $\Pr_T(W)$. Send $W$ to both players. Accept if and only if the players' answers are equal. 
 \end{enumerate}
-Then, success with probability at least $1-\eps$ in the modified test implies success with probability at least $1-2\eps$ in the original test, as well as in the consistency test. If $\{W_{\reg{A}}^a\}$ and $\{W_{\reg{B}}^b\}$ are the players' corresponding projective measurements, the latter condition implies 
+Then, success with probability at least $1-\eps$ in the modified test implies success with probability at least $1-2\eps$ in the original test, as well as in the consistency test. If $\{W_{\reg{A}}^a\}$ and $\{W_{\reg{B}}^b\}$ are the players' corresponding projective measurements and $\ket{\psi}_{\reg{AB}}$ their shared state, the latter condition implies 
 \begin{align}
-\sum_a \|(W_{\reg{A}}^a \otimes \Id - \Id \otimes W_{\reg{B}}^a)\ket{\psi}_{\reg{AB}}\|^2 &= 2-2 \sum_a \bra{\psi} W_{\reg{A}}^a \otimes W_{\reg{B}}^a \ket{\psi} \notag\\ 
+\sum_a \|(W_{\reg{A}}^a \otimes \Id - \Id \otimes W_{\reg{B}}^a)\ket{\psi}_{\reg{AB}}\|^2 &= 2-2 \sum_a \bra{\psi}_{\reg{AB}} W_{\reg{A}}^a \otimes W_{\reg{B}}^a \ket{\psi}_{\reg{AB}} \notag\\ 
 &\leq 4 \eps,\label{eq:consistency}
 \end{align}
 so that $W_{\reg{A}}^a \otimes \Id \approx_{\eps} \Id \otimes
@@ -54,11 +65,9 @@ $W_{\reg{A}}$, $W_{\reg{B}}$ are observables for the players that succeed in the
 consistency test with probability $1-2\eps$ we obtain $W_{\reg{A}}\otimes \Id
 \approx_{\eps} \Id \otimes W_{\reg{B}}$. We will often use both relations to ``switch'' operators from one player's space to the other's; as a result we will also often omit an explicit specification of which player's space an observable is applied to. 
 
-\paragraph{Strategies.} Given a two-player game, or test, a strategy for the players consists of a bipartite entangled state $\ket{\psi} \in \mH_\reg{A} \otimes \mH_\reg{B}$ together with families of projective  measurements $\{W^a_\reg{A}\}$ for Alice and $\{W_\reg{B}^a\}$ for Bob, one for each question $W$ that can be sent to either player in the test. As already mentioned, for convenience we restrict our attention to pure-state strategies employing projective measurements. 
-%The fact that both players will always be treated symmetrically allows us to assume without loss of generality that $\mH_\reg{A} = \mH_\reg{B}$, $\ket{\psi}$ is permutation-invariant, and for any question $W$, $W_\reg{A}^a = W_\reg{B}^a$ for all answers $a$ (see e.g. Lemma~4 in~\cite{kempe2011entangled}).
-We will loosely refer to a strategy for the players as $(W,\ket{\psi})$, with the symbol $W$ referring to the complete set of projective measurements used by the players in the game; taking advantage of  symmetry we often omit the subscript $\reg{A}$ or $\reg{B}$, as all statements involving observables for one player hold verbatim with the other player's observables as well. 
 
-\paragraph{Relations.}
+\subsubsection{Relations}
+
 We use $\mathcal{R}$ to denote a set of relations over variables $X,Z,W,\ldots,$ such as
 $$\mathcal{R}=\big\{XZXZ=-\Id,\, HX=ZH,\,X,Z,H\in\Obs\big\}.$$
 We only consider relations that can be brought in the form of  one of the following
@@ -266,7 +275,7 @@ Expanding out $R$ and using the consistency relations between the two provers,
 \end{align}
 where the factor $(-1)^{a\cdot b}$ comes from using 
 $$\big(\sigma_X(a)\sigma_Z(b)\otimes \Id\big) \ket{\EPR}^{\otimes m} \,=\, \big(\Id \otimes \big(\sigma_X(a)\sigma_Z(b)\big)^T \big)\ket{\EPR}^{\otimes m}\;.$$
-
+The approximation in~\eqref{eq:bb-1} and the following equations are meant on average over uniformly random $a,b\in\{0,1\}^n$.
 Using the conjugation relations satisfied, by definition, by $\hat{\tau}_R$,  the right-hand side of~\eqref{eq:bb-1} simplifies~to 
 \begin{equation}\label{eq:bb-2}
 \sum_{c,d} \hat{\tau}_R \Big(\sigma_X(a)\sigma_Z(b) \sigma_X(c)\sigma_Z(d) \otimes \Delta_Y^{a\cdot b }\phase_R(c,d)\Big)  \otimes \Id.
@@ -368,7 +377,7 @@ where the expectation is taken over sets $S$ and $T$ specified as in part (e), f
 \subsection{Post-measurement states}
 \label{sec: RIGID test}
 
-We give a first corollary of Theorem~\ref{thm:clifford-ntest} which expresses its conclusion~\eqref{eq:clifford-ntest-close} in terms of the post-measurement state of the first player. This corollary will be used in the analysis of the leash protocol from Section~\ref{sec:leash}. To obtain a useful result we would like to ``lift'' the phase ambiguity $\phase_W$ which remains in the statement of Theorem~\ref{thm:clifford-ntest} (in contrast to the ambiguity $\Delta_Y$, which itself cannot be lifted solely by examining correlations). This ambiguity means that the provers have the liberty of choosing to report opposite outcomes whenever they apply an $F$ or $G$ observable, but they have to be consistent between themselves and across all of their qubits in doing so. To verify that the provers use the ``right'' labeling for their outcomes we incorporate a small tomography test in the test, described in Figure~\ref{fig:rigid}. Note that an inconvenience of the tomography is that the test no longer achieves perfect completeness (although completeness remains exponentially close to~$1$). 
+We prove Theorem~\ref{thm:clifford-rigid}. The remaining work consists in ``lifting'' the phase ambiguity $\phase_W$ which remains in the statement of Theorem~\ref{thm:clifford-ntest} (in contrast to the ambiguity $\Delta_Y$, which itself cannot be lifted solely by examining correlations). This ambiguity means that the provers have the liberty of choosing to report opposite outcomes whenever they apply an $F$ or $G$ observable, but they have to be consistent between themselves and across all of their qubits in doing so. To verify that the provers use the ``right'' labeling for their outcomes we incorporate a small tomography test, described in Figure~\ref{fig:rigid}. Note that a drawback of the tomography is that the test no longer achieves perfect completeness (although completeness remains exponentially close to~$1$). 
 
 \begin{figure}[H]
 \rule[1ex]{\textwidth}{0.5pt}\\
@@ -387,25 +396,24 @@ Test~$\rigid(\Sigma,m)$:
 \end{figure}
 
 
-For an observable $W\in\Sigma$, let $\sigma_W = \sigma_W^{+1} - \sigma_W^{-1}$ be its eigendecomposition, where $\sigma_W$ are the ``honest'' Pauli matrices defined in~\eqref{eq:pauli-matrix} and~\eqref{eq:pauli-matrix-2}. For $u\in\{\pm 1\}$ let $\sigma_{W,+} = \sigma_W^u$ for $W\in \Sigma$, and 
-$$ \sigma_{X,-}^u = \sigma_X^u,\quad\sigma_{Z,-}^u = \sigma_Z^u,\quad\sigma_{Y,-}^u = \sigma_Y^{-u},\quad\sigma_{F,-}^u = \sigma_G^{-u},\quad\sigma_{G,-}^u = \sigma_F^{-u}.$$
 
-\begin{corollary}\label{cor:clifford-rigid}
-Let $\eps>0$ and $m$ an integer. Suppose a strategy for the players succeeds with probability $1-\eps$ in test $\rigid(\Sigma,m)$. Then for $D\in\{A,B\}$ there exists an isometry 
-$$V_D: \mathcal{H}_\reg{D} \to (\C^2)^{\otimes m}_{\reg{D}'} \otimes {\mH}_{\hat{\reg{D}}}$$
-such that
-\begin{equation}\label{eq:me-cor11}
- \big\| (V_A \otimes V_B) \ket{\psi}_{\reg{AB}}  - \ket{\EPR}^{\otimes m} \otimes \ket{\aux}_{\hat{\reg{A}}\hat{\reg{B}}} \big\|^2 = O(\sqrt{\eps}),
-\end{equation}
-and positive semidefinite matrices $\tau_\lambda$ on $\hat{\reg{A}}$ with orthogonal support, for $\lambda\in\{+,-\}$, such that $\Tr(\tau_+)+\Tr(\tau_-)=1$ and
-\begin{align}\label{eq:states-cor11}
- \mathop{\textsc{E}}_{W\in\Sigma^m} \sum_{u\in\{\pm 1\}^{m}} \Big\| V_A \Tr_{\reg{B}}\big((\Id_A \otimes W_{\reg{B}}^u) \proj{\psi}_{\reg{AB}} (\Id_A \otimes W_{\reg{B}}^u)^\dagger\big) V_A^\dagger - \sum_{\lambda\in\{\pm\}} \Big( \bigotimes_{i=1}^m \frac{\sigma_{W_{i},\lambda}^{u_{i}}}{2}\Big)\otimes \tau_\lambda  \Big\|_1\\
-& \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!= O(\poly(\eps)).\nonumber
-\end{align}
-Moreover, players employing the honest strategy succeed with probability $1-e^{-\Omega(m)}$ in the test.  
-\end{corollary}
+%
+%\begin{corollary}\label{cor:clifford-rigid}
+%Let $\eps>0$ and $m$ an integer. Suppose a strategy for the players succeeds with probability $1-\eps$ in the test $\rigid(\Sigma,m)$. Then for $D\in\{A,B\}$ there exists an isometry 
+%$$V_D: \mathcal{H}_\reg{D} \to (\C^2)^{\otimes m}_{\reg{D}'} \otimes {\mH}_{\hat{\reg{D}}}$$
+%such that
+%\begin{equation}\label{eq:me-cor11}
+ %\big\| (V_A \otimes V_B) \ket{\psi}_{\reg{AB}}  - \ket{\EPR}^{\otimes m} \otimes \ket{\aux}_{\hat{\reg{A}}\hat{\reg{B}}} \big\|^2 = O(\sqrt{\eps}),
+%\end{equation}
+%and positive semidefinite matrices $\tau_\lambda$ on $\hat{\reg{A}}$ with orthogonal support, for $\lambda\in\{+,-\}$, such that $\Tr(\tau_+)+\Tr(\tau_-)=1$ and
+%\begin{align}\label{eq:states-cor11}
+ %\mathop{\textsc{E}}_{W\in\Sigma^m} \sum_{u\in\{0, 1\}^{m}} \Big\| V_A \Tr_{\reg{B}}\big((\Id_A \otimes W_{\reg{B}}^u) \proj{\psi}_{\reg{AB}} (\Id_A \otimes W_{\reg{B}}^u)^\dagger\big) V_A^\dagger - \sum_{\lambda\in\{\pm\}} \Big( \bigotimes_{i=1}^m \frac{\sigma_{W_{i},\lambda}^{u_{i}}}{2}\Big)\otimes \tau_\lambda  \Big\|_1\\
+%& \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!= O(\poly(\eps)).\nonumber
+%\end{align}
+%Moreover, players employing the honest strategy succeed with probability $1-e^{-\Omega(m)}$ in the test.  
+%\end{corollary}
 
-\begin{proof}
+\begin{proof}[Proof of Theorem~\ref{thm:clifford-rigid}]
 From Theorem~\ref{thm:clifford-ntest} we get isometries $V_A$, $V_B$ and commuting observables $\Delta_Y$, $\phase_F$ on ${\mH}_{\hat{\reg{A}}}$ such that the conclusions of the theorem hold. Write the eigendecomposition $\Delta_Y = \Delta_Y^{+}-\Delta_Y^{-}$ and $\phase_F = \phase_F^{+}-\phase_F^{-}$. For $\lambda \in \{+,-\}^2$ let
 $$\tau_{\lambda} = \Tr_{\hat{\reg{B}}}\big( \big(\Id_{\hat{\reg{A}}}\otimes \Delta_Y^{\lambda_1}\phase_F^{\lambda_2} \big)\proj{\aux}\big(\Id_{\hat{\reg{A}}}\otimes \Delta_Y^{\lambda_1}\phase_F^{\lambda_2}\big)\big).$$ 
 Using that $\Delta_Y$ and $\phase_F$ commute and satisfy 

@@ -271,8 +271,17 @@ as an a priori assumption. Since the protocol of [Gri17] is not blind,'' Explain
 \begin{enumerate}
 \item Many proofs only contain a sketch and are hard to digest. It is recommended that at least for the main lemmas, such as Lemma 10 and Theorem 11, the authors can provide more self-contained proof. Many steps in the proof sketch are very high level and it is not easy and usually time-consuming if the reader wants to verify the details.
 \item The meaning of the second equation on page 23 is not clear. Are a and b fixed or are they summed over in the end in the approximation?
+
+				{\color{blue}The approximation holds on average over uniformly random $a,b$. We added a clarification of this point.}
+				
 \item In item (c) of Figure 6, what is being "chosen uniformly at random"? W is already chosen so the places where $W_i = F$ or $G$ are already determined.
+
+{\color{blue} $S$ and $T$ are uniformly random \emph{subsets} of those positions.}
+
 \item The last equation in Theorem 4 is hard to parse and does not use the $\sim_\eps$ $\approx_\eps$ distances. Could you please explain both the meaning of this equation briefly and the reason to state the result in this form? Similarly in Corollary 13.
+
+{\color{blue} We added some explanations right below the statement of Theorem 4.}
+
 \item "rounds" are usually used as the sequentially exchanged messages in interactive protocols. This paper uses round and sub-round also for the potential format of messages in a particular round. Broadbent's paper on EPR protocol uses "run" instead of "round" and seems to be a better now for this context.
 \item Page 17, item 2 of Relations, do you need $\omega_a$ to be different?
 \item In the comment before Definition 7 on page 17, it is argued that the exact form of distribution does not matter. But what if the size of the relation R has n (say the number of qubits) dependence?
@@ -286,42 +295,43 @@ as an a priori assumption. Since the protocol of [Gri17] is not blind,'' Explain
 
 Sections up to and include 3.2 are fine. However starting at 3.3 things start getting quite confusing. I'll actually start with the Appendix, which covers the analysis of the Pauli Braiding Test augmented to test for the Pauli Y observables.
 
-Comments about PBT analysis in Appendix
-----------------------
-Page 64, description of Extended PBT: In test (c), the basis string W that is chosen is uniformly random in ${I, Y}^m$. However this seems problematic because this distribution of questions does not match the distribution of questions in parts (a) or (b): there the basis strings are uniform over ${X,Z}^m$, or ${X,Y}^m$, or ${Y,Z}^m$. Thus test (c) cannot be immediately connected to (a) or (b).
+Comments about PBT analysis in Appendix:
 
-Furthermore, the tests in (b) cannot be immediately connected to the tests in (a) because the basis strings to each player contain Y w.h.p.
+\begin{itemize}
+\item Page 64, description of Extended PBT: In test (c), the basis string W that is chosen is uniformly random in ${I, Y}^m$. However this seems problematic because this distribution of questions does not match the distribution of questions in parts (a) or (b): there the basis strings are uniform over ${X,Z}^m$, or ${X,Y}^m$, or ${Y,Z}^m$. Thus test (c) cannot be immediately connected to (a) or (b).
 
-Page 65: statement of Lemma 36. Right below (33), there are both maps $\Lambda_W$ and $\Delta_X/Y/Z$ used. It seems like only Lambda or Delta should be used (the proof only refers to Delta).
+{\color{blue} Thanks for catching this; indeed we were missing a test that connects part (c) to parts (a) and (b). This has now been added; it is the new parts (c) and (d) (with the old part (c) now being part (e)). }
 
-The proof of Lemma 36 is difficult to follow. First, as mentioned before the tests (a), (b) and (c) are distinguishable from each other so it shouldn't be possible to connect the rigidity guarantees between each of those tests.
+\item Furthermore, the tests in (b) cannot be immediately connected to the tests in (a) because the basis strings to each player contain Y w.h.p.
 
-Furthermore,  it hand-waves over the analysis of part (c) of the test. The proof just states: success in part (c) implies [equation (34)]. This is far from obvious: part (c) consists of 3 subtests. Furthermore, parts (ii) and (iii) involve the parallel repetition of the Bell measurement subtest. Only a single instance of the Bell measurement subtest is analyzed, and it is far from clear that the error from m-parallel repetitions does not grow with m.  If it does not grow with m (as implicitly claimed in the proof), this requires a more thorough argument.
+{\color{blue} Corrected as above}
 
----
+\item Page 65: statement of Lemma 36. Right below (33), there are both maps $\Lambda_W$ and $\Delta_X/Y/Z$ used. It seems like only Lambda or Delta should be used (the proof only refers to Delta).
 
-
-Back to Section 3.3:
----
-It appears that much of the technical work in testing the Clifford observables comes from dealing with the phase ambiguity of the Y observables. However, the treatment of how this is dealt with is itself very ambiguous!
-
-For example, the Lemma 9 establishes the existence of $Delta_Y$ observable that compensates for phase ambiguity. Lemma 10 then introduces another unitary map $\Lambda_R$, but there is no explanation of what this map is meant for. Is this meant to deal with another phase ambiguity? Why is this map needed?
-
--The map $\Lambda_R$ is a unitary acting on $H_{\hat{A}}$, but is tensored twice when acting on $\ket{Aux}$. Does it also act on $H_{\hat{B}}$ as well? 
-
-A related issue: the definition of $\hat{\tau}_R$ is very confusing: when referring to “relations specified in (9)”, there is no $\sigma_X$ or $\sigma_Z$; there are only abstract X and Z symbols. Did you mean those? Also, what does it mean to replace those with the specific operators $\tau_Y = \sigma_Y \otimes (i \Delta_Y)$? 
+{\color{blue} Corrected}
 
 
-The "proof sketch" for Lemma 10 is quite hard to follow. Part of the difficulty comes from the setup prior:
+\item The proof of Lemma 36 is difficult to follow. First, as mentioned before the tests (a), (b) and (c) are distinguishable from each other so it shouldn't be possible to connect the rigidity guarantees between each of those tests.
 
+\item Furthermore,  it hand-waves over the analysis of part (c) of the test. The proof just states: success in part (c) implies [equation (34)]. This is far from obvious: part (c) consists of 3 subtests. Furthermore, parts (ii) and (iii) involve the parallel repetition of the Bell measurement subtest. Only a single instance of the Bell measurement subtest is analyzed, and it is far from clear that the error from m-parallel repetitions does not grow with m.  If it does not grow with m (as implicitly claimed in the proof), this requires a more thorough argument.
+\end{itemize}
+
+
+Back to Section 3.3: It appears that much of the technical work in testing the Clifford observables comes from dealing with the phase ambiguity of the Y observables. However, the treatment of how this is dealt with is itself very ambiguous!
+\begin{itemize}
+\item For example, the Lemma 9 establishes the existence of $Delta_Y$ observable that compensates for phase ambiguity. Lemma 10 then introduces another unitary map $\Lambda_R$, but there is no explanation of what this map is meant for. Is this meant to deal with another phase ambiguity? Why is this map needed?
+\item The map $\Lambda_R$ is a unitary acting on $H_{\hat{A}}$, but is tensored twice when acting on $\ket{Aux}$. Does it also act on $H_{\hat{B}}$ as well? 
+\item A related issue: the definition of $\hat{\tau}_R$ is very confusing: when referring to “relations specified in (9)”, there is no $\sigma_X$ or $\sigma_Z$; there are only abstract X and Z symbols. Did you mean those? Also, what does it mean to replace those with the specific operators $\tau_Y = \sigma_Y \otimes (i \Delta_Y)$? 
+\item The "proof sketch" for Lemma 10 is quite hard to follow. Part of the difficulty comes from the setup prior:
+\item 
 Page 20: Line 7: it says the phase $i^{a \cdot b}$ is needed to ensure that A and B are observables. Do we also need to assume that X and Z observables anticommute? Also, shouldn’t the imaginary unit i be (-1)? For example, suppose that X = Z = Id, and $a \cdot b = 1$. Then A(a,b) = i, which is not a (binary) observable; we’re assuming that all observables are binary, right?
-
+\item 
 In fact, the whole of Section 3.3 does not seem self-consistent. Line (6) indicates that R is a unitary that conjugates Pauli operators $\sigma_X \sigma Z$. However, the A, B observables are defined in terms of the abstract X, Z observables. But then the paragraph after (7) seems to say that the unitary R conjugates A and B. 
-
+\item 
 It makes sense that ultimately X and Z, after self-testing, should correspond to actual Pauli-X and Pauli-Z operators. But it’s ambiguous what has been tested already, and what is an abstract relation you need to check. 
-
+\item 
 In (7), the observables A and B have phase factors defined. However, in the test CONJ-CLIFF, the observables A and B are specified in terms of strings of I, X, Y, Z. Where do the phase factors come into the test? Or do they only show up in the analysis? Clarification regarding this would be helpful.
-
+\end{itemize}
 
 Assorted other typos/comments:
 
@@ -364,20 +374,53 @@ the honest strategy, up to local isometries''. Please explain here or closeby ho
     \item (page 14) ``the ancilla register to extract a single bit'' Please include the symbol here for the ancilla register.
         \item (page 14) ``For an observable $W$, let $\sigma_W = \sigma_W^{+1}-\sigma_W^{-1}$ be its eigendecomposition, where sW are the “honest”
 Pauli matrices defined in (1) and (2).'' Please check consistency of notation: the eigendecomposition was given in the preliminaries (page 7) as $\sigma_W^{0}-\sigma_W^{1}$. Also, technically, $\sigma_W$ is not always Pauli matrices, as in Equation (2).
+
+{\color{blue} Fixed}
+
 \item Statement of Theorem 4:
 \begin{enumerate}
 \item A strategy has not been formally defined yet (that happens on page 16). So you should tell us informally what is a strategy (so that the symbols are defined), or refer to the definition of page 16 (however, there is no definition environment, so that would need to change it you want to refer to it).
+
+{\color{blue} Actually, there is a definition of strategy at the top of the page (``In general, an arbitrary strategy ...''). }
+
  \item What is the quantifier/restriction on $|AUX\rangle?$
+
+{\color{blue} Existential; added}
+
  \item   The display equation below Equation (3) is hard to parse (especially the part involving $\tau_\lambda$, can you add more description on how to read it? )
+
+{\color{blue} We added a paragraph immediately below the statement of the theorem to explain and motivate that equation.}
+
 \end{enumerate}
 \item ``The proof of the theorem is based on standard techniques''. I think you are underselling the contribution. Now is your chance to outline the rest of this section and the contributions (or, refer to them in the introduction). Please use the same structure as the structure of the protocols as given in the Figures (this is why the "Tree" Figure would be useful). I.e., tell us that the main protocol is RIGID, which itself is composed of CLIFFORD + ad-hoc tomography, and then CLIFF is composed of CONJ, and a bunch of other tests, etc. (See comment in \ref{sec:-prot-pres}). This will help give a roadmap to reading this section.
+
+{\color{red} TODO}
+
 \item ``In the remainder of this section, we prove Theorem 4''. Please say exactly where this is proven. For instance, is Theorem 4 re-stated elsewhere and proven there? I could not find a ``Proof of Theorem 4'' claim anywhere. (But is looks very similar to Corollary 12).
+
+{\color{blue} Thanks, there was a bit of a mess-up there. We removed the statement of Corollary 12 and clearly labeled its proof a proof of Theorem 4.}
+
     \item (page 16) the title ``Tests.'' would be more accurately described as ``consistency test''. Also, to give more structure to the paper, I would use numbered headings instead of bold font (only) headings.
+		
+{\color{blue} We did this.}
+		
         \item (page 16)``all the games, or tests, we
 consider implicitly include a “consistency test”''. It is really difficult to know what qualifies a procedure to be called a ``game'' or ``test'', and therefore which procedures get a the implicit consistency test. For instance, looking at Figure 4, is CONJ itself going to get a consistency test? And then, when about each of AC, COM, (8 possibilities)? What about the part (b) (ad-hoc test, with no name), it is also subject to another consistency test? Maybe the answer will not change the main result, but it would be good to clarify here, once and for all (the consistency test never really comes up again in the paper).
+
+{\color{blue} We added a clarification.}
+
  \item (page 16) The notation at the end of the ``Tests'' paragraph is a bit repetitive from page 7 and also page 14. Please check. If need be, it can be recalled, but currently, there is no indication that this is a reminder.
+
+{\color{blue} Done.}
+
  \item (page 16) ``Since the players are always treated symmetrically'' please specify why this is the case.
+
+{\color{blue} Done.}
+
  \item Equation (4). What is the quantifier on $|\psi\rangle$?
+
+{\color{blue} Clarified.}
+
  \item Equation below ``Relations.''. Again, I don't understand this syntax for the set notation. I think it should be $\{... \mid X, Z, H \in Obs\}$. Also, please use an example from an actual game.
  \item ``We only consider relations that can be brought in the form''. The wording ``brought'' sounds strange, something like ``expressed as'' or ``written as'' would be more standard.
      \item ``We only consider relations that can be brought in the form''. Are these two different definitions for the same symbol, $f(W)$? This seems confusing.
@@ -474,7 +517,13 @@ and Figure 16 (PP’s point of view).'' Change the order so that the figures are
 \subsubsection*{Reviewer 3}
 \begin{enumerate}
 \item The set notation for the relations in Lemma 32 is again throwing me off. Same thing for the set in A.4.1 and A.4.2
+
+{\color{blue} We clarified the notation} 
+
 \item The title of Section A.4.2 is the same as the title of A.4
+
+{\color{blue} Yes. We didn't find a better title} 
+
 \end{enumerate}
 
 
