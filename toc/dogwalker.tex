@@ -445,7 +445,7 @@ Our protocol consists in the Verifier running the Dog-Walker protocol,
       state to $\pp$.  The outcomes of the teleportation      measurements are reported to the Verifier along with the answers for the original Dog-Walker protocol, in order that the Verifier can decrypt the output of the computation.
   \end{itemize}
 
-The full description of the protocol is presented in Figures~\ref{fig:qma-protocol-V}, \ref{fig:qma-protocol-PP} and \ref{fig:qma-protocol-PV}, where the differences to the original Dog-Walker protocol are underlined. We state the result and sketch its proof. 
+The full description of the protocol is presented in Figures~\ref{fig:qma-protocol-V}, \ref{fig:qma-protocol-PP} and \ref{fig:qma-protocol-PV}, where the differences to the original Dog-Walker protocol are underlined. We state our result in Lemma~\ref{lem:qma} and provide a proof sketch for it. 
 
 
 %----------------%
@@ -563,7 +563,7 @@ If $\exists i$ s.t.\ the $i$-th $\sf T$ gate is odd and $c_i\neq a_i'+e_i$, $\sf
 
 
 
-\begin{lemma}
+\begin{lemma}\label{lem:qma}
 There
   exists universal constants $0\leq p_{compl}\leq 1$ and $\Delta >0$ such that the following holds. 
 Let $L$ be a language in QMA and $x$ an instance of $L$ such that $n = |x|$. Let  $V_x$ be the
