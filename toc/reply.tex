@@ -283,11 +283,29 @@ as an a priori assumption. Since the protocol of [Gri17] is not blind,'' Explain
 {\color{blue} We added some explanations right below the statement of Theorem 4.}
 
 \item "rounds" are usually used as the sequentially exchanged messages in interactive protocols. This paper uses round and sub-round also for the potential format of messages in a particular round. Broadbent's paper on EPR protocol uses "run" instead of "round" and seems to be a better now for this context.
+
+{\color{red} TODO}
+
 \item Page 17, item 2 of Relations, do you need $\omega_a$ to be different?
+
+{\color{blue} Yes, they are different. In general $\omega_a = \omega^a$ for some primite root of unity}
+
 \item In the comment before Definition 7 on page 17, it is argued that the exact form of distribution does not matter. But what if the size of the relation R has n (say the number of qubits) dependence?
+
+{\color{blue} Right, this is why we clarify that it does not matter ``up to multiplicative factors of $|\mathcal{R}|$. If $|\mathcal{R}|=n$ then certainly some $n$-dependence could appear here. }
+
 \item The last equation in Definition 7 has a mistake. When $W_A$ acts on $\ket{\psi}$ as in the first equation, you cannot apply $V^\dagger_A W_A V_A$ on it in general
+
+{\color{blue} Fixed.}
+
 \item The abbreviation after equation 4, $W^a_A \otimes I \approx I \otimes W^a_B$ does not fit syntactically with Definition 5, where the operators are always on A system only.
+
+{\color{blue} This is a slight abuse of notation. To make it fit we can take $A$ in Definition 5 be $AB$ here, and $B$ in Definition 5 be trivial. The problem is that the notation does not specify the state, which would clarify everything. We prefer to keep it this way, as it should always be clear from context}
+
 \item What is the "state-dependent norm" referred to in Definition 6?
+
+{\color{blue} The ``More precisely'' was meant to clarify this. Since we don't use the term however, we removed it.}
+
 \item Why do you use $Z_4$ in the range of $h_S$ before equation 6 even though it appears in the equation as $(-1)^{h_S}$
 \end{enumerate}
 
@@ -320,39 +338,60 @@ Comments about PBT analysis in Appendix:
 Back to Section 3.3: It appears that much of the technical work in testing the Clifford observables comes from dealing with the phase ambiguity of the Y observables. However, the treatment of how this is dealt with is itself very ambiguous!
 \begin{itemize}
 \item For example, the Lemma 9 establishes the existence of $Delta_Y$ observable that compensates for phase ambiguity. Lemma 10 then introduces another unitary map $\Lambda_R$, but there is no explanation of what this map is meant for. Is this meant to deal with another phase ambiguity? Why is this map needed?
+
+{\color{blue} $\Lambda_R$ is necessary because part (b) of the test only tests the way that $R$ relates to the observables $A$ and $B$ using relations of the form $RAR^\dagger = B$. If $R$ is tensored by an observable on an auxiliary system then this relation is still satisfied. We added an explanation to the text.}
+
 \item The map $\Lambda_R$ is a unitary acting on $H_{\hat{A}}$, but is tensored twice when acting on $\ket{Aux}$. Does it also act on $H_{\hat{B}}$ as well? 
+
+{\color{blue} We clarified this; the same issue arose with $\Delta_Y$ in Lemma 9.}
+
 \item A related issue: the definition of $\hat{\tau}_R$ is very confusing: when referring to “relations specified in (9)”, there is no $\sigma_X$ or $\sigma_Z$; there are only abstract X and Z symbols. Did you mean those? Also, what does it mean to replace those with the specific operators $\tau_Y = \sigma_Y \otimes (i \Delta_Y)$? 
+
+{\color{blue} We should have referred to equation (8), this is now corrected.}
+
 \item The "proof sketch" for Lemma 10 is quite hard to follow. Part of the difficulty comes from the setup prior:
-\item 
+
 Page 20: Line 7: it says the phase $i^{a \cdot b}$ is needed to ensure that A and B are observables. Do we also need to assume that X and Z observables anticommute? Also, shouldn’t the imaginary unit i be (-1)? For example, suppose that X = Z = Id, and $a \cdot b = 1$. Then A(a,b) = i, which is not a (binary) observable; we’re assuming that all observables are binary, right?
+
+{\color{blue} Yes. We added a clarification that $X$ and $Z$ should anti-commute.}
+
 \item 
 In fact, the whole of Section 3.3 does not seem self-consistent. Line (6) indicates that R is a unitary that conjugates Pauli operators $\sigma_X \sigma Z$. However, the A, B observables are defined in terms of the abstract X, Z observables. But then the paragraph after (7) seems to say that the unitary R conjugates A and B. 
+
+{\color{blue} This last $R$ should have been an $X_R$; corrected.}
+
 \item 
 It makes sense that ultimately X and Z, after self-testing, should correspond to actual Pauli-X and Pauli-Z operators. But it’s ambiguous what has been tested already, and what is an abstract relation you need to check. 
-\item 
+
 In (7), the observables A and B have phase factors defined. However, in the test CONJ-CLIFF, the observables A and B are specified in terms of strings of I, X, Y, Z. Where do the phase factors come into the test? Or do they only show up in the analysis? Clarification regarding this would be helpful.
+
+{\color{blue} The labels used to specify the observables in the test are not by themselves significant. Here, if for example $A = iXZ$ and the referee sends this as ``$XZ$'' the prover ``knows'' to apply the observable $iXZ$. We added a note to clarify this}
+
 \end{itemize}
 
 Assorted other typos/comments:
 
----
 
+\begin{itemize}
+\item page 10: H-gadget: “maximal such k is odd". Confused about what “maximal such k” means. Should it just be “$H(TTH)^k$ where k is odd”?
 
-page 10: H-gadget: “maximal such k is odd". Confused about what “maximal such k” means. Should it just be “$H(TTH)^k$ where k is odd”?
+\item Figure 2: what is the $c_f$? Is this the f-th bit of $\vec{c}$? (seems redundant)
 
-Figure 2: what is the $c_f$? Is this the f-th bit of $\vec{c}$? (seems redundant)
+\item Does $\Sigma$ generate the set of single-qubit Clifford unitaries?
 
-Does $\Sigma$ generate the set of single-qubit Clifford unitaries?
+\item Page 17: definition of Rigid self-test. For completeness, perhaps should clarify further and say that the operators corresponding to each question in $\mathcal{Q}$ satisfy exactly the same relations as specified by $\mathcal{R}$
 
-Page 17: definition of Rigid self-test. For completeness, perhaps should clarify further and say that the operators corresponding to each question in $\mathcal{Q}$ satisfy exactly the same relations as specified by $\mathcal{R}$
+				{\color{blue} Clarified.}
 
-Page 19: Proof of Lemma 8. “anti-commutation of $X_R$ with Z certifies that $X_R$ has decomposition of the form $X_R \simeq R_X \otimes \sigma_X + R_Y \otimes \sigma_Y$”. First, what is the error in this approximation, and it would be helpful to see a proof. Similarly, for subsequent statements it looks a bit hand-wavy. It would be better if the approximations had error bounds and some of the steps were spelled out. 
+\item Page 19: Proof of Lemma 8. “anti-commutation of $X_R$ with Z certifies that $X_R$ has decomposition of the form $X_R \simeq R_X \otimes \sigma_X + R_Y \otimes \sigma_Y$”. First, what is the error in this approximation, and it would be helpful to see a proof. Similarly, for subsequent statements it looks a bit hand-wavy. It would be better if the approximations had error bounds and some of the steps were spelled out. 
 
-Page 19: Proof of Lemma 8: $C \simeq C_I \otimes I + C_Z \otimes \sigma_Z$. The identity operator I should be $\sigma_I$. 
+\item Page 19: Proof of Lemma 8: $C \simeq C_I \otimes I + C_Z \otimes \sigma_Z$. The identity operator I should be $\sigma_I$. 
 
-Top of page 20: could use more explanation for why “decompositions of A, B, C earlier imply $C_I \approx… and C_Z \approx$…”. Overall this proof is a little too sketchy.
+\item Top of page 20: could use more explanation for why “decompositions of A, B, C earlier imply $C_I \approx… and C_Z \approx$…”. Overall this proof is a little too sketchy.
 
-Page 64: "...multi-qubit Pauli X and Z observales" (should be "observables")
+\item Page 64: "...multi-qubit Pauli X and Z observales" (should be "observables")
+
+\end{itemize}
 
 \subsubsection*{Reviewer 3}
 
@@ -422,25 +461,73 @@ consider implicitly include a “consistency test”''. It is really difficult t
 {\color{blue} Clarified.}
 
  \item Equation below ``Relations.''. Again, I don't understand this syntax for the set notation. I think it should be $\{... \mid X, Z, H \in Obs\}$. Also, please use an example from an actual game.
+
+{\color{blue} I think that in this case the set notation is accurate. We added a clarification right after the centered equation.}
+
  \item ``We only consider relations that can be brought in the form''. The wording ``brought'' sounds strange, something like ``expressed as'' or ``written as'' would be more standard.
+
+{\color{blue} Edited.}
+
      \item ``We only consider relations that can be brought in the form''. Are these two different definitions for the same symbol, $f(W)$? This seems confusing.
+		
+		{\color{blue} Edited.}
+
 \item  ``Definition 6 (Rigid self-test).''
 \begin{enumerate}
 \item ``that is either an observable or a POVM'' Grammatically, it is impossible to know if ``that'' refers to ``symbol'', ``questions set $Q$'', ``variable'', ``game'' or even ``set of relations''. Please specify.
+
+		{\color{blue} Edited.}
+
 \item ``additional questions''.   I think these are the questions in $Q$ but not in $R$, but it is unclear. I already commented on making more clear these additional questions. The explanations added there should also help understand this passage here.
+
+		{\color{blue} This is the meaning of the ``(at least)'': the set $\mathcal{Q}$ can have more symbols than there are symbols which appear in $\mathcal{R}$.}
+
     \item Definition 7. Define where $|\psi\rangle$ comes into the definition. Is a stable relation wrt $|\psi\rangle$, or is it for all $|\psi\rangle$?
+		
+				{\color{blue} Edited.}
+
 \end{enumerate}
   \item Definition 7. If possible, make the equation on the bottom of page 17 as close as possible as the Soundness condition in Definition 6 (place the $f(W)$ at the same location).
+	
+					{\color{blue} Edited.}
+	
       \item ``The test
 CONJ(A, B, R), given in Figure 4,'' I would delete this first reference to Figure 4, and keep only the second one, later on page 18.
+
+{\color{blue} Ok.}
+
   \item display equation for $C\{R,C\}$: similar problem with the set notation. I do not understand the first set in this notation $\{X_r, C, X, Z \in Obs\}$. I think this expresses conditions of $X_r, C, X, Z$, but they should not actually be elements of the set. Use the same notation as in the display equation below ``Relations'' on page 17 (after that one is fixed)?
+	
+	{\color{blue} Hopefully it is clear now. Here $X\in Obs$ is shorthand for $X^2=I$, as is now explained in the ``Relations'' subsection.}
+
    \item Figure 4. I get a syntax mismatch for the COM tests. On p. 58, $COM(A,B)$ is defined for $A,B$ observables on the same space. This is not the case for e.g. $COM(C,Z)$
+	
+	{\color{blue} There was a typo in the ``Inputs'' line of the figure. Both $C$ and $Z$ are on the same space, $\mathcal{H}_{A}$. (Note that $Z$ should be distinguished from $\sigma_Z$; here, $Z$ means $\sigma_Z \otimes I$ where the $\sigma_Z$ acts on the qubit that specifies the intended block partition for $C$ and $X_R$.)}
+
      \item part (b) of test needs some work. First of all, it is phrased negatively (reject if...) this seems unatural. Secondly, please consider if this part (b) deserves its own name and game. Presumably, the beauty of this part (b) comes out in the proof, but the presentation is really difficult to follow.
-   \item (page 20) For the Pauli relations defined in the display equation $P^m\{X,Y,Z\}$: same thing with the set notation, it makes no sense.Currently, the string $a$ is in the set: I doubt that you mean this. Each of the sets here needs to be fixed in terms of the notation of using correctly $\mid$ or $:$ to specify the nature of the observables in the set.
+		
+		\item We reformulated it. This test is not used outside of its use inside Conj, so we don't find it useful to give it a name. 
+		
+   \item (page 20) For the Pauli relations defined in the display equation $P^m\{X,Y,Z\}$: same thing with the set notation, it makes no sense. Currently, the string $a$ is in the set: I doubt that you mean this. Each of the sets here needs to be fixed in terms of the notation of using correctly $\mid$ or $:$ to specify the nature of the observables in the set.
+	
+	{\color{blue} Fixed}
+	
     \item (page 20). ``The Pauli braiding test is recalled in Appendix A.4, ''. This paragraph awkwardly refers to [NV17], as testing only some observables, and then the extension and then once more back to [NV17]. Please re-phrase so that the flow is more direct (I would first mention [NV17], say it is in Appendix A.4.1 (also mention any changes compared to the original test), and then mention the extension in Appendix A.4. Also add in the paragraph a sentence that introduces Lemma 9.
+		
+			{\color{blue} We did this}
+
      \item (page 21). Same issues as before with the strange set notation for $J_{h_S, h_X, h_Z}$
+		
+			{\color{blue} Fixed}
+
 \item (page 22) ``Let $\hat{\tau_R}$ be as defined in the paragraph preceding the lemma.'' Where is this? I think maybe this should be "in Lemma 10"?
+
+			{\color{blue} Corrected}
+
 \item (page 23) ``Finally, the relation (10) follows from self-consistency''. This is the first time ``self-consistency'' is used. It is probably the same thing as the implicit consistency test. Please add a reference to the section where the implicit consistency test is described.
+
+			{\color{blue} Done}
+
  \item (page 25) ``Proof sketch.'' Please mention what would be required to make this a full proof (or promote it if this is the case).
  \item (page 26) ``We give a first corollary of Theorem 11 which expresses its conclusion (16) in terms of the post-measurement
 state of the first player.''. It is unclear if ``its'' refers to the conclusion of Theorem 11, or of the upcoming Corollary 12.

@@ -43,6 +43,7 @@ As already mentioned, for convenience we restrict our attention to pure-state st
 We will loosely refer to a strategy for the players as $(W,\ket{\psi})$, with the symbol $W$ referring to the complete set of projective measurements used by the players in the game.
 
 \subsubsection{Consistency tests}
+\label{sec:cons-test}
 
 We formulate our tests as two-player games in which both players are treated symmetrically. Specifically, when in a test we write ``send one player the question $X$ and the other the question $Y$'' we implicitly mean that the role of ``first player'' and ``second player'' have been assigned at random, and moreover a player only gets told its question, not its ``role'' as assigned by the referee. 
  Taking advantage of this symmetry we often omit the subscript $\reg{A}$ or $\reg{B}$, as all statements involving observables for one player hold verbatim with the other player's observables as well. 
@@ -68,24 +69,25 @@ consistency test with probability $1-2\eps$ we obtain $W_{\reg{A}}\otimes \Id
 
 \subsubsection{Relations}
 
-We use $\mathcal{R}$ to denote a set of relations over variables $X,Z,W,\ldots,$ such as
+We use $\mathcal{R}$ to denote a set of relations over matrix variables $X,Z,W,\ldots,$ such as
 $$\mathcal{R}=\big\{XZXZ=-\Id,\, HX=ZH,\,X,Z,H\in\Obs\big\}.$$
-We only consider relations that can be brought in the form of  one of the following
-equations
+Here the constraint $X\in\Obs$ is itself a pair of relations, $X=X^\dagger$ and $X^2=\Id$ (since we consider only binary observables). Each relation implicitly imposes that the variables that appear in it have compatible dimension, e.g.\ $XZXZ=-\Id$ imposes that $X,Z$ have the same dimension. 
+We only consider relations that can be expressed in the form of  one of the following
+equations:
 \begin{itemize}
-  \item  $f(W) = (-1)^a W_1\cdots W_k = \Id$, where the $W_i$ are (not necessarily distinct) unitary variables and $a\in\Z_2$, or
-  \item $f(W) = W_1 \cdot ( \sum_a \omega_a W_2^a)=\Id$, where $W_1$ is a unitary variable, $\{W_2^a\}$ a projective measurement with $s$ possible outcomes, and $\omega_a$ are (arbitrary) $s$-th roots of unity.
+  \item  $(-1)^a W_1\cdots W_k = \Id$, where the $W_i$ are (not necessarily distinct) unitary variables and $a\in\Z_2$, or
+  \item $ W_1 \cdot ( \sum_a \omega_a W_2^a)=\Id$, where $W_1$ is a unitary variable, $\{W_2^a\}$ a projective measurement with $s$ possible outcomes, and $\omega_a$ are (arbitrary) $s$-th roots of unity.
 \end{itemize}
+Here what we mean by ``unitary variable'' (resp. ``projective measurement'') is that when saying that a collection of matrices satisfy the relation, we always require that the matrices are unitary (resp. a projective measurement); if they are not then by definition they do not satisfy the relation. 
 
 \begin{definition}[Rigid self-test]
 We say that a set of relations $\mathcal{R}$ is $(c,\delta(\eps))$-testable, on average under the distribution $\mathcal{D}:\mathcal{R}\to[0,1]$, if
-  there exists a game (or test) $G$ with question set $\mathcal{Q}$ that
-  includes (at least) a symbol for each variable in $\mathcal{R}$ that is either
-  an observable or a POVM and such that:
+  there exists a game (or test) $G$ with question set $\mathcal{Q}$ such that the following holds. The set $\mathcal{Q}$ includes (at least) a symbol for each variable in $\mathcal{R}$ that is either
+  an observable or a POVM. Moreover,
 \begin{itemize}
-\item (\emph{Completeness}) There exists a set of operators which exactly satisfy all relations in $\mathcal{R}$ and a strategy for the players which uses these operators (together possibly with others for the additional questions) that has success probability at least $c$;
-\item (\emph{Soundness}) For any $\eps>0$ and any strategy $(W,\ket{\psi}_{AB})$ that succeeds in the game with probability at least $c-\eps$, the associated measurement operators satisfy the relations in $\mathcal{R}$ up to $\delta(\eps)$, in the state-dependent norm. More precisely, on average
- over the choice of a relation $f(W)=\Id$ from $\mathcal{R}$ chosen according to $\mathcal{D}$, it holds that $\| \Id\otimes (f(W)-\Id) \ket{\psi}_{\reg{AB}}\|^2 \leq \delta(\eps)$.
+\item (\emph{Completeness}) There exists a set of operators which exactly satisfy all relations in $\mathcal{R}$ and a strategy for the players which uses these operators for the questions in $\mathcal{Q}$ that correspond to symbols appearing in the relations $\mathcal{R}$ (together possibly with others for the additional questions) that has success probability at least $c$;
+\item (\emph{Soundness}) For any $\eps>0$ and any strategy $(W,\ket{\psi}_{AB})$ that succeeds in the game with probability at least $c-\eps$, the associated measurement operators satisfy the relations in $\mathcal{R}$ up to $\delta(\eps)$. More precisely, on average
+ over the choice of a relation $f(W)=\Id$ from $\mathcal{R}$ chosen according to $\mathcal{D}$, it holds that $\|  (f(W)-\Id)\otimes\Id \ket{\psi}_{\reg{AB}}\|^2 \leq \delta(\eps)$.
 \end{itemize}
 If both conditions hold, we also say that the game $G$ is a robust $(c,\delta(\eps))$ self-test for the relations $\mathcal{R}$. 
 \end{definition}
@@ -94,14 +96,14 @@ Most of the games we consider have perfect completeness, $c=1$, in which case we
  The distribution $\mathcal{D}$ will often be implicit from context, and we do not always specify it explicitly (e.g. in case we only measure $\delta(\eps)$ up to multiplicative factors of order $|\mathcal{R}|$ the exact distribution $\mathcal{D}$ does not matter as long as it has complete support). 
 
 \begin{definition}[Stable relations]
-We say that a set of relations $\mathcal{R}$ is $\delta(\eps)$-stable, on average under the distribution $\mathcal{D}:\mathcal{R}\to[0,1]$, if for any two families of operators $W_A\in\Lin(\mH_\reg{A})$ and  $W_B\in\Lin(\mH_\reg{B})$ that are consistent on average, i.e. 
+We say that a set of relations $\mathcal{R}$ is $\delta(\eps)$-stable, on average under the distribution $\mathcal{D}:\mathcal{R}\to[0,1]$, if for any state $\ket{\psi}\in\mH_\reg{A}\otimes \mH_\reg{B}$ and families of operators $W_A\in\Lin(\mH_\reg{A})$ and  $W_B\in\Lin(\mH_\reg{B})$ that are consistent on average, i.e. 
 $$\Es{f \sim\mathcal{D}} \Es{W \in_U f} \big\| (\Id\otimes W_B - W_A \otimes \Id)\ket{\psi}\big\|^2\leq \eps,$$
 where $W \in_U f$ is shorthand for $W$ being a uniformly random operator among those appearing in the relation specified by $f$,
 and satisfy the relations on average, i.e. 
 $$\Es{\substack{f\sim\mathcal{D}:\\f(W)=\Id \in\mathcal{R}}} \big\|  (f(W_A)- \Id) \otimes \Id \ket{\psi}\big\|^2 \leq \eps,$$
   there exists operators $\hat{W}$ which satisfy the same relations exactly and are $\delta(\eps)$-isometric to the $W$ with respect to $\ket{\psi}$, on average over the choice of a random relation in $\mathcal{R}$ and a uniformly random $W$ appearing in the relation, i.e. there exists an isometry $V_A$ such that 
   \begin{equation}
-    \Es{f \sim\mathcal{D}} \Es{W \in_U f} \big\|( \hat{W}_A-V_A^\dagger W_AV_A)\otimes \Id \ket{\psi}\big\|^2=O(\delta(\eps)).\nonumber
+    \Es{f \sim\mathcal{D}} \Es{W \in_U f} \big\|( \hat{W}_A-V_A W_A)\otimes \Id \ket{\psi}\big\|^2=O(\delta(\eps)).\nonumber
   \end{equation}
 	\end{definition}
 
@@ -111,7 +113,7 @@ $$\Es{\substack{f\sim\mathcal{D}:\\f(W)=\Id \in\mathcal{R}}} \big\|  (f(W_A)- \I
 \label{sec:conj-test}
 %---------------------------%
 
-We give a test which certifies that a unitary (not necessarily an observable) conjugates one observable to another. More precisely, let $A,B$ be observables, and $R$ a unitary, acting on the same space $\mH$. The test $\conj(A,B,R)$, given in Figure~\ref{fig:conjugation-test-1}, certifies that the players implement observables of the form
+We give a test which certifies that a unitary (not necessarily an observable) conjugates one observable to another. More precisely, let $A,B$ be observables and $R$ a unitary acting on the same space $\mH$. The test $\conj(A,B,R)$ certifies that the players implement observables of the form
 \begin{equation}\label{eq:def-xr}
 X_R = \begin{pmatrix} 0 & R^\dagger\\ R & 0 \end{pmatrix}\qquad \text{and}\qquad C = C_{A,B} = \begin{pmatrix} A & 0\\ 0 & B \end{pmatrix}
 \end{equation}
@@ -120,24 +122,25 @@ such that $X_R$ and $C$ commute. The fact that $X_R$ is an observable implies th
  \mathcal{C}\{R,C\} &= \big\{ X_R,C,X,Z\in \Obs\big\} \cup \big\{XZ=-ZX\big\}
 \cup \big\{ X_R C = C X_R,\, X_RZ=-Z X_R,\, C Z=ZC\big\}.
 \end{align*}
-Here the anti-commuting observables $X$ and $Z$ are used to specify a basis in which $X_R$ and $C$ can be block-diagonalized. The anti-commutation and commutation relations with $Z$ enforce that $X_R$ and $C$ respectively have the form described in~\eqref{eq:def-xr}.
-These relations are enforced using simple commutation and anti-commutation tests that are standard in the literature on self-testing. For convenience, we state those tests, $\comt$ and $\act$, in Appendix~\ref{sec:clifford-test}. The conjugation test, which uses them as sub-tests, is given in Figure~\ref{fig:conjugation-test-1}. Here, ``Inputs'' refers to a subset of designated questions in the test; ``Relation'' indicates a relation that the test aims to certify; ``Test'' describes the certification protocol. (Recall that all our protocols implicitly include a ``consistency'' test in which a question is chosen uniformly at random from the marginal distribution and sent to both players, whose answers are accepted if and only if they are equal.)
+Here the anti-commuting observables $X$ and $Z$ are used to specify a basis in which $X_R$ and $C$ can be block-diagonalized. The anti-commutation and commutation relations with $Z$ enforce that $X_R$ and $C$ have the form described in~\eqref{eq:def-xr}.
+These relations are enforced using commutation and anti-commutation tests that are standard in the literature on self-testing. For convenience, we state those tests, $\comt$ and $\act$, in Appendix~\ref{sec:clifford-test}. The conjugation test, which uses them as sub-tests, is given in Figure~\ref{fig:conjugation-test-1}. Here, ``Inputs'' refers to a subset of designated questions in the test; ``Relation'' indicates a relation that the test aims to certify; ``Test'' describes the certification protocol. (Recall that all our protocols implicitly include a ``consistency test, not specified on the figure, in which a question is chosen uniformly at random from the marginal distribution and sent to both players, whose answers are accepted if and only if they are equal.)
 
 \begin{figure}[H]
 \rule[1ex]{\textwidth}{0.5pt}\\
 Test~\conj(A,B,R) 
 \begin{itemize}
-    \item Inputs: $A$ and $B$ observables on the same space $\mH$, and $X$ and $Z$ observables on $\mH'$. $X_R$ and $C$ observables on $\mH\otimes \mH'$.
+    \item Inputs: $A$, $B$, $X$, $Z$, $X_R$ and $C$ observables.
     \item Relations:  $\mathcal{C}\{R,C\} $, with $R$ defined from $X_R$, and $C$ related to $A$ and $B$, as in~\eqref{eq:def-xr}. 
     \item Test: execute each of the following with equal probability
 		\begin{enumerate}
 \item[(a)] With probability $1/8$ each, execute tests $\act(X,Z)$,  $\comt(C,Z)$, $\comt(X_R,C)$,   $\act(X_R,Z)$ and $\comt(A,X)$, $\comt(B,X)$, $\comt(A,Z)$, $\comt(B,Z)$. 
-\item[(b)] Ask one player to measure $A$, $B$, $C$ or $Z$ (with probability $1/4$ each), and the other to jointly measure $A$ or $B$ (with probability $1/2$ each) and $Z$. The first player returns one bit, and the second two bits. Reject if either:
+\item[(b)] Ask one player to measure $A$, $B$, $C$ or $Z$ (with probability $1/4$ each), and the other to jointly measure $A$ or $B$ (with probability $1/2$ each) and $Z$. The first player returns one bit, and the second two bits. Make an acceptance decision as follows: 
 \begin{itemize}
-\item The first player was asked $C$, the second player was asked $(A,Z)$, his second answer bit is~$0$, and his first answer bit does not match the first player's;
-\item The first player was asked $C$, the second player was asked $(B,Z)$, his second answer bit is~$1$, and his first answer bit does not match the first player's.
-\item The first player was asked $A$, $B$, or $Z$ and his answer bit does not match the corresponding answer from the second player.
+\item If the first player was asked $C$ and the second player was asked $(A,Z)$ then accept \emph{unless} the second player's second answer bit is~$0$ and his first answer bit does not match the first player's;
+\item If the first player was asked $C$ and the second player was asked $(B,Z)$ then accept \emph{unless} the second player's second answer bit is~$1$ and his first answer bit does not match the first player's;
+\item If the first player was asked $A$, $B$, or $Z$ then accept if and only if his answer bit matches the corresponding answer from the second player.
 \end{itemize}
+In all other cases, accept. 
 \end{enumerate}
 \end{itemize}
 \rule[2ex]{\textwidth}{0.5pt}\vspace{-0.5cm}
@@ -154,18 +157,20 @@ The test $\conj(A,B,R)$ is a $(1,\delta)$ self-test for the set of relations
 \end{lemma}
 
 \begin{proof}
-Completeness is clear, as players making measurements on a maximally entangled state on $\mH_{\reg{A}}\otimes \mH_{\reg{B}}$, tensored with an EPR pair on $\C^2 \otimes \C^2$ for the $X$ and $Z$ observables, and using $X_R$ and $C$ defined in~\eqref{eq:def-xr} (with the blocks specified by the space associated with each player's half-EPR pair) succeed in each test with probability $1$. 
+Completeness is clear, as players making measurements on a maximally entangled state on $\mH_{\reg{A}}\otimes \mH_{\reg{B}}$, tensored with an EPR pair on $\C^2_{\reg{A}'} \otimes \C^2_{\reg{B}'}$ for the $X$ and $Z$ observables, and using $X_R$ and $C$ defined in~\eqref{eq:def-xr} (with the blocks specified by the space associated with each player's half-EPR pair) succeed in each test with probability $1$. 
 
-We now consider soundness. Success in $\act(X,Z)$ in part (a) of the test implies the existence of local isometries $V_A,V_B$ such that $V_A:\mH_\reg{A}\to \mH_{\hat{\reg{A}}}\otimes \C^2_{\reg{A}'}$, with $X\simeq_{\sqrt{\eps}} \Id_{\hat{\reg{A}}}\otimes \sigma_X$ and $Z\simeq_{\sqrt{\eps}} \Id_{\hat{\reg{A}}}\otimes\sigma_Z$. By Lemma~\ref{lem:pauli-c}, approximate commutation with both $X$ and $Z$ implies that under the same isometry, $A\simeq_{\sqrt{\eps}} A_I \otimes \Id$ and $B\simeq_{\sqrt{\eps}} B_I \otimes \Id$, for observables $A_I, B_I$ on $\mH_{\hat{\reg{A}}}$. Similarly, the parts of the test involving $C$ and $X_R$ imply that they each have the block decomposition specified in~\eqref{eq:def-xr}. 
-In particular,  anti-commutation of $X_R$ with $Z$ certifies that $X_R$ has  a decomposition of the form  $X_R \simeq R_X \otimes \sigma_X + R_Y \otimes \sigma_Y$. Using that $X_R$ is an observable, we deduce that there exists a unitary $R$ on $\mH_{\hat{\reg{A}}}$ such that $R \approx R_X + i R_Y$. Similarly, commutation of $C$ with $Z$ implies that $C \simeq C_I \otimes I + C_Z \otimes \sigma_Z$, for Hermitian $C_I$, $C_Z$ such that $C_I \pm C_Z$ are observables. 
+We now consider soundness. Success in $\act(X,Z)$ in part (a) of the test implies the existence of local isometries $V_A,V_B$ such that $V_A:\mH_\reg{A}\to \mH_{\hat{\reg{A}}}\otimes \C^2_{\reg{A}'}$, with $X\simeq_{\sqrt{\eps}} \Id_{\hat{\reg{A}}}\otimes \sigma_X$ and $Z\simeq_{\sqrt{\eps}} \Id_{\hat{\reg{A}}}\otimes\sigma_Z$. By Lemma~\ref{lem:pauli-c}, approximate commutation with both $X$ and $Z$ enforced by the tests $\comt(A,X)$, $\comt(A,Z)$, $\comt(B,X)$ and $\comt(B,Z)$ implies that under the same isometry, $A\simeq_{\sqrt{\eps}} A_I \otimes \Id$ and $B\simeq_{\sqrt{\eps}} B_I \otimes \Id$, for observables $A_I, B_I$ on $\mH_{\hat{\reg{A}}}$. Similarly, the parts of the test involving $C$ and $X_R$ imply that they each have the block decomposition specified in~\eqref{eq:def-xr}. 
+In particular,  anti-commutation of $X_R$ with $Z$ certifies that $X_R$ has  a decomposition of the form  $X_R \simeq R_X \otimes \sigma_X + R_Y \otimes \sigma_Y$. Using that $X_R$ is an observable, we deduce that there exists a unitary $R$ on $\mH_{\hat{\reg{A}}}$ such that $R \simeq R_X + i R_Y$. Similarly, commutation of $C$ with $Z$ implies that $C \simeq C_I \otimes I + C_Z \otimes \sigma_Z$, for Hermitian $C_I$, $C_Z$ such that $C_I \pm C_Z$ are observables. 
 
 
 
-Next we analyze part (b) of the test. Let $\{W_{AZ}^{a,z}\}$ be the projective measurement applied by the second player upon query $(A,Z)$. Success with probability $1-O(\eps)$ in the first item ensures that 
-$$\big| \bra{\psi} C \otimes (W_{AZ}^{00} - W_{AZ}^{10})\ket{\psi} \big| \,=\,O(\eps),$$
-and a similar condition holds from the second item, with $W_{BZ}$ instead of $W_{AZ}$. Success with probability $1-O(\eps)$ in the third item ensures consistency of $\{W_{AZ}^{a,z}\}$ (resp.\ $\{W_{BZ}^{a,z}\}$) with the observable $A$ (resp.\ $B$) when marginalizing over the second outcome, and $Z$ when marginalizing over the first outcome. Using the decompositions for $A,B$ and $C$ derived earlier, we obtain $C_I \approx (A+B)/2$ and $C_Z \approx (A-B)/2$, giving the ``Moreover'' part of the lemma. 
+Next we analyze part (b) of the test. Let $\{W_{AZ}^{a,z}\}$ be the projective measurement applied by the second player upon query $(A,Z)$. Success with probability $1-O(\eps)$ conditioned on the questions being $C$ and $(A,Z)$ item ensures that 
+\begin{equation}\label{clif-2b}
+\big| \bra{\psi} C^0 \otimes (W_{AZ}^{00} + W_{AZ}^{01} + W_{AZ}^{11}) + C^1\otimes (W_{AZ}^{10} + W_{AZ}^{01} + W_{AZ}^{11}) \ket{\psi} \big| \,\geq\,1-O(\eps),
+\end{equation}
+and a similar condition holds for the case $C$ and $(B,Z)$, with $W_{BZ}$ instead of $W_{AZ}$. Success with probability $1-O(\eps)$ in the case of questions $A$, $B$ or $Z$ and $(A,Z)$ or $(B,Z)$ respectively ensures consistency of $\{W_{AZ}^{a,z}\}$ (resp.\ $\{W_{BZ}^{b,z}\}$) with the observable $A$ (resp.\ $B$) when marginalizing over the second outcome, and $Z$ when marginalizing over the first outcome. Using the decompositions for $A,B$ and $C$ derived earlier it follows that $W_{AZ} \simeq A_I \otimes \sigma_Z$ and $W_{BZ} \simeq B_I \otimes \sigma_Z$. Using that we already showed that $C$ is block-diagonal in the basis specified by $X$ and $Z$,~\eqref{clif-2b} gives $C_I \approx (A+B)/2$ and $C_Z \approx (A-B)/2$. This shows the ``Moreover'' part of the lemma. 
 
-Finally, success in test $\comt(X_R,C)$ certifies the approximate commutation relation $[X_R,C]\approx_{\sqrt{\eps}} 0$, which, given the decomposition of $X_R$ and $C$ obtained so far, implies $RA \approx B R$, as desired. 
+Finally, success in test $\comt(X_R,C)$ certifies the approximate commutation relation $[X_R,C]\simeq_{\sqrt{\eps}} 0$, which, given the decomposition of $X_R$ and $C$ obtained so far, implies $RA \simeq B R$, as desired. 
 \end{proof}
 
 
@@ -178,19 +183,19 @@ Let $m\geq 1$ be an integer, and $R$ an $m$-qubit Clifford unitary. $R$ is chara
 R \sigma_X(a)\sigma_Z(b) R^\dagger = (-1)^{h_S(a,b)}\sigma_X(h_X(a,b))\sigma_Z(h_Z(a,b)),\qquad\forall a,b\in\{0,1\}^m.
 \end{equation}
 Using that $(\sigma_X(a)\sigma_Z(b))^\dagger = (-1)^{a\cdot b} \sigma_X(a)\sigma_Z(b)$, the same condition must hold of the right-hand side of~\eqref{eq:conj-cliff}, thus $h_X(a,b)\cdot h_Z(a,b) = a\cdot b\mod 2$. 
- To any family of observables $\{X(a),Z(b),\,a,b\in\{0,1\}^m\}$ we associate,  for $a,b\in\{0,1\}^m$,
+ To any family of observables $\{X(a),Z(b),\,a,b\in\{0,1\}^m\}$ satisfying the Pauli anti-commutation relations we associate,  for $a,b\in\{0,1\}^m$,
 \begin{equation}\label{eq:def-control-c}
 A(a,b) = i^{a\cdot b}X(a)Z(b), \qquad B(a,b) = i^{a\cdot b}X(h_X(a,b))Z(h_Z(a,b)),
 \end{equation}
-where the phase $i^{a\cdot b}$ is introduced to ensure that $A(a,b)$ and $B(a,b)$ are observables. Define $C(a,b)$ in terms of $A(a,b)$ and $B(a,b)$ as in~\eqref{eq:def-xr}. 
+where the phase $i^{a\cdot b}$ is introduced to ensure that $A(a,b)$ and $B(a,b)$ are observables. Define $X_R$ in terms of $R$, and $C(a,b)$ in terms of $A(a,b)$ and $B(a,b)$, as in~\eqref{eq:def-xr}. 
 %Each of $A$ and $B$ can be written in a unique way as a product of commuting single-qubit Pauli observables $\{X,Y,Z\}$. 
-The Clifford conjugation test aims to test for the conjugation relation $RA(a,b)R^\dagger = B(a,b)$, for all (in fact, on average over a randomly chosen) $(a,b)$. For this, we first need a test that ensures $A(a,b)$ and $B(a,b)$ themselves have the correct form, in terms of a tensor product of Pauli observables. Such a test was introduced in~\cite{natarajan2016robust}, where it is called ``Pauli braiding test''. The test certifies the Pauli relations 
+The Clifford conjugation test aims to test for the conjugation relation $X_RA(a,b)X_R^\dagger = B(a,b)$, for all (in fact, on average over a randomly chosen) $(a,b)$. For this, we first need a test that ensures $A(a,b)$ and $B(a,b)$ themselves have the correct form, in terms of a tensor product of Pauli observables. Such a test was introduced in~\cite{natarajan2016robust}, where it is called ``Pauli braiding test''. The test certifies the Pauli relations 
 \begin{align*}
-& {\paulin}\{X,Y,Z\} = \Big\{ W(a)\in\Obs,\;W \in \{X,Y,Z\}^m,\,a\in\{0,1\}^m\Big\} \\
-&\quad\cup \Big\{W(a)W'(a')=(-1)^{|\{i:\,W_i\neq W'_i \wedge a_ia'_i=1\}|} W'(a')W(a),\;\forall W,W' \in \{X,Y,Z\}^n,\,\forall a,a'\in\{0,1\}^m\Big\}\\
-&\quad \cup\Big\{ W(a)W(a')=W(a+a'),\;\forall a,a'\in\{0,1\}^m\Big\}.
+& {\paulin}\{X,Y,Z\} = \Big\{ W(a)\in\Obs\,:\;W \in \{X,Y,Z\}^m,\,a\in\{0,1\}^m\Big\} \\
+&\quad\cup \Big\{W(a)W'(a')=(-1)^{|\{i:\,W_i\neq W'_i \wedge a_ia'_i=1\}|} W'(a')W(a)\,:\; W,W' \in \{X,Y,Z\}^n,\, a,a'\in\{0,1\}^m\Big\}\\
+&\quad \cup\Big\{ W(a)W(a')=W(a+a')\,:\;W\in\{X,Y,Z\}^n,\, a,a'\in\{0,1\}^m\Big\}.
 \end{align*}
-The Pauli braiding test is recalled in Appendix~\ref{sec:pauli-group}, and we refer to the test as $\pbt(X,Y,Z)$. The original test from~\cite{natarajan2016robust} only allows to test for tensor products of $\sigma_X$ and $\sigma_Z$ Pauli observables, and we extend the test to include Pauli $\sigma_Y$. This requires us to provide a means to accommodate the phase ambiguity discussed earlier. The result is described in the following lemma; we refer to Appendix~\ref{sec:e-pbt} for the proof. (In some cases a simpler variant of the test, which does not attempt to test for the $Y$ observable, will suffice. This is essentially the original test from~\cite{natarajan2016robust}, which we call $\pbt(X,Z)$ and is introduced in Appendix~\ref{sec:pbt}.)
+The Pauli braiding test, which is due to~\cite{natarajan2016robust}, allows to test for tensor products of $\sigma_X$ and $\sigma_Z$ Pauli observables. We recall the test in Appendix~\ref{sec:pbt}. In Appendix~\ref{sec:e-pbt} we extend the test to include Pauli $\sigma_Y$. We refer to the extended test as $\pbt(X,Y,Z)$. For the extended test we can show the following; see Appendix~\ref{sec:e-pbt} for the proof.
 
 \begin{lemma}\label{lem:xyz-rigid}
 Suppose $\ket{\psi}\in\mH_\reg{A}\otimes \mH_\reg{B}$ and $W(a) \in \Obs(\mH_\reg{A})$, for $W\in \{X,Y,Z\}^m$ and $a\in\{0,1\}^m$, specify a strategy for the players that has success probability at least $1-\eps$ in the extended Pauli braiding test $\pbt(X,Y,Z)$ described in Figure~\ref{fig:e-pbt}. 
@@ -200,16 +205,18 @@ and on expectation over $W\in \{X,Y,Z\}^m$,
 \begin{align}\label{eq:test-sigmay}
  \Es{a\in\{0,1\}^m} \big\| \big(W(a) -V_A^\dagger (\sigma_W(a) \otimes \Delta_W(a)) V_A\big) \otimes \Id_B \ket{\psi} \big\|^2 &= O(\sqrt{\eps}),
 \end{align}
-where $\Delta_W(a) = \prod_i \Delta_{W_i}^{a_i} \in \Obs({\mH}_{\hat{\reg{A}}})$ are observables with $\Delta_{X}=\Delta_{Z}=\Id$ and $\Delta_{Y}$ an arbitrary observable on $\hat{\mH}$ such that 
-	$$ \big\|\Delta_Y \otimes \Delta_Y \ket{\aux} - \ket{\aux} \big\|^2 = O(\sqrt{\eps}).$$
+where $\Delta_W(a) = \prod_i \Delta_{W_i}^{a_i} \in \Obs({\mH}_{\hat{\reg{A}}})$ are observables with $\Delta_{X}=\Delta_{Z}=\Id$ and $\Delta_{Y}$ an arbitrary observable on $\hat{\mH}_{\hat{A}}$. Moreover, similar conditions hold on the $\reg{B}$ systems and
+	$$ \big\|\Delta_Y \otimes \Delta_Y \ket{\aux} - \ket{\aux} \big\|^2 = O(\sqrt{\eps})\;,$$
+	where as usual we use the same label for an observable acting on registers $\reg{A}$ or $\reg{B}$. 
 \end{lemma} 
+
 
 Building on the Pauli braiding test and the conjugation test from the previous section, the Clifford conjugation test $\conjc(R)$ described in Figure~\ref{fig:conjugation-test-2} 
  provides a test for the set of relations 
 \begin{align}
 \conjr_{h_S,h_X,h_Z}\{R\} &= \paulin\{X,Y,Z\}  \cup \{R\in \Unitary\} \cup \{\Delta_Y\in\Obs\}\notag\\
-&\qquad \cup \big\{ R X(a)Z(b)R^\dagger = \Delta_Y^{h_S(a,b)}X(h_X(a,b))Z(h_Z(a,b)),\,\forall a,b\in\{0,1\}^m\big\} \notag\\
-&\qquad \cup \big\{ \Delta_Y X(a) = X(a)\Delta_Y,\,\Delta_Y Z(b)=Z(b)\Delta_Y,\,\forall a,b\in\{0,1\}^m\big\}.\label{eq:def-hr}
+&\qquad \cup \big\{ R X(a)Z(b)R^\dagger = \Delta_Y^{h_S(a,b)}X(h_X(a,b))Z(h_Z(a,b))\,:\; a,b\in\{0,1\}^m\big\} \notag\\
+&\qquad \cup \big\{ \Delta_Y X(a) = X(a)\Delta_Y,\,\Delta_Y Z(b)=Z(b)\Delta_Y\,:\; a,b\in\{0,1\}^m\big\}.\label{eq:def-hr}
 \end{align}
 Note the presence of the observable $\Delta_Y$, which arises from the conjugation ambiguity in the definition of $Y$ (see Lemma~\ref{lem:xyz-rigid}). 
 
@@ -223,7 +230,7 @@ Test~\conjc(R):
 \begin{enumerate}
 \item[(a)] Execute test $\pbt(X,Y,Z)$ on $(m+1)$ qubits, where the last qubit is called the ``control'' qubit;
 %\item[(b)] Execute test $\perm(S,n)$ with $S = \{X,Y,Z\}$ (and $k=1$);
-\item[(b)] Select $a,b\in\{0,1\}^m$ uniformly at random. Let $C(a,b)$ be the observable defined from $A(a,b)$ and $B(a,b)$ in~\eqref{eq:def-xr}, with the block structure specified by the control qubit. Execute test $\conj\{A(a,b),B(a,b),R\}$. In the test, to specify query $A(a,b)$ or $B(a,b)$, represent each as a string in $\{I,X,Y,Z\}^m$ and use the same label as for the same query when it is used in part~(a).
+\item[(b)] Select $a,b\in\{0,1\}^m$ uniformly at random. Let $C(a,b)$ be the observable defined from $A(a,b)$ and $B(a,b)$ in~\eqref{eq:def-xr}, with the block structure specified by the control qubit. Execute test $\conj\{A(a,b),B(a,b),R\}$. In the test, to specify query $A(a,b)$ or $B(a,b)$, represent each as a string in $\{I,X,Y,Z\}^m$ (omitting the additional phase $i$, which is applied by the prover but not specified explicitly on the query label) and use the same label as for the same query when it is used in part~(a).
 \end{enumerate}
 \end{itemize}
 \rule[2ex]{\textwidth}{0.5pt}\vspace{-0.5cm}
@@ -235,13 +242,15 @@ Test~\conjc(R):
 
 \begin{lemma}\label{lem:cliff-conj}
 Let $R$ be an $m$-qubit Clifford unitary and $h_S,h_X,h_Z$ such that~\eqref{eq:conj-cliff} holds. Suppose a strategy for the players succeeds with probability at least $1-\eps$ in test $\conjc(R)$. Let $V_A:\mH_\reg{A} \to ((\C^2)^{\otimes (m+1)})_{\reg{A}'}  \otimes {\mH}_{\hat{\reg{A}}}$ be the isometry whose existence follows from part (a) of the test, and $\Delta_Y$ the observable on $\mH_{\hat{\reg{A}'}}$ that represents the phase ambiguity (see Lemma~\ref{lem:xyz-rigid}). 
-Then there exists a unitary $\phase_R$ on ${\mH}_{\hat{\reg{A}}}$, commuting with $\Delta_Y$, such that 
+Then there exists a unitary $\phase_R$ on ${\mH}_{\hat{\reg{A}}}$ and another unitary $\phase_R$ on ${\mH}_{\hat{\reg{B}}}$, such that each commutes with $\Delta_Y$ on the same system and
 \begin{equation}\label{eq:r-stab}
  \big\|\phase_R \otimes \phase_R \ket{\aux} - \ket{\aux} \big\|^2 = O(\poly(\eps)).
 \end{equation}
-Moreover, let $\hat{\tau}_R$ be any $m$-qubit Clifford unitary, acting on the space $(\C^2)^{\otimes m}$ into which the isometry $V_A$ maps, which satisfies the relations specified in~\eqref{eq:def-hr}, where for any location $i\in\{1,\ldots,m\}$ such that $a_i=b_i=1$ we replace $\sigma_X\sigma_Z$ by $\tau_Y = \sigma_Y \otimes (i\Delta_Y)$. Then, letting  $ \tau_R = \hat{\tau}_{R}(\Id_{\reg{A}'} \otimes \phase_R)$ we have that  under the same isometry,
+Moreover, let $\hat{\tau}_R$ be any $m$-qubit Clifford unitary, acting on the space $(\C^2)^{\otimes m}$ into which the isometry $V_A$ maps, which satisfies the relations specified in~\eqref{eq:conj-cliff}, where for any location $i\in\{1,\ldots,m\}$ such that $a_i=b_i=1$ we replace $\sigma_X\sigma_Z$ by $\tau_Y = \sigma_Y \otimes (i\Delta_Y)$.\footnote{Note that $\hat{\tau}_R$ is uniquely defined up to phase.} Then, letting  $ \tau_R = \hat{\tau}_{R}(\Id_{\reg{A}'} \otimes \phase_R)$ we have that  under the same isometry,
 $$R \,\simeq_{\poly(\eps)}\, \tau_R.$$
 \end{lemma}
+
+In the lemma, the unitary $\Lambda_R$ is necessary because whenever a unitary $R$ satisfies the relations~\eqref{eq:conj-cliff} the unitary $R\otimes \Lambda_R$ satisfies them as well, where $\Lambda_R$ is any unitary acting on an ancilla system. In Section~\ref{sec: RIGID test} we show that these unitaries can be ignored when looking at post-measurement states in the protocol, which is what will ultimately be important for us.  
 
 Note that $\hat{\tau}_R$ is only defined up to phase in the lemma. Any representative will do, as  the phase ambiguity can be absorbed in $\phase_R$. As an example, in this notation we have 
 \begin{equation}\label{eq:hat-tau-def}
@@ -253,14 +262,14 @@ where the ``honest'' single-qubit Clifford observables $\sigma_F$ and $\sigma_G$
 
 \begin{proof}[Proof sketch.]
 For $D\in\{A,B\}$ let $V_D$ be the isometries that follow from part (a) of the test and Lemma~\ref{lem:xyz-rigid}.
-According to~\eqref{eq:def-control-c}, $A(a,b)$ and $B(a,b)$ can each be expressed (up to phase) as a tensor product of $X,Y,Z$ operators, where the number of occurrences of $Y$ modulo $2$ is $a\cdot b$ for $A(a,b)$ and  $h_X(a,b)\cdot h_Z(a,b) = a\cdot b\mod 2$ for $B(a,b)$. Thus the labels used to specify the observables in $A(a,b)$ and $B(a,b)$ in part (b), together with the analysis of part (a) and Lemma~\ref{lem:xyz-rigid}, imply that, under the same isometry, we  have
+According to~\eqref{eq:def-control-c}, $A(a,b)$ and $B(a,b)$ can each be expressed (up to phase) as a tensor product of $X,Y,Z$ operators, where the number of occurrences of $Y$ modulo $2$ is $a\cdot b$ for $A(a,b)$ and  $h_X(a,b)\cdot h_Z(a,b) = a\cdot b\mod 2$ for $B(a,b)$. Thus the labels used to specify the observables in $A(a,b)$ and $B(a,b)$ in part (b), together with the analysis of part (a) and Lemma~\ref{lem:xyz-rigid}, imply that under the same isometry we  have
 $$A(a,b) \simeq_{\sqrt{\eps}} \sigma_X(a)\sigma_Z(b) \otimes (i\Delta_Y)^{a\cdot b}
 \;\text{and}\;
  B(a,b) \simeq_{\sqrt{\eps}} \sigma_X(h_X(a,b)) \sigma_Z(h_Z(a,b)) \otimes (i\Delta_Y)^{a\cdot b + h_S(a,b)},$$
 where the imaginary phase comes from \eqref{eq:def-control-c}. 
 Applying the analysis of the conjugation test given in Lemma~\ref{lem:conj} shows that $X_R$ must have the form in~\eqref{eq:def-xr}, for some $R$ that approximately conjugates $A(a,b)$ to $B(a,b)$, on average over uniformly random $a,b\in\{0,1\}^m$.
 
-Let $\hat{\tau}_R$ be as defined in the paragraph preceding the lemma. Note that $\hat{\tau}_R$ acts on $\mH_{\reg{A}'}$ and $\mH_{\hat{\reg{A}}}$. After application of the isometry, $R$ has an expansion
+Let $\hat{\tau}_R$ be as defined in the lemma. Note that $\hat{\tau}_R$ acts on $\mH_{\reg{A}'}$ and $\mH_{\hat{\reg{A}}}$. After application of the isometry, $R$ has an expansion
 \begin{equation}\label{eq:r-1}
 R \simeq \hat{\tau}_R \cdot \Big(\sum_{a,b} \,\sigma_X(a)\sigma_Z(b) \otimes \phase_R(a,b)\Big),
 \end{equation}
@@ -268,7 +277,7 @@ R \simeq \hat{\tau}_R \cdot \Big(\sum_{a,b} \,\sigma_X(a)\sigma_Z(b) \otimes \ph
 Using the approximate version of~\eqref{eq:conj-cliff} certified by the conjugation test (Lemma~\ref{lem:conj}), 
 $$ R V_A^\dagger \big(\sigma_X(a)\sigma_Z(b)\otimes \Delta_Y^{a\cdot b}\big) V_A \approx V_A^\dagger \big(\sigma_X(h_X(a,b))\sigma_Z(h_Z(a,b)) \otimes \Delta_Y^{a\cdot b + h_S(a,b)}\big)V_A R,$$
 where the approximation holds on average over a uniformly random choice of $(a,b)$ and up to error that is polynomial in $\eps$ but independent of $m$. 
-Expanding out $R$ and using the consistency relations between the two provers, 
+Expanding out $R$ and using the consistency relations between the two players, 
 \begin{align}
 \sum_{c,d} \hat{\tau}_R \Big(\sigma_X(c)\sigma_Z(d) &\otimes \phase_R(c,d)\Big) \otimes \Big((-1)^{a\cdot b}\sigma_X(a)\sigma_Z(b)\otimes \Delta_Y^{a\cdot b}\Big)\notag\\
 & \!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\!\approx \sum_{c,d} \Big(\sigma_X(h_X(a,b))\sigma_Z(h_Z(a,b)) \otimes \Delta_Y^{a\cdot b + h_S(a,b)}\Big) \,\hat{\tau}_R \, \Big(\sigma_X(c)\sigma_Z(d) \otimes \phase_R(c,d)\Big) \otimes \Id\;,\label{eq:bb-1}
@@ -280,13 +289,13 @@ Using the conjugation relations satisfied, by definition, by $\hat{\tau}_R$,  th
 \begin{equation}\label{eq:bb-2}
 \sum_{c,d} \hat{\tau}_R \Big(\sigma_X(a)\sigma_Z(b) \sigma_X(c)\sigma_Z(d) \otimes \Delta_Y^{a\cdot b }\phase_R(c,d)\Big)  \otimes \Id.
 \end{equation}
-Next using the fact that the state on which the approximations are measured is maximally entangled across registers $\reg{A}$ and $\reg{B}$, together with the Pauli (anti-)commutation relations, to simplify the left-hand side of~\eqref{eq:bb-1}, together with~\eqref{eq:bb-2} we arrive at the approximation
+Next using the fact that the state on which the approximations are measured is maximally entangled across registers $\reg{A}$ and $\reg{B}$ together with the Pauli (anti-)commutation relations to simplify the left-hand side of~\eqref{eq:bb-1}, together with~\eqref{eq:bb-2} we arrive at the approximation
 \begin{align*}
 \sum_{c,d} \Big((-1)^{a\cdot d  +b\cdot c}\sigma_X(a+c)\sigma_Z(b+d) &\otimes \phase_R(c,d)\Big) \otimes \Big(\Id \otimes \Delta_Y^{a\cdot b}\Big)\\
 & \approx \sum_{c,d} \Big( \sigma_X(a+c)\sigma_Z(b+d) \otimes \Delta_Y^{a\cdot b } \phase_R(c,d)\Big) \otimes \Id .
 \end{align*}
 If $(c,d)\neq (0,0)$ a fraction about half of all $(a,b)$ such that $a\cdot b = 0$ satisfy $a\cdot d + b\cdot c = 1$. Using that $\{\sigma_X(a)\sigma_Z(b) \otimes \Id \ket{\EPR}\}$ are orthogonal for different $(a,b)$, the above then implies that $\phase_R(c,d)\approx -\phase_R(c,d)$, on average over $(c,d)\neq (0,0)$. Hence $\phase_R(c,d)\approx 0$, on average over $(c,d)\neq (0,0)$. 
-Considering $(a,b)$ such that $a\cdot b=1$ implies that $\phase_R(0,0)$ approximately commutes with $\Delta_Y$. Finally, the relation~\eqref{eq:r-stab} follows from self-consistency of $X_R$ implicitly enforced in the test.
+Considering $(a,b)$ such that $a\cdot b=1$ implies that $\phase_R(0,0)$ approximately commutes with $\Delta_Y$. Finally, the relation~\eqref{eq:r-stab} follows from consistency of $X_R$ with itself implicitly enforced in the test (see Section~\ref{sec:cons-test}).
 \end{proof}
 
 \subsection{Tensor products of single-qubit Clifford observables}

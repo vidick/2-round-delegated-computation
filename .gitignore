@@ -24,3 +24,5 @@ toc/reply.pdf
 *.out
 
 *.pdf
+
+*.tmp
