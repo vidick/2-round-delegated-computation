@@ -270,6 +270,9 @@ as an a priori assumption. Since the protocol of [Gri17] is not blind,'' Explain
 \subsubsection*{Reviewer 1}
 \begin{enumerate}
 \item Many proofs only contain a sketch and are hard to digest. It is recommended that at least for the main lemmas, such as Lemma 10 and Theorem 11, the authors can provide more self-contained proof. Many steps in the proof sketch are very high level and it is not easy and usually time-consuming if the reader wants to verify the details.
+
+						{\color{red} TODO}
+
 \item The meaning of the second equation on page 23 is not clear. Are a and b fixed or are they summed over in the end in the approximation?
 
 				{\color{blue}The approximation holds on average over uniformly random $a,b$. We added a clarification of this point.}
@@ -307,6 +310,9 @@ as an a priori assumption. Since the protocol of [Gri17] is not blind,'' Explain
 {\color{blue} The ``More precisely'' was meant to clarify this. Since we don't use the term however, we removed it.}
 
 \item Why do you use $Z_4$ in the range of $h_S$ before equation 6 even though it appears in the equation as $(-1)^{h_S}$
+
+				{\color{blue} Corrected.}
+
 \end{enumerate}
 
 \subsubsection*{Reviewer 2}
@@ -331,9 +337,13 @@ Comments about PBT analysis in Appendix:
 
 \item The proof of Lemma 36 is difficult to follow. First, as mentioned before the tests (a), (b) and (c) are distinguishable from each other so it shouldn't be possible to connect the rigidity guarantees between each of those tests.
 
-{\color{blue} Thanks for catching this inconsistency.}
+{\color{blue} Thanks for catching this inconsistency. We added a component to the test, now called part (c), that allows this. }
 
 \item Furthermore,  it hand-waves over the analysis of part (c) of the test. The proof just states: success in part (c) implies [equation (34)]. This is far from obvious: part (c) consists of 3 subtests. Furthermore, parts (ii) and (iii) involve the parallel repetition of the Bell measurement subtest. Only a single instance of the Bell measurement subtest is analyzed, and it is far from clear that the error from m-parallel repetitions does not grow with m.  If it does not grow with m (as implicitly claimed in the proof), this requires a more thorough argument.
+
+{\color{blue} Thanks for pointing this out. Implicitly we had thought of guaranteeing the right tensor product form for the Bell measurements using the Paubli braiding test, but clearly this was not spelled out. We added a section, now numbered A.4.2, to describe and analyze a parallel version of the Bell test that is used in the extended Pauli braiding test. }
+
+
 \end{itemize}
 
 
@@ -381,13 +391,20 @@ Assorted other typos/comments:
 
 \item Does $\Sigma$ generate the set of single-qubit Clifford unitaries?
 
+{\color{blue} Yes, it does. This is because $H$ exchanges $X$ and $Z$. The product $FG$ sends $X$ to $-X$ and fixed the other Paulis. Finally, $G$ exchanges $X$ and $Y$ (and sends $Z$ to $-Z$). It is then possible to verify that all possible conjugations of single-qubit Paulis can be implemented from products of $H,F,G$.}
+
 \item Page 17: definition of Rigid self-test. For completeness, perhaps should clarify further and say that the operators corresponding to each question in $\mathcal{Q}$ satisfy exactly the same relations as specified by $\mathcal{R}$
 
 				{\color{blue} Clarified.}
 
 \item Page 19: Proof of Lemma 8. “anti-commutation of $X_R$ with Z certifies that $X_R$ has decomposition of the form $X_R \simeq R_X \otimes \sigma_X + R_Y \otimes \sigma_Y$”. First, what is the error in this approximation, and it would be helpful to see a proof. Similarly, for subsequent statements it looks a bit hand-wavy. It would be better if the approximations had error bounds and some of the steps were spelled out. 
 
+				{\color{red} TODO.}
+
+
 \item Page 19: Proof of Lemma 8: $C \simeq C_I \otimes I + C_Z \otimes \sigma_Z$. The identity operator I should be $\sigma_I$. 
+
+				{\color{blue} Corrected.}
 
 \item Top of page 20: could use more explanation for why “decompositions of A, B, C earlier imply $C_I \approx… and C_Z \approx$…”. Overall this proof is a little too sketchy.
 
