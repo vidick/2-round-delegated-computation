@@ -318,7 +318,7 @@ Comments about PBT analysis in Appendix:
 \begin{itemize}
 \item Page 64, description of Extended PBT: In test (c), the basis string W that is chosen is uniformly random in ${I, Y}^m$. However this seems problematic because this distribution of questions does not match the distribution of questions in parts (a) or (b): there the basis strings are uniform over ${X,Z}^m$, or ${X,Y}^m$, or ${Y,Z}^m$. Thus test (c) cannot be immediately connected to (a) or (b).
 
-{\color{blue} Thanks for catching this; indeed we were missing a test that connects part (c) to parts (a) and (b). This has now been added; it is the new parts (c) and (d) (with the old part (c) now being part (e)). }
+{\color{blue} Thanks for catching this; indeed we were missing a test that connects part (c) to parts (a) and (b). This has now been added; it is the new part (b). The error was due to a mismatch in notation between the tests.}
 
 \item Furthermore, the tests in (b) cannot be immediately connected to the tests in (a) because the basis strings to each player contain Y w.h.p.
 
@@ -330,6 +330,8 @@ Comments about PBT analysis in Appendix:
 
 
 \item The proof of Lemma 36 is difficult to follow. First, as mentioned before the tests (a), (b) and (c) are distinguishable from each other so it shouldn't be possible to connect the rigidity guarantees between each of those tests.
+
+{\color{blue} Thanks for catching this inconsistency.}
 
 \item Furthermore,  it hand-waves over the analysis of part (c) of the test. The proof just states: success in part (c) implies [equation (34)]. This is far from obvious: part (c) consists of 3 subtests. Furthermore, parts (ii) and (iii) involve the parallel repetition of the Bell measurement subtest. Only a single instance of the Bell measurement subtest is analyzed, and it is far from clear that the error from m-parallel repetitions does not grow with m.  If it does not grow with m (as implicitly claimed in the proof), this requires a more thorough argument.
 \end{itemize}
@@ -365,7 +367,7 @@ It makes sense that ultimately X and Z, after self-testing, should correspond to
 
 In (7), the observables A and B have phase factors defined. However, in the test CONJ-CLIFF, the observables A and B are specified in terms of strings of I, X, Y, Z. Where do the phase factors come into the test? Or do they only show up in the analysis? Clarification regarding this would be helpful.
 
-{\color{blue} The labels used to specify the observables in the test are not by themselves significant. Here, if for example $A = iXZ$ and the referee sends this as ``$XZ$'' the prover ``knows'' to apply the observable $iXZ$. We added a note to clarify this}
+{\color{blue} The labels used to specify the observables in the test are not by themselves significant. Here, if for example $A = iXZ$ and the referee sends this as ``$XZ$'' the prover ``knows'' to apply the observable $iXZ$. We added a note to clarify this.}
 
 \end{itemize}
 
@@ -390,6 +392,8 @@ Assorted other typos/comments:
 \item Top of page 20: could use more explanation for why “decompositions of A, B, C earlier imply $C_I \approx… and C_Z \approx$…”. Overall this proof is a little too sketchy.
 
 \item Page 64: "...multi-qubit Pauli X and Z observales" (should be "observables")
+
+{\color{blue} Corrected.}
 
 \end{itemize}
 
@@ -506,7 +510,7 @@ CONJ(A, B, R), given in Figure 4,'' I would delete this first reference to Figur
 
      \item part (b) of test needs some work. First of all, it is phrased negatively (reject if...) this seems unatural. Secondly, please consider if this part (b) deserves its own name and game. Presumably, the beauty of this part (b) comes out in the proof, but the presentation is really difficult to follow.
 		
-		\item We reformulated it. This test is not used outside of its use inside Conj, so we don't find it useful to give it a name. 
+	{\color{blue} We reformulated it. This test is not used outside of its use inside Conj, so we don't find it useful to give it a name.} 
 		
    \item (page 20) For the Pauli relations defined in the display equation $P^m\{X,Y,Z\}$: same thing with the set notation, it makes no sense. Currently, the string $a$ is in the set: I doubt that you mean this. Each of the sets here needs to be fixed in terms of the notation of using correctly $\mid$ or $:$ to specify the nature of the observables in the set.
 	
@@ -514,7 +518,7 @@ CONJ(A, B, R), given in Figure 4,'' I would delete this first reference to Figur
 	
     \item (page 20). ``The Pauli braiding test is recalled in Appendix A.4, ''. This paragraph awkwardly refers to [NV17], as testing only some observables, and then the extension and then once more back to [NV17]. Please re-phrase so that the flow is more direct (I would first mention [NV17], say it is in Appendix A.4.1 (also mention any changes compared to the original test), and then mention the extension in Appendix A.4. Also add in the paragraph a sentence that introduces Lemma 9.
 		
-			{\color{blue} We did this}
+			{\color{blue} We did this.}
 
      \item (page 21). Same issues as before with the strange set notation for $J_{h_S, h_X, h_Z}$
 		
@@ -529,22 +533,47 @@ CONJ(A, B, R), given in Figure 4,'' I would delete this first reference to Figur
 			{\color{blue} Done}
 
  \item (page 25) ``Proof sketch.'' Please mention what would be required to make this a full proof (or promote it if this is the case).
+
+  {\color{blue} The proof is complete but we omit some of the line-by-line calculations. We added a sentence explanining this at the start of the proof. It's a delicate decision; on the one hand some readers would expect every step to be entirely described and on the other hand we feel that this would completely obscure the argument. So we preferred to have detailed proofs for some of the more elementary lemmas regarding the rigidity arguments, and more high-level proofs addressed at the expert reader for the more involved parts. This should make the paper both readable and verifiable.}
+	
+	
  \item (page 26) ``We give a first corollary of Theorem 11 which expresses its conclusion (16) in terms of the post-measurement
 state of the first player.''. It is unclear if ``its'' refers to the conclusion of Theorem 11, or of the upcoming Corollary 12.
+
+{\color{blue} This sentence has been removed.}
+
 \item (page 26) ``we incorporate a
 small tomography test in the test, described in Figure 7.'' A test within a test --- technically, this is probably correct, but I would avoid this phrasing, it is hard to read. Next, the ``described in Figure 7'' actually refers to the result of adding the tomography to CLIFF. So I would use an explanation along those lines. Note that RIGID is the main protocol (as far as I can tell). This lead-in text does not do it justice. I would add something like ``This is our main test, which incompasses all other tests''.
+
+{\color{blue} Edited.}
+
 \item (page 27) I think that Corollary 12 is the same as Theorem 4. Mention it here, and emphasize that this is the main result of this Section.
+
+{\color{blue} We removed Corollary 12, and declare that this subsection proves Theorem 4.}
+
 \item (page 27)``Moreover, players employing the honest strategy succeed with probability (...) in the test.'' Replace ``test'' with $RIGID(\Sigma,m)$.
+
+{\color{blue} Done.}
+
 \item (page 27) ``From Theorem 11 we get isometries '' I would add: ``From Theorem 11 and part (a) we get isometries''
+
+{\color{blue} Done.}
+
 \item (page 28) Section ``3.6 Tomography''. We already had a tomography test in Figure 7 (b). Please explain the difference....
+
+{\color{blue} They're used for different purposes. We added a footnote at the start of the section.}
+
+
 \item (page 29) ``This allows us
 to check that a player performs the measurement that he claims, even if the player has the choice of which
 measurement to report.'' This is a very curious feature. It would be great to explain here (or elsewhere, and refer to it here, why this is important)
+
+{\color{blue} This sentence was not very clear, so we edited it.}
+
 \item (page 29) ``Moreover, players employing the honest strategy succeed with probability 1 in tomography part of the
 test.'' Both RIGID and TOM include a ``tomography'', so please be specific. Maybe here you can use $TOM(\sigma,m',m)$?
-\item (page 30) ``We call the resulting protocol the Leash Protocol with parameters (pr, pd)''. Why not make this into a figure? This will help make statements more formal. Eg. The statement of Theorem 14 refers to the ``Verifier-on-a-Leash'' protocol, which is not defined; I think you mean ``Leash'' protocol as in this passage.
-    \item (page 31)``Further, the protocol leaks no information about x to either prover individually, aside from an upper bound
-on the length of x.'' This statement is too informal to be in a Theorem statement. In fact, it is not defined in the submission what it means to ``leak no information''. Section 4 formalizes ``blindness'' in terms of the reduced state of the provers. So it would be necessary to make Theorem 14 sufficiently formal to incorporate this notion.
+
+{\color{blue} Done}
 
 \end{enumerate}
 
@@ -582,6 +611,9 @@ Page 50: the figure caption obscures the page number.
 
 \subsubsection*{Reviewer 3}
 \begin{enumerate}
+\item (page 30) ``We call the resulting protocol the Leash Protocol with parameters (pr, pd)''. Why not make this into a figure? This will help make statements more formal. Eg. The statement of Theorem 14 refers to the ``Verifier-on-a-Leash'' protocol, which is not defined; I think you mean ``Leash'' protocol as in this passage.
+    \item (page 31)``Further, the protocol leaks no information about x to either prover individually, aside from an upper bound
+on the length of x.'' This statement is too informal to be in a Theorem statement. In fact, it is not defined in the submission what it means to ``leak no information''. Section 4 formalizes ``blindness'' in terms of the reduced state of the provers. So it would be necessary to make Theorem 14 sufficiently formal to incorporate this notion.
 \item Section ``4.1 Protocol and statement of results''. I would invest more into a better presentation in the introduction, and link to it here, and only present the essential notation at this point in the paper, and also to details that were not possible to explain in the introduction (due to their technical level).
  \item As mentioned in \ref{sec:broad-EPR}, I am suggesting that the picture here should be that the \Broad protocol (and not EPR) is the underlying idea for the delegation, and that rigidity is testing PV from \Broad. This permeates the description of the protocol, and will have e.g. an effect on the presentation on page 32.
      \item (page 36). Figure 14. As far as I can tell, $RIGID(\Sigma, m)$ has questions that are outside of $\Sigma$ (e.g. for the Bell test which is part of RIGID), hence I think it is incorrect to write ``The verifier selects questions $W, W' \in \Sigma^m$'' and to think that this covers all of the questions in RIGID. In fact, I am wondering how you manage to use the RIGID game (which has extra questions, compared to the delegation game) within the delegation game. Please explain.

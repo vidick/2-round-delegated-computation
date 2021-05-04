@@ -29,6 +29,8 @@ Ultimately our goal is to test that a player implements a certain tensor product
 \begin{definition}
 For finite-dimensional Hilbert spaces $\mH_{\reg{A}}$ and $\mH_{\reg{A}'}$, $\delta>0$, and operators $R \in\Lin(\mH_{\reg{A}})$ and $S\in\Lin(\mH_{\reg{A}'})$ we say that $R$ and $S$ are $\delta$-isometric with respect to $\ket{\psi} \in \mH_{\reg{A}} \otimes \mH_{\reg{B}}$, and write $R\simeq_\delta S$, if there exists an isometry $V:\mH_{\reg{A}}\to\mH_{\reg{A}'}$ such that 
 $$\big\|( R-V^\dagger SV)\otimes \Id_{\reg{B}} \ket{\psi}\big\|^2=O(\delta).$$
+When $R = \{R_a\}$ and $S=\{S_a\}$ are POVM with the same set of outcomes we write $R_a \simeq_\delta S_a$ to mean
+$$\sum_a \big\|( R_a-V^\dagger S_a V)\otimes \Id_{\reg{B}} \ket{\psi}\big\|^2=O(\delta).$$
 If $V$ is the identity, then we further say that $R$ and $S$ are $\delta$-equivalent, and write $R\approx_\delta S$ for $\| ( R- S) \otimes \Id_{\reg{B}} \ket{\psi}\|^2=O(\delta)$.
 \end{definition}
 
@@ -352,6 +354,7 @@ Here $\tau_W$ is defined from $W$ as in Lemma~\ref{lem:cliff-conj}, with $\phase
 \end{theorem}
 
 \begin{proof}[Proof sketch]
+We indicate all steps of the proof, but omit some of the more routine calculations for legibility. 
 The existence of the isometry, as well as~\eqref{eq:psi-epr} and~\eqref{eq:clifford-ntest-close} for $W \in \{I,X,Y,Z\}^{m}$, follows from the test $\pbt(X,Y,Z)$, executed as part of the Clifford conjugation test from part (a), and Lemma~\ref{lem:xyz-rigid}. 
 Using part (a) of the test and Lemma~\ref{lem:cliff-conj} it follows that every $W \in \Sigma^m$ is mapped under the same isometry to 
 \begin{equation}\label{eq:w-form}
@@ -364,7 +367,7 @@ The analysis of the conjugation test given in Lemma~\ref{lem:conj} shows that su
  \hat{\tau}_W \tau_R(\Id \otimes \phase_W)  &= \tau_R \hat{\tau}_W  (\Id\otimes\phase_W) \\
 &  \approx_{\sqrt{\eps}} \hat{\tau}_{W'}  \tau_R (\Id\otimes \phase_{W'}),
 \end{align*}
-where the first equality is by definition of $R$, and uses that $\tau_Y = \sigma_Y \otimes \Delta_Y$ and $\Delta_Y$ commutes with $\phase_W$; the approximation holds as a consequence of the conjugation test and should be understood on average over a uniformly random choice of $W\in \Sigma^m$. Thus $\phase_W$ depends only on the locations at which $W_i \in \{F,G\}$, but not on the particular values of the observables at those locations.  
+where the first equality is by definition of $\tau_R$, and uses that $\tau_Y = \sigma_Y \otimes \Delta_Y$ and $\Delta_Y$ commutes with $\phase_W$; the approximation holds as a consequence of the conjugation test and should be understood on average over a uniformly random choice of $W\in \Sigma^m$. Thus $\phase_W$ depends only on the locations at which $W_i \in \{F,G\}$, but not on the particular values of the observables at those locations.  
 
 Part (d) of the test and Lemma~\ref{lem:xyz-rigid} imply that the observables $W(a)$ satisfy approximate linearity conditions $W(a)W(a')\approx W(a+a')$, on average over a uniformly random choice of $W\in\Sigma^n$ and $a,a'\in\{0,1\}^n$. Using the form~\eqref{eq:w-form} for $W$ and the fact that the $\hat{\tau}_W(a)$ satisfy the linearity relations by definition, we deduce that $\phase_{W(a)}\phase_{{W(a')}} \approx \phase_{W(a+a')}$ as well. Using the analysis of the Pauli braiding test (Lemma~\ref{lem:xyz-rigid}), this implies that for each $i$ and $W_i$ there is an observable $\phase_{i,W_i}$ such that the $\phase_{i,W_i}$ pairwise commute and $\phase_W \approx \prod_i \phase_{i,W_i}$. Using the preceding observations, $\phase_{i,W_i} \approx \phase_i$ if $W_i \in\{F,G\}$, and $\phase_{i,W_i} \approx \Id$ if $W_i \in \{X,Y,Z\}$. 
 
@@ -386,7 +389,7 @@ where the expectation is taken over sets $S$ and $T$ specified as in part (e), f
 \subsection{Post-measurement states}
 \label{sec: RIGID test}
 
-We prove Theorem~\ref{thm:clifford-rigid}. The remaining work consists in ``lifting'' the phase ambiguity $\phase_W$ which remains in the statement of Theorem~\ref{thm:clifford-ntest} (in contrast to the ambiguity $\Delta_Y$, which itself cannot be lifted solely by examining correlations). This ambiguity means that the provers have the liberty of choosing to report opposite outcomes whenever they apply an $F$ or $G$ observable, but they have to be consistent between themselves and across all of their qubits in doing so. To verify that the provers use the ``right'' labeling for their outcomes we incorporate a small tomography test, described in Figure~\ref{fig:rigid}. Note that a drawback of the tomography is that the test no longer achieves perfect completeness (although completeness remains exponentially close to~$1$). 
+We prove Theorem~\ref{thm:clifford-rigid}. The remaining work consists in ``lifting'' the phase ambiguity $\phase_W$ which remains in the statement of Theorem~\ref{thm:clifford-ntest} (in contrast to the ambiguity $\Delta_Y$, which itself cannot be lifted solely by examining correlations). This ambiguity means that the provers have the liberty of choosing to report opposite outcomes whenever they apply an $F$ or $G$ observable, but they have to be consistent between themselves and across all of their qubits in doing so. To verify that the provers use the ``right'' labeling for their outcomes we  incorporate a small tomography test. Our final test  $\rigid(\Sigma,m)$, which builds on all tests developed in this section, is described in Figure~\ref{fig:rigid}. Note that a drawback of the tomography is that the test no longer achieves perfect completeness (although completeness remains exponentially close to~$1$). 
 
 \begin{figure}[H]
 \rule[1ex]{\textwidth}{0.5pt}\\
@@ -423,7 +426,7 @@ Test~$\rigid(\Sigma,m)$:
 %\end{corollary}
 
 \begin{proof}[Proof of Theorem~\ref{thm:clifford-rigid}]
-From Theorem~\ref{thm:clifford-ntest} we get isometries $V_A$, $V_B$ and commuting observables $\Delta_Y$, $\phase_F$ on ${\mH}_{\hat{\reg{A}}}$ such that the conclusions of the theorem hold. Write the eigendecomposition $\Delta_Y = \Delta_Y^{+}-\Delta_Y^{-}$ and $\phase_F = \phase_F^{+}-\phase_F^{-}$. For $\lambda \in \{+,-\}^2$ let
+From Theorem~\ref{thm:clifford-ntest} and part (a) we get isometries $V_A$, $V_B$ and commuting observables $\Delta_Y$, $\phase_F$ on ${\mH}_{\hat{\reg{A}}}$ such that the conclusions of the theorem hold. Write the eigendecomposition $\Delta_Y = \Delta_Y^{+}-\Delta_Y^{-}$ and $\phase_F = \phase_F^{+}-\phase_F^{-}$. For $\lambda \in \{+,-\}^2$ let
 $$\tau_{\lambda} = \Tr_{\hat{\reg{B}}}\big( \big(\Id_{\hat{\reg{A}}}\otimes \Delta_Y^{\lambda_1}\phase_F^{\lambda_2} \big)\proj{\aux}\big(\Id_{\hat{\reg{A}}}\otimes \Delta_Y^{\lambda_1}\phase_F^{\lambda_2}\big)\big).$$ 
 Using that $\Delta_Y$ and $\phase_F$ commute and satisfy 
 $$\Delta_Y \otimes \Delta_Y \ket{\aux} \approx \phase_F\otimes \phase_F \ket{\aux} \approx \ket{\aux}$$
@@ -476,9 +479,9 @@ Since $\Tr_{\reg{B}}( \Id \otimes B \proj{\EPR}_{\reg{AB}} \Id\otimes B^\dagger)
 \label{subsec:tomography}
 \label{sec: TOM test}
 
-Theorem~\ref{thm:clifford-ntest} and Corollary~\ref{cor:clifford-rigid} show that success in test $\rigid(\Sigma,m)$ gives us control over the players' observables and post-measurement states in the test. This allows us to use one of the players to perform some kind of limited tomography (limited to post-measurement states obtained from measurements in $\Sigma$), that will be useful for our analysis of the Dog-Walker Protocol from Section~\ref{sec:dog-walker}.
+Theorem~\ref{thm:clifford-ntest} and Theorem~\ref{thm:clifford-rigid} show that success in test $\rigid(\Sigma,m)$ gives us control over the players' observables and post-measurement states in the test. This allows us to use one of the players to perform some kind of limited tomography (limited to post-measurement states obtained from measurements in $\Sigma$), that will be useful for our analysis of the Dog-Walker Protocol from Section~\ref{sec:dog-walker}.\footnote{The tomography test described in this section is different from subtest (b) in $\rigid(\Sigma,m)$ (Figure~\ref{fig:rigid}). The tomography test described here is more general and designed to verify that a player prepares post-measurement states of its choice.}
 
-Let $1\leq m'\leq m$ and consider the test $\tom(\Sigma,m',m)$ described in Figure~\ref{fig:tomography-test}. In this test, one player is sent a question $W\in\Sigma^{m}$ chosen uniformly at random. Assuming the players are also successful in the test $\rigid(\Sigma,m)$ (which can be checked independently, with some probability), using that the input distribution $\mu$ in $\rigid(\Sigma,m)$ assigns weight at least $|\Sigma|^{-m}/2$ to any $W'\in \Sigma^{m}$, from Corollary~\ref{cor:clifford-rigid} it follows that the second player's post-measurement state is close to a state consistent with the first player's reported outcomes. Now suppose the second player is sent a random subset $S\subseteq [m]$ of size $|S|=m'$, and is allowed to report an arbitrary string $W'\in \Sigma^{m'}$, together with outcomes $u$. Suppose also that for each $i\in S$, we require that $u_i=a_i$ whenever $W'_i=W_i$. Since the latter condition is satisfied by a constant fraction of $i\in\{1,\ldots,m'\}$, irrespective of $W'$, with very high probability, it follows that the only possibility for the second player to satisfy the condition is to actually measure his qubits precisely in the basis that he indicates. This allows us to check that a player performs the measurement that he claims, even if the player has the choice of which measurement to report. 
+Let $1\leq m'\leq m$ and consider the test $\tom(\Sigma,m',m)$ described in Figure~\ref{fig:tomography-test}. In this test, one player is sent a question $W\in\Sigma^{m}$ chosen uniformly at random. Assuming the players are also successful in the test $\rigid(\Sigma,m)$ (which can be checked independently, with some probability), using that the input distribution $\mu$ in $\rigid(\Sigma,m)$ assigns weight at least $|\Sigma|^{-m}/2$ to any $W'\in \Sigma^{m}$, from Theorem~\ref{thm:clifford-rigid} it follows that the second player's post-measurement state is close to a state consistent with the first player's reported outcomes. Now suppose the second player is sent a random subset $S\subseteq [m]$ of size $|S|=m'$, and is allowed to report an arbitrary string $W'\in \Sigma^{m'}$, together with outcomes $u$. Suppose also that for each $i\in S$, we require that $u_i=a_i$ whenever $W'_i=W_i$. Since the latter condition is satisfied by a constant fraction of $i\in\{1,\ldots,m'\}$, irrespective of $W'$, with very high probability, it follows that the only possibility for the second player to satisfy the condition is to actually measure his qubits precisely in the basis that he indicates. This allows us to check that a player performs a measurement of its choice correctly (i.e.\ the player is forced to report the correct measurement made).
 
 \begin{figure}[H]
 \rule[1ex]{\textwidth}{0.5pt}\\
@@ -503,10 +506,10 @@ Let $\eps>0$ and $1\leq m'\leq m$ integer. Suppose a strategy for the players
  \sum_{W'\in\Sigma^{m'}} \sum_{u\in\{\pm1\}^{m'}} &\Big\| \Tr_{\reg{A}\hat{\reg{B}}} \big((\Id_A \otimes V_B Q^{W',u} )\proj{\psi}_{\reg{AB}} (\Id_A \otimes V_B Q^{W',u})^\dagger\big)\\
 &\hskip3cm - \sum_{\lambda\in\{\pm\}}  q(W',\lambda)  \Big( \bigotimes_{i=1}^{m'} \frac{1}{2}\sigma_{W'_i,\lambda}^{u_i}\Big) \Big\|_1 = O(\poly(\eps)),
 \end{align*}
-where the notation is the same as in Corollary~\ref{cor:clifford-rigid}. 
+where the notation is the same as in Theorem~\ref{thm:clifford-rigid}. 
 
-Moreover, players employing the honest strategy succeed with probability $1$ in
-  tomography part of the test. 
+Moreover, players employing the honest strategy succeed with probability $1$ in the
+ $\tom(\Sigma,m',m)$.
 \end{corollary}
 
 \begin{proof}
