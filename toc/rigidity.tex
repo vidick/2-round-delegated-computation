@@ -1,17 +1,17 @@
 %The goal of this section is proving the Rigidity theorems used in our delegation protocols. 
-We start by introducing the language required to formulate our testing results in Section~\ref{sec:general-rigidity}. 
+We start by introducing the language required to formulate our testing results. 
 %We then present a series of elementary tests, for commutation, anti-commutation,
 %etc., that are presented in Sections~\ref{sec:clifford-test} and
 %~\ref{sec:pauli-group}.  
-We follow by giving a test for the conjugation of one observable to another by a unitary, the Conjugation Test, in Section~\ref{sec:conj-test}.
-In Section~\ref{sec:n-clifford}, we apply the Conjugation Test  to test the
-relations that dictate how an arbitrary $m$-qubit Clifford unitary acts by
-conjugation on the Pauli matrices. In Section~\ref{sec:n-2-clifford} we
-specialize the test to the case of unitaries that can be expressed as the
-$m$-fold tensor product of Clifford observables taken from the set $\Sigma$. In
-Sections \ref{sec: RIGID test} and \ref{sec: TOM test}, we decribe variants of
-the test from Section \ref{sec:n-2-clifford}, which are later employed in the
-Leash and Dog-Walker protocols.
+%We follow by giving a test for the conjugation of one observable to another by a unitary, the Conjugation Test, in Section~\ref{sec:conj-test}.
+%In Section~\ref{sec:n-clifford}, we apply the Conjugation Test  to test the
+%relations that dictate how an arbitrary $m$-qubit Clifford unitary acts by
+%conjugation on the Pauli matrices. In Section~\ref{sec:n-2-clifford} we
+%specialize the test to the case of unitaries that can be expressed as the
+%$m$-fold tensor product of Clifford observables taken from the set $\Sigma$. In
+%Sections \ref{sec: RIGID test} and \ref{sec: TOM test}, we decribe variants of
+%the test from Section \ref{sec:n-2-clifford}, which are later employed in the
+%Leash and Dog-Walker protocols.
 
 
 %============================%
@@ -161,21 +161,27 @@ The test $\conj(A,B,R)$ is a $(1,\delta)$ self-test for the set of relations
 \begin{proof}
 Completeness is clear, as players making measurements on a maximally entangled state on $\mH_{\reg{A}}\otimes \mH_{\reg{B}}$, tensored with an EPR pair on $\C^2_{\reg{A}'} \otimes \C^2_{\reg{B}'}$ for the $X$ and $Z$ observables, and using $X_R$ and $C$ defined in~\eqref{eq:def-xr} (with the blocks specified by the space associated with each player's half-EPR pair) succeed in each test with probability $1$. 
 
-We now consider soundness. Success in $\act(X,Z)$ in part (a) of the test implies the existence of local isometries $V_A,V_B$ such that $V_A:\mH_\reg{A}\to \mH_{\hat{\reg{A}}}\otimes \C^2_{\reg{A}'}$, with $X\simeq_{\sqrt{\eps}} \Id_{\hat{\reg{A}}}\otimes \sigma_X$ and $Z\simeq_{\sqrt{\eps}} \Id_{\hat{\reg{A}}}\otimes\sigma_Z$. By Lemma~\ref{lem:pauli-c}, approximate commutation with both $X$ and $Z$ enforced by the tests $\comt(A,X)$, $\comt(A,Z)$, $\comt(B,X)$ and $\comt(B,Z)$ implies that under the same isometry, $A\simeq_{\sqrt{\eps}} A_I \otimes \Id$ and $B\simeq_{\sqrt{\eps}} B_I \otimes \Id$, for observables $A_I, B_I$ on $\mH_{\hat{\reg{A}}}$. Similarly, the parts of the test involving $C$ and $X_R$ imply that they each have the block decomposition specified in~\eqref{eq:def-xr}. 
+We now consider soundness. Success in $\act(X,Z)$ in part (a) of the test implies the existence of local isometries $V_A,V_B$ such that $V_A:\mH_\reg{A}\to \mH_{\hat{\reg{A}}}\otimes \C^2_{\reg{A}'}$, with $X\simeq_{\sqrt{\eps}} \Id_{\hat{\reg{A}}}\otimes \sigma_X$ and $Z\simeq_{\sqrt{\eps}} \Id_{\hat{\reg{A}}}\otimes\sigma_Z$. By Lemma~\ref{lem:pauli-c}, approximate commutation with both $X$ and $Z$ enforced by the tests $\comt(A,X)$, $\comt(A,Z)$, $\comt(B,X)$ and $\comt(B,Z)$ implies that under the same isometry, 
+\begin{equation}\label{eq:cliff-2c}
+A\simeq_{\sqrt{\eps}} A_I \otimes \Id\qquad\text{and}\qquad B\simeq_{\sqrt{\eps}} B_I \otimes \Id\;,
+\end{equation}
+ for observables $A_I, B_I$ on $\mH_{\hat{\reg{A}}}$. Similarly, the parts of the test involving $C$ and $X_R$ imply that they each have the block decomposition specified in~\eqref{eq:def-xr}. 
 In particular, using the second part of Lemma~\ref{lem:pauli-c-n} (with $n=1$ and $c=1$, exchanging the roles of $Z$ and $X$) it follows that anti-commutation of $X_R$ with $Z$ certifies that $X_R$ has  a decomposition of the form  
-\begin{equation}\label{xr-1}
+\begin{equation}\label{eq:xr-1}
 X_R \simeq_{\sqrt{\eps}} R_X \otimes \sigma_X + R_Y \otimes \sigma_Y\;.
 \end{equation}
-Let $R = ( R_X + i R_Y)| R_X + i R_Y|^{-1}$, so that $R$ is unitary. Using that $X_R$ is an observable, $X_R^2=\Id$, it follows from~\eqref{eq:xr-1} that $(R_X^2+R_Y^2)\otimes \Id \simeq_{\sqrt{\eps}} \Id$. It follows by direct calculation that $R \simeq_{\sqrt{\eps}} R_X + i R_Y$. 
- Similarly, using the first part of Lemma~\ref{lem:pauli-c-n} commutation of $C$ with $Z$ implies that $C \simeq_{\sqrt{\eps}} C_I \otimes \sigma_I + C_Z \otimes \sigma_Z$, for Hermitian $C_I$, $C_Z$ such that $C_I \pm C_Z$ are observables. 
-
-
+Let $R = ( R_X + i R_Y)| R_X + i R_Y|^{-1}$, so that $R$ is unitary. Note that since $X_R$ is an observable, $X_R^2=\Id$, and so it follows from~\eqref{eq:xr-1} that $(R_X+iR_Y)(R_X+iR_Y)^\dagger \otimes \Id \simeq_{\sqrt{\eps}} \Id$. Thus $R \simeq_{\sqrt{\eps}} R_X + i R_Y$. 
+ Similarly, using the first part of Lemma~\ref{lem:pauli-c-n} commutation of $C$ with $Z$ implies that $C \simeq_{\sqrt{\eps}} C_I \otimes \sigma_I + C_Z \otimes \sigma_Z$, for Hermitian $C_I$, $C_Z$ such that $C_I \pm C_Z$ are observables because $C$ is an observable. 
 
 Next we analyze part (b) of the test. Let $\{W_{AZ}^{a,z}\}$ be the projective measurement applied by the second player upon query $(A,Z)$. Success with probability $1-O(\eps)$ conditioned on the questions being $C$ and $(A,Z)$ item ensures that 
 \begin{equation}\label{clif-2b}
 \big| \bra{\psi} C^0 \otimes (W_{AZ}^{00} + W_{AZ}^{01} + W_{AZ}^{11}) + C^1\otimes (W_{AZ}^{10} + W_{AZ}^{01} + W_{AZ}^{11}) \ket{\psi} \big| \,\geq\,1-O(\eps),
 \end{equation}
-and a similar condition holds for the case $C$ and $(B,Z)$, with $W_{BZ}$ instead of $W_{AZ}$. Success with probability $1-O(\eps)$ in the case of questions $A$, $B$ or $Z$ and $(A,Z)$ or $(B,Z)$ respectively ensures consistency of $\{W_{AZ}^{a,z}\}$ (resp.\ $\{W_{BZ}^{b,z}\}$) with the observable $A$ (resp.\ $B$) when marginalizing over the second outcome, and $Z$ when marginalizing over the first outcome. Using the decompositions for $A,B$ and $C$ derived earlier it follows that $W_{AZ} \simeq_{\sqrt{\eps}} A_I \otimes \sigma_Z$ and $W_{BZ} \simeq_{\sqrt{\eps}} B_I \otimes \sigma_Z$. Using that we already showed that $C$ is block-diagonal in the basis specified by $X$ and $Z$,~\eqref{clif-2b} gives $C_I \simeq_{\sqrt{\eps}} (A+B)/2$ and $C_Z \simeq_{\sqrt{\eps}} (A-B)/2$. This shows the ``Moreover'' part of the lemma. 
+and a similar condition holds for the case $C$ and $(B,Z)$, with $W_{BZ}$ instead of $W_{AZ}$. 
+
+Success with probability $1-O(\eps)$ in the case of questions $A$, $B$ or $Z$ and $(A,Z)$ or $(B,Z)$ respectively ensures consistency of $\{W_{AZ}^{a,z}\}$ (resp.\ $\{W_{BZ}^{b,z}\}$) with the observable $A$ (resp.\ $B$) when marginalizing over the second outcome, and $Z$ when marginalizing over the first outcome. Since $A$ (resp. $B$) and $Z$ approximately commute, using the decompositions for $A$ and $B$ derived in~\eqref{eq:cliff-2c} it follows that $W_{AZ} \simeq_{\sqrt{\eps}} A_I \otimes \sigma_Z$ and $W_{BZ} \simeq_{\sqrt{\eps}} B_I \otimes \sigma_Z$. 
+
+Similarly regarding the observable $C$, using that we already showed that $C$ is block-diagonal in the basis specified by $X$ and $Z$,~\eqref{clif-2b} gives $C_I \simeq_{\sqrt{\eps}} (A+B)/2$ and $C_Z \simeq_{\sqrt{\eps}} (A-B)/2$. This shows the ``Moreover'' part of the lemma. 
 
 Finally, success in test $\comt(X_R,C)$ certifies the approximate commutation relation $[X_R,C]\simeq_{\sqrt{\eps}} 0$, which, given the decomposition of $X_R$ and $C$ obtained so far, implies $RA \simeq_{\sqrt{\eps}} B R$, as desired. 
 \end{proof}

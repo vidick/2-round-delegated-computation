@@ -271,7 +271,7 @@ as an a priori assumption. Since the protocol of [Gri17] is not blind,'' Explain
 \begin{enumerate}
 \item Many proofs only contain a sketch and are hard to digest. It is recommended that at least for the main lemmas, such as Lemma 10 and Theorem 11, the authors can provide more self-contained proof. Many steps in the proof sketch are very high level and it is not easy and usually time-consuming if the reader wants to verify the details.
 
-						{\color{red} TODO}
+						{\color{blue} We added some explanations to the proof of Lemma 8 and Lemma 19, and more generally throughout this section}
 
 \item The meaning of the second equation on page 23 is not clear. Are a and b fixed or are they summed over in the end in the approximation?
 
@@ -399,7 +399,7 @@ Assorted other typos/comments:
 
 \item Page 19: Proof of Lemma 8. “anti-commutation of $X_R$ with Z certifies that $X_R$ has decomposition of the form $X_R \simeq R_X \otimes \sigma_X + R_Y \otimes \sigma_Y$”. First, what is the error in this approximation, and it would be helpful to see a proof. Similarly, for subsequent statements it looks a bit hand-wavy. It would be better if the approximations had error bounds and some of the steps were spelled out. 
 
-				{\color{red} TODO.}
+				{\color{blue} We added explanations to the derivation.}
 
 
 \item Page 19: Proof of Lemma 8: $C \simeq C_I \otimes I + C_Z \otimes \sigma_Z$. The identity operator I should be $\sigma_I$. 
@@ -418,24 +418,53 @@ Assorted other typos/comments:
 
 \begin{enumerate}
 \item (page 13) ``Each of our delegation protocols includes a rigidity test''. This is confusing. Do you refer here to the official RIGID test, or to the concept of rigidity, in which case there are multiple rigidity tests in each of $\Leash$ and $\DW$. But this paragraph seems to be explaining only the concept of \Leash (again, using instead the concept of the \Broad protocol, this becomes much simpler since you are explaining here how to generate the random eigenstates of the \Broad protocol.) Maybe it would be better to instead say nothing here and to refer the reader to the introduction paragraph which explains the role of the rigidity test (or tests?) in the two main delegation protocols.
-\item (page 13). ``In this section we outline the structure of the test'' I am not sure what is ``the test''. Is this RIGID? (telling the reader now will help make a good mental map of what to expect coming up) At this point in reading of the paper, there is not enough information to understand this paragraph. Here are some issues:
+
+{\color{blue} We shortened this part.}
+
+\item (page 13). ``In this section we outline the structure of the test'' I am not sure what is ``the test''. Is this RIGID? (telling the reader now will help make a good mental map of what to expect coming up) 
+
+				{\color{blue} We clarified this.}
+
+\item At this point in reading of the paper, there is not enough information to understand this paragraph. Here are some issues:
     \begin{enumerate}
     \item ``With constant probability
 the verifier sends one of the provers a string W chosen uniformly at random from $\Sigma^m$''. This passage does not say what the other prover gets.
+
+				{\color{blue} Edited.}
+
 \item ``The test consists in a single round''. Really? from what we have so far, the delegation contains multiple rounds, and then we are supposed to intermingle with this rigidity test, which is a single round, and it should remain indistinguishable between a delegation and a test? This is confusing. I think that the resolution later on is that we repeat the rigidity test to mimick the interaction in the delegation protocol. Please explain this here.
+
+				{\color{blue} This section no longer mentions how the tests are used in the delegation protocol, as based on your comments we believe that it is more clear this way. The sections presenting the delegation protocols explain how the tests are used.}
+
 \item ``With the remaining
 probability, other queries, requiring the measurement of observables not in $\Sigma^m$ (such as the measurement of
 pairs of qubits in the Bell basis), are sent.'' Sent to whom?
+
+				{\color{blue} This has been clarified.}
+
 \item (same passage as above). This is the first place that the ``other queries'' not in $\Sigma^m$ are invoked. It would be good to explain why and how this process works. So far, the reader has the impression that the RIGID test is going to be indistinguishable from the Delegation, but this new concept violates that intuition.
+
+				{\color{blue} This has been clarified.}
+
     \end{enumerate}
     \item (page 14) ``Our rigidity result states that any strategy that succeeds with probability $1-\varepsilon$ in the test is within $poly(\varepsilon)$ of
 the honest strategy, up to local isometries''. Please explain here or closeby how the ``honest strategy'' relates to the questions that are not in $\Sigma^m$. It looks to me (see Theorem 4) that you actually say nothing about those rounds where the questions not in  $\Sigma^m$.
+
+				{\color{blue} We clarified this.}
+
 \item (page 14) The concept of the ``consistency test'' (p.16) (which symmetrizes the game and the player's behavior), should be informally introduced here, at the latest before the summary of Theorem 4. Otherwise, it is confusing that the statement of Theorem~4 is only about $W_B$, yet the informal description claims that it deals with ``either player''.
+
+{\color{blue} We added a sentence to the theorem to make its conclusion symmetric. We prefer not to discuss the consistency test at this point, because it would be one more new element that the reader has to grapple with. Given that all statements now have symmetric conclusions with respect to the players, it is natural to imagine that the theorem will be proved based on a test that treats them symmetrically.}
+
     \item (page 14) ``the ancilla register to extract a single bit'' Please include the symbol here for the ancilla register.
+		
+						{\color{blue} Ok.}
+
+
         \item (page 14) ``For an observable $W$, let $\sigma_W = \sigma_W^{+1}-\sigma_W^{-1}$ be its eigendecomposition, where sW are the “honest”
 Pauli matrices defined in (1) and (2).'' Please check consistency of notation: the eigendecomposition was given in the preliminaries (page 7) as $\sigma_W^{0}-\sigma_W^{1}$. Also, technically, $\sigma_W$ is not always Pauli matrices, as in Equation (2).
 
-{\color{blue} Fixed}
+{\color{blue} Fixed. We chose to use the notation $\sigma_W = \sigma_W^{0}-\sigma_W^{1}$ throughout.}
 
 \item Statement of Theorem 4:
 \begin{enumerate}
@@ -454,7 +483,7 @@ Pauli matrices defined in (1) and (2).'' Please check consistency of notation: t
 \end{enumerate}
 \item ``The proof of the theorem is based on standard techniques''. I think you are underselling the contribution. Now is your chance to outline the rest of this section and the contributions (or, refer to them in the introduction). Please use the same structure as the structure of the protocols as given in the Figures (this is why the "Tree" Figure would be useful). I.e., tell us that the main protocol is RIGID, which itself is composed of CLIFFORD + ad-hoc tomography, and then CLIFF is composed of CONJ, and a bunch of other tests, etc. (See comment in \ref{sec:-prot-pres}). This will help give a roadmap to reading this section.
 
-{\color{red} TODO}
+{\color{blue} Thank you for suggesting this. We added a fairly lengthy explanation of what role each of the subtests of RIGID plays in it.}
 
 \item ``In the remainder of this section, we prove Theorem 4''. Please say exactly where this is proven. For instance, is Theorem 4 re-stated elsewhere and proven there? I could not find a ``Proof of Theorem 4'' claim anywhere. (But is looks very similar to Corollary 12).
 
