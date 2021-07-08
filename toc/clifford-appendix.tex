@@ -210,7 +210,7 @@ In this section we formulate a robust self-test for the $m$-qubit Pauli group. T
 %-----------------------------------den%
 
 We start by giving a self-test for tensor products of $\sigma_X$ and $\sigma_Z$ 
-observables acting on $m$ qubits, i.e. the $m$-qubit Weyl-Heisenberg group $\mathcal{H}^{(m)}$ (see Section~\ref{sec:prelim-notation}). 
+observables acting on $m$ qubits, i.e.\ the $m$-qubit Weyl-Heisenberg group $\mathcal{H}^{(m)}$ (see Section~\ref{sec:prelim-notation}). 
 Let $\mathcal{P}^{(m)}$ denote the relations  
 \begin{align*}
 \paulin\{X,Z\} &= \Big\{ W(a)\in\Obs\,: \;W \in \prod_{i=1}^m \{X_i,Z_i\},\,a\in\{0,1\}^m\Big\}\\
@@ -218,8 +218,8 @@ Let $\mathcal{P}^{(m)}$ denote the relations
 & \cup\Big\{ W(a)W(a')=W(a+a')\,:\;W \in \prod_{i=1}^m \{X_i,Z_i\},\, a,a'\in\{0,1\}^m\Big\}.
 \end{align*}
 Recall the notation $W(a)$ for the string that is $W_i$ when $a_i=1$ and $I$ otherwise. 
-The first set of relations expresses the canonical anti-commutation relations. The second set of relations expresses the obvious relations $\sigma_W \Id = \Id \sigma_W$ and $\sigma_W^2 = \Id$, for $W\in\{X,Z\}$, coordinate-wise. It is easy to verify that $\mathcal{P}^{(m)}$ forms a defining set of relations for $\mathcal{H}^{(m)}$. Our choice of relations is suggested by the Pauli braiding test introduced in~\cite{natarajan2016robust}, which shows that the relations are testable with a robustness parameter $\delta(\eps)$ that is independent of $m$. 
-The underlying test is called the Pauli braiding test, and denoted $\pbt(X,Z)$. For convenience here we use a slight variant of the test, which includes more questions and more answers; the test is summarized in Figure~\ref{fig:pbt}. 
+The set of relations on the second line expresses the canonical anti-commutation relations. The last set of relations expresses the obvious relations $\sigma_W \Id = \Id \sigma_W$ and $\sigma_W^2 = \Id$, for $W\in\{X,Z\}$, coordinate-wise. It is easy to verify that $\mathcal{P}^{(m)}$ forms a defining set of relations for $\mathcal{H}^{(m)}$. Our choice of relations is suggested by the Pauli Braiding Test introduced in~\cite{natarajan2016robust}, which shows that the relations are testable with a robustness parameter $\delta(\eps)$ that is independent of $m$. 
+The  test is denoted $\pbt(X,Z)$. For convenience here we use a slight variant of the test which includes more questions and more answers; the test is summarized in Figure~\ref{fig:pbt}. 
 %In particular, we emphasize that in the test a player is always sent one or two pairs $(W,a)$ where  $W\in\prod_{i=1}^m\{X_i,Z_i\}$ and $a\in\{0,1\}^m$, and to each such pair it is expected to return an $m$-bit string $c\in\{0,1\}^m$; in the honest s
 
 
@@ -232,9 +232,9 @@ Test~$\pbt(X,Z)$: %$X=X_1\cdots X_n$ and $Z=Z_1\cdots Z_n$ are two strings, wher
 \item Relations: $\paulin\{X,Z\}$.  
 \item Test: Perform the following with probability $1/3$ each. In each test, the question to a prover takes the form $W$ or $(W,a)$ for $W,a$ as above. The answer from the prover is an $m$-bit string $c\in\{0,1\}^m$ or a single bit $d\in\{0,1\}$ respectively.
 \begin{enumerate}
-\item[(a)] Select $W,W'\in \prod_i \{X_i,Z_i\}$, and $a,a'\in\{0,1\}^m$, uniformly at random. If $\{i: W_i\neq W'_i \wedge a_i=a'_i=1\}$ has even cardinality then execute test $\comt(W(a),W'(a'))$. Otherwise, execute test $\act(W(a),W'(a'))$. 
-\item[(b)] Select $(a,a')\in\{0,1\}^m$ and $W\in\prod_{i=1}^m\{X_i,Z_i\}$ uniformly at random. Execute test $\prodt(W(a),W(a'),W(a+a'))$. 
-\item[(c)] Select $W\in\prod_{i=1}^m\{X_i,Z_i\}$ and $a\in\{0,1\}^m$ uniformly at random. Send $W$ to one prover, receiving a string $c$ as answer, and $(W,a)$ to the other, receiving a bit $d$. Accept if and only if $d=c\cdot a$.  
+\item[(a)] Select $W,W'\in \prod_i \{X_i,Z_i\}$, and $a,a'\in\{0,1\}^m$, uniformly at random. If $\{i: W_i\neq W'_i \wedge a_i=a'_i=1\}$ has even cardinality then execute test $\comt((W,a),(W',a'))$. Otherwise, execute test $\act((W,a),(W',a'))$. 
+\item[(b)] Select $(a,a')\in\{0,1\}^m$ and $W\in\prod_{i=1}^m\{X_i,Z_i\}$ uniformly at random. Execute test $\prodt((W,a),(W,a'),(W,a+a'))$. 
+\item[(c)] Select $W\in\prod_{i=1}^m\{X_i,Z_i\}$ and $a\in\{0,1\}^m$ uniformly at random. Send $W$ to one prover, receiving a string $c$ as answer, and $(W,a)$ to the other, receiving a bit $d$. Accept if and only if $d=c\cdot a$, the inner product modulo $2$.  
 \end{enumerate}
 \end{itemize}
 \rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
@@ -242,11 +242,11 @@ Test~$\pbt(X,Z)$: %$X=X_1\cdots X_n$ and $Z=Z_1\cdots Z_n$ are two strings, wher
 \label{fig:pbt}
 \end{figure}
 
-The following lemma follows immediately from the definition of $\paulin\{X,Z\}$ and the analysis of the tests $\comt$, $\prodt$ and $\act$ given in Section~\ref{sec:elementary}. %For $m\geq 1$ let $\mD_m(X,Z)$ be the distribution that is the uniform mixture of the following three distributions: uniform over all relations in $\paulin\{X,Z\}$, uniform over all relations that apply to to $W,W'\in\{X^m,Z^m\}$, and uniform over all relations that apply to $W,W'=Z^m$. 
+ %For $m\geq 1$ let $\mD_m(X,Z)$ be the distribution that is the uniform mixture of the following three distributions: uniform over all relations in $\paulin\{X,Z\}$, uniform over all relations that apply to to $W,W'\in\{X^m,Z^m\}$, and uniform over all relations that apply to $W,W'=Z^m$. 
 
 \begin{lemma}[\cite{natarajan2016robust}]\label{lem:pbt}
 The test $\pbt(X,Z)$ is a robust $(1,\delta)$ self-test 
-for $\paulin\{X,Z\}$, for some $\delta(\eps) = O(\eps^{1/2})$. Moreover, suppose $\ket{\psi}\in\mH_\reg{A}\otimes \mH_\reg{B}$ and $W(a) \in \Obs(\mH_\reg{A})$, for $W\in \{X,Z\}^m$ and $a\in\{0,1\}^m$, and projective measurements $\{W_c\}_{c\in \{0,1\}^n}$ on $\mH_\reg{A}$, for each $W\in\{X,Z\}^m$, specify a strategy for the players that has success probability at least $1-\eps$ in $\pbt(X,Z)$. 
+for $\paulin\{X,Z\}$, for some $\delta(\eps) = O(\eps^{1/2})$. Moreover, suppose $\ket{\psi}\in\mH_\reg{A}\otimes \mH_\reg{B}$ and $W(a) \in \Obs(\mH_\reg{A})$, for $W\in \{X,Z\}^m$ and $a\in\{0,1\}^m$, and projective measurements $\{W_c\}_{c\in \{0,1\}^n}$ on $\mH_\reg{A}$, for each $W\in\{X,Z\}^m$, specify a strategy for the provers that has success probability at least $1-\eps$ in $\pbt(X,Z)$. 
 Then there exist isometries $V_D:\mH_\reg{D} \to ((\C^2)^{\otimes m})_{\reg{D'}}  \otimes \hat{\mH}_{\hat{\reg{D}}}$, for $D\in\{A,B\}$, such that
 $$\big\| (V_A \otimes V_B) \ket{\psi}_{\reg{AB}} - \ket{\EPR}_{\reg{A}'\reg{B}'}^{\otimes n} \ket{\aux}_{\hat{\reg{A}}\hat{\reg{B}}} \big\|^2 = O(\sqrt{\eps}),$$
 and on expectation over  $W\in \{X,Z\}^m$,
@@ -259,26 +259,26 @@ and
 \end{align}
 \end{lemma}
 
-The lemma follows directly from Theorem 13 and Theorem 14 in~\cite{natarajan2016robust}. The only part not present in~\cite{natarajan2016robust} is the last part, which considers the POVM obtained from requiring a player to report the outcome for each of its $m$ single-qubit measurement (as opposed to its inner product with the string (a)). Eq.~\eqref{eq:test-sigmax-b} follows straightforwardly from part (c) of $\pbt(X,Z)$ and the preceding parts of the lemma. 
+The fact that the test specified in Figure~\ref{fig:pbt} self-tests the relations $\paulin\{X,Z\}$ follows immediately from the definition of $\paulin\{X,Z\}$ and the analysis of the tests $\comt$, $\prodt$ and $\act$ given in Section~\ref{sec:elementary}. The remainder of the lemma follows directly from Theorem 13 and Theorem 14 in~\cite{natarajan2016robust}. The only part not present in~\cite{natarajan2016robust} is the last part, which considers the POVM obtained from requiring a prover to report the outcome for each of its $m$ single-qubit measurement (as opposed to its inner product with the string $a$). Eq.~\eqref{eq:test-sigmax-b} follows  from part (c) of $\pbt(X,Z)$ and the preceding parts of the lemma. 
 
-The next lemma is an extension of Lemma~\ref{lem:pauli-c} to the case of multi-qubit Pauli observables; the lemma avoids any dependence of the error on the number of qubits, as would follow from a sequential application of Lemma~\ref{lem:pauli-c}.
+The next lemma is an extension of Lemma~\ref{lem:pauli-c} to the case of multi-qubit Pauli observables; the lemma avoids any dependence of the error on the number of qubits, as would result from a sequential application of Lemma~\ref{lem:pauli-c}.
 
 \begin{lemma}\label{lem:pauli-c-n}
-Let $n$ be an integer, $\ket{\psi} \in \mH_{\reg{A}} \otimes \mH_{\reg{B}}$ and $A$ and $X(a)$, for $a\in\{0,1\}^m$, observables on $\mH_{\reg{A}}$ such that there exists an isometry $\mH_{\reg{A}} \simeq (\C^2)^{\otimes m}\otimes \mH_{\hat{\reg{A}}}$ under which the following conditions hold, for some $\delta_1,\delta_2,\delta_3$:
+Let $m$ be an integer and $c\in\{0,1\}^m$. Let $\ket{\psi} \in \mH_{\reg{A}} \otimes \mH_{\reg{B}}$ be a state and $A$ and $X(a)$, for $a\in\{0,1\}^m$, observables on $\mH_{\reg{A}}$ such that there exists an isometry $\mH_{\reg{A}} \simeq (\C^2)^{\otimes m}\otimes \mH_{\hat{\reg{A}}}$ under which the following conditions hold, for some $\delta_1,\delta_2,\delta_3$:
 \begin{enumerate}
-\item[(i)] There exists an observable $A'$ on $\mH_\reg{B}$ such that $A\otimes \Id \approx_{\delta_1} \Id \otimes A'$;
+\item[(i)] There exists an observable $A'$ on $\mH_\reg{B}$ such that $A\otimes \Id \simeq_{\delta_1} \Id \otimes A'$;
 \item[(ii)] $\ket{\psi} \simeq_{\delta_1} \ket{\EPR}^{\otimes m}\ket{\aux}$, and $X(a)\simeq_{\delta_1} \sigma_X(a) \otimes \Id$;
 \item[(iii)] $[A,X(a)]\simeq_{\delta_2} 0$;
-\item[(iv)] For some $c\in\{0,1\}^m$ and $a\cdot c=1$, $\{A,X(a)\} \simeq_{\delta_3} 0$;
+\item[(iv)] Conditioned on $a\cdot c=1$, $\{A,X(a)\} \simeq_{\delta_3} 0$;
 \end{enumerate}
-where the first two conditions are meant on average over a uniformly random
+where conditions (ii) and (iii) are meant on average over a uniformly random
   $a\in\{0,1\}^m$, and the last over a uniformly random $a$ such that $a\cdot c
-  =1$. For some $P\in\{I,X,Y,Z\}^m$ let $x_P \in\{0,1\}^m$ be such that $(x_P)_i=1$ if and only if $P_i\in\{Y,Z\}$.
+  =1$. For any $P\in\{I,X,Y,Z\}^m$ let $x_P \in\{0,1\}^m$ be such that $(x_P)_i=1$ if and only if $P_i\in\{Y,Z\}$.
 Then there exists Hermitian $A_P$, for $P\in\{I,X,Y,Z\}^m$, on $\mH_{\hat{\reg{A}}}$ such that 
 \begin{align*}
 A \simeq_{\delta_1+\delta_2} \sum_{P\in\{I,X\}^n} \sigma_P \otimes A_P,\qquad\text{and}\qquad A \simeq_{\delta_1+\delta_3} \sum_{\substack{P\in\{I,X,Y,Z\}^m:\\ c_i=1 \implies P_i \in \{Y,Z\}\\  c_i=0 \implies P_i \in \{I,X\}}} \sigma_P \otimes A_P.
 \end{align*}
- (A similar claim holds with $X$ replaced by $Z$.)
+ (A similar claim holds with the roles of $X$ and $Z$ exchanged.)
 \end{lemma}
 
 \begin{proof}
@@ -304,9 +304,9 @@ Using that any string $x_P$ which is not $c$ satisfies $a\cdot x_P = 0$ with pro
 Before we move on to a test for the full Pauli group, including not only $X,Z$ but also $Y$ observables, we use the Pauli braiding test introduced in the previous section to develop a multi-qubit version of the Bell test from Section~\ref{sec:bell}.
 
 Let $k\geq 1$ and $m=2k$. Let $\tau$ be a bijection of $\{1,\ldots,m\}$, which we interpret as a pairing of the qubits: for $i\in\{1,\ldots,m\}$, qubit $\tau(2i-1)$ is paired with qubit $\tau(2i)$. 
-The test $\pbellt(\tau)$ described in Figure~\ref{fig:pbell-test} certifies that an $m$-qubit measurement performed by a player is consistent with a measurement of each pair of qubits (as specified by $\tau)$ in the Bell basis. 
+The test $\pbellt(\tau)$ described in Figure~\ref{fig:pbell-test} certifies that an $m$-qubit measurement performed by a prover is consistent with a measurement of each pair of qubits (as specified by $\tau)$ in the Bell basis. 
 
-The test has three components. In part (a) we execute the test $\pbt(X,Z)$ in order to enforce an $m$-qubit structure and the existence of tensor product observables $X$ and $Z$ on them, from which the Bell basis is defined as in Section~\ref{sec:bell}. In part (b) we introduce questions $W$ such that each pair of indices contains the same label, $XX$ or $ZZ$. Since such question labels have exponentially small probability under the uniform distribution, part (b) checks for consistency against a uniformly random question, for all those locations where the bases happen to match. 
+The test has three components. In part (a) we execute the test $\pbt(X,Z)$ in order to enforce an $m$-qubit structure and the existence of tensor product observables $X$ and $Z$ on them, from which the Bell basis is defined as in Section~\ref{sec:bell}. In part (b) we introduce questions $W$ such that each pair of indices paired by $\tau$ contains the same label, $XX$ or $ZZ$. Since such question labels have exponentially small probability under the uniform distribution, part (b) checks for consistency against a uniformly random question, for all those locations where the bases happen to match. 
 %In part (c) a special question, $(W,``pairs'')$ is introduced such that for each pair of qubits, instead of measuring both qubits in the basis $X$ or both in the basis $W$, the prover is expected to measure both simulatneously in the eigenbasis of $XX$ and $ZZ$.  
 In part (c) we ask one prover to measure in the Bell basis and check their results against those reported by the other prover when asked to perform a measurement of the same type as in part (b). Since the Bell basis is characterized as the joint eigenstates of $XX$ and $ZZ$ operators, checking consistency of these outcomes is enough the characterize the measurement. 
 
@@ -324,14 +324,14 @@ Execute each of the following with equal probability:
 %for all indices $i\in\{1,\ldots,k\}$ such that the right-hand side is in $\{-1,1\}$ (if the right-hand side is $0$ for some $i$ then there is no condition for that $i$). 
 \end{enumerate}
 \rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
-\caption{The parallel bell test, $\pbellt(k)$.}
+\caption{The parallel bell test, $\pbellt(\tau)$.}
 \label{fig:pbell-test}
 \end{figure}
 
 \begin{lemma}\label{lem:perm-test}
-Let $k\geq 1$, Suppose given a strategy for the provers that has success at least $1-\eps$ in test $\pbellt(\tau)$. Let $V_A$ and $V_B$ be the isometries obtained from Lemma~\ref{lem:pbt}. Then 
+Let $k\geq 1$ and $\tau$ a permutation on $\{1,\ldots,k\}$. Suppose given a strategy for the provers that succeeds with probability at least $1-\eps$ in test $\pbellt(\tau)$. Let $V_A$ and $V_B$ be the isometries obtained from Lemma~\ref{lem:pbt}. Then 
 $$ \sum_{b\in\{00,01,10,11\}^k} \big\|\big(\Phi_b - V_A^\dagger (\otimes_i \sigma_{\Phi,i}^{b_i} ) V_A\big)\otimes \Id_{\reg{B}}\ket{\psi} \big\|^2 = O(\sqrt{\eps}),$$
-where $\sigma_{\Phi,i}^{b_i}$ denotes the projection on the joint eigenvector of $\sigma_{X,\tau(2i-1)}\sigma_{X,\tau(2i)}$ and $\sigma_{Z,\tau(2i-1)}\sigma_{Z,\tau(2i)}$ with associated eigenvalues $b_i$. 
+where $\{\Phi_b\}_b$ is the POVM applied by a prover upon question $(\Phi,\tau)$ and $\sigma_{\Phi,i}^{b_i}$ denotes the projection on the joint eigenvector of $\sigma_{X,\tau(2i-1)}\sigma_{X,\tau(2i)}$ and $\sigma_{Z,\tau(2i-1)}\sigma_{Z,\tau(2i)}$ with associated eigenvalues $b_i$. 
 \end{lemma}
 
 \begin{proof}[Proof sketch.]
@@ -339,13 +339,13 @@ For ease of notation we give the proof when $\tau$ is the identity, the general 
 Isometries $V_A$ and $V_B$ satisfying the conclusions of 
 Lemma~\ref{lem:pbt} are obtained from part (a) of the test. Using the conclusion of Lemma~\ref{lem:pbt} it follows that on average over $W\in\{X,Z\}^m$, 
 \begin{equation}\label{eq:pbell-1}
- \sum_{c\in\{0,1\}^n} \big\| \big(W_c -V_A^\dagger (\sigma_W^c \otimes \Id) V_A\big) \otimes \Id_B \ket{\psi} \big\|^2 \,=\, O(\sqrt{\eps})\;.
+ \sum_{c\in\{0,1\}^m} \big\| \big(W_c -V_A^\dagger (\sigma_W^c \otimes \Id) V_A\big) \otimes \Id_B \ket{\psi} \big\|^2 \,=\, O(\sqrt{\eps})\;.
 \end{equation}
 Part (b) of the test allows us to claim the same consequence, on average over $W\in\{XX,ZZ\}^k$. This can be seen as follows. For $W\in\{X,Z\}^m$ and $c\in\{0,1\}^k$ let $W^{(1)}_c$ be the sum of all $W_{c'}$ over $c'\in\{0,1\}^m$ such that $c'_{2i-1}=c_i$ for each $i\in \{1,\ldots,k\}$, and define $W^{(2)}_c$ analogously, using the condition $c'_{2i}=c_i$ . Using that both $W'$ and $W''$ in part (b) are uniformly distributed, applying~\eqref{eq:pbell-1} and marginalizing over half the outcomes we get that on average over the choice of $W'\in\{X,Z\}^m $,
 \begin{equation}\label{eq:pbell-2}
  \sum_{c\in\{0,1\}^k} \big\| \big(W^{'(1)}_c -V_A^\dagger (\sigma_W^{(1),c} \otimes \Id) V_A\big) \otimes \Id_B \ket{\psi} \big\|^2 \,=\, O(\sqrt{\eps})\;.
 \end{equation}
-A similar relation holds for $W^{''(2)}_c$. Recall that measurement operators used by the players are always assumed projective. Thus for $W,W',W''$ chosen as in part (b) it holds that $W_c = W^{(1)}_{c'} W^{(2)}_{c''}$ where $c'$ and $c''$ are the odd and even substring of $c$ respectively. Using this relation and~\eqref{eq:pbell-2} for both $W^{'(1)}$ and for $W^{''(2)}$ we deduce that success in part (b) implies that on average over $W\in\{XX,ZZ\}^k$,
+A similar relation holds for $W^{''(2)}_c$. Recall that measurement operators used by the provers are always assumed projective. Thus for $W,W',W''$ chosen as in part (b) it holds that $W_c = W^{(1)}_{c'} W^{(2)}_{c''}$ where $c'$ and $c''$ are the odd and even substrings of $c$ respectively. Using this relation and~\eqref{eq:pbell-2} for both $W^{'(1)}$ and for $W^{''(2)}$ we deduce that success in part (b) implies that on average over $W\in\{XX,ZZ\}^k$,
 \begin{equation}\label{eq:pbell-3}
  \sum_{c\in\{0,1\}^m} \big\| \big(W_c -V_A^\dagger (\sigma_W^{c }\otimes \Id) V_A\big) \otimes \Id_B \ket{\psi} \big\|^2 \,=\, O(\sqrt{\eps})\;.
 \end{equation}
@@ -363,15 +363,15 @@ This is precisely the relation checked in part (c). Thus the conclusion of the l
 \label{sec:e-pbt}
 %-----------------------------------%
 
-We will use an extended version of the Pauli braiding test introduced in Section~\ref{sec:pbt} which allows to test for a third observable, $Y_i$, on each system. Ideally we would like to enforce the relation $Y_i=\sqrt{-1}X_iZ_i$. Unfortunately, the complex phase cannot be tested from classical correlations alone: complex conjugation leaves correlations invariant, but does not correspond to a unitary change of basis  (see~\cite[Appendix A]{reichardt2012classicalarxiv} for a discussion of this issue). 
+We will use an extended version of the Pauli braiding test introduced in Section~\ref{sec:pbt} which self-tests a third observable, $Y_i$, on each system. Ideally we would like to enforce the relation $Y_i=\sqrt{-1}X_iZ_i$. Unfortunately, the complex phase cannot be tested from classical correlations alone: complex conjugation leaves correlations invariant, but does not correspond to a unitary change of basis  (see~\cite[Appendix A]{reichardt2012classicalarxiv} for a discussion of this issue). 
 
-We represent the ``choice'' of complex phase, $\sqrt{-1}$ or its conjugate $-\sqrt{-1}$, by an observable $\Delta$ that the prover measures on a system that is in a tensor product with all other systems on which the prover acts. Informally, the outcome obtained when measuring $\Delta$ tells the prover to use $Y = i XZ$ or $Y=-iXZ$. 
+We represent the ``choice'' of complex phase, $\sqrt{-1}$ or its conjugate $-\sqrt{-1}$, by an observable $\Delta$ that the prover measures on a system that is in a tensor product with all other systems on which the prover acts. Informally, the outcome obtained when measuring $\Delta$ tells the prover to use $Y = i XZ$ or $Y=-iXZ$. While strategies determining the complex phase in such a way can certainly not be prevented, the goal of the test is to ensure that the provers have exactly that much freedom, and no more. 
 
-We first introduce $Y$ and test that the triple $\{X,Y,Z\}$ pairwise anticommute at each site. This corresponds to the following set of relations: 
+We first introduce $Y$ and test that the triple $\{X,Y,Z\}$ pairwise anticommute in each coordinate. This corresponds to the following set of relations: 
 \begin{align*}
-& {\paulin}\{X,Y,Z\} = \Big\{ W(a)\in\Obs\,:\;W \in \{I,X,Y,Z\}^n,\,a\in\{0,1\}^n\Big\} \\
-&\qquad\cup \Big\{W(a)W'(a')=(-1)^{|\{i:\,W_i\neq W'_i \wedge a_ia'_i=1\}|} W'(a')W(a)\,:\;W,W' \in \{I,X,Y,Z\}^n,\,a,a'\in\{0,1\}^n\Big\}\\
-&\qquad \cup\Big\{ W(a)W(a')=W(a+a')\,:\;W \in \{I,X,Y,Z\}^n,\,a,a'\in\{0,1\}^n\Big\}\;.
+& {\paulin}\{X,Y,Z\} = \Big\{ W(a)\in\Obs\,:\;W \in \{I,X,Y,Z\}^m,\,a\in\{0,1\}^m\Big\} \\
+&\qquad\cup \Big\{W(a)W'(a')=(-1)^{|\{i:\,W_i\neq W'_i \wedge a_ia'_i=1\}|} W'(a')W(a)\,:\;W,W' \in \{I,X,Y,Z\}^m,\,a,a'\in\{0,1\}^m\Big\}\\
+&\qquad \cup\Big\{ W(a)W(a')=W(a+a')\,:\;W \in \{I,X,Y,Z\}^m,\,a,a'\in\{0,1\}^m\Big\}\;.
 \end{align*}
 
 
@@ -385,21 +385,21 @@ Test~$\pbt(X,Y,Z)$:
 \item Test: Perform the following with equal probability: 
 \begin{enumerate}
 \item[(a)] Execute test $\pbt(X,Z)$. 
-\item[(b)] Let $W\in\{X,Z\}^m$ chosen uniformly at random and $W'=Y^m$. 
+\item[(b)] Let $W\in\{X,Z\}^m$ be chosen uniformly at random. Let $W'=Y^m$. 
 \begin{enumerate}
-\item[(i)] Let $c\in\{0,1\}^m$ be chosen uniformly at random. If $c$ has even Hamming weight then execute $\comt((W,c),(W',c))$. It it has odd Hamming weight then execute $\act((W,c),(W',c))$. 
-\item[(ii)]  Select $(a,a')\in\{0,1\}^m$. Execute test $\prodt(W'(a),W'(a'),W'(a+a'))$. 
+\item[(i)] Let $c\in\{0,1\}^m$ be chosen uniformly at random. If $c$ has even Hamming weight then execute $\comt((W,c),(W',c))$. If it has odd Hamming weight then execute $\act((W,c),(W',c))$. 
+\item[(ii)]  Select $(a,a')\in\{0,1\}^m$. Execute test $\prodt((W',a),(W',a'),(W',a+a'))$. 
 \item[(iii)] Select $W''\in\{I,Y\}^m$ uniformly at random. Let $c$ be the indicator of the positions in $W''$ such that $W''_i=1$. Send one prover the string $W''$ and the other the pair $(W',c)$. Let $d$ be the string reported by the first prover and $e$ the bit reported by the second. Accept if and only if $e=c\cdot d$. 
 \end{enumerate}
-\item[(c)] Select $W\in\{X,Z\}^m$ and $c\in\{0,1\}^m$ uniformly at random. Let $W'\in\{I,X,Y,Z\}$ such that $W'_i=W_i$ whenever $c_i=1$, and $W'_i$ is uniform in $\{I,Y\}$ otherwise. Let $W''$ be equal to $W'$ with the positions in which $W'$ equals $X$ or $Z$ replaced by a uniformly random entry in $\{I,Y\}$. Send one of $W,W',W''$ at random to a prover, and another one to the other. Accept if and only if the prover's answers associated with identical coordinates are identical. 
+\item[(c)] Select $W\in\{X,Z\}^m$ and $c\in\{0,1\}^m$ uniformly at random. Let $W'\in\{I,X,Y,Z\}$ be such that $W'_i=W_i$ whenever $c_i=1$, and $W'_i$ is uniform in $\{I,Y\}$ otherwise. Let $W''$ be equal to $W'$ with the positions in which $W'$ equals $X$ or $Z$ replaced by a uniformly random entry in $\{I,Y\}$. Send one of $W,W',W''$ at random to a prover, and another one to the other. Accept if and only if the prover's answers associated with identical coordinates are identical. 
 \item[(d)] Select a random permutation  $\sigma \in \mathfrak{S}_{m/2}$, and $W\in  \{I,Y\}^m$ uniformly at random. Write $W=W_1 W_2$, where $W_1,W_2\in \{I,Y\}^{m/2}$. Let $W_1^\sigma$ be the string $W_1$ with its entries permuted according to $\sigma$. Do the following with equal probability: 
 \begin{enumerate}
-\item[(i)] Send one prover $W_1 W_1^\sigma$ and the other either $W_1 W_2$ or $W_2W_1^\sigma$ (chosen with probability $1/2$), and check consistency of the first or second half of the provers' answer bits.
+\item[(i)] Send one prover $W_1 W_1^\sigma$ and the other either $W_1 W_2$ or $W_2W_1^\sigma$ (chosen with probability $1/2$), and check consistency of the first or second half of the provers' answer bits, respectively.
 \item[(ii)] Execute the test $\pbellt(\tau)$, where for $i\in \{1,\ldots,m/2\}$, $\tau(2i-1)=i$ and $\tau(2i)=\sigma(i)$.
 \item[(iii)] Send one prover $W_1  W_1^\sigma$, and the other $(\Phi,\tau)$. 
     The first prover replies with $a\in\{0, 1 \}^m$ and the second with $b\in \{00,01,10,11\}^{m/2}$. For each
     $i\in\{1,\ldots,m/2\}$ such that $b_i = 00$, check that $a_i  = a_{m/2+\sigma(i)}$. 
-		\item[(iii)] Let $W'\in\{X,Z\}^m$ be chosen uniformly at random. Send one prover $W'$ and the other $(\Phi,\tau)$. The first prover replies  with $a\in\{0, 1 \}^m$ and the second with $b\in \{00,01,10,11\}^{m/2}$. For each pair $(i,m/2+\sigma(i))$ such that $W_i=W'_i$ and $b_i=00$ check that $a_i=a_{m/2+\sigma(i)}$. 
+		\item[(iv)] Let $W'\in\{X,Z\}^m$ be chosen uniformly at random. Send one prover $W'$ and the other $(\Phi,\tau)$. The first prover replies  with $a\in\{0, 1 \}^m$ and the second with $b\in \{00,01,10,11\}^{m/2}$. For each pair $(i,m/2+\sigma(i))$ such that $W'_i=W'_{m/2+\sigma(i)}$ and $b_i=00$ check that $a_i=a_{m/2+\sigma(i)}$. 
 \end{enumerate}
 \end{enumerate}
 \end{itemize}
@@ -410,19 +410,19 @@ Test~$\pbt(X,Y,Z)$:
 
 
 The test is described in Figure~\ref{fig:e-pbt}. It has four components. Part (a) of the test executes test $\pbt(X,Z)$, which gives us multi-qubit Pauli $X$ and $Z$ observables. 
-Part (b) of the test introduces $Y^m(c)$ observables, and uses commutation and anti-commutation relations with $X$ and $Z$ to force $Y^m$ to respect the qubit structure obtained from part (a); the analysis of this part is based on Lemma~\ref{lem:pauli-c-n}. Part (c) of the test, while not strictly necessary, justifies the test's name, by introducing an observable associated with any tensor product of Paulis and testing it for consistency against the observables considered in parts (a) and (b). 
+Part (b) of the test introduces $Y^m(c)$ observables, and uses commutation and anti-commutation relations with $X$ and $Z$ to force $Y^m$ to respect the qubit structure obtained from part (a); the analysis of this part is based on Lemma~\ref{lem:pauli-c-n}. Part (c) of the test, while not strictly necessary for our applications, justifies the test's name, by introducing an observable associated with any tensor product of Paulis and testing it for consistency against the observables tested in parts (a) and (b). 
 
-Part (d) of the test is meant to control the ``phase'' ambiguity in the definition of $Y(c)$ that remains after the analysis of part (b). Indeed, from that part it will follow that $Y(c) \simeq \sigma_Y(c) \otimes \Delta(c)$, where $\Delta(c)$ is an arbitrary observable acting on the ancilla system produced by the isometry obtained in part (a). We would like to impose $\Delta(c) \approx \Delta_Y^{|c|}$ for a fixed observable $\Delta_Y$ which  represents the irreducible phase degree of freedom in the definition of $Y$, as discussed above. To obtain this, part (c) of the test performs a form of SWAP test between different $Y(c)$ observables, enforcing that e.g. $Y(1,0,1)$ is consistent with $Y(0,1,1)$ after an appropriate Bell measurement has ``connected'' registers $1$ and $2$. The Bell basis measurements are tested using $\pbellt(\tau)$ from the previous section. 
+Part (d) of the test is meant to control the ``phase'' ambiguity in the definition of $Y(c)$ that remains after the analysis of part (b). Indeed, from that part it will follow that $Y(c) \simeq \sigma_Y(c) \otimes \Delta(c)$, where $\Delta(c)$ is an arbitrary observable acting on the ancilla system produced by the isometry obtained in part (a). We would like to impose $\Delta(c) \simeq \Delta_Y^{|c|}$ for a fixed observable $\Delta_Y$ which  represents the irreducible phase degree of freedom in the definition of $Y$, as discussed above. To obtain this, part (c) of the test performs a form of SWAP test between different $Y(c)$ observables, enforcing that e.g. $Y(1,0,1)$ is consistent with $Y(1,0,0)$ after an appropriate Bell measurement has ``connected'' registers $1$ and $2$. The Bell basis measurements are tested using $\pbellt(\tau)$ from the previous section. 
 
 %\newtheorem*{lem:xyz-rigid}{Lemma~\ref{lem:xyz-rigid} (restated)}
 
 %\begin{lem:xyz-rigid}
   %TODO
   \begin{lemma}
-Suppose $\ket{\psi}\in\mH_\reg{A}\otimes \mH_\reg{B}$ and $W(a) \in \Obs(\mH_\reg{A})$, for $W\in \{X,Y,Z\}^m$ and $a\in\{0,1\}^m$, specify a strategy for the players that has success probability at least $1-\eps$ in the extended Pauli braiding test $\pbt(X,Y,Z)$ described in Figure~\ref{fig:e-pbt}. 
+Suppose $\ket{\psi}\in\mH_\reg{A}\otimes \mH_\reg{B}$ and $W(a) \in \Obs(\mH_\reg{A})$, for $W\in \{I,X,Y,Z\}^m$ and $a\in\{0,1\}^m$, specify a strategy for the provers that has success probability at least $1-\eps$ in the extended Pauli braiding test $\pbt(X,Y,Z)$ described in Figure~\ref{fig:e-pbt}. 
 Then there exist isometries $V_D:\mH_\reg{D} \to ((\C^2)^{\otimes m})_{\reg{D'}}  \otimes \hat{\mH}_{\hat{\reg{D}}}$, for $D\in\{A,B\}$, such that
-$$\big\| (V_A \otimes V_B) \ket{\psi}_{\reg{AB}} - \ket{\EPR}_{\reg{A}'\reg{B}'}^{\otimes n} \ket{\aux}_{\hat{\reg{A}}\hat{\reg{B}}} \big\|^2 = O(\sqrt{\eps}),$$
-and on expectation over  $W\in \{X,Y,Z\}^m$,
+$$\big\| (V_A \otimes V_B) \ket{\psi}_{\reg{AB}} - \ket{\EPR}_{\reg{A}'\reg{B}'}^{\otimes m} \ket{\aux}_{\hat{\reg{A}}\hat{\reg{B}}} \big\|^2 = O(\sqrt{\eps}),$$
+and on expectation over  $W\in \{I,X,Y,Z\}^m$,
 \begin{align}\label{eq:test-sigmay-2}
  \Es{a\in\{0,1\}^m} \big\| \big(W(a) -V_A^\dagger (\sigma_W(a) \otimes \Delta_W(a)) V_A\big) \otimes \Id_B \ket{\psi} \big\|^2 &= O(\sqrt{\eps}),
 \end{align}
@@ -434,18 +434,18 @@ where $\Delta_W(a) = \prod_i \Delta_{W_i}^{a_i} \in \Obs({\mH}_{\hat{\reg{A}}})$
 The existence of the isometries $V_A$ and $V_B$ follows Lemma~\ref{lem:pbt} and part (a) of $\pbt(X,Y,Z)$. 
  Under this isometry we have $W(a) \simeq_{\sqrt{\eps}} \sigma_W(a)$, on average over uniformly random $W\in\{X,Z\}^m$ and $a\in\{0,1\}^m$, and moreover $W_c \simeq \sigma_W^c$ on average over uniformly random $W\in\{X,Z\}^m$. 
 
-Applying the second part of Lemma~\ref{lem:pauli-c-n},  the  commutation and anti-commutation relations between $Y^m(c)$ and $W(c)$ verified in part (b)(i) of the test imply that under the same isometry,
+Applying Lemma~\ref{lem:pauli-c-n},  the  commutation and anti-commutation relations between $Y^m(c)$ and $W(c)$ verified in part (b)(i) of the test imply that under the same isometry,
 $$ Y(c) \simeq \sigma_Y(c) \otimes {\Delta}(c),$$
 for some observable ${\Delta}(c)$ on ${\mH}_{\hat{\reg{A}}}$. Here $Y(c)$ is shorthand for $Y^m(c)$. Using the linearity relations that are verified in part (b)(ii) we may in addition express $\Delta(c) = \prod_i \Delta_{i}^{c_i}$ for (perfectly) commuting observables $\Delta_i$. 
 
 
 
-%Let $\{W_c\}$ be the measurement employed by a player on question $W\in \{I,X,Y,Z\}^m$. For a set $S\subseteq \{1,\ldots, n\}$ and $c\in\{0,1\}^S$ let ${W}_{S,c} = \sum_{c': c'_i=c_i \forall i \in S} W_c$, i.e.\ $\{{W}_{S,c}\}$ is the measurement $W$ marginalized over those coordinates not in $S$. Using part (c)(i) it follows that on average over $W\in\{X,Y\}$ chosen uniformly at random we have $W_{S,c} \simeq W'_{S,c}$ where $W'$ is like $W$ with $X$ replaced by $I$ and $S$ is the subset of coordinates of $W$ such that $W_i=Y$. 
+%Let $\{W_c\}$ be the measurement employed by a prover on question $W\in \{I,X,Y,Z\}^m$. For a set $S\subseteq \{1,\ldots, n\}$ and $c\in\{0,1\}^S$ let ${W}_{S,c} = \sum_{c': c'_i=c_i \forall i \in S} W_c$, i.e.\ $\{{W}_{S,c}\}$ is the measurement $W$ marginalized over those coordinates not in $S$. Using part (c)(i) it follows that on average over $W\in\{X,Y\}$ chosen uniformly at random we have $W_{S,c} \simeq W'_{S,c}$ where $W'$ is like $W$ with $X$ replaced by $I$ and $S$ is the subset of coordinates of $W$ such that $W_i=Y$. 
 
-Using part (b)(iii) it follows that on average over uniformly random $c$, $Y(c)\simeq \sum_d \prod_i (-1)^{d_i} W^{(c)}_d$ where $W^{(c)} \in \{I,Y\}^m$ is the string that has a $Y$ exactly at those positions $i$ such that $c_i=1$. 
+Using part (b)(iii) it follows that on average over uniformly random $c$, $Y(c)\simeq \sum_d  (-1)^{d\cdot c} W^{(c)}_d$ where $W^{(c)} \in \{I,Y\}^m$ is the string that has a $Y$ exactly at those positions $i$ such that $c_i=1$. 
 
 
-Using Claim~\ref{claim:swap-tt} below, success probability at least $1-O(\eps)$ in part (d) of the test implies that on average over a random permutation $\sigma \in \mathcal{S}_{n/2}$, 
+Using Claim~\ref{claim:swap-tt} below, success probability at least $1-O(\eps)$ in part (d) of the test implies that on average over a random permutation $\sigma \in \mathfrak{S}_{m/2}$, 
 \begin{equation}\label{eq:delta-y-1}
  \Es{\sigma} \,\Es{c\in\{0,1\}^{m/2}}\,2^{-m}\Tr \big(\sigma_Y(c,c^\sigma)\big)\,\bra{\aux} \Big( \prod_{i=1}^{m/2}\big( \Delta_i \Delta_{m/2+ \sigma(i)} \big)^{c_i} \Big) \ket{\aux}  = 1- O(\sqrt{\eps}),
 \end{equation}
@@ -453,19 +453,19 @@ where we wrote $(c,c^\sigma)$ for the $m$-bit string $(c_1,\ldots,c_{m/2},c_{\si
  \begin{equation}\label{eq:delta-y-3}
 \Delta_Y \,=\, \Es{i\in\{\frac{m}{2}+1,\ldots,m\}} \frac{\Delta_i}{|\Es{i} \Delta_i|},
 \end{equation}
-Eq.~\eqref{eq:delta-y-1} readily implies that $\Delta(c) \approx_{\sqrt{\eps}} \Delta_Y^{|c|}$. In slightly more detail, we first observe that
+We show that Eq.~\eqref{eq:delta-y-1} implies that $\Delta(c) \approx_{\sqrt{\eps}} \Delta_Y^{|c|}$. Towards this we first observe that
 \begin{align}
-  &\Es{c\in\{0,1\}^{m/2}} \Big\| \Big(\Delta(c) -
+  &\Es{c\in\{0,1\}^{m/2}} \Big\| \Big(\prod_{i=1}^{m/2} \Delta_i^{c_i} -
   \big(\Es{i\in\{\frac{m}{2}+1,\ldots,m\}} \Delta_{i}\big)^{|c|}\Big) \ket{\aux}
   \Big\|^2\\&\leq 
-\Es{c} \Es{g:\{1,\ldots,\frac{m}{2}\}\to\{\frac{m}{2}+1,\ldots,m\}} \big\|\Big( \Delta(c) - \prod_i \Delta_{g(i)}^{c_i}\Big) \ket{\aux} \big\|^2.\label{eq:delta-y-2}
+\Es{c} \Es{g:\{1,\ldots,\frac{m}{2}\}\to\{\frac{m}{2}+1,\ldots,m\}} \big\|\Big(\prod_{i=1}^{m/2} \Delta_i^{c_i} - \prod_i \Delta_{g(i)}^{c_i}\Big) \ket{\aux} \big\|^2.\label{eq:delta-y-2}
 % &= 2 - 2\Es{c} \Es{g:\{1,\ldots,n/2\}\to\{n/2+1,\ldots,n\}} \bra{\aux} \prod_{i=1}^{n/2} \big(\Delta_i  \Delta_{g(i)}\big)^{c_i} \ket{\aux}\\
 %&= O(\sqrt{\eps}),
 %&\approx 2 - 2\Es{c} \Es{\sigma \in \mathcal{S}_{n/2}} \bra{\aux} \prod_{i=1}^{n/2} \big(\Delta_i  \Delta_{n/2+\sigma(i)}\big)^{c_i} \ket{\aux}
 \end{align}
-where the first inequality is by convexity, with the expectation taken over a random function $g$. We would like to relate this last term to the expectation over a random permutation $\sigma\in\mathcal{S}_{m/2}$. One way to do this is to observe that with  probability $1-O(1/m)$ over the choice of a uniformly random $g$ it is possible to write
+where the first inequality is by convexity, with the expectation taken over a random function $g$. We would like to relate this last term to the expectation over a random permutation $\sigma\in\mathfrak{S}_{m/2}$. We do this by observing that with  probability $1-O(1/m)$ over the choice of a uniformly random $g$ it is possible to write
 $$ \prod_i \Delta_{g(i)}^{c_i} = \Big(\prod_i \Delta_{m/2+\tau'(i)}^{c'_i}\Big)\Big(\prod_i \Delta_{m/2+\tau''(i)}^{c''_i}\Big),$$
-where $c'_i+c''_i=c_i$ for all $i$, $\tau',\tau''$ are permutations such that $m/2+\tau'(i)=g(i)$ if $c'_i=c_i$, and $m/2+\tau''(i)=g(i)$ if $c''_i=c_i$; this is possible because $g$ might have two-element collisions, but is unlikely to have any three-element collisions. Moreover, for uniformly random $c$ and $g$ we can ensure that the marginal distribution on $(c',\tau')$ and $(c',\tau'')$ is uniform.  This allows us to use~\eqref{eq:delta-y-1} twice to bound the right-hand side of~\eqref{eq:delta-y-2} by $O(\sqrt{\eps})$ (after having expanded the square). As a consequence, $\Es{i}\Delta_i$ is close to an observable, and it is then routine to show that $\Delta_Y$ defined in~\eqref{eq:delta-y-3} satisfies $\Delta(c) \approx_{\sqrt{\eps}} \Delta_Y^{|c|}$, on average over a uniformly random $c$. 
+where $c'_i+c''_i=c_i$ for all $i$, $\tau',\tau''$ are permutations such that $m/2+\tau'(i)=g(i)$ if $c'_i=c_i$, and $m/2+\tau''(i)=g(i)$ if $c''_i=c_i$; this is possible because $g$ might have two-element collisions, but is unlikely to have any three-element collisions. Moreover, for uniformly random $c$ and $g$ we can ensure that the marginal distribution on $(c',\tau')$ and $(c'',\tau'')$ is uniform.  Using this we can apply~\eqref{eq:delta-y-1} twice to bound the right-hand side of~\eqref{eq:delta-y-2} by $O(\sqrt{\eps})$ (after having expanded the square). Thus the action of $\Es{i}\Delta_i$ on $\ket{\aux}$ is close to the action of an observable. It is then relatively routine work to show that $\Delta_Y$ defined in~\eqref{eq:delta-y-3} satisfies $\Delta(c) \approx_{\sqrt{\eps}} \Delta_Y^{|c|}$, on average over a uniformly random $c$. 
 
 The last condition in the lemma follows from the consistency relations, which imply that $X(a)\otimes X(a)$, $Z(b)\otimes Z(b)$ and $Y(c)\otimes Y(c)$ all approximately stabilize $\ket{\psi}$; then $\Delta_Y^{|a|} \otimes \Delta_Y^{|a|} \approx  X(a)Z(a)Y(a) \otimes X(a)Z(a)Y(a)$ also does. 
 \end{proof}
