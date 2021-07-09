@@ -414,7 +414,7 @@ Assorted other typos/comments:
 
 \item Top of page 20: could use more explanation for why “decompositions of A, B, C earlier imply $C_I \approx… and C_Z \approx$…”. Overall this proof is a little too sketchy.
 
-{\color{blue} We added some explanations here.}
+{\color{blue} We added some explanations for the main steps, as suggested by your comments.}
 
 \item Page 64: "...multi-qubit Pauli X and Z observales" (should be "observables")
 
@@ -458,7 +458,7 @@ pairs of qubits in the Bell basis), are sent.'' Sent to whom?
     \item (page 14) ``Our rigidity result states that any strategy that succeeds with probability $1-\varepsilon$ in the test is within $poly(\varepsilon)$ of
 the honest strategy, up to local isometries''. Please explain here or closeby how the ``honest strategy'' relates to the questions that are not in $\Sigma^m$. It looks to me (see Theorem 4) that you actually say nothing about those rounds where the questions not in  $\Sigma^m$.
 
-				{\color{blue} We clarified this.}
+				{\color{blue} That's right; we clarified this.}
 
 \item (page 14) The concept of the ``consistency test'' (p.16) (which symmetrizes the game and the player's behavior), should be informally introduced here, at the latest before the summary of Theorem 4. Otherwise, it is confusing that the statement of Theorem~4 is only about $W_B$, yet the informal description claims that it deals with ``either player''.
 
@@ -466,7 +466,7 @@ the honest strategy, up to local isometries''. Please explain here or closeby ho
 
     \item (page 14) ``the ancilla register to extract a single bit'' Please include the symbol here for the ancilla register.
 		
-						{\color{blue} Ok.}
+						{\color{blue} Done.}
 
 
         \item (page 14) ``For an observable $W$, let $\sigma_W = \sigma_W^{+1}-\sigma_W^{-1}$ be its eigendecomposition, where sW are the “honest”
@@ -478,11 +478,11 @@ Pauli matrices defined in (1) and (2).'' Please check consistency of notation: t
 \begin{enumerate}
 \item A strategy has not been formally defined yet (that happens on page 16). So you should tell us informally what is a strategy (so that the symbols are defined), or refer to the definition of page 16 (however, there is no definition environment, so that would need to change it you want to refer to it).
 
-{\color{blue} Actually, there is a definition of strategy at the top of the page (``In general, an arbitrary strategy ...''). }
+{\color{blue} There is a definition of strategy at the top of the page (``In general, an arbitrary strategy ...''). }
 
  \item What is the quantifier/restriction on $|AUX\rangle?$
 
-{\color{blue} Existential; added}
+{\color{blue} It's existential; added}
 
  \item   The display equation below Equation (3) is hard to parse (especially the part involving $\tau_\lambda$, can you add more description on how to read it? )
 
@@ -491,11 +491,11 @@ Pauli matrices defined in (1) and (2).'' Please check consistency of notation: t
 \end{enumerate}
 \item ``The proof of the theorem is based on standard techniques''. I think you are underselling the contribution. Now is your chance to outline the rest of this section and the contributions (or, refer to them in the introduction). Please use the same structure as the structure of the protocols as given in the Figures (this is why the "Tree" Figure would be useful). I.e., tell us that the main protocol is RIGID, which itself is composed of CLIFFORD + ad-hoc tomography, and then CLIFF is composed of CONJ, and a bunch of other tests, etc. (See comment in \ref{sec:-prot-pres}). This will help give a roadmap to reading this section.
 
-{\color{blue} Thank you for suggesting this. We added a fairly lengthy explanation of what role each of the subtests of RIGID plays in it.}
+{\color{blue} Thank you for suggesting this. We added a fairly detailed explanation of what role each of the subtests of RIGID plays in it after the statement of Theorem 3.1 (right before Section 3.1).}
 
 \item ``In the remainder of this section, we prove Theorem 4''. Please say exactly where this is proven. For instance, is Theorem 4 re-stated elsewhere and proven there? I could not find a ``Proof of Theorem 4'' claim anywhere. (But is looks very similar to Corollary 12).
 
-{\color{blue} Thanks, there was a bit of a mess-up there. We removed the statement of Corollary 12 and clearly labeled its proof a proof of Theorem 4.}
+{\color{blue} Thanks, there was a bit of a confusion there. We removed the statement of Corollary 12 and clearly labeled its proof a proof of Theorem 4.}
 
     \item (page 16) the title ``Tests.'' would be more accurately described as ``consistency test''. Also, to give more structure to the paper, I would use numbered headings instead of bold font (only) headings.
 		

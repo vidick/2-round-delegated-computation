@@ -117,15 +117,15 @@ $$\Es{\substack{f\sim\mathcal{D}:\\f(W)=\Id \in\mathcal{R}}} \big\|  (f(W_A)- \I
 
 We give a test which certifies that a unitary (not necessarily an observable) conjugates one observable to another. More precisely, let $A,B$ be observables and $R$ a unitary acting on the same space $\mH$. The test $\conj(A,B,R)$ certifies that the players implement observables of the form
 \begin{equation}\label{eq:def-xr}
-X_R = \begin{pmatrix} 0 & R^\dagger\\ R & 0 \end{pmatrix}\qquad \text{and}\qquad C = C_{A,B} = \begin{pmatrix} A & 0\\ 0 & B \end{pmatrix}
+X_R = \begin{pmatrix} 0 & R^\dagger\\ R & 0 \end{pmatrix}\qquad \text{and}\qquad C = C_{A,B} = \begin{pmatrix} A & 0\\ 0 & B \end{pmatrix}\;,
 \end{equation}
-such that $X_R$ and $C$ commute. The fact that $X_R$ is an observable implies that $R$ is unitary,\footnote{Note that $R$ will not be directly accessed in the test, since by itself it does not necessarily correspond to a measurement.} while the commutation condition is equivalent to the relation $RAR^\dagger = B$. The test thus tests for the relations
+such that moreover $X_R$ and $C$ commute. The fact that $X_R$ is an observable implies that $R$ is unitary,\footnote{Note that $R$ will not be directly accessed in the test, since by itself it does not necessarily correspond to a measurement.} while the commutation condition is equivalent to the relation $RAR^\dagger = B$. The test thus tests for the relations
 \begin{align*}
  \mathcal{C}\{R,C\} &= \big\{ X_R,C,X,Z\in \Obs\big\} \cup \big\{XZ=-ZX\big\}
-\cup \big\{ X_R C = C X_R,\, X_RZ=-Z X_R,\, C Z=ZC\big\}.
+\cup \big\{ X_R C = C X_R,\, X_RZ=-Z X_R,\, C Z=ZC\big\}\;.
 \end{align*}
 Here the anti-commuting observables $X$ and $Z$ are used to specify a basis in which $X_R$ and $C$ can be block-diagonalized. The anti-commutation and commutation relations with $Z$ enforce that $X_R$ and $C$ have the form described in~\eqref{eq:def-xr}.
-These relations are enforced using commutation and anti-commutation tests that are standard in the literature on self-testing. For convenience, we state those tests, $\comt$ and $\act$, in Appendix~\ref{sec:clifford-test}. The conjugation test, which uses them as sub-tests, is given in Figure~\ref{fig:conjugation-test-1}. Here, ``Inputs'' refers to a subset of designated questions in the test; ``Relation'' indicates a relation that the test aims to certify; ``Test'' describes the certification protocol. (Recall that all our protocols implicitly include a ``consistency test, not specified on the figure, in which a question is chosen uniformly at random from the marginal distribution and sent to both players, whose answers are accepted if and only if they are equal.)
+These relations are enforced using commutation and anti-commutation tests that are standard in the literature on self-testing. For convenience, we state those tests, $\comt$ and $\act$, in Appendix~\ref{sec:clifford-test}. The conjugation test, which uses them as sub-tests, is given in Figure~\ref{fig:conjugation-test-1}. Here, ``Inputs'' refers to a subset of designated questions in the test; ``Relation'' indicates a relation that the test aims to certify; ``Test'' describes the certification protocol. (Recall that all our protocols implicitly include a ``consistency test'', not specified on the figure, in which a question is chosen uniformly at random from the marginal distribution and sent to both players, whose answers are accepted if and only if they are equal. We use this consistency test implicitly by analyzing only strategies that are symmetric, i.e.\ both provers' Hilbert spaces and measurement operators are identical.)
 
 \begin{figure}[H]
 \rule[1ex]{\textwidth}{0.5pt}\\
@@ -155,7 +155,7 @@ The test $\conj(A,B,R)$ is a $(1,\delta)$ self-test for the set of relations
   $\mathcal{C}\{R,C\}$, for some $\delta = O(\sqrt{\eps})$. Moreover, for any
   strategy that succeeds with probability at least $1-\eps$ in the test it holds
   that $C \approx_{\delta} A  (\Id+Z)/2 + B
- (\Id-Z)/2$, where $A,B,C$ and $Z$ are the observables applied by the prover on receipt of a question with the same label. 
+ (\Id-Z)/2$, where $A,B,C$ and $Z$ are the observables applied by the player on receipt of a question with the same label. 
 \end{lemma}
 
 \begin{proof}
@@ -166,11 +166,14 @@ We now consider soundness. Success in $\act(X,Z)$ in part (a) of the test implie
 A\simeq_{\sqrt{\eps}} A_I \otimes \Id\qquad\text{and}\qquad B\simeq_{\sqrt{\eps}} B_I \otimes \Id\;,
 \end{equation}
  for observables $A_I, B_I$ on $\mH_{\hat{\reg{A}}}$. Similarly, the parts of the test involving $C$ and $X_R$ imply that they each have the block decomposition specified in~\eqref{eq:def-xr}. 
-In particular, using the second part of Lemma~\ref{lem:pauli-c-n} (with $n=1$ and $c=1$, exchanging the roles of $Z$ and $X$) it follows that anti-commutation of $X_R$ with $Z$ certifies that $X_R$ has  a decomposition of the form  
+In particular, using the second part of Lemma~\ref{lem:pauli-c-n} (with $n=1$ and $c=1$, exchanging the roles of $Z$ and $X$) anti-commutation of $X_R$ with $Z$ certifies that $X_R$ has  a decomposition of the form  
 \begin{equation}\label{eq:xr-1}
 X_R \simeq_{\sqrt{\eps}} R_X \otimes \sigma_X + R_Y \otimes \sigma_Y\;.
 \end{equation}
-Let $R = ( R_X + i R_Y)| R_X + i R_Y|^{-1}$, so that $R$ is unitary. Note that since $X_R$ is an observable, $X_R^2=\Id$, and so it follows from~\eqref{eq:xr-1} that $(R_X+iR_Y)(R_X+iR_Y)^\dagger \otimes \Id \simeq_{\sqrt{\eps}} \Id$. Thus $R \simeq_{\sqrt{\eps}} R_X + i R_Y$. 
+Let $R = ( R_X + i R_Y)| R_X + i R_Y|^{-1}$, so that $R$ is unitary. Note that since $X_R$ is an observable, $X_R^2=\Id$. 
+
+
+ and so it follows from~\eqref{eq:xr-1} that $(R_X+iR_Y)(R_X+iR_Y)^\dagger \otimes \Id \simeq_{\sqrt{\eps}} \Id$. Thus $R \simeq_{\sqrt{\eps}} R_X + i R_Y$. 
  Similarly, using the first part of Lemma~\ref{lem:pauli-c-n} commutation of $C$ with $Z$ implies that 
 \begin{equation}\label{clif-2ab}
 C \simeq_{\sqrt{\eps}} C_I \otimes \sigma_I + C_Z \otimes \sigma_Z\;,
@@ -404,7 +407,7 @@ where the expectation is taken over sets $S$ and $T$ specified as in part (e), f
 \subsection{Post-measurement states}
 \label{sec: RIGID test}
 
-We prove Theorem~\ref{thm:clifford-rigid}. The remaining work consists in ``lifting'' the phase ambiguity $\phase_W$ which remains in the statement of Theorem~\ref{thm:clifford-ntest} (in contrast to the ambiguity $\Delta_Y$, which itself cannot be lifted solely by examining correlations). This ambiguity means that the provers have the liberty of choosing to report opposite outcomes whenever they apply an $F$ or $G$ observable, but they have to be consistent between themselves and across all of their qubits in doing so. To verify that the provers use the ``right'' labeling for their outcomes we  incorporate a small tomography test. Our final test  $\rigid(\Sigma,m)$, which builds on all tests developed in this section, is described in Figure~\ref{fig:rigid}. Note that a drawback of the tomography is that the test no longer achieves perfect completeness (although completeness remains exponentially close to~$1$). 
+We prove Theorem~\ref{thm:clifford-rigid}. The remaining work consists in ``lifting'' the phase ambiguity $\phase_W$ which remains in the statement of Theorem~\ref{thm:clifford-ntest} (in contrast to the ambiguity $\Delta_Y$, which itself cannot be lifted solely by examining correlations). This ambiguity means that the players have the liberty of choosing to report opposite outcomes whenever they apply an $F$ or $G$ observable, but they have to be consistent between themselves and across all of their qubits in doing so. To verify that the provers use the ``right'' labeling for their outcomes we  incorporate a small tomography test. Our final test  $\rigid(\Sigma,m)$, which builds on all tests developed in this section, is described in Figure~\ref{fig:rigid}. Note that a drawback of the tomography is that the test no longer achieves perfect completeness (although completeness remains exponentially close to~$1$). 
 
 \begin{figure}[H]
 \rule[1ex]{\textwidth}{0.5pt}\\
@@ -414,7 +417,7 @@ Test~$\rigid(\Sigma,m)$:
     \item Test: execute each of the following with equal probability:
 \begin{enumerate}
 \item[(a)] Execute the test $\cliff(\Sigma,m)$;
-\item[(b)] Send each player a uniformly random query $W,W'\in \Sigma^m$. Let $T \subseteq \{1,\ldots,m\}$ be the subset of positions $i$ such that $W_i \in \{X,Y\}$ and $W'_i\in\{F,G\}$. Reject if the fraction of answers $(a_i,b_i)$, for $i\in T$, from the provers that satisfy the CHSH correlations (i.e. $a_i\neq b_i$ if and only if $(W_i,W'_i)=(X,F)$) is not at least $\cos^2 \frac{\pi}{8} - 0.1$.
+\item[(b)] Send each player a uniformly random query $W,W'\in \Sigma^m$. Let $T \subseteq \{1,\ldots,m\}$ be the subset of positions $i$ such that $W_i \in \{X,Y\}$ and $W'_i\in\{F,G\}$. Reject if the fraction of answers $(a_i,b_i)$, for $i\in T$, from the players that satisfy the CHSH correlations (i.e. $a_i\neq b_i$ if and only if $(W_i,W'_i)=(X,F)$) is not at least $\cos^2 \frac{\pi}{8} - 0.1$.
 \end{enumerate}
 \end{itemize}
 \rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
