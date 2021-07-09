@@ -171,7 +171,11 @@ In particular, using the second part of Lemma~\ref{lem:pauli-c-n} (with $n=1$ an
 X_R \simeq_{\sqrt{\eps}} R_X \otimes \sigma_X + R_Y \otimes \sigma_Y\;.
 \end{equation}
 Let $R = ( R_X + i R_Y)| R_X + i R_Y|^{-1}$, so that $R$ is unitary. Note that since $X_R$ is an observable, $X_R^2=\Id$, and so it follows from~\eqref{eq:xr-1} that $(R_X+iR_Y)(R_X+iR_Y)^\dagger \otimes \Id \simeq_{\sqrt{\eps}} \Id$. Thus $R \simeq_{\sqrt{\eps}} R_X + i R_Y$. 
- Similarly, using the first part of Lemma~\ref{lem:pauli-c-n} commutation of $C$ with $Z$ implies that $C \simeq_{\sqrt{\eps}} C_I \otimes \sigma_I + C_Z \otimes \sigma_Z$, for Hermitian $C_I$, $C_Z$ such that $C_I \pm C_Z$ are observables because $C$ is an observable. 
+ Similarly, using the first part of Lemma~\ref{lem:pauli-c-n} commutation of $C$ with $Z$ implies that 
+\begin{equation}\label{clif-2ab}
+C \simeq_{\sqrt{\eps}} C_I \otimes \sigma_I + C_Z \otimes \sigma_Z\;,
+\end{equation}
+ for Hermitian $C_I$, $C_Z$ such that $C_I \pm C_Z$ are observables because $C$ is an observable. 
 
 Next we analyze part (b) of the test. Let $\{W_{AZ}^{a,z}\}$ be the projective measurement applied by the second player upon query $(A,Z)$. Success with probability $1-O(\eps)$ conditioned on the questions being $C$ and $(A,Z)$ item ensures that 
 \begin{equation}\label{clif-2b}
@@ -181,7 +185,7 @@ and a similar condition holds for the case $C$ and $(B,Z)$, with $W_{BZ}$ instea
 
 Success with probability $1-O(\eps)$ in the case of questions $A$, $B$ or $Z$ and $(A,Z)$ or $(B,Z)$ respectively ensures consistency of $\{W_{AZ}^{a,z}\}$ (resp.\ $\{W_{BZ}^{b,z}\}$) with the observable $A$ (resp.\ $B$) when marginalizing over the second outcome, and $Z$ when marginalizing over the first outcome. Since $A$ (resp. $B$) and $Z$ approximately commute, using the decompositions for $A$ and $B$ derived in~\eqref{eq:cliff-2c} it follows that $W_{AZ} \simeq_{\sqrt{\eps}} A_I \otimes \sigma_Z$ and $W_{BZ} \simeq_{\sqrt{\eps}} B_I \otimes \sigma_Z$. 
 
-Similarly regarding the observable $C$, using that we already showed that $C$ is block-diagonal in the basis specified by $X$ and $Z$,~\eqref{clif-2b} gives $C_I \simeq_{\sqrt{\eps}} (A+B)/2$ and $C_Z \simeq_{\sqrt{\eps}} (A-B)/2$. This shows the ``Moreover'' part of the lemma. 
+Similarly regarding the observable $C$, using that we already showed in~\eqref{clif-2ab} that $C$ is block-diagonal in the basis specified by $X$ and $Z$,~\eqref{clif-2b} and $W_{AZ} \simeq_{\sqrt{\eps}} A_I \otimes \sigma_Z$ gives $(C_I^0 + C_Z^0) \simeq_{\sqrt{\eps}} A_I^0$ and $(C_I^1 + C_Z^1) \simeq_{\sqrt{\eps}} A_I^1$. Using the analogous relations for $W_{BZ}$ we get $(C_I - C_Z) \simeq_{\sqrt{\eps}} B_I$. Thus $C_I \simeq_{\sqrt{\eps}} (A+B)/2$ and $C_Z \simeq_{\sqrt{\eps}} (A-B)/2$. This shows the ``Moreover'' part of the lemma. 
 
 Finally, success in test $\comt(X_R,C)$ certifies the approximate commutation relation $[X_R,C]\simeq_{\sqrt{\eps}} 0$, which, given the decomposition of $X_R$ and $C$ obtained so far, implies $RA \simeq_{\sqrt{\eps}} B R$, as desired. 
 \end{proof}
