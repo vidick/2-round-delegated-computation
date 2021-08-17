@@ -11,12 +11,16 @@
 	volume = {543},
 	number = {7644}}
 
-@misc{slofstra2016tsirelson,
+@article{slofstra2016tsirelson,
   title={Tsirelson's problem and an embedding theorem for groups arising from non-local games},
   author={Slofstra, William},
   note={arXiv preprint {\tt arXiv:1606.03140}},
-  year={2016}
+  year={2020},
+  journal = {Journal of the American Mathematical Society},
+  volume = {33},
+  pages = {1--56}
 }
+
 
 
 @inproceedings{natarajan2016robust,
@@ -82,7 +86,7 @@
 @inproceedings{gentry2009fhe,
  author = {Gentry, Craig},
  title = {Fully Homomorphic Encryption Using Ideal Lattices},
- booktitle = {Proceedings of the 41st Annual ACM Symposium on Theory of Computing},
+ booktitle = {Proceedings of the 41st Annual ACM Symposium on Theory of Computing (STOC 2009)},
  series = {STOC '09},
  year = {2009},
  pages = {169--178},
@@ -192,7 +196,7 @@
 	note = {arXiv preprint {\tt arXiv:1502.02563}}
 }
 
-@misc{hayashi2016self,
+@article{HayashiH16,
   title = {Self-guaranteed measurement-based quantum computation},
   author = {Hayashi, Masahito and Hajdu\ifmmode \check{s}\else \v{s}\fi{}ek, Michal},
   journal = {Phys. Rev. A},
@@ -206,12 +210,19 @@
 }
 
 
-@misc{hajdusek2015posthoc,
-	author = {Joseph F.\ Fitzsimons and Michal Hajdu\v{s}ek},
+
+
+@article{hajdusek2015posthoc,
+	author = {Joseph F.\ Fitzsimons and Michal Hajdu\v{s}ek and Tomoyuki Morimae},
 	title = {Post hoc verification of quantum computation},
-	year = {2015},
+	year = {2018},
+	journal = {Physical Review Letters},
+	volume = {120},
+	pages = {040501},
 	note = {arXiv preprint {\tt arXiv:1512.04375}}
 }
+
+
 
 @article{mayers2004selftesting,
 	author = {Dominic Mayers and Andrew Yao},
@@ -258,12 +269,16 @@
 	journal = {Physical Review A},
 	volume = {89}}
 
-@misc{MF16,
+@article{MF16,
 	title = {Post hoc verification with a single prover},
 	author = {Tomoyuki Morimae and Joseph F.\ Fitzsimons},
-	year = {2016},
+	year = {2018},
+	journal = {Physical Review Letters},
+	volume = {120},
+	pages = {040501},
 	note={arXiv preprint {\tt arXiv:1603.06046}}
 }
+
 
 @article{WBMS16,
   title={Device-independent parallel self-testing of two singlets},
@@ -454,8 +469,8 @@ year = {1969}
 @inproceedings{mahadev2017,
 author    = {Urmila Mahadev},
 title = {Classical Homomorphic Encryption for Quantum Circuits},
-  booktitle = {59th {IEEE} Annual Symposium on Foundations of Computer Science, {FOCS}
-               2018},
+  booktitle = {59th {IEEE} Annual Symposium on Foundations of Computer Science, ({FOCS}
+               2018)},
   pages     = {332--338},
   year      = {2018},
 }
@@ -463,8 +478,8 @@ title = {Classical Homomorphic Encryption for Quantum Circuits},
 @inproceedings{mahadev2018,
 author    = {Urmila Mahadev},
   title={Classical Verification of Quantum Computations},
-  booktitle = {59th {IEEE} Annual Symposium on Foundations of Computer Science, {FOCS}
-               2018},
+  booktitle = {59th {IEEE} Annual Symposium on Foundations of Computer Science, ({FOCS}
+               2018)},
   pages     = {259--267},
   year      = {2018},
 }
@@ -477,18 +492,19 @@ author    = {Urmila Mahadev},
 }
 
 
-@misc{HayashiH16,
-  title={Self-guaranteed measurement-based quantum computation},
-  author={Masahito Hayashi and Michal Hajdu\v{s}ek},
-  note={arXiv preprint {\tt arXiv:1603.02195}},
-  year={2016}
-}
-@misc{Grilo17,
-  title={Relativistic verifiable delegation of quantum computation},
+
+
+@inproceedings{Grilo17,
+  title={A Simple Protocol for Verifiable Delegation of Quantum Computation in One Round},
   author={Alex B. Grilo},
+  booktitle =	{Proceedings of the 46th International Colloquium on Automata, Languages, and Programming (ICALP 2019)},
+  pages =	{28:1--28:13},
   note= {arXiv preprint arXiv:1711.09585},
-  year={2017}
+  year={2019},
+  volume = {132}
 }
+
+
 @article{HayashiM15,
   title = {Verifiable Measurement-Only Blind Quantum Computing with Stabilizer Testing},
   author = {Hayashi, Masahito and Morimae, Tomoyuki},
@@ -514,22 +530,28 @@ author    = {Urmila Mahadev},
   publisher = {American Physical Society},
 }
 
-@misc{MorimaeTH17,
+@article{MorimaeTH17,
 	author = { Tomoyuki Morimae and Yuki Takeuchi and Masahito Hayashi },
 	note = {arXiv:1701.05688},
 	year = {2017},
+	journal = {Physical Review A},
+	volume = {96},
+	pages = {062321},
 	title = { Verified measurement-based quantum computing with hypergraph states }
 }
 
-@misc{GheorghiuV19,
+
+@inproceedings{GheorghiuV19,
 title = {Computationally-secure and composable remote state preparation},
-author = { Alexandru Gheorghiu and Thomas Vidick },
+author = {Alexandru Gheorghiu and Thomas Vidick },
+    booktitle = {Proceedings of the IEEE 60th Annual Symposium on Foundations of Computer Science (FOCS 2019)},
+    pages = {1024--1033},
 	note = {arXiv:1904.06320},
 	year = {2019},
 }
 
 @article{BowlesSCA18,
-  title = {Self-testing of Pauli observables for device-independent entanglement certification},
+  title = {Self-testing of {P}auli observables for device-independent entanglement certification},
 	author = { Joseph Bowles and Ivan \v{S}upi\'{c} and Daniel Cavalcanti and Antonio Ac\'{i}n },
   journal = {Phys. Rev. A},
   volume = {98},
@@ -546,8 +568,8 @@ author = { Alexandru Gheorghiu and Thomas Vidick },
                Thomas Vidick},
   title     = {Low-Degree Testing for Quantum States, and a Quantum Entangled Games
                {PCP} for {QMA}},
-  booktitle = {59th {IEEE} Annual Symposium on Foundations of Computer Science, {FOCS}
-               2018},
+  booktitle = {59th {IEEE} Annual Symposium on Foundations of Computer Science, ({FOCS}
+               2018)},
   pages     = {731--742},
   year      = {2018}
 }

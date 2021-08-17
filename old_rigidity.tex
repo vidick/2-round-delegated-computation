@@ -8,7 +8,7 @@ leaves correlations invariant implies that no classical test can distinguish bet
 
 
 We introduce the language required to formulate our testing results in Section~\ref{sec:general-rigidity}. We then start by giving a test for the conjugation of one observable to another by a unitary, the Conjugation Test, in Section~\ref{sec:conj-test}. The test depends on a series of elementary tests, for commutation, anti-commutation, etc., that are presented in Appendix~\ref{sec:clifford-test}.  
-In Section~\ref{sec:n-clifford}, we apply the Conjugation Test  to test the relations that dictate how an arbitrary $m$-qubit Clifford unitary acts by conjugation on the Pauli matrices. In Section~\ref{sec:n-2-clifford} we specialize the test to the case of unitaries that can be expressed as the $m$-fold tensor product of Clifford observables taken from the set $\Sigma$. In Sections \ref{sec: RIGID test} and \ref{sec: TOM test}, we decribe variants of the test from Section \ref{sec:n-2-clifford}, which are later employed in the Leash and Dog-Walker protocols.
+In Section~\ref{sec:n-clifford}, we apply the Conjugation Test  to test the relations that dictate how an arbitrary $m$-qubit Clifford unitary acts by conjugation on the Pauli matrices. In Section~\ref{sec:n-2-clifford} we specialize the test to the case of unitaries that can be expressed as the $m$-fold tensor product of Clifford observables taken from the set $\Sigma$. In Sections \ref{sec: RIGID test} and \ref{sec: TOM test}, we describe variants of the test from Section \ref{sec:n-2-clifford}, which are later employed in the Leash and Dog-Walker protocols.
 
 %\begin{theorem}\label{thm:clifford-rigid}
 %Let $\eps>0$, $n$ an integer and $\mathcal{G} \subseteq \cliffordgb\times\cliffordgb$ a finite set of pairs of commuting Clifford observables. Suppose a strategy for the players succeeds with probability $1-\eps$ in test $\ecliff(\mathcal{G},n)$. Then for $D\in\{A,B\}$ there exists an isometry 
@@ -70,7 +70,7 @@ W_{\reg{B}}^a$ (where the condition should be interpreted on average over the
 choice of a question $W$ distributed as in the test). Similarly, if
 $W_{\reg{A}}$, $W_{\reg{B}}$ are observables for the players that succeed in the
 consistency test with probability $1-2\eps$ we obtain $W_{\reg{A}}\otimes \Id
-\approx_{\eps} \Id \otimes W_{\reg{B}}$. We will often use both relations to ``switch'' operators from one player's space to the other's; as a result we will also often omit an explicit specification of which player's space an observable is applied to. 
+\approx_{\eps} \Id \otimes W_{\reg{B}}$. We will often use both relations to ``switch'' operators from one player's space to the other's; as a result we will often omit the player to whose space an observable is applied. 
 
 \paragraph{Strategies.} Given a two-player game, or test, a strategy for the players consists of a bipartite entangled state $\ket{\psi} \in \mH_\reg{A} \otimes \mH_\reg{B}$ together with families of projective  measurements $\{W^a_\reg{A}\}$ for Alice and $\{W_\reg{B}^a\}$ for Bob, one for each question $W$ that can be sent to either player in the test. As already mentioned, for convenience we restrict our attention to pure-state strategies employing projective measurements. 
 %The fact that both players will always be treated symmetrically allows us to assume without loss of generality that $\mH_\reg{A} = \mH_\reg{B}$, $\ket{\psi}$ is permutation-invariant, and for any question $W$, $W_\reg{A}^a = W_\reg{B}^a$ for all answers $a$ (see e.g. Lemma~4 in~\cite{kempe2011entangled}).
@@ -298,8 +298,8 @@ Considering $(a,b)$ such that $a\cdot b=1$ implies that $\phase_R(0,0)$ approxim
 
 We turn to testing observables in the $m$-fold direct product of the Clifford group. Although the test can be formulated more generally, for our purposes it will be sufficient to specialize it to the case where each element in the direct product is an observable taken from the set  $\Sigma = \{X,Y,Z,F,G\}$ associated with the single-qubit Pauli observables defined in Section~\ref{sec:prelim-notation}. Recall that the associated operators satisfy the conjugation relation $\sigma_Y \sigma_F \sigma_Y = \sigma_G$, which will be tested as part of our procedures (specifically, item (c) in Figure~\ref{fig:clifford-test-3}).
 
-\begin{figure}[H]
-\rule[1ex]{16.5cm}{0.5pt}\\
+\begin{figure}[htbp]
+\rule[1ex]{\textwidth}{0.5pt}\\
 Test~$\cliff(\Sigma,m)$:
 \begin{itemize}
     \item Input: An integer $m$ and a subset $\Sigma = \{X,Y,Z,F,G\}$ of the single-qubit Clifford group. 
@@ -319,7 +319,7 @@ Test~$\cliff(\Sigma,m)$:
 \end{itemize}
 \end{enumerate}
 \end{itemize}
-\rule[2ex]{16.5cm}{0.5pt}\vspace{-.5cm}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
 \caption{The $m$-qubit Clifford test, $\cliff(\Sigma,m)$.}
 \label{fig:clifford-test-3}
 \end{figure}
@@ -327,7 +327,7 @@ Test~$\cliff(\Sigma,m)$:
 The test is described in Figure~\ref{fig:clifford-test-3}. It is divided in five
 parts. Part (a) of the test executes  $\conjc(W)$ to verify that an observable
 $W\in\Sigma^m$ satisfies the appropriate Pauli conjugation
-relations~\eqref{eq:conj-cliff}. Note that a priori test $\conjc(W)$ only tests
+relations~\eqref{eq:conj-cliff}. Note that, a priori, test $\conjc(W)$ only tests
 for the observable $X_W$ obtained from $W$ in blocks as $X_R$ from $R$
 in~\eqref{eq:def-xr} (indeed, in that test $W$ need not be an observable). Thus
 part (b) of the test is introduced to verify that $X_W \approx W X(e_{m+1})$, where the $(m+1)$-st qubit is the one used to specify the block decomposition relating $X_W$ to $W$.  The result of parts (a) and (b) is that, under the same isometry as used to specify the Pauli $X$ and $Z$, $W\simeq \hat{\tau}_W \cdot (\Id\otimes \phase_W)$, according to the same decomposition as shown in Lemma~\ref{lem:cliff-conj}. The goal of the remaining three parts of the test is to verify that $\phase_W = \phase_F^{|\{i: W_i \in \{F,G\}\}|}$, for a single observable $\phase_F$. For this, part (c) of the test verifies that $\phase_W$ only depends on the locations at which $W_i\in\{F,G\}$, but not on the specific observables at those locations. Part (d) verifies that $\phase_W \approx \prod_{i: W_i\in \{F,G\}} \phase_i $ for commuting observables $\phase_i$. Finally, part (e) checks that $\phase_i$ is (approximately) independent of $i$. 
@@ -410,7 +410,7 @@ such that
 \begin{equation}\label{eq:me-cor11}
  \big\| (V_A \otimes V_B) \ket{\psi}_{\reg{AB}}  - \ket{\EPR}^{\otimes m} \otimes \ket{\aux}_{\hat{\reg{A}}\hat{\reg{B}}} \big\|^2 = O(\sqrt{\eps}),
 \end{equation}
-and positive semidefinite matrices $\tau_\lambda$ on $\hat{\reg{A}}$ with orthogonal support, for $\lambda\in\{+,-\}$, such that $\Tr(\tau_+)+\Tr(\tau_-)=1$ and
+and positive semidefinite matrices $\tau_\lambda$ on ${\reg{\^A}}$ with orthogonal support, for $\lambda\in\{+,-\}$, such that $\Tr(\tau_+)+\Tr(\tau_-)=1$ and
 \begin{align}\label{eq:states-cor11}
  \mathop{\textsc{E}}_{W\in\Sigma^m} \sum_{u\in\{\pm 1\}^{m}} \Big\| V_A \Tr_{\reg{B}}\big((\Id_A \otimes W_{\reg{B}}^u) \proj{\psi}_{\reg{AB}} (\Id_A \otimes W_{\reg{B}}^u)^\dagger\big) V_A^\dagger - \sum_{\lambda\in\{\pm\}} \Big( \bigotimes_{i=1}^m \frac{\sigma_{W_{i},\lambda}^{u_{i}}}{2}\Big)\otimes \tau_\lambda  \Big\|_1\\
 & \!\!\!\!\!\!\!\!\!\!\!\!\!\!= O(\poly(\eps)).\nonumber
@@ -472,7 +472,7 @@ Since $\Tr_{\reg{B}}( \Id \otimes B \proj{\EPR}_{\reg{AB}} \Id\otimes B^\dagger)
 \label{subsec:tomography}
 \label{sec: TOM test}
 
-Theorem~\ref{thm:clifford-ntest} and Corollary~\ref{cor:clifford-rigid} show that success in test $\rigid(\Sigma,m)$ gives us control over the players' observables and post-measurement states in the test. This allows us to use one of the players to perform some kind of limited tomography (limited to post-measurement states obtained from measurements in $\Sigma$), that will be useful for our analysis of the Dog-Walker Protocol from Section~\ref{sec:dog-walker}.
+Theorem~\ref{thm:clifford-ntest} and Corollary~\ref{cor:clifford-rigid} show that success in test $\rigid(\Sigma,m)$ gives us control over the players' observables and post-measurement states in the test. This allows us to use one of the players to perform some kind of limited tomography (limited to post-measurement states obtained from measurements in $\Sigma$), that will be useful for our analysis of the Dog-Walker Protocol in Section~\ref{sec:dog-walker}.
 
 Let $1\leq m'\leq m$ and consider the test $\tom(\Sigma,m',m)$ described in Figure~\ref{fig:tomography-test}. In this test, one player is sent a question $W\in\Sigma^{m}$ chosen uniformly at random. Assuming the players are also successful in the test $\rigid(\Sigma,m)$ (which can be checked independently, with some probability), using that the input distribution $\mu$ in $\rigid(\Sigma,m)$ assigns weight at least $|\Sigma|^{-m}/2$ to any $W'\in \Sigma^{m}$, from Corollary~\ref{cor:clifford-rigid} it follows that the second player's post-measurement state is close to a state consistent with the first player's reported outcomes. Now suppose the second player is sent a random subset $S\subseteq [m]$ of size $|S|=m'$, and is allowed to report an arbitrary string $W'\in \Sigma^{m'}$, together with outcomes $u$. Suppose also that for each $i\in S$, we require that $u_i=a_i$ whenever $W'_i=W_i$. Since the latter condition is satisfied by a constant fraction of $i\in\{1,\ldots,m'\}$, irrespective of $W'$, with very high probability, it follows that the only possibility for the second player to satisfy the condition is to actually measure his qubits precisely in the basis that he indicates. This allows us to check that a player performs the measurement that he claims, even if the player has the choice of which measurement to report. 
 

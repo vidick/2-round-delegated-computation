@@ -84,9 +84,16 @@
 {\noindent {\bf Proof. }}
 {{\hfill $\Box$}\\
 	\smallskip}
+ \usepackage{csquotes}
 
+\newcommand{\answer}[1]{\noindent {\color{blue} #1}}
+\newcommand{\questionanswer}[2]{
+\begin{displayquote}
+#1
+\end{displayquote}
 
-
+\answer{#2}
+}
 \begin{document}
 	
 	
@@ -100,20 +107,710 @@
 
 
 	\maketitle
+
+We would like to thank the reviewers for their effort in providing detailed comments and suggestions on our paper, which have helped up to significantly improve its presentation. We present below the answers to their comments separately. 
+
+\subsection*{Reviewer 1}
+ \begin{displayquote}
+ First, in the introduction part where the intuitions are discussed, possible improvements include a discussion on the idea behind the dog-walk protocol, how it achieves the constant round property from the multiple round EPR protocol, the reason for introducing the TOM test and the idea behind the design, and so on. 
+  \end{displayquote}
+  
+  \answer{Thanks for the suggestion. We have expanded our explanation of the dog-walker protocol in the introduction.}
+  
+ \begin{displayquote}
+ Then, for the proof of the main lemmas and theorems, more details should be spelled out so that it is possible to verify by readers. As an optional improvement, I suggest the authors to consider if there are simpler and more elegant ways of proving the rigidity for Clifford observables. The choice of {X, Y, Z, F, G}, though natural arises from the EPR protocol, could have made the protocol and the analysis cumbersome. Probably considering all of the Clifford group could make the analysis more streamlined.
+\end{displayquote}
+ 
+ 
+\answer{ We considered this when researching our original submission. This is why we introduced the conjugation test, which is naturally suited to testing Clifford observables. However, this is necessarily done only up to phase; as the reviewer observed lifting the phase ambiguity requires more work and we did not find a better method to do it than performing tomography against the Pauli group. This step seems to require work on a case-by-case basis... Certainly, it would be nice to have a general self-testing result for the Clifford group, but this is not the main focus of our paper.}
+ 
+
+\begin{displayquote}
+Many proofs only contain a sketch and are hard to digest. It is recommended that at least for the main lemmas, such as Lemma 10 and Theorem 11, the authors can provide more self-contained proof. Many steps in the proof sketch are very high level and it is not easy and usually time-consuming if the reader wants to verify the details.
+\end{displayquote}
+
+						\answer{ We added some explanations to the proof of Lemma 8  and Lemma 19, and more generally throughout this section}
+						
+
+\begin{displayquote}
+The meaning of the second equation on page 23 is not clear. Are a and b fixed or are they summed over in the end in the approximation?
+\end{displayquote}
+				\answer{The approximation holds on average over uniformly random $a,b$. We added a clarification of this point.}
+
+\begin{displayquote}
+ In item (c) of Figure 6, what is being "chosen uniformly at random"? W is already chosen so the places where $W_i = F$ or $G$ are already determined.
+\end{displayquote}
+
+\answer{ $S$ and $T$ are uniformly random \emph{subsets} of those positions.}
+
+
+ \begin{displayquote}
+The last equation in Theorem 4 is hard to parse and does not use the $\sim_\eps$ $\approx_\eps$ distances. Could you please explain both the meaning of this equation briefly and the reason to state the result in this form? Similarly in Corollary 13.
+\end{displayquote}
+\answer{ We added some explanations right below the statement of Theorem 4 (now Theorem 3.1).}
+
+
+ \begin{displayquote}
+ "rounds" are usually used as the sequentially exchanged messages in interactive protocols. This paper uses round and sub-round also for the potential format of messages in a particular round. Broadbent's paper on EPR protocol uses "run" instead of "round" and seems to be a better now for this context.
+ \end{displayquote}
+
+\answer{ Agree that ``run'' is better. Changed.}
+ 
+ \begin{displayquote}
+ On page 45, in the list of soundness analysis steps, what do you mean by "constant total variation distance"? It is always at most 1 by definition.
+ \end{displayquote}
+ \answer{ We meant a constant smaller than 1. We clarified this in the text.}
+ 
+ \begin{displayquote}
+ As in Table 4, the $W_i$'s are chosen at random and it seems that $T^0_\ell$ and $T^1_\ell$ will have roughly same/different length depending on whether it is a computation round or test round. Does this leak information about the round type to PP?
+  \end{displayquote}
+  \answer{$T^0_\ell$ and $T^1_\ell$ have a fixed size as indicated in the paragraph ``The verifier also chooses subsets...''.}
+  
+  \begin{displayquote}
+ Page 17, item 2 of Relations, do you need $\omega_a$ to be different?
+  \end{displayquote}
+  \answer{Yes, they are different. In general $\omega_a = \omega^a$ for some primite root of unity}
+  
+ \begin{displayquote}
+ In the comment before Definition 7 on page 17, it is argued that the exact form of distribution does not matter. But what if the size of the relation R has n (say the number of qubits) dependence?
+  \end{displayquote}
+  \answer{Right, this is why we clarify that it does not matter ``up to multiplicative factors of $|\mathcal{R}|$. If $|\mathcal{R}|=n$ then certainly some $n$-dependence could appear here. }
+  
+
+ \begin{displayquote}
+ The last equation in Definition 7 has a mistake. When $W_A$ acts on $\ket{\psi}$ as in the first equation, you cannot apply $V^\dagger_A W_A V_A$ on it in general
+  \end{displayquote}
+  \answer{Fixed.}
+  
+ \begin{displayquote}
+ The abbreviation after equation 4, $W^a_A \otimes I \approx I \otimes W^a_B$ does not fit syntactically with Definition 5, where the operators are always on A system only.
+  \end{displayquote}
+  \answer{This is a slight abuse of notation. To make it fit we can take $A$ in Definition 5 be $AB$ here, and $B$ in Definition 5 be trivial. The problem is that the notation does not specify the state, which would clarify everything. We prefer to keep it this way, as it should always be clear from context.}
+  
+ \begin{displayquote} 
+ What is the "state-dependent norm" referred to in Definition 6?
+  \end{displayquote}
+  \answer{The ``More precisely'' was meant to clarify this. Since we don't use the term however, we removed it.}
+  
+ \begin{displayquote}
+ Why do you use $Z_4$ in the range of $h_S$ before equation 6 even though it appears in the equation as $(-1)^{h_S}$
+ \end{displayquote}
+ \answer{Corrected.}
+ 
+ 
+\questionanswer{
+Why is the completeness not exactly 1 in Theorem 1?
+}{
+In order to remove phase-ambiguity (see section 3.5), which is needed in order to characterize the post-measurement states, we perform CHSH tests, losing perfect completeness.
+}
+
+\questionanswer{
+r used both in $V^r_{EPR}$ and $p_r$ on page 30 could be confusing to readers
+}{We think that the subscript/superscript are used in different contexts and are well defined, so we prefer to leave them as they are.}
+
+\questionanswer{
+It is not clear to me why the sequential structure of Figure 9 is crucial for blindness. Could you explain a bit more about the idea behind it?
+}{We need such a sequential structure since the choice of basis depend on the input of the computation and on the measurement outcomes of the previous levels of the computation. Having multiple rounds of communication allow the verifier to choose the right basis but still hiding the input from the prover.}
+
+
+\questionanswer{AUX state not defined in Lemma 10, should be the same as in Lemma 9. Similarly, $a_i$ $b_i$ need a definition in the statement of the Lemma.}{The state AUX is the same as Lemma 9 and we added this information to the lemma statement. The values $a$ and $b$ come from the definition of the game CONJ-CLIFF.}
+
+\questionanswer{"A H" to "An H"}{Corrected.}
+
+	
+\subsection*{Reviewer 2}
+
+\questionanswer{
+Page 64, description of Extended PBT: In test (c), the basis string W that is chosen is uniformly random in ${I, Y}^m$. However this seems problematic because this distribution of questions does not match the distribution of questions in parts (a) or (b): there the basis strings are uniform over ${X,Z}^m$, or ${X,Y}^m$, or ${Y,Z}^m$. Thus test (c) cannot be immediately connected to (a) or (b).}
+{Thanks for catching this; indeed we were missing a test that connects part (c) to parts (a) and (b). This has now been added; it is the new part (b). The error was due to a mismatch in notation between the tests.}
+
+\questionanswer{
+Furthermore, the tests in (b) cannot be immediately connected to the tests in (a) because the basis strings to each player contain Y w.h.p.}
+{Corrected as above.}
+
+\questionanswer{
+Page 65: statement of Lemma 36. Right below (33), there are both maps $\Lambda_W$ and $\Delta_X/Y/Z$ used. It seems like only Lambda or Delta should be used (the proof only refers to Delta).}
+{Corrected; we now use $\Delta$ only.}
+
+\questionanswer{
+The proof of Lemma 36 is difficult to follow. First, as mentioned before the tests (a), (b) and (c) are distinguishable from each other so it shouldn't be possible to connect the rigidity guarantees between each of those tests.}
+{Thanks for catching this inconsistency. We added a component to the test, now called part (c), that allows this. }
+
+\questionanswer{
+Furthermore,  it hand-waves over the analysis of part (c) of the test. The proof just states: success in part (c) implies [equation (34)]. This is far from obvious: part (c) consists of 3 subtests. Furthermore, parts (ii) and (iii) involve the parallel repetition of the Bell measurement subtest. Only a single instance of the Bell measurement subtest is analyzed, and it is far from clear that the error from m-parallel repetitions does not grow with m.  If it does not grow with m (as implicitly claimed in the proof), this requires a more thorough argument.}
+{Thanks for pointing this out. Implicitly we had thought of guaranteeing the right tensor product form for the Bell measurements using the Paubli braiding test, but clearly this was not spelled out. We added a section, now numbered A.4.2, to describe and analyze a parallel version of the Bell test that is used in the extended Pauli braiding test.}
+
+
+\questionanswer{
+For example, the Lemma 9 establishes the existence of $Delta_Y$ observable that compensates for phase ambiguity. Lemma 10 then introduces another unitary map $\Lambda_R$, but there is no explanation of what this map is meant for. Is this meant to deal with another phase ambiguity? Why is this map needed?}
+{ $\Lambda_R$ is necessary because part (b) of the test only tests the way that $R$ relates to the observables $A$ and $B$ using relations of the form $RAR^\dagger = B$. If $R$ is tensored by an observable on an auxiliary system then this relation is still satisfied. We added an explanation to the text.}
+
+\questionanswer{
+The map $\Lambda_R$ is a unitary acting on $H_{\hat{A}}$, but is tensored twice when acting on $\ket{Aux}$. Does it also act on $H_{\hat{B}}$ as well?  }
+{We clarified this; the same issue arose with $\Delta_Y$ in Lemma 9.}
+
+\questionanswer{
+A related issue: the definition of $\hat{\tau}_R$ is very confusing: when referring to “relations specified in (9)”, there is no $\sigma_X$ or $\sigma_Z$; there are only abstract X and Z symbols. Did you mean those? Also, what does it mean to replace those with the specific operators $\tau_Y = \sigma_Y \otimes (i \Delta_Y)$? }
+{We should have referred to equation (8), this is now corrected.}
+
+\questionanswer{
+Page 20: Line 7: it says the phase $i^{a \cdot b}$ is needed to ensure that A and B are observables. Do we also need to assume that X and Z observables anticommute? Also, shouldn’t the imaginary unit i be (-1)? For example, suppose that X = Z = Id, and $a \cdot b = 1$. Then A(a,b) = i, which is not a (binary) observable; we’re assuming that all observables are binary, right?}
+{Yes. We added a clarification that $X$ and $Z$ should anti-commute.}
+
+\questionanswer{
+In fact, the whole of Section 3.3 does not seem self-consistent. Line (6) indicates that R is a unitary that conjugates Pauli operators $\sigma_X \sigma Z$. However, the A, B observables are defined in terms of the abstract X, Z observables. But then the paragraph after (7) seems to say that the unitary R conjugates A and B. }
+{This last $R$ should have been an $X_R$; corrected.}
+
+\questionanswer{
+It makes sense that ultimately X and Z, after self-testing, should correspond to actual Pauli-X and Pauli-Z operators. But it’s ambiguous what has been tested already, and what is an abstract relation you need to check. 
+
+In (7), the observables A and B have phase factors defined. However, in the test CONJ-CLIFF, the observables A and B are specified in terms of strings of I, X, Y, Z. Where do the phase factors come into the test? Or do they only show up in the analysis? Clarification regarding this would be helpful.}
+{
+The labels used to specify the observables in the test are not by themselves significant. Here, if for example $A = iXZ$ and the referee sends this as ``$XZ$'' the prover ``knows'' to apply the observable $iXZ$. We added a note to clarify this.
+}
+
+
+\questionanswer{
+page 10: H-gadget: “maximal such k is odd". Confused about what “maximal such k” means. Should it just be “$H(TTH)^k$ where k is odd”?
+}{Changed. It was written this way because we do require that the patterns of this form have odd $k$ and therefore an even number of $H$ gates, and if such a pattern occured with an even $k$, you could always chop off $TTH$ from the beginning or end to technically satisfy ``every $H$ occurs in such a pattern where $k$ is odd'', however, I think what we mean is clear from context, since we introduce the method for accomplishing this immediately after.}
+
+\questionanswer{
+Figure 2: what is the $c_f$? Is this the f-th bit of $\vec{c}$? (seems redundant)
+}{$c_f$ is just an extra bit that is sent from $P_{EPR}$ to $V_{EPR}$. We think that this is rather clear in the current figure and changing the notation could introduce further inconsistencies.}
+
+\questionanswer{
+Does $\Sigma$ generate the set of single-qubit Clifford unitaries?
+}{Yes, it does. This is because $H$ exchanges $X$ and $Z$. The product $FG$ sends $X$ to $-X$ and fixed the other Paulis. Finally, $G$ exchanges $X$ and $Y$ (and sends $Z$ to $-Z$). It is then possible to verify that all possible conjugations of single-qubit Paulis can be implemented from products of $H,F,G$.}
+
+\questionanswer{
+Page 17: definition of Rigid self-test. For completeness, perhaps should clarify further and say that the operators corresponding to each question in $\mathcal{Q}$ satisfy exactly the same relations as specified by $\mathcal{R}$
+}{Clarified.}
+
+\questionanswer{
+Page 19: Proof of Lemma 8. “anti-commutation of $X_R$ with Z certifies that $X_R$ has decomposition of the form $X_R \simeq R_X \otimes \sigma_X + R_Y \otimes \sigma_Y$”. First, what is the error in this approximation, and it would be helpful to see a proof. Similarly, for subsequent statements it looks a bit hand-wavy. It would be better if the approximations had error bounds and some of the steps were spelled out. 
+}{We added explanations to the derivation.}
+
+\questionanswer{
+Page 19: Proof of Lemma 8: $C \simeq C_I \otimes I + C_Z \otimes \sigma_Z$. The identity operator I should be $\sigma_I$. 
+}{Corrected.}
+
+\questionanswer{
+Top of page 20: could use more explanation for why “decompositions of A, B, C earlier imply $C_I \approx… and C_Z \approx$…”. Overall this proof is a little too sketchy.
+}{We added some explanations for the main steps, as suggested by your comments.}
+
+\questionanswer{
+Page 64: "...multi-qubit Pauli X and Z observales" (should be "observables")
+}{Corrected.}
+
+
+\questionanswer{
+Page 31, middle: "uniformly random partition $A, B_1,..., B_d$", where "$|B_\ell| = \Theta(t_\ell)$". In each layer, there is at most one T gate. So is $|B_\ell| = 0$ when $t_\ell = 0$, and a constant otherwise?
+}{Exactly}
+ {\color{red} Hmmm, I don't think that's actually true. A layer could have as many as $n$ $T$ gates (one on each wire). Or am I missing something? -SJ} {\color{green} We have defined it differently. For us, each level has at most one T gate. -ABG}
+
+
+
+\questionanswer{
+Page 34, Step 4(b): the reject criterion is $c_i \neq a_j + e_i$, which differs from the reject criterion in the EPR protocol on page 12, Figure (a), Step 3, which is $c_i \neq a_i' + e_i$. Why are these different?
+}{Thanks for pointing this out. This notation is actually misleading, because the conditions are the same. In the EPR protocol, $\vec{a}=a_1,\dots,a_n$ denotes the original one-time pad keys, and $\vec{a}'=a'_1,\dots,a_t'$ denotes the one-time pad key going into each $T$ gate. That is, if the $i$-th $T$ gate is applied to the $j$-th wire, $a_i'$ denotes the one-time pad key of the $j$-th qubit just before application of the $i$-th $T$ gate. Due to differences in the way the leash protocol is presented, it is more convenient to let $\vec{a}=a_1,\dots,a_n$ denote the \emph{current} one-time pad keys, which we assume are updated after every layer of computation. This is indeed a source of confusion, so we have added the following after Figure 10: ``Note that in the EPR Protocol, we let $a_i'$ denote the one-time-pad key of the $j$-th wire just before application of the $i$-th $\sf T$ gate (to the $j$-th wire). Here we will assume $a_j$ denotes the current updated one-time-pad key of the $j$th wire, so it is the same as $a_i'$ in the EPR Protocol.'' We also added to the caption of Figure 11: ``Note that the condition $c_i\neq a_j+e_i$ is the same as the condition $c_i\neq a_i'+e_i$ in the EPR Protocol --- $a_j$ here and $a_i'$ in the EPR Protocol both represent the one-time-pad key just before application of the $i$-th $\sf T$ gate.''}
+
+\questionanswer{
+My best guess is that it has something to do with measuring the observable $W_i$ before the generation of bit $c_i$ in the delegation protocol, whereas in the EPR protocol it's measured after the bit $c_i$ is generated. But it's hard to verify this, because the "completeness proof" just appeals to the completeness of the EPR protocol.
+
+
+I recommend explaining what the differences are between the EPR protocol and the Verifier on a Leash protocol, and why those differences are OK. In particular, why completeness still holds.
+}{We added just before the statement of the completeness lemma: ``The honest provers in the Leash Protocol are essentially executing the EPR Protocol, with the only difference being that in the case of the leash protocol, $W$ is chosen at random and then $\vec{z}$ is chosen accordingly, whereas in the case of the EPR Protocol, $\vec{z}$ is chosen at random and then $W$ is chosen accordingly. The resulting distribution on $\vec{z}$ and $W$ is the same, and so completeness follows from that of the EPR Protocol.''.}
+
+
+\questionanswer{
+Page 36, Proof of Lemma 16: choosing $W_i$ at random, then choosing $z_i$, versus choosing $z_i$ at random, then computing $W_i$ are equivalent. It seems like this requires $a_j$ to be uniformly random in order for this to hold -- is that right?
+}{
+This isn't required. What is necessary is that the relationship between the choice of $W_i$ and $z_i$ is the same in both cases, and this is true, even if $a_j$ and $c_i$ are fixed. For example, in the EPR Protocol, if $a_j+c_i+z_i=0$ in a computation round, then $W_i$ is set to $G$, whereas if $a_j+c_i+z_i=1$ in a computation round, $W_i$ is set to $F$. In the Leash Protocol, in a computation round, we have $W_i\in \{G,F\}$, and if $W_i=G$, we set $z_i=a_j+c_i$, ensuring $a_j+c_i+z_i=0$; otherwise if $W_i=F$, we set $z_i=a_j+c_i+1$, ensuring $a_j+c_i+z_i=1$.
+
+In the EPR Protocol, the randomness of the bit $z_i$ ensures the appropriate randomness of $W_i$ --- either $W_i\in_R\{G,F\}$, $W_i\in_R\{X,Y\}$ or $W_i=Z$, depending on the round type. In the Leash Protocol, each $W_i$ is chosen uniformly at random, but the $i$-th wire is selected for use in a setting where it is of the correct type. For example, if wire $i$ is selected for use in a $\sf T$ gadget in a computation round, it must be that $W_i\in \{G,F\}$, and it is equally likely to be either $G$ or $F$. This leads to a uniform marginal distribution on $z_i$.
+}
+
+
+\questionanswer{
+Page 37, Proof of Lemma 16: "There are two reasons that $V_{EPR}$ might reject: $... c_i = a_j + e_i$ fails". Again, this seems to differ from the protocol described on Page 12, Figure (a). Which is the real EPR protocol?
+}{
+Indeed, this is confusing. We have added a clarification to this part of the proof: ``Note that in the description of the EPR Protocol, the one-time-pad key just before application of the $i$-th $\sf T$ gate is denoted $a_i'$, which we denote here by $a_j$. ''
+}
+
+\questionanswer{
+Major question about Leash versus Dog Walker protocol: the Dog Walker protocol is motivated by reducing the number of rounds to constant, at the cost of giving up blindness. However, as far as I can tell, the Leash protocol only uses the sequentiality to obtain blindness. Why can't the Leash protocol be flattened to a constant number of rounds in, and still preserve completeness and soundness? The completeness proof does not depend on the sequentiality, nor does the soundness proof (or is that incorrect?).
+}{ Notice that the choice of basis in the self-testing game is different from the the one in Delegation game. In particular, in the Delegation game, the choice of basis regarding the $i$-th level of the computation depends on the measurement outcomes of the previous levels. 
+
+In the Leash protocol, PP report the measurement outcomes of a level, and the verifier picks random basis and chooses a subset of them that correspond to the basis needed in the Delegation protocol. This guarantees that $i)$ the basis choices are indistinguishable from the ones used in the self-testing games and $ii)$ the delegation can be performed on the subset of EPR pairs chosen by the verifier.
+
+If we report the input to PP and ask them to perform either the Delegation game or the self-testing game, the behaviour of PP must be different on each of them (since they must compute the new basis in the Delegation game), and we have no guarantee on the consistency of their behaviour in both tests. In order to solve this, we need to introduce new tests for connecting both strategies, leading to the Dogwalker protocol.}   
+
+{\color{red} ABG: please check my answer above.}
+
+
+
+\questionanswer{
+Page 42: description of protocol, the reject criteria for the X/Z test rounds is $c_i \neq a_i' + e_i$ now, which matches the description of the EPR protocol (but differs from Leash protocol).
+}{Here we have used the same notation as the EPR Protocol.}
+
+\questionanswer{
+Page 50: the figure caption obscures the page number.
+}{Indeed, this figure was too large. We have split it into two figures: Figure 19 and Figure 20.}
+
+\subsection*{Reviewer 3}
+
+\questionanswer{
+\textbf{Introduction.}
+Here, I suggest to categorizing clearly the protocols early on.
+ This will help the reader make a clear mental picture in their mind of what they can expect in the rest of the paper.
+e.g. introduce \Leash and \DW much sooner. It is not very useful to a reader to try to make a mental image of what the ``first'' and ``second'' protocol mean-- you might as well give the correct names immediately.}
+{ We have now created additional subsections/paragraphs titled "Verifier on a Leash Protocol" and "Dog-Walker Protocol". Hopefully this helps. }
+
+
+
+\questionanswer{
+\textbf{Broadbent vs. EPR protocols.}
+Currently, the submission only focuses on the \EPR protocol from prior work. But in reality, \Leash can be based more directly on the \Broad protocol (the \Broad protocol is the ``prepare-and-measure'' scheme that is the basic protocol in [Bro18]). I don't know if the authors realize this when they write: ``Unlike in the EPR Protocol,
+the interaction with PV (i.e. running $V^r_{EPR}$) will take place first, and PV will be asked to perform random
+measurements from the set (...). The values~z, rather than being chosen at random, will be
+chosen based on the corresponding choice of observable. ''(p.30). In this passage, it appears that they have basically re-invented \Broad. I think it is much more conceptually simple to explain that \Leash delegates the preparation of the random eigenstates required in \Broad (from $V$ to $PV$), thus enabling the classical part of \Broad to be executed between $PP$ and $V$.
+}{We had decided to focus on the EPR protocol because this almost exactly matches our setting, where the rigidity tests certify the presence of EPR pairs (and the correct eigenstates are prepared on the prover's side by the verifier via appropriate measurements on her half EPR pairs). Spelling out the connection with the basic prepare-and-measure scenario is probably conceptually simpler. We have added a footnote about this in the introduction, at the end of the paragraph titled "New delegation protocols".}
+
+Then, it is easier to explain how \DW takes advantage of the time-reversal properties of \EPR: here, we instead want $PP$ to do all their operations \emph{first}, and then we give all the classical outcomes of $PP$ directly to $PV$, who does the adaptive quantum measurements from the verifier in $\EPR$. Of course, we also need to make sure that the classical outcomes from $PP$ do not allow to violate soundness (this is ensured via rigidity, since the honest measurements result in uniform bits), and we need to make sure that $PV$ does the operations honestly (this is also ensured via rigidity).
+
+\questionanswer{
+\textbf{Protocol Presentation.}
+It is currently quite difficult to piece together the protocols in order to understand how they work together. For instance, some protocols (see e.g. Figures 4, 5, 6) contain different levels of abstraction in different sub-routines (some subroutines are figures elsewhere, whereas some subroutines are ``ad-hoc'' tests, and are explained directly in that figure). Would it be possible to be consistent in the level of abstraction, for each sub-routine in a protocol, or is there a good reason for including ``ad-hoc'' tests here?
+}{Some ``ad-hoc" tests, like the one in bullet (b) of Figure 4, are not explained separately as their own sub-routine because they are simple enough to be stated directly, and stating them independently could be actually less clean since we need to be consistent as to what information is passed up/down one layer. While having a separate figure/name for these ad-hoc tests could be useful if someone wants to actually program the protocols, we think that for a human reader it seems like it would make it more complicated.}
+
+\questionanswer{
+ Add a summary of Figures. This will help in making the connections between the various sub-protocols.}{We added Figure 15 for the Leash protocol and we already had Figure 16 for the Dog-Walker protocol.}
+
+\begin{enumerate}
+\item Consider adding a figure that shows the link between the protocols, for each of \Leash and \DW.  These would probably end up looking each like a tree: \Leash is the root, with branches \Broad and RIGID, and then \Broad branches out into computation, X-test and Z-test, while RIGID is the conjugation, extended Pauli braiding test, and more---and so on and so forth. You could also add to this figure the intuition for each sub-protocol, to the extent that this is possible (e.g. that RIGID tests PV's preparation). This exercise may also unveil some methods to simplify the presentation (and will also highlight where the ``ad-hoc'' tests show up, and how they can be better presented).
+\end{enumerate}
+
+
+{\color{red} What are your thoughts on these two points? The second one might be helpful if someone has the bandwidth, although it doesn't seem like it is essential to this reviewer. }
+{\color{green} T: I think we should do something in the direction of what they ask. Another reviewer asked for explanations how the rigidity tests depend on each other and we added that (there should be a response about it somewhere). A written summary (as opposed to a figure, which is hard) of how the protocols are organized could be useful, if we don't have it yet)}
+
+
+\questionanswer{(page 1) In the abstract, mention ``statistical'' or ``perfect'' soundness, in order to contrast with computational security.
+}{Done.}
+
+\questionanswer{ (page 2) ``(not all papers provide explicit bounds, in which case
+our estimates, although generally conservative, should be taken with caution'' : please specify which bounds are your own, and which bounds were taken from the references.
+}{The estimated bounds in our table were computed in [HPDF15]. We have edited the text accordingly, crediting [HPDF15] for the estimates.} 
+
+\questionanswer{ (page 2) ``The most efficient classical-verifier delegation protocols known [FH15, NV17]'' These two references are not in Table 1, and I fail to see why (it is because table~1 is only for the two-prover setting? Or maybe because of the ``post-hoc''?) Please clarify.
+}{Yes, they were not included because they are post hoc. This is undesirable in practice, since it would require the provers to be able to communicate at first to share an encoding of a witness state, but then it would require them to \emph{not} be able to communicate during the execution of the protocol for soundness.} 
+
+\questionanswer{ (page 3) ``it does not provide a means for the verifier to test
+the provers’ implementation of the required circuit on a gate-by-gate basis.'' Please give more context on why this is mentionned. Is this seen as a drawback? Also, technically, is there not part of the history state verification that does check that each timestep is implemented correctly (in superposition)?
+}{ We agree that this is not a very relevant distinction, and we have removed this sentence.} 
+
+\questionanswer{ (page 3) Table 1, 4th row. Is it HDF2015, or HPDF15?
+}{It is HPDF2015. We fixed this.} 
+
+\questionanswer{ (page 3) ``the most
+efficient single-prover quantum-verifier protocols can evaluate a quantum circuit with g gates in time O(g).'' : which reference achieves this?
+}{Broadbent's protocol achieves this. We have edited accordingly.} 
+
+\questionanswer{ (page 4) ``The robustness for
+previous results in parallel self-testing typically had a polynomial dependence on the number of EPR pairs
+tested. '' Please be more specific on which previous results had an inadequate scaling, and which one did. My current reading is that only [NV17] was adequate, and what your result is doing is extending [NV17]. This seems reasonable; so I would suggest to be more direct about it.
+}{This is correct. We have edited accordingly.} 
+
+
+\questionanswer{ (page 4) You credit some ideas to [Slo16], but there are no further citations to [Slo16]. Please include more details, perhaps in the main text, of where the ideas of [Slo16] are used.
+    }{Added a sentence of details where the ideas are credited on page 4.} 
+    
+    \questionanswer{ (page 4--5) ``Our work is the first to propose verifiable two-prover delegation
+protocols that overcome the prohibitively large resource requirements of all previous multi-prover protocols, requiring only a quasilinear amount of resources, in terms of number of EPR pairs and time. However,
+notwithstanding our improvements, a physical implementation of verifiable delegation protocols remains a
+challenging task for the available technology.'' This passage seems misplaced. I would place is much sooner, and only recall it here (if even necessary--- I think this has been said already).
+}{This passage has been moved to the start of the description of our contributions, before the description of the new rigidity results.} 
+
+
+\questionanswer{ (page 5). I would place the material starting at ``We introduce the protocols in more detail'' in a new subsection. Add more headings and give more structure to the text. This will make it easier for the reader to make a clear mental picture of the main contributions.
+}{We have created two new (boldface) paragraphs for the descriptions of the two protocols, titled "Verifier-on-a-Leash Protocol" and "Dog-Walker Protocol".} 
+
+\questionanswer{ (page 5) ``The protocols provide different methods to delegate the
+quantum computation performed by the quantum verifier from [Bro18] to a second prover (call him PV for
+Prover V).'' This makes no sense to me. I think I am confused with the pronouns. ``call him PP for Prover P'' would seem correct to me, or even better would be explain here the convention of naming for both PV and PP. Then, stop using ``first'' and ``second'' prover since this gets really confusing. Call them PV and PP.
+}{Thanks for pointing this out. We have tried to make this clearer, and to avoid using "first" and "second" prover.} 
+
+
+\questionanswer{ (page 5) ``In the first protocol''. Immediately give the name \Leash to the protocol. This is much more memorable than ``first'', so it will help the reader grasp the concepts better. Put this description in its own subsection (or subsubsection or whatever).
+}{Done.} 
+
+\questionanswer{ (page 5) ``As PV just performs single-qubit and Bell bsis
+measurements, universal quantum computational power is not needed for this prover.'' You just said in the prior paragraph that the honest verifier needs to do Clifford observables only. But now, you add Bell basis measurements. There is certainly a reason to all of this, but right now, this is very confusing. Please clarify, or delete/move if this is not the place to be as precise as you are trying to be.
+}{Thanks for pointing out this confusion. The rigidity test is meant to certify that PV performs products of single-qubit Clifford observables (this is what is required to implement the honest verifier in Broadbent's EPR protocol). However, the rigidity test itself has some overhead, in the sense that it involves a larger set of questions/observables that the prover is asked to measure, a \emph{subset} of which are products of single-qubit Clifford observables. The other measurements are Bell basis measurements. We clarified this.} 
+
+\questionanswer{ (page 5). It is too early to link to Figure 14 (typically, when I see a link to a Figure, I take this as meaning that I should read that Figure). Same for Figures 11, 12, 14 and 9.
+ }{e have shifted the reference to the figure in paranthesis, and clarified that this is where more details can be found.} 
+ 
+ \questionanswer{ (page 5). ``The second game'' As described in \ref{sec:broad-EPR}, I suggest that you describe the \Leash protocol as doing the \Broad scheme, instead of the \EPR scheme.
+}{Changed to "Broadbent's EPR" protocol.} 
+
+\questionanswer{ (page 5) ``We remark that in both sub-games, the questions received by PV are of the form $W \in \Sigma$, where
+$\Sigma = \{X,Y, Z, F, G\}$ is the set of measurements performed by the verifier in Broadbent’s EPR protocol.'' I believe that this is false, and has been an extremely confusing point in this submission, that is inadequately explained. I believe that the RIGID game ends up asking PV to do Bell basis measurements as part of the rigidity tests.
+}{Yes, thank you for pointing this out. We have changed the description and clarified that only a \emph{subset} of the questions in RIGID is of that form. Hopefully it is much clearer now.} 
+
+\questionanswer{ (page 5) ``Hence, we can use our rigidity result of Theorem 1
+to guarantee honest behavior of PV in the delegation sub-game'' Immediately after this passage, please explain PP's role.
+}{Done.} 
+
+\questionanswer{ (page 5) ``requires (2d +1) rounds''. I would remove the brackets. Currently, it looks like you forgot a ``big - O''. (Oh, maybe you did for a ``big-Oh''!).
+}{Done.} 
+\questionanswer{ (page 5) ``(see Section 2.3 for a precise definition of how this is computed).'' I skimmed Section 2.3, I could not find this description. I think this should be a reference to some location in the text that describes the \Leash protocol.
+    }{Fixed.} 
+    
+    \questionanswer{ (page 5) ``The protocol requires O(n+ g) EPR pairs
+to delegate a g-gate circuit on n qubits,'' Please mention something about rigidity here; this should be a high-level description of the protocol, at the level that includes the rigidity tests. If you don't want to do it here, you could refer to either Section 3, or Section 4.1.
+}{We expanded the explanation of the protocols in the introduction and described in more details how we use the rigidity results in order to achieve our results.}
+
+\questionanswer{ (page 5) ``The
+input to the circuit is hidden from the provers, meaning that the protocol can be made blind by encoding the
+circuit in the input, and delegating a universal circuit.'' Add here that blindness only holds as long as PP and PV stay separated, and remove the passage ``particular,
+while PV and PP would have to collude after the protocol is terminated to learn the input in the leash
+protocol,'' which is in the description of \DW.
+}{Done.} 
+
+\questionanswer{ (page 5) ``The completeness of the protocol follows directly from the completeness of [Bro18].'' I think you also need completeness of RIGID.
+}{Yes, we corrected this.} 
+
+\questionanswer{ (page 5) ``since the combined
+behavior of our verifier and an honest PV is nearly identical to that of Broadbent’s verifier.'' Do you mean an honest PV in the delegation game (as opposed to RIGID game)? Also, replace with ``verifier in \Broad''.
+}{Done.} \questionanswer{ (page 5) ``The second protocol''. Similar as for the ``first'' protocol, start a new subsection here and immediately call this  \DW.
+}{Done.} 
+
+\questionanswer{ (page 5) ``Based on the Dog-Walker Protocol, it is possible to design a classical-verifier two-prover protocol for
+all languages in QMA''. Start a new subsection for this. Also, please explain why this does not work for \Leash, or why you chose just \DW.
+}{ We have expanded the explanation on the QMA protocol.
+
+Regarding the Leash protocol, the input to the computation is a classical string and is hidden from the provers (and so one can achieve blindness). When extending our delegation protocol to a protocol for QMA, the input to the delegated circuit is the witness for the QMA instance, and the circuit being delegated is the QMA verification circuit. So, in general the input to the computation is a quantum state, and should be prepared by (one of) the provers. The Dog-Walker protocol, in which the input to the computation is known to the provers, can be more naturally adapted to this setting.} 
+
+\questionanswer{ (page 6) ``The verifier then delegates the verification circuit to the second prover, as in the Dog-Walker Protocol; the first prover can be re-used to verify the operations of the second one.'' Grammatically unclear (I think the punctuation throws me off): does the ``as in'' qualify the ``verifier then delegates the verification circuit'', or does it qualify the ``the first prover can be re-used to verify...''? Maybe using a full stop instead of the semi-coma, and then saying ``The first prover can then be re-used (...)''. I think this would clarify (if indeed it is what you mean).
+}{We meant the former. We added a full stop as suggested.} 
+
+\questionanswer{ (page 6) ``have independently re-derived'' Remove `re'. I does not add anything, and makes it look like you are claiming precedence.
+}{Done.} 
+
+\questionanswer{ (page 6) ``two-prover delegation of quantum computation by classical
+clients with'' I think this is more appropriately singular: ``by a classical client''. If not, please explain.
+}{Yes, fixed.} 
+
+\questionanswer{ (page 6) In reference to [Gril17], please explain what parts subsume the current work under review, and which parts do not (e.g. is there blindness?, are the other complexity parameters the same?). Also, I would insert: ``two-prover delegation of quantum computation by classical
+clients with a single round of communication. \textbf{Because of this single-round structure,} space-like separation can replace the
+non-communication assumption.''
+}{Done.} 
+
+\questionanswer{ (page 6) Would it be appropriate to comment on subsequent work [GV19]? It would seem to be related to \Leash.
+    }{We don't think it is related in a significant enough way to comment ([GV19] is mentioned earlier, in connection with single-prover protocols with computational security).} 
+    
+    \questionanswer{ (page 6) Define the acronym ``i.i.d''
+    }{Done.} 
+    
+    \questionanswer{ (page 6)``and could not use'' not clear who is the subject of this part: the ``authors'' or the ``devices''. Maybe break into two sentences.
+}{Fixed.} 
+
+\questionanswer{ (page 6) ``does not require any additional assumption.'' $\rightarrow$ ``does not require any additional assumptions.''
+}{Fixed.} 
+
+\questionanswer{ (page 6) ``Therefore, the requirement that the provers do not
+communicate throughout the protocol cannot be enforced through space-like separation, and must be taken
+as an a priori assumption. Since the protocol of [Gri17] is not blind,'' Explain better why [Gril17] suddenly appears here (link to space-like separation?)
+}{Clarified.} 
+
+\questionanswer{ (page 6) ``albeit not necessarily in a truly efficient manner.''. This seems vague. Can you be more specific (since the point of the submission is about efficiency, can you compare more cleanly?).
+}{ We edited the sentence to clarify what we meant.} 
+
+\questionanswer{ (page 5-6) The material of Section 6 should be included in the high-level summary somewhere.
+}{We have added a few sentences on sequential amplification of soundness at the end of the Dog-Walker paragraph in the introduction.} 
+\questionanswer{ (page 6) Maybe mention in ``Organization'' that Section 5.4 contains the QMA protocol?
+}{Added.}
+
+\questionanswer{
+\textbf{Section 2}
+\begin{enumerate}
+\item (page 7) Under ``Observables'': specify what is $u$ in $\sigma_W^u = E_a(-1)^{u\cdot a} \sigma_W(a)$.
+    \item (page 7) ``implicitly tensored with identity'' $\rightarrow$ ``implicitly tensored with \textbf{the} identity''
+\item (page 7) The set notation is strange (and this happens throughout--- there will be more comments about this). I think you need to replace the comma before $a,b,c \in \{0,1\}$ with either ``$\mid$'' or ``$:$'', depending on the convention that you want to use.  Otherwise, it looks to me like $a$, $b$ and $c\in \{0,1\}$ are all elements added to the set $\mathcal{H}^{(1)}$ (where $a$ and $b$ really have no information associated to them).
+\item (page 8) ``Since the choice of round type is made after interaction with '' $\rightarrow$ after \textbf{the} interaction with
+ \item (page 10) Table 2: I would place the row in order according to the presentation on this page: CNOT, H, T.
+     \item (page 10) ``depends on a random bit $z_i$'' $\rightarrow$   depends on a \textbf{uniformly} random bit $z_i$
+   \item (page 12) ``depending on the round type.'' add ``depending on the round type \textbf{$r$}.''
+   \item (page 12) In step 2 of Fig 3(a), there is a call to the $V_{EPR}^r$ procedure. which takes as input $\overrightarrow{x}, \overrightarrow{c}, \overrightarrow{z}$ as well as two qubit systems (in that order). I would make the syntax uniform so that also the call in step 2 of Fig 3(a) mentions these values in the same order. [It seems like a details, but these inconsistencies add up, when the reader is trying to understand!]
+       \item (page 13) ``Completeness and Soundness.'' uses the expression $\|\Pi_0Q|0^n\rangle\|^2$, whereas the Theorem 2 uses $\|\Pi_0Q|\overrightarrow{x}\rangle\|^2$. Please check which one you mean (I think you mean the latter).
+       \item (page 13) The benign attacks are defined as $B_{t,m}$ , but then used as $B_{t,n}$.
+   \end{enumerate}
+}{All the above suggestions/problems were implemented/fixed.}
+
+   \questionanswer{
+(page 8) ``are characterized by''. Is this a technical term? Do you mean ``satisfy'', or is there something deeper? please explain.
+}{Nothing deep;  we meant that the equation can be used to define one observable from the other. Edited.}
+
+\questionanswer{ ``involves the interaction between a verifier $V_{EPR}$ and a prover $P$.'' Please check, there is inconsistency on how the possibly cheating verifier is denoted. In Theorem~3, it is called $P_{EPR}^*$.  (I don't think that the plain $P$ is ever used, so maybe you could just call any prover $P^*_{EPR}$ and the honest one $P_{EPR}$).}{Changed $P$ to $P_{EPR}^*$.}
+
+\textbf{Section 3}
+
+\questionanswer{
+(page 13) ``Each of our delegation protocols includes a rigidity test''. This is confusing. Do you refer here to the official RIGID test, or to the concept of rigidity, in which case there are multiple rigidity tests in each of $\Leash$ and $\DW$. But this paragraph seems to be explaining only the concept of \Leash (again, using instead the concept of the \Broad protocol, this becomes much simpler since you are explaining here how to generate the random eigenstates of the \Broad protocol.) Maybe it would be better to instead say nothing here and to refer the reader to the introduction paragraph which explains the role of the rigidity test (or tests?) in the two main delegation protocols.
+}{We shortened this part.}
+
+\questionanswer{ (page 13). ``In this section we outline the structure of the test'' I am not sure what is ``the test''. Is this RIGID? (telling the reader now will help make a good mental map of what to expect coming up)
+    }{We clarified this.}
+    
+    \questionanswer{ ``With constant probability
+the verifier sends one of the provers a string W chosen uniformly at random from $\Sigma^m$''. This passage does not say what the other prover gets.
+}{Edited.}
+
+\questionanswer{ ``The test consists in a single round''. Really? from what we have so far, the delegation contains multiple rounds, and then we are supposed to intermingle with this rigidity test, which is a single round, and it should remain indistinguishable between a delegation and a test? This is confusing. I think that the resolution later on is that we repeat the rigidity test to mimick the interaction in the delegation protocol. Please explain this here.
+}{This section no longer mentions how the tests are used in the delegation protocol, as based on your comments we believe that it is more clear this way. The sections presenting the delegation protocols explain how the tests are used.}
+
+\questionanswer{ ``With the remaining
+probability, other queries, requiring the measurement of observables not in $\Sigma^m$ (such as the measurement of
+pairs of qubits in the Bell basis), are sent.'' Sent to whom?
+}{This has been clarified.} 
+
+\questionanswer{ (same passage as above). This is the first place that the ``other queries'' not in $\Sigma^m$ are invoked. It would be good to explain why and how this process works. So far, the reader has the impression that the RIGID test is going to be indistinguishable from the Delegation, but this new concept violates that intuition.
+    }{This has been clarified.} 
+    
+    \questionanswer{ (page 14) ``Our rigidity result states that any strategy that succeeds with probability $1-\varepsilon$ in the test is within $poly(\varepsilon)$ of
+the honest strategy, up to local isometries''. Please explain here or closeby how the ``honest strategy'' relates to the questions that are not in $\Sigma^m$. It looks to me (see Theorem 4) that you actually say nothing about those rounds where the questions not in  $\Sigma^m$.
+}{That's right; we clarified this.} 
+
+\questionanswer{ (page 14) The concept of the ``consistency test'' (p.16) (which symmetrizes the game and the player's behavior), should be informally introduced here, at the latest before the summary of Theorem 4. Otherwise, it is confusing that the statement of Theorem~4 is only about $W_B$, yet the informal description claims that it deals with ``either player''.
+    }{We added a sentence to the theorem to make its conclusion symmetric. We prefer not to discuss the consistency test at this point, because it would be one more new element that the reader has to grapple with. Given that all statements now have symmetric conclusions with respect to the players, it is natural to imagine that the theorem will be proved based on a test that treats them symmetrically.}
+    
+    \questionanswer{ (page 14) ``the ancilla register to extract a single bit'' Please include the symbol here for the ancilla register.
+        }{Done}
+        
+\questionanswer{ (page 14) ``For an observable $W$, let $\sigma_W = \sigma_W^{+1}-\sigma_W^{-1}$ be its eigendecomposition, where sW are the “honest”
+Pauli matrices defined in (1) and (2).'' Please check consistency of notation: the eigendecomposition was given in the preliminaries (page 7) as $\sigma_W^{0}-\sigma_W^{1}$. Also, technically, $\sigma_W$ is not always Pauli matrices, as in Equation (2).
+}{Fixed. We chose to use the notation $\sigma_W = \sigma_W^{0}-\sigma_W^{1}$ throughout.} 
+
+\questionanswer{ A strategy has not been formally defined yet (that happens on page 16). So you should tell us informally what is a strategy (so that the symbols are defined), or refer to the definition of page 16 (however, there is no definition environment, so that would need to change it you want to refer to it).
+ }{There is a definition of strategy at the top of the page (``In general, an arbitrary strategy ...'').} 
+ 
+ \questionanswer{ What is the quantifier/restriction on $|AUX\rangle?$
+ }{It's existential; added} 
+ 
+ \questionanswer{   The display equation below Equation (3) is hard to parse (especially the part involving $\tau_\lambda$, can you add more description on how to read it? )
+}{We added a paragraph immediately below the statement of the theorem to explain and motivate that equation.}
+
+\questionanswer{ ``The proof of the theorem is based on standard techniques''. I think you are underselling the contribution. Now is your chance to outline the rest of this section and the contributions (or, refer to them in the introduction). Please use the same structure as the structure of the protocols as given in the Figures (this is why the "Tree" Figure would be useful). I.e., tell us that the main protocol is RIGID, which itself is composed of CLIFFORD + ad-hoc tomography, and then CLIFF is composed of CONJ, and a bunch of other tests, etc. This will help give a roadmap to reading this section.
+}{Thank you for suggesting this. We added a fairly detailed explanation of what role each of the subtests of RIGID plays in it after the statement of Theorem 3.1 (right before Section 3.1).}
+
+\questionanswer{ ``In the remainder of this section, we prove Theorem 4''. Please say exactly where this is proven. For instance, is Theorem 4 re-stated elsewhere and proven there? I could not find a ``Proof of Theorem 4'' claim anywhere. (But is looks very similar to Corollary 12).
+    }{Thanks, there was a bit of a confusion there. We removed the statement of Corollary 12 and clearly labeled its proof a proof of Theorem 4.}
+    
+    \questionanswer{ (page 16) the title ``Tests.'' would be more accurately described as ``consistency test''. Also, to give more structure to the paper, I would use numbered headings instead of bold font (only) headings.
+        }{We did this.} 
+        
+        \questionanswer{ (page 16)``all the games, or tests, we
+consider implicitly include a “consistency test”''. It is really difficult to know what qualifies a procedure to be called a ``game'' or ``test'', and therefore which procedures get a the implicit consistency test. For instance, looking at Figure 4, is CONJ itself going to get a consistency test? And then, when about each of AC, COM, (8 possibilities)? What about the part (b) (ad-hoc test, with no name), it is also subject to another consistency test? Maybe the answer will not change the main result, but it would be good to clarify here, once and for all (the consistency test never really comes up again in the paper).
+ }{We added a clarification.} 
+ 
+ \questionanswer{ (page 16) The notation at the end of the ``Tests'' paragraph is a bit repetitive from page 7 and also page 14. Please check. If need be, it can be recalled, but currently, there is no indication that this is a reminder.
+ }{Done} \questionanswer{ (page 16) ``Since the players are always treated symmetrically'' please specify why this is the case.
+ }{Done} 
+ \questionanswer{ Equation (4). What is the quantifier on $|\psi\rangle$?
+ }{Clarified.} 
+ 
+ \questionanswer{ Equation below ``Relations.''. Again, I don't understand this syntax for the set notation. I think it should be $\{... \mid X, Z, H \in Obs\}$. Also, please use an example from an actual game.
+ }{We think that in this case the set notation is accurate. We added a clarification right after the centered equation.}
+ 
+ \questionanswer{ ``We only consider relations that can be brought in the form''. The wording ``brought'' sounds strange, something like ``expressed as'' or ``written as'' would be more standard.
+     }{Edited.} \questionanswer{ ``We only consider relations that can be brought in the form''. Are these two different definitions for the same symbol, $f(W)$? This seems confusing.
+}{Edited.} 
+\questionanswer{ ``that is either an observable or a POVM'' Grammatically, it is impossible to know if ``that'' refers to ``symbol'', ``questions set $Q$'', ``variable'', ``game'' or even ``set of relations''. Please specify.
+}{Edited.}
+
+\questionanswer{ ``additional questions''.   I think these are the questions in $Q$ but not in $R$, but it is unclear. I already commented on making more clear these additional questions. The explanations added there should also help understand this passage here.
+    }{This is the meaning of the ``(at least)'': the set $\mathcal{Q}$ can have more symbols than there are symbols which appear in $\mathcal{R}$.}
+    
+    \questionanswer{ Definition 7. Define where $|\psi\rangle$ comes into the definition. Is a stable relation wrt $|\psi\rangle$, or is it for all $|\psi\rangle$?
+  }{Edited.}
+  
+  \questionanswer{ Definition 7. If possible, make the equation on the bottom of page 17 as close as possible as the Soundness condition in Definition 6 (place the $f(W)$ at the same location).
+      }{Edited.}
+      
+      \questionanswer{ ``The test
+CONJ(A, B, R), given in Figure 4,'' I would delete this first reference to Figure 4, and keep only the second one, later on page 18.
+  }{Edited.} 
+  
+  \questionanswer{ display equation for $C\{R,C\}$: similar problem with the set notation. I do not understand the first set in this notation $\{X_r, C, X, Z \in Obs\}$. I think this expresses conditions of $X_r, C, X, Z$, but they should not actually be elements of the set. Use the same notation as in the display equation below ``Relations'' on page 17 (after that one is fixed)?
+   }{Hopefully it is clear now. Here $X\in Obs$ is shorthand for $X^2=I$, as is now explained in the ``Relations'' subsection.}
+   
+   \questionanswer{ Figure 4. I get a syntax mismatch for the COM tests. On p. 58, $COM(A,B)$ is defined for $A,B$ observables on the same space. This is not the case for e.g. $COM(C,Z)$
+     }{There was a typo in the ``Inputs'' line of the figure. Both $C$ and $Z$ are on the same space, $\mathcal{H}_{A}$. (Note that $Z$ should be distinguished from $\sigma_Z$; here, $Z$ means $\sigma_Z \otimes I$ where the $\sigma_Z$ acts on the qubit that specifies the intended block partition for $C$ and $X_R$.)}
+     
+     \questionanswer{ part (b) of test needs some work. First of all, it is phrased negatively (reject if...) this seems unatural. Secondly, please consider if this part (b) deserves its own name and game. Presumably, the beauty of this part (b) comes out in the proof, but the presentation is really difficult to follow.
+   }{ We reformulated it. This test is not used outside of its use inside Conj, so we don't find it useful to give it a name.}
+   
+   \questionanswer{ 
+   (page 20) For the Pauli relations defined in the display equation $P^m\{X,Y,Z\}$: same thing with the set notation, it makes no sense.Currently, the string $a$ is in the set: I doubt that you mean this. Each of the sets here needs to be fixed in terms of the notation of using correctly $\mid$ or $:$ to specify the nature of the observables in the set.
+  
+   (page 20). ``The Pauli braiding test is recalled in Appendix A.4, ''. This paragraph awkwardly refers to [NV17], as testing only some observables, and then the extension and then once more back to [NV17]. Please re-phrase so that the flow is more direct (I would first mention [NV17], say it is in Appendix A.4.1 (also mention any changes compared to the original test), and then mention the extension in Appendix A.4. Also add in the paragraph a sentence that introduces Lemma 9.
+  
+  
+   (page 21). Same issues as before with the strange set notation for $J_{h_S, h_X, h_Z}$
+
+   (page 22) ``Let $\hat{\tau_R}$ be as defined in the paragraph preceding the lemma.'' Where is this? I think maybe this should be "in Lemma 10"?
+   
+   (page 23) ``Finally, the relation (10) follows from self-consistency''. This is the first time ``self-consistency'' is used. It is probably the same thing as the implicit consistency test. Please add a reference to the section where the implicit consistency test is described.
+}{All the above suggestions/problems were implemented/corrected.}
+
+ \questionanswer{ (page 25) ``Proof sketch.'' Please mention what would be required to make this a full proof (or promote it if this is the case).
+ }{The proof is complete but we omit some of the line-by-line calculations. We added a sentence explanining this at the start of the proof. It's a delicate decision; on the one hand some readers would expect every step to be entirely described and on the other hand we feel that this would completely obscure the argument. So we preferred to have detailed proofs for some of the more elementary lemmas regarding the rigidity arguments, and more high-level proofs addressed at the expert reader for the more involved parts. This should make the paper both readable and verifiable.} 
+ 
+ \questionanswer{ (page 26) ``We give a first corollary of Theorem 11 which expresses its conclusion (16) in terms of the post-measurement
+state of the first player.''. It is unclear if ``its'' refers to the conclusion of Theorem 11, or of the upcoming Corollary 12.
+}{This sentence has been removed.} 
+
+\questionanswer{ (page 26) ``we incorporate a
+small tomography test in the test, described in Figure 7.'' A test within a test --- technically, this is probably correct, but I would avoid this phrasing, it is hard to read. Next, the ``described in Figure 7'' actually refers to the result of adding the tomography to CLIFF. So I would use an explanation along those lines. Note that RIGID is the main protocol (as far as I can tell). This lead-in text does not do it justice. I would add something like ``This is our main test, which incompasses all other tests''.
+
+ (page 27) I think that Corollary 12 is the same as Theorem 4. Mention it here, and emphasize that this is the main result of this Section.
+
+ (page 27)``Moreover, players employing the honest strategy succeed with probability (...) in the test.'' Replace ``test'' with $RIGID(\Sigma,m)$.
+
+ (page 27) ``From Theorem 11 we get isometries '' I would add: ``From Theorem 11 and part (a) we get isometries''
+}{All the above suggestions/problems were implemented/corrected.}
+
+\questionanswer{ (page 28) Section ``3.6 Tomography''. We already had a tomography test in Figure 7 (b). Please explain the difference....
+}{They're used for different purposes. We added a footnote at the start of the section.}
+
+\questionanswer{ (page 29) ``This allows us
+to check that a player performs the measurement that he claims, even if the player has the choice of which
+measurement to report.'' This is a very curious feature. It would be great to explain here (or elsewhere, and refer to it here, why this is important)
+}{ This sentence was not very clear, so we edited it.}
+
+\questionanswer{ (page 29) ``Moreover, players employing the honest strategy succeed with probability 1 in tomography part of the
+test.'' Both RIGID and TOM include a ``tomography'', so please be specific. Maybe here you can use $TOM(\sigma,m',m)$?
+}{Done.}
+
+\questionanswer{ \textbf{Section 4}
+
+(page 30) ``We call the resulting protocol the Leash Protocol with parameters (pr, pd)''. Why not make this into a figure? This will help make statements more formal. Eg. The statement of Theorem 14 refers to the ``Verifier-on-a-Leash'' protocol, which is not defined; I think you mean ``Leash'' protocol as in this passage.
+    }{We left it as is in the beginning of section 4.1, but we later added Figure 15 with a description of the protocol. Regarding ``Leash'' vs. ``Verifier-on-a-Leash'', we use both terms interchangeably, as informed in the first sentence of Section 4.1. } 
+    
+    \questionanswer{ (page 31)``Further, the protocol leaks no information about x to either prover individually, aside from an upper bound
+on the length of x.'' This statement is too informal to be in a Theorem statement. In fact, it is not defined in the submission what it means to ``leak no information''. Section 4 formalizes ``blindness'' in terms of the reduced state of the provers. So it would be necessary to make Theorem 14 sufficiently formal to incorporate this notion.
+}{The Theorem statement was rephrased.}
+
+\questionanswer{Section ``4.1 Protocol and statement of results''. I would invest more into a better presentation in the introduction, and link to it here, and only present the essential notation at this point in the paper, and also to details that were not possible to explain in the introduction (due to their technical level).
+ }{We think that the purpose of the description of the protocols and its level of details in the introduction and in section 4.1 are not the same. Therefore, we prefer to keep both of them. }
+ 
+ \questionanswer{ I am suggesting that the picture here should be that the \Broad protocol (and not EPR) is the underlying idea for the delegation, and that rigidity is testing PV from \Broad. This permeates the description of the protocol, and will have e.g. an effect on the presentation on page 32.
+     }{As we answered above: ``We had decided to focus on the EPR protocol because this almost exactly matches our setting, where the rigidity tests certify the presence of EPR pairs (and the correct eigenstates are prepared on the prover's side by the verifier via appropriate measurements on her half EPR pairs). Spelling out the connection with the basic prepare-and-measure scenario is probably conceptually simpler. We have added a footnote about this in the introduction, at the end of the paragraph titled 'New delegation protocols'."} 
+     
+     \questionanswer{ (page 36). Figure 14. As far as I can tell, $RIGID(\Sigma, m)$ has questions that are outside of $\Sigma$ (e.g. for the Bell test which is part of RIGID), hence I think it is incorrect to write ``The verifier selects questions $W, W' \in \Sigma^m$'' and to think that this covers all of the questions in RIGID. In fact, I am wondering how you manage to use the RIGID game (which has extra questions, compared to the delegation game) within the delegation game. Please explain.
+         }{We corrected the corresponding protocol to address this issue.} 
+         
+         \questionanswer{ (page 36). ``exactly as in Step 1 of the Delegation Game'': please give Figure number for this game.
+}{Done.}
+
+\questionanswer{ (page 39) ``4.4 Blindness''. I think it would be important to recognize that here, the definition of blindness does not say anything about the provers possibly \emph{increasing} their knowledge about $x$, via the protocol. It only says that if they start with no knowledge on $x$, they end with no knoweldge. Thus, the possibility of a simulation-based definition and proof is still an open question. Such simulation-based definition would be much more interesting, since usually the provers would likely start with some a-priori knowledge of what types of circuits they may be asked to run.
+}{We agree that it would be more desirable to have a simulation-based proof, but this is out of the scope of this paper, and we have added this as an open problem.}
+
+\questionanswer{ (page 39)
+      I could be mistaken, but the general idea for the proof is essentially the same reason why the \EPR protocol came to be in the first place: we want to argue that PP can go first, and interact on fresh randomness (only). An explanation along these lines would be helpful.}{Since we never mention the original protocol by Broadbent, we think that adding this explanation would be more confusing and it would not help the reader.}
+
+
+\questionanswer{
+\textbf{Sections 5 and 6}
+\begin{enumerate}
+\item (page 41)``For this reason, we must
+augment the test discussed in Section 3 '' Please say which one. There are many, many tests in Section 3.
+\item (page 41) ``For this reason, we introduce the Tomography test and prove'' You already introduced this test at the end of Section 3, hence you can refer to it here.
+\item (page 41) ``Figure 17 (PV’s point of view)
+and Figure 16 (PP’s point of view).'' Change the order so that the figures are presented in increasing order.
+\item (page 49) ``We state the result and sketch its proof.'' Add the name of the Lemma (I think, Lemma 27).
+\item Currently, Section 6 is not at all summarized in the intro. This should be corrected, by adding at least a few sentences about the results in this section, perhaps close to where Figure 1 is explained. Actually, this is borderline Appendix material; you could also move it to the Appendix (and refer to this Appendix in the intro).
+\end{enumerate}
+}{
+All of the above suggestions were implemented.}
+
+
+\questionanswer{The set notation for the relations in Lemma 32 is again throwing me off. Same thing for the set in A.4.1 and A.4.2}
+{We clarified the notation.}
+
+\questionanswer{The title of Section A.4.2 is the same as the title of A.4}
+{Yes. Unfortunately, we didn't find a better title.}
+
+\questionanswer{
+\textbf{Other typos and display issues:}
+\begin{enumerate}
+\item (page 4)``Our first contribution is to extend the “Pauli braiding test” of [NV17], which allows one to test tensor
+products of sX and sZ observables with constant robustness, to allow for sY observables as well.'' Use brackets here, it will be easier to read:
+``Our first contribution is to extend the “Pauli braiding test” of [NV17] (which allows one to test tensor
+products of sX and sZ observables with constant robustness), to allow for sY observables as well.''
+\item (page 14). Double period around Footnote 6.
+\item (page 15) ``decribe''
+\item (page 16) ``as a result we will also often omit an
+explicit specification of which player’s space an observable is applied to.'' check the grammar of this passage. I would remove the final ``to''.
+   \item (page 24) ``Note that
+a priori test CONJ'' $\rightarrow$ ``   \item (page 24) ``Note that,
+a priori, test CONJ''''
+\item (page 29) ``will be useful for our analysis of the Dog-Walker Protocol from Section 5.'' $\rightarrow$ ``will be useful for our analysis of the Dog-Walker Protocol in Section 5.''
+\item (page 27) The ``hat'' command does not center nicely on the ``A'' (just below equation 18), probably due to the font that you are using.
+\item ``for our analysis of the Dog-Walker Protocol from Section 5.'' $\rightarrow$ ``for our analysis of the Dog-Walker Protocol in Section 5.''
+\item (page 30) I would limit parenthetical comments to one sentence. Also, check the double period at the end of the parenthesis ``(See Section 2.3 for a summary of the protocol and a description of VEPR. Throughout this section we
+assume that the circuit Q provided as input is compiled in the format described in Section 2.3.).''
+\item (page 30)``and t number
+of T gates in Q.'' $\rightarrow$ ``and t be the number
+of T gates in Q.'
+\item (page 35). Add ``in the Delegation Game'' in both captions for Figure 13 and Figure 12.
+\item (page 35). Place Figure 12 before Figure 13.
+\item (page 38). ``If $\lambda = +$''. I would put a comma after this: ``If $\lambda = +,$''. Same thing for ``If $\lambda = -$''
+\item (page 36). ``by Theorem 2 and since in
+our protocol the verifier'' I would delete ``in our protocol'' since this is clear from context. Or if you want to keep it, add a comma before and after: ``by Theorem 2 and since, in
+our protocol, the verifier''
+\item (page 41) ``We notice''$\rightarrow$ ``We note''
+\item (page 44) ``and PP play'' $\rightarrow$ ``and PP plays''
+\item (page 55) Check Bibtex acronym for [BvCA18]; also use a capital ``P'' in ``pauli''
+\item (references) Check for updated (published) references.
+\item (page 57) ``a robust self-test test''$\rightarrow$ ``a robust self-test''
+\item (page 57) ``Answers from the prover'' $\rightarrow$ ``provers''
+\item (page 57) ``except the last'' $\rightarrow$ ``except the last column''
+\item (page 59) is it PVM or POVM?
+\item (footnote 9) ``either $\delta_i$'' I think that there are 3 possibilities, so use ``any'' instead of ``either''
+\item (page 59) Remind us of the meaning of notation $\{A,X\} \approx 0$
+\item (page 60) ``Accept if and only c'' $\rightarrow$ ``Accept if and only if c''
+\item (page 66) ``the the''
+\end{enumerate}}
+{All of these suggestions were implemented.}
+
+
+\end{document}
+
+
+\clearpage
+\newpage
+
+\appendix
+\section{Old}
 \subsection*{General}
 \subsubsection*{Reviewer 1}
-Then, for the proof of the main lemmas and theorems, more details should be spelled out so that it is possible to verify by readers. As an optional improvement, I suggest the authors to consider if there are simpler and more elegant ways of proving the rigidity for Clifford observables.
-
+Then, for the proof of the main lemmas and theorems, more details should be spelled out so that it is possible to verify by readers.
 As an optional improvement, I suggest the authors to consider if there are simpler and more elegant ways of proving the rigidity for Clifford observables. The choice of {X, Y, Z, F, G}, though natural arises from the EPR protocol, could have made the protocol and the analysis cumbersome. Probably considering all of the Clifford group could make the analysis more streamlined.	
 
+{\color{blue} We considered this when researching our original submission. This is why we introduced the conjugation test, which is naturally suited to testing Clifford observables. However, this is necessarily done only up to phase; as the reviewer observed lifting the phase ambiguity requires more work and we did not find a better method to do it than performing tomography against the Pauli group. This step seems to require work on a case-by-case basis... Certainly, it would be nice to have a general self-testing result for the Clifford group, but this is not the main focus of our paper.}
 
 \subsubsection*{Reviewer 3}
 
 \paragraph{Introduction}
 Here, I suggest to categorizing clearly the protocols early on.
  This will help the reader make a clear mental picture in their mind of what they can expect in the rest of the paper.
-
 e.g. introduce \Leash and \DW much sooner. It is not very useful to a reader to try to make a mental image of what the ``first'' and ``second'' protocol mean-- you might as well give the correct names immediately.
+
+{\color{blue} We have now created additional subsections/paragraphs titled "Verifier on a Leash Protocol" and "Dog-Walker Protocol". Hopefully this helps. }
+
+{\color{red} How do you all feel about using names like \Leash and \DW in a special font (like this one or some other)? T: I think it's fine but requires work searching through the whole file..}
 
 \paragraph{\Broad vs. \EPR protocols}
 \label{sec:broad-EPR}
@@ -122,21 +819,32 @@ the interaction with PV (i.e. running $V^r_{EPR}$) will take place first, and PV
 measurements from the set (...). The values~z, rather than being chosen at random, will be
 chosen based on the corresponding choice of observable. ''(p.30). In this passage, it appears that they have basically re-invented \Broad. I think it is much more conceptually simple to explain that \Leash delegates the preparation of the random eigenstates required in \Broad (from $V$ to $PV$), thus enabling the classical part of \Broad to be executed between $PP$ and $V$.
 
+{\color{blue} We had decided to focus on the EPR protocol because this almost exactly matches our setting, where the rigidity tests certify the presence of EPR pairs (and the correct eigenstates are prepared on the prover's side by the verifier via appropriate measurements on her half EPR pairs). Spelling out the connection with the basic prepare-and-measure scenario is probably conceptually simpler. We have added a footnote about this in the introduction, at the end of the paragraph titled "New delegation protocols".}
+
 Then, it is easier to explain how \DW takes advantage of the time-reversal properties of \EPR: here, we instead want $PP$ to do all their operations \emph{first}, and then we give all the classical outcomes of $PP$ directly to $PV$, who does the adaptive quantum measurements from the verifier in $\EPR$. Of course, we also need to make sure that the classical outcomes from $PP$ do not allow to violate soundness (this is ensured via rigidity, since the honest measurements result in uniform bits), and we need to make sure that $PV$ does the operations honestly (this is also ensured via rigidity).
 
 \paragraph{Protocol Presentation}
 
 It is currently quite difficult to piece together the protocols in order to understand how they work together. For instance, some protocols (see e.g. Figures 4, 5, 6) contain different levels of abstraction in different sub-routines (some subroutines are figures elsewhere, whereas some subroutines are ``ad-hoc'' tests, and are explained directly in that figure). Would it be possible to be consistent in the level of abstraction, for each sub-routine in a protocol, or is there a good reason for including ``ad-hoc'' tests here?
 
+{\color{blue} Some ``ad-hoc" tests, like the one in bullet (b) of Figure 4, are not explained separately as their own sub-routine because they are simple enough to be stated directly, and stating them independently could be actually less clean since we need to be consistent as to what information is passed up/down one layer. While having a separate figure/name for these ad-hoc tests could be useful if someone wants to actually program the protocols, we think that for a human reader it seems like it would make it more complicated.}
+
 In order to help understand the links between the protocols, I suggest:
 \begin{enumerate}
 \item Add a summary of Figures. This will help in making the connections between the various sub-protocols.
+
 \item Consider adding a figure that shows the link between the protocols, for each of \Leash and \DW.  These would probably end up looking each like a tree: \Leash is the root, with branches \Broad and RIGID, and then \Broad branches out into computation, X-test and Z-test, while RIGID is the conjugation, extended Pauli braiding test, and more---and so on and so forth. You could also add to this figure the intuition for each sub-protocol, to the extent that this is possible (e.g. that RIGID tests PV's preparation). This exercise may also unveil some methods to simplify the presentation (and will also highlight where the ``ad-hoc'' tests show up, and how they can be better presented).
 \end{enumerate}
+
+{\color{red} What are your thoughts on these two points? The second one might be helpful if someone has the bandwidth, although it doesn't seem like it is essential to this reviewer. }
+{\color{green} T: I think we should do something in the direction of what they ask. Another reviewer asked for explanations how the rigidity tests depend on each other and we added that (there should be a response about it somewhere). A written summary (as opposed to a figure, which is hard) of how the protocols are organized could be useful, if we don't have it yet)}
 	
 \subsection*{Section 1}
 \subsubsection*{Reviewer 1}
 First, in the introduction part where the intuitions are discussed, possible improvements include a discussion on the idea behind the dog-walk protocol, how it achieves the constant round property from the multiple round EPR protocol, the reason for introducing the TOM test and the idea behind the design, and so on.
+
+{\color{blue} Thanks for the suggestion. We have expanded our explanation of the dog-walker protocol in the introduction.}
+
 
 \subsubsection*{Reviewer 3}
 
@@ -147,67 +855,194 @@ Some of the comments below may overlap with those from the prior section.
 
 \begin{enumerate}
 \item (page 1) In the abstract, mention ``statistical'' or ``perfect'' soundness, in order to contrast with computational security.
+
+{\color{blue}Done.}
 \item (page 2) ``(not all papers provide explicit bounds, in which case
 our estimates, although generally conservative, should be taken with caution'' : please specify which bounds are your own, and which bounds were taken from the references.
+
+{\color{blue} The estimated bounds in our table were computed in [HPDF15]. We have edited the text accordingly, crediting [HPDF15] for the estimates.}
+
 \item (page 2) ``The most efficient classical-verifier delegation protocols known [FH15, NV17]'' These two references are not in Table 1, and I fail to see why (it is because table~1 is only for the two-prover setting? Or maybe because of the ``post-hoc''?) Please clarify.
+
+{\color{blue} Yes, they were not included because they are post hoc. This is undesirable in practice, since it would require the provers to be able to communicate at first to share an encoding of a witness state, but then it would require them to \emph{not} be able to communicate during the execution of the protocol for soundness.}
+
+
 \item (page 3) ``it does not provide a means for the verifier to test
 the provers’ implementation of the required circuit on a gate-by-gate basis.'' Please give more context on why this is mentionned. Is this seen as a drawback? Also, technically, is there not part of the history state verification that does check that each timestep is implemented correctly (in superposition)?
+
+{\color{blue} We agree that this is not a very relevant distinction, and we have removed this sentence.}
+
+
+
 \item (page 3) Table 1, 4th row. Is it HDF2015, or HPDF15?
+
+{\color{blue} It is HPDF2015. We fixed this.}
+
 \item (page 3) ``the most
 efficient single-prover quantum-verifier protocols can evaluate a quantum circuit with g gates in time O(g).'' : which reference achieves this?
+
+{\color{blue} Broadbent's protocol achieves this. We have edited accordingly.}
+
 \item (page 4) ``The robustness for
 previous results in parallel self-testing typically had a polynomial dependence on the number of EPR pairs
 tested. '' Please be more specific on which previous results had an inadequate scaling, and which one did. My current reading is that only [NV17] was adequate, and what your result is doing is extending [NV17]. This seems reasonable; so I would suggest to be more direct about it.
+
+{\color{blue} This is correct. We have edited accordingly.}
+
 \item (page 4) You credit some ideas to [Slo16], but there are no further citations to [Slo16]. Please include more details, perhaps in the main text, of where the ideas of [Slo16] are used.
+
+{\color{blue} Added a sentence of details where the ideas are credited on page 4.}
+
+
     \item (page 4--5) ``Our work is the first to propose verifiable two-prover delegation
 protocols that overcome the prohibitively large resource requirements of all previous multi-prover protocols, requiring only a quasilinear amount of resources, in terms of number of EPR pairs and time. However,
 notwithstanding our improvements, a physical implementation of verifiable delegation protocols remains a
 challenging task for the available technology.'' This passage seems misplaced. I would place is much sooner, and only recall it here (if even necessary--- I think this has been said already).
+
+{\color{blue} This passage has been moved to the start of the description of our contributions, before the description of the new rigidity results.}
+
 \item (page 5). I would place the material starting at ``We introduce the protocols in more detail'' in a new subsection. Add more headings and give more structure to the text. This will make it easier for the reader to make a clear mental picture of the main contributions.
+
+{\color{blue} We have created two new (boldface) paragraphs for the descriptions of the two protocols, titled "Verifier-on-a-Leash Protocol" and "Dog-Walker Protocol".}
+
 \item (page 5) ``The protocols provide different methods to delegate the
 quantum computation performed by the quantum verifier from [Bro18] to a second prover (call him PV for
 Prover V).'' This makes no sense to me. I think I am confused with the pronouns. ``call him PP for Prover P'' would seem correct to me, or even better would be explain here the convention of naming for both PV and PP. Then, stop using ``first'' and ``second'' prover since this gets really confusing. Call them PV and PP.
+
+{\color{blue} Thanks for pointing this out. We have tried to make this clearer, and to avoid using "first" and "second" prover.
+}
+
 \item (page 5) ``In the first protocol''. Immediately give the name \Leash to the protocol. This is much more memorable than ``first'', so it will help the reader grasp the concepts better. Put this description in its own subsection (or subsubsection or whatever).
+
+{\color{blue} Done.
+}
+
 \item (page 5) ``As PV just performs single-qubit and Bell bsis
 measurements, universal quantum computational power is not needed for this prover.'' You just said in the prior paragraph that the honest verifier needs to do Clifford observables only. But now, you add Bell basis measurements. There is certainly a reason to all of this, but right now, this is very confusing. Please clarify, or delete/move if this is not the place to be as precise as you are trying to be.
+
+{\color{blue} Thanks for pointing out this confusion. The rigidity test is meant to certify that PV performs products of single-qubit Clifford observables (this is what is required to implement the honest verifier in Broadbent's EPR protocol). However, the rigidity test itself has some overhead, in the sense that it involves a larger set of questions/observables that the prover is asked to measure, a \emph{subset} of which are products of single-qubit Clifford observables. The other measurements are Bell basis measurements. We clarified this.
+}
+
 \item (page 5). It is too early to link to Figure 14 (typically, when I see a link to a Figure, I take this as meaning that I should read that Figure). Same for Figures 11, 12, 14 and 9.
+
+{\color{blue} We have shifted the reference to the figure in paranthesis, and clarified that this is where more details can be found.
+}
+
  \item (page 5). ``The second game'' As described in \ref{sec:broad-EPR}, I suggest that you describe the \Leash protocol as doing the \Broad scheme, instead of the \EPR scheme.
+ 
+ {\color{blue} Changed to "Broadbent's EPR" protocol.}
+ 
 \item (page 5) ``We remark that in both sub-games, the questions received by PV are of the form $W \in \Sigma$, where
 $\Sigma = \{X,Y, Z, F, G\}$ is the set of measurements performed by the verifier in Broadbent's EPR protocol.'' I believe that this is false, and has been an extremely confusing point in this submission, that is inadequately explained. I believe that the RIGID game ends up asking PV to do Bell basis measurements as part of the rigidity tests.
+
+{\color{blue} Yes, thank you for pointing this out. We have changed the description and clarified that only a \emph{subset} of the questions in RIGID is of that form. Hopefully it is much clearer now.
+}
+
 \item (page 5) ``Hence, we can use our rigidity result of Theorem 1
 to guarantee honest behavior of PV in the delegation sub-game'' Immediately after this passage, please explain PP's role.
+
+{\color{blue} Done.
+}
+
 \item (page 5) ``requires (2d +1) rounds''. I would remove the brackets. Currently, it looks like you forgot a ``big - O''. (Oh, maybe you did for a ``big-Oh''!).
+
+{\color{blue} Done.
+}
+
+
 \item (page 5) ``(see Section 2.3 for a precise definition of how this is computed).'' I skimmed Section 2.3, I could not find this description. I think this should be a reference to some location in the text that describes the \Leash protocol.
+
+{\color{blue} Fixed.}
+
     \item (page 5) ``The protocol requires O(n+ g) EPR pairs
 to delegate a g-gate circuit on n qubits,'' Please mention something about rigidity here; this should be a high-level description of the protocol, at the level that includes the rigidity tests. If you don't want to do it here, you could refer to either Section 3, or Section 4.1.
+
+{\color{blue} We expanded the explanation of the protocols in the introduction and described in more details how we use the rigidity results in order to achieve our results.}
+
+
 \item (page 5) ``The
 input to the circuit is hidden from the provers, meaning that the protocol can be made blind by encoding the
 circuit in the input, and delegating a universal circuit.'' Add here that blindness only holds as long as PP and PV stay separated, and remove the passage ``particular,
 while PV and PP would have to collude after the protocol is terminated to learn the input in the leash
 protocol,'' which is in the description of \DW.
+
+{\color{blue} Done.}
+
 \item (page 5) ``The completeness of the protocol follows directly from the completeness of [Bro18].'' I think you also need completeness of RIGID.
+
+{\color{blue} Yes, done.}
+
 \item (page 5) ``since the combined
 behavior of our verifier and an honest PV is nearly identical to that of Broadbent’s verifier.'' Do you mean an honest PV in the delegation game (as opposed to RIGID game)? Also, replace with ``verifier in \Broad''.
+
+{\color{blue} Done.}
+
 \item (page 5) ``The second protocol''. Similar as for the ``first'' protocol, start a new subsection here and immediately call this  \DW.
+
+{\color{blue} Done.}
 \item (page 5) ``Based on the Dog-Walker Protocol, it is possible to design a classical-verifier two-prover protocol for
 all languages in QMA''. Start a new subsection for this. Also, please explain why this does not work for \Leash, or why you chose just \DW.
+
+
+{\color{blue} We have expanded the explanation on the QMA protocol.
+
+Regarding the Leash protocol, the input to the computation is a classical string and is hidden from the provers (and so one can achieve blindness). When extending our delegation protocol to a protocol for QMA, the input to the delegated circuit is the witness for the QMA instance, and the circuit being delegated is the QMA verification circuit. So, in general the input to the computation is a quantum state, and should be prepared by (one of) the provers. The Dog-Walker protocol, in which the input to the computation is known to the provers, can be more naturally adapted to this setting.}
+
+
 \item (page 6) ``The verifier then delegates the verification circuit to the second prover, as in the Dog-Walker Protocol; the first prover can be re-used to verify the operations of the second one.'' Grammatically unclear (I think the punctuation throws me off): does the ``as in'' qualify the ``verifier then delegates the verification circuit'', or does it qualify the ``the first prover can be re-used to verify...''? Maybe using a full stop instead of the semi-coma, and then saying ``The first prover can then be re-used (...)''. I think this would clarify (if indeed it is what you mean).
+
+{\color{blue} We meant the former. We added a full stop as suggested.}
+
 \item (page 6) ``have independently re-derived'' Remove `re'. I does not add anything, and makes it look like you are claiming precedence.
+
+{\color{blue} Done.}
+
 \item (page 6) ``two-prover delegation of quantum computation by classical
 clients with'' I think this is more appropriately singular: ``by a classical client''. If not, please explain.
+
+{\color{blue} Yes, fixed.}
+
 \item (page 6) In reference to [Gril17], please explain what parts subsume the current work under review, and which parts do not (e.g. is there blindness?, are the other complexity parameters the same?). Also, I would insert: ``two-prover delegation of quantum computation by classical
 clients with a single round of communication. \textbf{Because of this single-round structure,} space-like separation can replace the
 non-communication assumption.''
+
+{\color{blue} Done.}
+
 \item (page 6) Would it be appropriate to comment on subsequent work [GV19]? It would seem to be related to \Leash.
-    \item (page 6) Define the acronym ``i.i.d''
+
+{\color{blue} We don't think it is related in a significant enough way to comment ([GV19] is mentioned earlier, in connection with single-prover protocols with computational security)}
+
+
+\item (page 6) Define the acronym ``i.i.d''
+    
+  {  \color{blue} Done.}
+  
+
     \item (page 6)``and could not use'' not clear who is the subject of this part: the ``authors'' or the ``devices''. Maybe break into two sentences.
+    
+      {  \color{blue} Fixed.}
+      
 \item (page 6) ``does not require any additional assumption.'' $\rightarrow$ ``does not require any additional assumptions.''
+
+    {  \color{blue} Fixed.}
+    
 \item (page 6) ``Therefore, the requirement that the provers do not
 communicate throughout the protocol cannot be enforced through space-like separation, and must be taken
 as an a priori assumption. Since the protocol of [Gri17] is not blind,'' Explain better why [Gril17] suddenly appears here (link to space-like separation?)
+
+{\color{blue}  Clarified.}
+
 \item (page 6) ``albeit not necessarily in a truly efficient manner.''. This seems vague. Can you be more specific (since the point of the submission is about efficiency, can you compare more cleanly?).
+
+{\color{blue} We edited the sentence to clarify what we meant.}
+
 \item (page 5-6) The material of Section 6 should be included in the high-level summary somewhere.
+
+{\color{blue} We have added a few sentences on sequential amplification of soundness at the end of the Dog-Walker paragraph in the introduction.}
+
 \item (page 6) Maybe mention in ``Organization'' that Section 5.4 contains the QMA protocol?
+
+{\color{blue} Added.}
 \end{enumerate}
 
 
@@ -232,7 +1067,7 @@ as an a priori assumption. Since the protocol of [Gri17] is not blind,'' Explain
 
     \item (page 8) ``involves the interaction between a verifier $V_{EPR}$ and a prover $P$.'' Please check, there is inconsistency on how the possibly cheating verifier is denoted. In Theorem~3, it is called $P_{EPR}^*$.  (I don't think that the plain $P$ is ever used, so maybe you could just call any prover $P^*_{EPR}$ and the honest one $P_{EPR}$).
 		
-		{\color{red} TODO}
+		{\color{blue} Changed $P$ to $P_{EPR}^*$.}
 
         \item (page 8) ``Since the choice of round type is made after interaction with '' $\rightarrow$ after \textbf{the} interaction with
 				
@@ -240,7 +1075,7 @@ as an a priori assumption. Since the protocol of [Gri17] is not blind,'' Explain
 				
  \item (page 10) Table 2: I would place the row in order according to the presentation on this page: CNOT, H, T.
 
-		{\color{red} TODO}
+		{\color{blue} Done}
 
      \item (page 10) ``depends on a random bit $z_i$'' $\rightarrow$   depends on a \textbf{uniformly} random bit $z_i$
 		
@@ -252,15 +1087,15 @@ as an a priori assumption. Since the protocol of [Gri17] is not blind,'' Explain
 
    \item (page 12) In step 2 of Fig 3(a), there is a call to the $V_{EPR}^r$ procedure. which takes as input $\overrightarrow{x}, \overrightarrow{c}, \overrightarrow{z}$ as well as two qubit systems (in that order). I would make the syntax uniform so that also the call in step 2 of Fig 3(a) mentions these values in the same order. [It seems like a details, but these inconsistencies add up, when the reader is trying to understand!]
 	
-			{\color{red} TODO}
+			{\color{blue}Done.} 
 
        \item (page 13) ``Completeness and Soundness.'' uses the expression $\|\Pi_0Q|0^n\rangle\|^2$, whereas the Theorem 2 uses $\|\Pi_0Q|\overrightarrow{x}\rangle\|^2$. Please check which one you mean (I think you mean the latter).
 			
-						{\color{red} TODO}
+						{\color{blue} Good catch. Fixed.}
 
        \item (page 13) The benign attacks are defined as $B_{t,m}$ , but then used as $B_{t,n}$.
 			
-						{\color{red} TODO}
+						{\color{blue} Fixed: changed $n$ to $m$.}
 
    \end{enumerate}
 
@@ -287,7 +1122,7 @@ as an a priori assumption. Since the protocol of [Gri17] is not blind,'' Explain
 
 \item "rounds" are usually used as the sequentially exchanged messages in interactive protocols. This paper uses round and sub-round also for the potential format of messages in a particular round. Broadbent's paper on EPR protocol uses "run" instead of "round" and seems to be a better now for this context.
 
-{\color{red} TODO}
+{\color{blue} Agree that ``run'' is better. Changed.}
 
 \item Page 17, item 2 of Relations, do you need $\omega_a$ to be different?
 
@@ -387,13 +1222,12 @@ Assorted other typos/comments:
 \begin{itemize}
 \item page 10: H-gadget: “maximal such k is odd". Confused about what “maximal such k” means. Should it just be “$H(TTH)^k$ where k is odd”?
 
-						{\color{red} TODO}
+						{\color{blue} Changed. It was written this way because we do require that the patterns of this form have odd $k$ and therefore an even number of $H$ gates, and if such a pattern occured with an even $k$, you could always chop off $TTH$ from the beginning or end to technically satisfy ``every $H$ occurs in such a pattern where $k$ is odd'', however, I think what we mean is clear from context, since we introduce the method for accomplishing this immediately after.}
 
 
 \item Figure 2: what is the $c_f$? Is this the f-th bit of $\vec{c}$? (seems redundant)
 
-						{\color{red} TODO}
-
+						{\color{blue} $c_f$ is just an extra bit that is sent from $P_{EPR}$ to $V_{EPR}$. We think that this is rather clear in the current figure and changing the notation could introduce further inconsistencies.}
 
 \item Does $\Sigma$ generate the set of single-qubit Clifford unitaries?
 
@@ -636,7 +1470,13 @@ test.'' Both RIGID and TOM include a ``tomography'', so please be specific. Mayb
 \subsubsection*{Reviewer 1}
 \begin{enumerate}
 \item On page 45, in the list of soundness analysis steps, what do you mean by "constant total variation distance"? It is always at most 1 by definition.
+
+{\color{blue} We meant a constant smaller than 1. We clarified this in the text.}
+
 \item As in Table 4, the $W_i$'s are chosen at random and it seems that $T^0_\ell$ and $T^1_\ell$ will have roughly same/different length depending on whether it is a computation round or test round. Does this leak information about the round type to PP?
+
+{\color{blue} $T^0_\ell$ and $T^1_\ell$ have a fixed size as indicated in the paragraph ``The verifier also chooses subsets...''.}
+
 
 \end{enumerate}
 
@@ -646,46 +1486,112 @@ These sections of the paper are written quite clearly and appear correct (assumi
 
 Page 31, middle: "uniformly random partition $A, B_1,..., B_d$", where "$|B_\ell| = \Theta(t_\ell)$". In each layer, there is at most one T gate. So is $|B_\ell| = 0$ when $t_\ell = 0$, and a constant otherwise?
 
+{\color{blue} Exactly.} {\color{red} Hmmm, I don't think that's actually true. A layer could have as many as $n$ $T$ gates (one on each wire). Or am I missing something? -SJ} {\color{green} We have defined it differently. For us, each level has at most one T gate. -ABG}
+
+
 Page 34, Step 4(b): the reject criterion is $c_i \neq a_j + e_i$, which differs from the reject criterion in the EPR protocol on page 12, Figure (a), Step 3, which is $c_i \neq a_i' + e_i$. Why are these different?
+
+{\color{blue}Thanks for pointing this out. This notation is actually misleading, because the conditions are the same. In the EPR protocol, $\vec{a}=a_1,\dots,a_n$ denotes the original one-time pad keys, and $\vec{a}'=a'_1,\dots,a_t'$ denotes the one-time pad key going into each $T$ gate. That is, if the $i$-th $T$ gate is applied to the $j$-th wire, $a_i'$ denotes the one-time pad key of the $j$-th qubit just before application of the $i$-th $T$ gate. Due to differences in the way the leash protocol is presented, it is more convenient to let $\vec{a}=a_1,\dots,a_n$ denote the \emph{current} one-time pad keys, which we assume are updated after every layer of computation. This is indeed a source of confusion, so we have added the following after Figure 10: ``Note that in the EPR Protocol, we let $a_i'$ denote the one-time-pad key of the $j$-th wire just before application of the $i$-th $\sf T$ gate (to the $j$-th wire). Here we will assume $a_j$ denotes the current updated one-time-pad key of the $j$th wire, so it is the same as $a_i'$ in the EPR Protocol.'' We also added to the caption of Figure 11: ``Note that the condition $c_i\neq a_j+e_i$ is the same as the condition $c_i\neq a_i'+e_i$ in the EPR Protocol --- $a_j$ here and $a_i'$ in the EPR Protocol both represent the one-time-pad key just before application of the $i$-th $\sf T$ gate.''}
 
 My best guess is that it has something to do with measuring the observable $W_i$ before the generation of bit $c_i$ in the delegation protocol, whereas in the EPR protocol it's measured after the bit $c_i$ is generated. But it's hard to verify this, because the "completeness proof" just appeals to the completeness of the EPR protocol.
 
 I recommend explaining what the differences are between the EPR protocol and the Verifier on a Leash protocol, and why those differences are OK. In particular, why completeness still holds.
 
+{\color{blue}We added just before the statement of the completeness lemma: ``The honest provers in the Leash Protocol are essentially executing the EPR Protocol, with the only difference being that in the case of the leash protocol, $W$ is chosen at random and then $\vec{z}$ is chosen accordingly, whereas in the case of the EPR Protocol, $\vec{z}$ is chosen at random and then $W$ is chosen accordingly. The resulting distribution on $\vec{z}$ and $W$ is the same, and so completeness follows from that of the EPR Protocol.''}
+
 Page 36, Proof of Lemma 16: choosing $W_i$ at random, then choosing $z_i$, versus choosing $z_i$ at random, then computing $W_i$ are equivalent. It seems like this requires $a_j$ to be uniformly random in order for this to hold -- is that right?
 
-Page 37, Proof of Lemma 16: "There are two reasons that $V_{EPR}$ might reject: $... c_i = a_j + e_i$ fails". Again, this seems to differ from the protocol described on Page 12, Figure (a). Which is the real EPR protocol?
+{\color{blue} This isn't required. What is necessary is that the relationship between the choice of $W_i$ and $z_i$ is the same in both cases, and this is true, even if $a_j$ and $c_i$ are fixed. For example, in the EPR Protocol, if $a_j+c_i+z_i=0$ in a computation round, then $W_i$ is set to $G$, whereas if $a_j+c_i+z_i=1$ in a computation round, $W_i$ is set to $F$. In the Leash Protocol, in a computation round, we have $W_i\in \{G,F\}$, and if $W_i=G$, we set $z_i=a_j+c_i$, ensuring $a_j+c_i+z_i=0$; otherwise if $W_i=F$, we set $z_i=a_j+c_i+1$, ensuring $a_j+c_i+z_i=1$.
+
+In the EPR Protocol, the randomness of the bit $z_i$ ensures the appropriate randomness of $W_i$ --- either $W_i\in_R\{G,F\}$, $W_i\in_R\{X,Y\}$ or $W_i=Z$, depending on the round type. In the Leash Protocol, each $W_i$ is chosen uniformly at random, but the $i$-th wire is selected for use in a setting where it is of the correct type. For example, if wire $i$ is selected for use in a $\sf T$ gadget in a computation round, it must be that $W_i\in \{G,F\}$, and it is equally likely to be either $G$ or $F$. This leads to a uniform marginal distribution on $z_i$.}
+
+{\color{red}Does anyone think we should add explanation to this effect somewhere in the paper?}
+
+Page 37, Proof of Lemma 16: "There are two reasons that $V_{EPR}$ might reject: $... c_i = a_j + e_i$ fails". Again, this seems to differ from the protocol described on Page 12, Figure (a). Which is the real EPR protocol? 
+
+{\color{blue} Indeed, this is confusing. We have added a clarification to this part of the proof: ``Note that in the description of the EPR Protocol, the one-time-pad key just before application of the $i$-th $\sf T$ gate is denoted $a_i'$, which we denote here by $a_j$. ''}
 
 Major question about Leash versus Dog Walker protocol: the Dog Walker protocol is motivated by reducing the number of rounds to constant, at the cost of giving up blindness. However, as far as I can tell, the Leash protocol only uses the sequentiality to obtain blindness. Why can't the Leash protocol be flattened to a constant number of rounds in, and still preserve completeness and soundness? The completeness proof does not depend on the sequentiality, nor does the soundness proof (or is that incorrect?).
 
+{\color{red} ABG: please check the following:}
+
+{\color{blue} Notice that the choice of basis in the self-testing game is different from the the one in Delegation game. In particular, in the Delegation game, the choice of basis regarding the $i$-th level of the computation depends on the measurement outcomes of the previous levels. 
+
+In the Leash protocol, PP report the measurement outcomes of a level, and the verifier picks random basis and chooses a subset of them that correspond to the basis needed in the Delegation protocol. This guarantees that $i)$ the basis choices are indistinguishable from the ones used in the self-testing games and $ii)$ the delegation can be performed on the subset of EPR pairs chosen by the verifier.
+
+If we report the input to PP and ask them to perform either the Delegation game or the self-testing game, the behaviour of PP must be different on each of them (since they must compute the new basis in the Delegation game), and we have no guarantee on the consistency of their behaviour in both tests. In order to solve this, we need to introduce new tests for connecting both strategies, leading to the Dogwalker protocol.}   
+
+
 Page 42: description of protocol, the reject criteria for the X/Z test rounds is $c_i \neq a_i' + e_i$ now, which matches the description of the EPR protocol (but differs from Leash protocol).
 
+{\color{blue} Here we have used the same notation as the EPR Protocol.}
+
 Page 50: the figure caption obscures the page number.
+
+{\color{blue} Indeed, this figure was too large. We have split it into two figures: Figure 19 and Figure 20.}
 
 
 \subsubsection*{Reviewer 3}
 \begin{enumerate}
 \item (page 30) ``We call the resulting protocol the Leash Protocol with parameters (pr, pd)''. Why not make this into a figure? This will help make statements more formal. Eg. The statement of Theorem 14 refers to the ``Verifier-on-a-Leash'' protocol, which is not defined; I think you mean ``Leash'' protocol as in this passage.
+
+{\color{red} Check with Andrea.}
+
     \item (page 31)``Further, the protocol leaks no information about x to either prover individually, aside from an upper bound
 on the length of x.'' This statement is too informal to be in a Theorem statement. In fact, it is not defined in the submission what it means to ``leak no information''. Section 4 formalizes ``blindness'' in terms of the reduced state of the provers. So it would be necessary to make Theorem 14 sufficiently formal to incorporate this notion.
+
+{\color{blue} The Theorem statement was rephrased.}
+
 \item Section ``4.1 Protocol and statement of results''. I would invest more into a better presentation in the introduction, and link to it here, and only present the essential notation at this point in the paper, and also to details that were not possible to explain in the introduction (due to their technical level).
+
+{\color{blue} We think that the purpose and the level of details of introduction and section 4.1 are not the same, and we prefer to keep both of them. Moreover, we find it useful recalling the overview of the protocol rather than  making the reader refer to the introduction for it. }
+
+
  \item As mentioned in \ref{sec:broad-EPR}, I am suggesting that the picture here should be that the \Broad protocol (and not EPR) is the underlying idea for the delegation, and that rigidity is testing PV from \Broad. This permeates the description of the protocol, and will have e.g. an effect on the presentation on page 32.
+ 
      \item (page 36). Figure 14. As far as I can tell, $RIGID(\Sigma, m)$ has questions that are outside of $\Sigma$ (e.g. for the Bell test which is part of RIGID), hence I think it is incorrect to write ``The verifier selects questions $W, W' \in \Sigma^m$'' and to think that this covers all of the questions in RIGID. In fact, I am wondering how you manage to use the RIGID game (which has extra questions, compared to the delegation game) within the delegation game. Please explain.
+
+{\color{blue}  We corrected the corresponding protocol to address this issue.}     
+     
          \item (page 36). ``exactly as in Step 1 of the Delegation Game'': please give Figure number for this game.
+
+{\color{blue}  Done.}     
+         
+         
 \item (page 39) ``4.4 Blindness''. I think it would be important to recognize that here, the definition of blindness does not say anything about the provers possibly \emph{increasing} their knowledge about $x$, via the protocol. It only says that if they start with no knowledge on $x$, they end with no knoweldge. Thus, the possibility of a simulation-based definition and proof is still an open question. Such simulation-based definition would be much more interesting, since usually the provers would likely start with some a-priori knowledge of what types of circuits they may be asked to run.
+
+{\color{blue} We agree that it would be more desirable to have a simulation-based proof, but this is out of the scope of this paper, and we have added this as an open problem.}
+
 \item (page 39)
       I could be mistaken, but the general idea for the proof is essentially the same reason why the \EPR protocol came to be in the first place: we want to argue that PP can go first, and interact on fresh randomness (only). An explanation along these lines would be helpful.
 
+{\color{red}TODO: I'm not sure I want to bother justifying why we use the EPR Protocol instead of Anne's original protocol. As the reviewer said, it's useful for arguing that PP can go first, that's why we use it instead of the original protocol, and if we never mention the original protocol, there's no confusion.}
+
+
 \item (page 41)``For this reason, we must
 augment the test discussed in Section 3 '' Please say which one. There are many, many tests in Section 3.
+
+
+{\color{blue}  Done.}     
+
 \item (page 41) ``For this reason, we introduce the Tomography test and prove'' You already introduced this test at the end of Section 3, hence you can refer to it here.
+
+{\color{blue}  Done.}     
+
 \item (page 41) ``Figure 17 (PV’s point of view)
 and Figure 16 (PP’s point of view).'' Change the order so that the figures are presented in increasing order.
+
+{\color{blue}  Done.}     
+
 \item (page 49) ``We state the result and sketch its proof.'' Add the name of the Lemma (I think, Lemma 27).
+
+{\color{blue}  Done.}     
+
+\item Currently, Section 6 is not at all summarized in the intro. This should be corrected, by adding at least a few sentences about the results in this section, perhaps close to where Figure 1 is explained. Actually, this is borderline Appendix material; you could also move it to the Appendix (and refer to this Appendix in the intro).
+
 
 {\color{blue} Done.}
 
-\item Currently, Section 6 is not at all summarized in the intro. This should be corrected, by adding at least a few sentences about the results in this section, perhaps close to where Figure 1 is explained. Actually, this is borderline Appendix material; you could also move it to the Appendix (and refer to this Appendix in the intro).
 \end{enumerate}
 
 
@@ -712,48 +1618,134 @@ Many were already noted in the specific sections above. Here are some more.
 products of sX and sZ observables with constant robustness, to allow for sY observables as well.'' Use brackets here, it will be easier to read:
 ``Our first contribution is to extend the “Pauli braiding test” of [NV17] (which allows one to test tensor
 products of sX and sZ observables with constant robustness), to allow for sY observables as well.''
+
+{\color{blue} Done.}
+
 \item (page 14). Double period around Footnote 6.
+
+{\color{blue} Done.}
+
 \item (page 15) ``decribe''
+
+{\color{blue} Done.}
+
 \item (page 16) ``as a result we will also often omit an
 explicit specification of which player’s space an observable is applied to.'' check the grammar of this passage. I would remove the final ``to''.
+
+{\color{blue} Done.}
+
    \item (page 24) ``Note that
 a priori test CONJ'' $\rightarrow$ ``   \item (page 24) ``Note that,
 a priori, test CONJ''''
+
+{\color{blue} Done.}
+
+
 \item (page 29) ``will be useful for our analysis of the Dog-Walker Protocol from Section 5.'' $\rightarrow$ ``will be useful for our analysis of the Dog-Walker Protocol in Section 5.''
+
+{\color{blue} Done.}
+
 \item (page 27) The ``hat'' command does not center nicely on the ``A'' (just below equation 18), probably due to the font that you are using.
+
+{\color{blue} Done.}
+
 \item ``for our analysis of the Dog-Walker Protocol from Section 5.'' $\rightarrow$ ``for our analysis of the Dog-Walker Protocol in Section 5.''
+
+{\color{blue} Done.}
+
 \item (page 30) I would limit parenthetical comments to one sentence. Also, check the double period at the end of the parenthesis ``(See Section 2.3 for a summary of the protocol and a description of VEPR. Throughout this section we
 assume that the circuit Q provided as input is compiled in the format described in Section 2.3.).''
+
+{\color{blue} Done.}
+
 \item (page 30)``and t number
 of T gates in Q.'' $\rightarrow$ ``and t be the number
 of T gates in Q.'
+
+{\color{blue} Done.}
+
 \item (page 35). Add ``in the Delegation Game'' in both captions for Figure 13 and Figure 12.
+
+{\color{blue} Done.}
+
+
 \item (page 35). Place Figure 12 before Figure 13.
+
+{\color{blue} Done.}
+
+
 \item (page 38). ``If $\lambda = +$''. I would put a comma after this: ``If $\lambda = +,$''. Same thing for ``If $\lambda = -$''
+
+{\color{blue} Done.}
+
+
 \item (page 36). ``by Theorem 2 and since in
 our protocol the verifier'' I would delete ``in our protocol'' since this is clear from context. Or if you want to keep it, add a comma before and after: ``by Theorem 2 and since, in
 our protocol, the verifier''
+
+{\color{blue} Done.}
+
+
 \item (page 41) ``We notice''$\rightarrow$ ``We note''
+
+{\color{blue} Done.}
+
+
 \item (page 44) ``and PP play'' $\rightarrow$ ``and PP plays''
+
+{\color{blue} Done.}
+
+
 \item (page 55) Check Bibtex acronym for [BvCA18]; also use a capital ``P'' in ``pauli''
+{\color{blue} Done.}
+
+
 \item (references) Check for updated (published) references.
+
+{\color{blue} Done.}
+
+
 \item (page 57) ``a robust self-test test''$\rightarrow$ ``a robust self-test''
+
+{\color{blue} Done.}
+
 \item (page 57) ``Answers from the prover'' $\rightarrow$ ``provers''
+
+{\color{blue} Done.}
+
+
 \item (page 57) ``except the last'' $\rightarrow$ ``except the last column''
+
+{\color{blue} Done.}
+
+
 \item (page 59) is it PVM or POVM?
+
+{\color{blue} Done.}
+
+
 \item (footnote 9) ``either $\delta_i$'' I think that there are 3 possibilities, so use ``any'' instead of ``either''
+
+{\color{blue} Done.}
 \item (page 59) Remind us of the meaning of notation $\{A,X\} \approx 0$
+
+{\color{blue} Done.}
+
+
 \item (page 60) ``Accept if and only c'' $\rightarrow$ ``Accept if and only if c''
+
+{\color{blue} Done.}
+
+
 \item (page 66) ``the the''
+
+{\color{blue} Done.}
+
 \end{enumerate}
 
 
+\section{Backup}
 
-
-\clearpage
-
-\section{Full reviews}	
-	\appendix
 \subsection*{Reviewer 1}
 Summary
 
@@ -934,4 +1926,6 @@ both with O(g log g) resources. They differ in the number of rounds as follows:
 \item  Dog-Walker protocol: The Dog-Walker protocol uses a constant number of communication
 rounds.	
 \end{itemize}
-\end{document}
+
+
+\clearpage

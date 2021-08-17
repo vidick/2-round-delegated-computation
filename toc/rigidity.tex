@@ -18,7 +18,6 @@ We start by introducing the language required to formulate our testing results.
 \subsection{Testing}
 \label{sec:general-rigidity}
 %============================%
-
 In this section we recall the standard formalisms from self-testing, including state-dependent distance measure, local isometries, etc. We also introduce a framework of ``tests for relations'' that will be convenient to formulate our results. 
 
 
@@ -264,8 +263,9 @@ Test~\conjc(R):
 Let $R$ be an $m$-qubit Clifford unitary and $h_S,h_X,h_Z$ such that~\eqref{eq:conj-cliff} holds. Suppose a strategy for the players succeeds with probability at least $1-\eps$ in test $\conjc(R)$. Let $V_A:\mH_\reg{A} \to ((\C^2)^{\otimes (m+1)})_{\reg{A}'}  \otimes {\mH}_{\hat{\reg{A}}}$ be the isometry whose existence follows from part (a) of the test, and $\Delta_Y$ the observable on $\mH_{\hat{\reg{A}'}}$ that represents the phase ambiguity (see Lemma~\ref{lem:xyz-rigid}). 
 Then there exists a unitary $\phase_R$ on ${\mH}_{\hat{\reg{A}}}$ and another unitary $\phase_R$ on ${\mH}_{\hat{\reg{B}}}$, such that each commutes with $\Delta_Y$ on the same system and
 \begin{equation}\label{eq:r-stab}
- \big\|\phase_R \otimes \phase_R \ket{\aux} - \ket{\aux} \big\|^2 = O(\poly(\eps)).
+ \big\|\phase_R \otimes \phase_R \ket{\aux} - \ket{\aux} \big\|^2 = O(\poly(\eps)),
 \end{equation}
+where $\ket{\aux}$ is the state defined in Lemma~\ref{lem:xyz-rigid}.
 Moreover, let $\hat{\tau}_R$ be any $m$-qubit Clifford unitary, acting on the space $(\C^2)^{\otimes m}$ into which the isometry $V_A$ maps, which satisfies the relations specified in~\eqref{eq:conj-cliff}, where for any location $i\in\{1,\ldots,m\}$ such that $a_i=b_i=1$ we replace $\sigma_X\sigma_Z$ by $\tau_Y = \sigma_Y \otimes (i\Delta_Y)$.\footnote{Note that $\hat{\tau}_R$ is uniquely defined up to phase.} Then, letting  $ \tau_R = \hat{\tau}_{R}(\Id_{\reg{A}'} \otimes \phase_R)$ we have that  under the same isometry,
 $$R \,\simeq_{\poly(\eps)}\, \tau_R.$$
 \end{lemma}

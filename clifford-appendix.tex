@@ -11,7 +11,7 @@ In this appendix we collect simple tests that will be used as building blocks. I
 \subsection{The Magic Square game}
 \label{sec:ms}
 
-We use the Magic Square game~\cite{Mermin90} as a building block, noting that it  provides a robust self-test test for the two-qubit Weyl-Heisenberg group (see Section~\ref{sec:prelim-notation} for the definition). Questions in this game are specified by a triple of labels corresponding to the same row or column from the square pictured in Figure~\ref{fig:ms} (so a typical question could be $(IZ,XI,XZ)$; there are $6$ questions in total, each a triple). An answer is composed of three values in $\{\pm 1\}$, one for each of the labels making up the question. Answers from the prover should be entrywise consistent, and such that the product of the answers associated to any row or column except the last should be $+1$; for the last column it should be $-1$. The labels indicate the ``honest'' strategy for the game, which consists of each prover measuring two half-EPR pairs using the commuting Pauli observables indicated by the labels of his question. 
+We use the Magic Square game~\cite{Mermin90} as a building block, noting that it  provides a robust self-test for the two-qubit Weyl-Heisenberg group (see Section~\ref{sec:prelim-notation} for the definition). Questions in this game are specified by a triple of labels corresponding to the same row or column from the square pictured in Figure~\ref{fig:ms} (so a typical question could be $(IZ,XI,XZ)$; there are $6$ questions in total, each a triple). An answer is composed of three values in $\{\pm 1\}$, one for each of the labels making up the question. Answers from the provers should be entrywise consistent, and such that the product of the answers associated to any row or column except the last column should be $+1$; for the last column it should be $-1$. The labels indicate the ``honest'' strategy for the game, which consists of each prover measuring two half-EPR pairs using the commuting Pauli observables indicated by the labels of his question. 
 
 \begin{figure}[H]
 \begin{center}
@@ -96,7 +96,7 @@ The proof for each test is similar. As an example we give it for the commutation
 
 First we verify completeness. Let $A,B$ be two commuting observables on $\mH_{\reg{A}} = \mH_{\reg{B}} = \mH$, and $\ket{\EPR}_{\reg{AB}}$ the maximally entangled state in $\mH_\reg{A}\otimes \mH_\reg{B}$. Upon receiving question $A$ or $B$, the prover measures the corresponding observable. If the question is $(A,B)$, he jointly measures $A$ and $B$. This strategy succeeds with probability $1$ in the test. 
 
-Next we establish soundness. Let $\ket{\psi} \in \mH_{\reg{A}}\otimes \mH_\reg{B}$ be a state shared by the provers, $A$, $B$ their observables on questions $A,B$, and $\{C^{a,b}\}$ the four-outcome PVM applied on question $(A,B)$. Assume the strategy succeeds with probability at least $1-\eps$. Recall that this includes both the test described in Figure~\ref{fig:elementary}, and the automatic consistency test. Let $C_A = \sum_{a,b} (-1)^a C^{a,b}$ and $C_B = \sum_{a,b} (-1)^b C^{a,b}$. Then $C_A$ and $C_B$ commute. Thus
+Next we establish soundness. Let $\ket{\psi} \in \mH_{\reg{A}}\otimes \mH_\reg{B}$ be a state shared by the provers, $A$, $B$ their observables on questions $A,B$, and $\{C^{a,b}\}$ the four-outcome POVM applied on question $(A,B)$. Assume the strategy succeeds with probability at least $1-\eps$. Recall that this includes both the test described in Figure~\ref{fig:elementary}, and the automatic consistency test. Let $C_A = \sum_{a,b} (-1)^a C^{a,b}$ and $C_B = \sum_{a,b} (-1)^b C^{a,b}$. Then $C_A$ and $C_B$ commute. Thus
 \begin{align*}
 A_\reg{A} B_\reg{A} \otimes \Id_\reg{B}
 &\approx_{\sqrt{\eps}} A_\reg{A} \otimes (C_B)_\reg{B}\\
@@ -111,7 +111,7 @@ Here each approximation uses the consistency condition provided by the test, as 
 We will often make use of the following simple lemma, which expresses an application of the above tests. 
 
 \begin{lemma}\label{lem:pauli-c}
-Let $\ket{\psi} \in \mH_{\reg{A}} \otimes \mH_{\reg{B}}$ and $A,X$ observables on $\mH_{\reg{A}}$ such that there exists an isometry $\mH_{\reg{A}} \simeq \C^2 \otimes \mH_{\hat{\reg{A}}}$ under which the following conditions hold, for some $\delta_1,\delta_2,\delta_3$:\footnote{Note that we allow either $\delta_i$ to equal $1$, leading to a vacuous condition.}
+Let $\ket{\psi} \in \mH_{\reg{A}} \otimes \mH_{\reg{B}}$ and $A,X$ observables on $\mH_{\reg{A}}$ such that there exists an isometry $\mH_{\reg{A}} \simeq \C^2 \otimes \mH_{\hat{\reg{A}}}$ under which the following conditions hold, for some $\delta_1,\delta_2,\delta_3$:\footnote{Note that we allow $\delta_i$ to equal $1$, leading to a vacuous condition.}
 \begin{enumerate}
 \item[(i)] There exists an observable $A'$ on $\mH_\reg{B}$ such that $A\otimes \Id \approx_{\delta_1} \Id \otimes A'$;
 \item[(ii)] $\ket{\psi} \simeq_{\delta_1} \ket{\EPR}\ket{\aux}$ and $X\simeq_{\delta_1} \sigma_X \otimes \Id$; 
@@ -155,7 +155,7 @@ Test~$\bellt(X_1,X_2,Z_1,Z_2)$:
 		\begin{enumerate}
 		\item[(a)] Execute the Magic Square game, labeling each entry of the square from Figure~\ref{fig:ms} (except entry $(3,3)$, labeled as $Y_1Y_2$) using the observables $X_1,Z_1$ and $X_2,Z_2$.
 		\item[(b)] Send $\Phi$ to one prover and the labels $(X_1X_2,Z_1Z_2,Y_1Y_2)$ associated with the third column of the Magic Square to the other.  The first prover replies with $a,b\in\{0,1\}$, and the second with $c,d,e\in \{\pm 1\}$. The referee checks the provers' answers for the obvious consistency conditions. For example, if the first prover reports the outcome $(0,0)$, then the referee rejects if $(c,d)\neq (+1,+1)$. 
-		\item[(c)] Send $\Phi$ to one prover and $\SWAP$ to the other. The first prover replies with $a,b\in\{0,1\}$, and the second with $c\in \{\pm 1\}$. Accept if and only $c=(-1)^{ab}$. 
+		\item[(c)] Send $\Phi$ to one prover and $\SWAP$ to the other. The first prover replies with $a,b\in\{0,1\}$, and the second with $c\in \{\pm 1\}$. Accept if and only if $c=(-1)^{ab}$. 
 		\end{enumerate}
 \end{itemize}
 \rule[2ex]{16.5cm}{0.5pt}\vspace{-.5cm}
@@ -444,7 +444,7 @@ The last condition in the lemma follows from the consistency relations, which im
 \end{proof}
 
 \begin{claim}\label{claim:swap-tt}
-Let $A\in \Obs(\C^2_{\reg{A}_1}\otimes \cdots\otimes \C^2_{\reg{A}_k} \otimes \mH)$ and $B\in \Obs(\C^2_{\reg{B}_1}\otimes \cdots\otimes \C^2_{\reg{B}_k}\otimes \mH)$ be $k$-qubit observables acting on distinct registers $\reg{A}_j$, $\reg{B}_j$, as well as a common space $\mH$, and $\Phi_{\reg{A'B'}} = \prod_{j=1}^k \proj{\EPR}_{\reg{A'}_j,\reg{B'}_j}$ the the projector on $k$ EPR pairs across registers $\reg{A'}_j$ and $\reg{B'}_j$.  Then 
+Let $A\in \Obs(\C^2_{\reg{A}_1}\otimes \cdots\otimes \C^2_{\reg{A}_k} \otimes \mH)$ and $B\in \Obs(\C^2_{\reg{B}_1}\otimes \cdots\otimes \C^2_{\reg{B}_k}\otimes \mH)$ be $k$-qubit observables acting on distinct registers $\reg{A}_j$, $\reg{B}_j$, as well as a common space $\mH$, and $\Phi_{\reg{A'B'}} = \prod_{j=1}^k \proj{\EPR}_{\reg{A'}_j,\reg{B'}_j}$ the projector on $k$ EPR pairs across registers $\reg{A'}_j$ and $\reg{B'}_j$.  Then 
 \begin{align}
  \Big(\bigotimes_j \bra{\EPR}_{\reg{A}_j\reg{A'}_j}\bra{\EPR}_{\reg{B}_j\reg{B'}_j} \otimes \Id_{\mH} \Big)&\Big(\big(A_{\reg{A}\mH} \otimes \Id_\reg{B}\big)\big( \Id_\reg{A}\otimes B _{\reg{B}\mH}\big)\otimes \Phi_{\reg{A'B'}}\Big) \Big(\bigotimes_j \ket{\EPR}_{\reg{A}_j\reg{A'}_j}\ket{\EPR}_{\reg{B}_j\reg{B'}_j} \otimes \Id_\mH\Big)\notag\\
 & = \frac{1}{2^{2k}}\sum_i \Tr\big(A_i B_i\big) A'_iB'_i,\label{eq:swap}
