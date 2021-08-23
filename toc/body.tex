@@ -241,10 +241,9 @@ Dog-Walker Protocol (including the extension to a two-prover protocol for QMA). 
 
 
 
-\paragraph{Acknowledgments.} We thank Anne Broadbent for useful discussions in the early stages of this work. All authors acknowledge the IQIM, an NSF Physics Frontiers Center at the California Institute of Technology, where this research was initiated.
-AC is supported by AFOSR YIP award number FA9550-16-1-0495.
-Part of this work was performed when AG was affiliated to IRIF, CNRS/University of Paris, where he was supported by ERC QCC and part of this work was performed when AG was affiliated to CWI and QuSoft, where we has partially supported by ERC Consolidator Grant 615307-QPROGRESS.
-SJ is supported by an NWO Veni Innovational Research Grant under project number 639.021.752 and an NWO WISE Grant.
+\paragraph{Acknowledgments.} We thank Anne Broadbent for useful discussions in the early stages of this work. All authors acknowledge the IQIM, an NSF Physics Frontiers Center at the California Institute of Technology, where this research was initiated. We also thank the anonymous reviewers that helped us to improve the presentation of this manuscript.
+
+%SJ is supported by an NWO Veni Innovational Research Grant under project number 639.021.752 and an NWO WISE Grant.
 
 
 
@@ -1006,7 +1005,6 @@ We now give the precise protocols for the delegation game $\ver$ (Figure \ref{fi
 and honest provers $\pv$ (Figure \ref{fig:leash-protocol-PV}) and $\pp$ (Figure~
 \ref{fig:leash-protocol-PP}). 
 
-
 %----------------%
 \begin{figure}[H]
 \rule{\textwidth}{0.5pt}
@@ -1084,7 +1082,8 @@ The verifier sends the sets $N$ and $T_\ell^0$, $T_\ell^1$, for all $\ell\in\{1,
 
 
 
-With all of these sub-protocols in hand, we can now present the Leash protocol (Figure~\ref{fig:leash-description}).
+With all of these sub-protocols in hand, we can now present the Leash protocol (Figure~\ref{fig:leash-description}). Figure~\ref{fig:LeashFig} illustrates the tree-like structure of all the different sub-games and tests used within the protocol.
+
 \begin{figure}[H]
 \rule[1ex]{\textwidth}{0.5pt}
 \vspace{-25pt}
@@ -1098,6 +1097,10 @@ With all of these sub-protocols in hand, we can now present the Leash protocol (
 \caption{Leash protocol with parameters $p_r$ and $p_d$.}
 \label{fig:leash-description}
 \end{figure} 
+
+
+\input{LeashFig.tex}
+
 
 \subsection{Completeness}
 
@@ -1379,4 +1382,7 @@ Then, for any provers $\pp$ and $\pv$,
 \end{align*}
 \end{proof}
  Finally, one can check that when $P$ is the verifier-on-a-leash protocol, then $\mbox{Seq}(P,c,\Delta, \kappa)$ remains blind. This follows from a similar argument as in the proof of Lemma \ref{lem:blindness}.
-
+ 
+ 
+ 
+ 

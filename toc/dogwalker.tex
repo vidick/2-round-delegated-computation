@@ -11,7 +11,10 @@ The full protocols are presented in Figure \ref{fig:dogwalker-protocol-V} (verif
 types of runs: 
 EPR and Rigidity. Within an EPR run are three 
 types of sub-runs: 
-Computation sub-run, $X$-test sub-run, and $Z$-test sub-run. We will generally think of $X$- and $Z$-test sub-runs as one sub-run type (Test sub-run). Within a Rigidity run are two types of sub-runs: Tomography sub-run, which should be thought of as the Rigidity version of the EPR-Computation run; and Clifford sub-run, which should be thought of as the Rigidity version of the EPR-Test run. With some probability $p_1$, $\ver$ runs a Rigidity run, Clifford sub-run; with some probability $p_2$, $\ver$ runs an EPR run, Test sub-run; with some probability $p_3$, $\ver$ runs an EPR run, Computation sub-run; and with probability $p_4=1-p_1-p_2-p_3$, $\ver$ runs a Rigidity run, Tomography sub-run. We call this the Dog-Walker Protocol with parameters $(p_1,p_2,p_3,p_4)$.
+Computation sub-run, $X$-test sub-run, and $Z$-test sub-run. We will generally think of $X$- and $Z$-test sub-runs as one sub-run type (Test sub-run). Within a Rigidity run are two types of sub-runs: Tomography sub-run, which should be thought of as the Rigidity version of the EPR-Computation run; and Clifford sub-run, which should be thought of as the Rigidity version of the EPR-Test run. With some probability $p_1$, $\ver$ runs a Rigidity run, Clifford sub-run; with some probability $p_2$, $\ver$ runs an EPR run, Test sub-run; with some probability $p_3$, $\ver$ runs an EPR run, Computation sub-run; and with probability $p_4=1-p_1-p_2-p_3$, $\ver$ runs a Rigidity run, Tomography sub-run. This structure is illustrated in Figure~\ref{fig:DogWalkerFig}. We call this the Dog-Walker Protocol with parameters $(p_1,p_2,p_3,p_4)$.
+
+ \input{DogWalkerFig.tex}
+
 
 
 The following theorem states the guarantees of the Dog-Walker Protocol.
