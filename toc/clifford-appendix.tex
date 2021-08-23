@@ -375,6 +375,12 @@ We first introduce $Y$ and test that the triple $\{X,Y,Z\}$ pairwise anticommute
 \end{align*}
 
 
+The test is described in Figure~\ref{fig:e-pbt}. It has four components. Part (a) of the test executes test $\pbt(X,Z)$, which gives us multi-qubit Pauli $X$ and $Z$ observables. 
+Part (b) of the test introduces $Y^m(c)$ observables, and uses commutation and anti-commutation relations with $X$ and $Z$ to force $Y^m$ to respect the qubit structure obtained from part (a); the analysis of this part is based on Lemma~\ref{lem:pauli-c-n}. Part (c) of the test, while not strictly necessary for our applications, justifies the test's name, by introducing an observable associated with any tensor product of Paulis and testing it for consistency against the observables tested in parts (a) and (b). 
+
+Part (d) of the test is meant to control the ``phase'' ambiguity in the definition of $Y(c)$ that remains after the analysis of part (b). Indeed, from that part it will follow that $Y(c) \simeq \sigma_Y(c) \otimes \Delta(c)$, where $\Delta(c)$ is an arbitrary observable acting on the ancilla system produced by the isometry obtained in part (a). We would like to impose $\Delta(c) \simeq \Delta_Y^{|c|}$ for a fixed observable $\Delta_Y$ which  represents the irreducible phase degree of freedom in the definition of $Y$, as discussed above. To obtain this, part (c) of the test performs a form of SWAP test between different $Y(c)$ observables, enforcing that e.g. $Y(1,0,1)$ is consistent with $Y(1,0,0)$ after an appropriate Bell measurement has ``connected'' registers $1$ and $2$. The Bell basis measurements are tested using $\pbellt(\tau)$ from the previous section. 
+
+
 \begin{figure}[H]
 \rule[1ex]{\textwidth}{0.5pt}\\
 \justifying
@@ -409,10 +415,6 @@ Test~$\pbt(X,Y,Z)$:
 \end{figure}
 
 
-The test is described in Figure~\ref{fig:e-pbt}. It has four components. Part (a) of the test executes test $\pbt(X,Z)$, which gives us multi-qubit Pauli $X$ and $Z$ observables. 
-Part (b) of the test introduces $Y^m(c)$ observables, and uses commutation and anti-commutation relations with $X$ and $Z$ to force $Y^m$ to respect the qubit structure obtained from part (a); the analysis of this part is based on Lemma~\ref{lem:pauli-c-n}. Part (c) of the test, while not strictly necessary for our applications, justifies the test's name, by introducing an observable associated with any tensor product of Paulis and testing it for consistency against the observables tested in parts (a) and (b). 
-
-Part (d) of the test is meant to control the ``phase'' ambiguity in the definition of $Y(c)$ that remains after the analysis of part (b). Indeed, from that part it will follow that $Y(c) \simeq \sigma_Y(c) \otimes \Delta(c)$, where $\Delta(c)$ is an arbitrary observable acting on the ancilla system produced by the isometry obtained in part (a). We would like to impose $\Delta(c) \simeq \Delta_Y^{|c|}$ for a fixed observable $\Delta_Y$ which  represents the irreducible phase degree of freedom in the definition of $Y$, as discussed above. To obtain this, part (c) of the test performs a form of SWAP test between different $Y(c)$ observables, enforcing that e.g. $Y(1,0,1)$ is consistent with $Y(1,0,0)$ after an appropriate Bell measurement has ``connected'' registers $1$ and $2$. The Bell basis measurements are tested using $\pbellt(\tau)$ from the previous section. 
 
 %\newtheorem*{lem:xyz-rigid}{Lemma~\ref{lem:xyz-rigid} (restated)}
 

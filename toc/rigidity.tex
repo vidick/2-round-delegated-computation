@@ -323,6 +323,15 @@ Considering $(a,b)$ such that $a\cdot b=1$ implies that $\phase_R(0,0)$ approxim
 
 We turn to testing observables in the $m$-fold direct product of the Clifford group. Although the test can be formulated more generally, for our purposes it will be sufficient to specialize it to the case where each element in the direct product is an observable taken from the set  $\Sigma = \{X,Y,Z,F,G\}$ associated with the single-qubit Pauli observables defined in Section~\ref{sec:prelim-notation}. Recall that the associated operators satisfy the conjugation relation $\sigma_Y \sigma_F \sigma_Y = \sigma_G$, which will be tested as part of our procedures (specifically, item (c) in Figure~\ref{fig:clifford-test-3}).
 
+
+The test is described in Figure~\ref{fig:clifford-test-3}. It is divided in five
+parts. Part (a) of the test executes  $\conjc(W)$ to verify that an observable
+$W\in\Sigma^m$ satisfies the appropriate Pauli conjugation
+relations~\eqref{eq:conj-cliff}. Note that a priori test $\conjc(W)$ only tests
+for the observable $X_W$ obtained from $W$ in blocks as $X_R$ from $R$
+in~\eqref{eq:def-xr} (indeed, in that test $W$ need not be an observable). Thus
+part (b) of the test is introduced to verify that $X_W \approx W X(e_{m+1})$, where the $(m+1)$-st qubit is the one used to specify the block decomposition relating $X_W$ to $W$.  The result of parts (a) and (b) is that, under the same isometry as used to specify the Pauli $X$ and $Z$, $W\simeq \hat{\tau}_W \cdot (\Id\otimes \phase_W)$, according to the same decomposition as shown in Lemma~\ref{lem:cliff-conj}. The goal of the remaining three parts of the test is to verify that $\phase_W = \phase_F^{|\{i: W_i \in \{F,G\}\}|}$, for a single observable $\phase_F$. For this, part (c) of the test verifies that $\phase_W$ only depends on the locations at which $W_i\in\{F,G\}$, but not on the specific observables at those locations. Part (d) verifies that $\phase_W \approx \prod_{i: W_i\in \{F,G\}} \phase_i $ for commuting observables $\phase_i$. Finally, part (e) checks that $\phase_i$ is (approximately) independent of $i$. 
+
 \begin{figure}[H]
 \rule[1ex]{\textwidth}{0.5pt}\\
 Test~$\cliff(\Sigma,m)$:
@@ -349,13 +358,6 @@ Test~$\cliff(\Sigma,m)$:
 \label{fig:clifford-test-3}
 \end{figure}
 
-The test is described in Figure~\ref{fig:clifford-test-3}. It is divided in five
-parts. Part (a) of the test executes  $\conjc(W)$ to verify that an observable
-$W\in\Sigma^m$ satisfies the appropriate Pauli conjugation
-relations~\eqref{eq:conj-cliff}. Note that a priori test $\conjc(W)$ only tests
-for the observable $X_W$ obtained from $W$ in blocks as $X_R$ from $R$
-in~\eqref{eq:def-xr} (indeed, in that test $W$ need not be an observable). Thus
-part (b) of the test is introduced to verify that $X_W \approx W X(e_{m+1})$, where the $(m+1)$-st qubit is the one used to specify the block decomposition relating $X_W$ to $W$.  The result of parts (a) and (b) is that, under the same isometry as used to specify the Pauli $X$ and $Z$, $W\simeq \hat{\tau}_W \cdot (\Id\otimes \phase_W)$, according to the same decomposition as shown in Lemma~\ref{lem:cliff-conj}. The goal of the remaining three parts of the test is to verify that $\phase_W = \phase_F^{|\{i: W_i \in \{F,G\}\}|}$, for a single observable $\phase_F$. For this, part (c) of the test verifies that $\phase_W$ only depends on the locations at which $W_i\in\{F,G\}$, but not on the specific observables at those locations. Part (d) verifies that $\phase_W \approx \prod_{i: W_i\in \{F,G\}} \phase_i $ for commuting observables $\phase_i$. Finally, part (e) checks that $\phase_i$ is (approximately) independent of $i$. 
 
 \begin{theorem}\label{thm:clifford-ntest}
 Suppose a strategy for the players succeeds in test $\cliff(\Sigma,m)$ (Figure~\ref{fig:clifford-test-3}) with probability at least $1-\eps$. Then  for $D\in\{A,B\}$ there exists an isometry 

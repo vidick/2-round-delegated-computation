@@ -15,7 +15,7 @@ Computation sub-run, $X$-test sub-run, and $Z$-test sub-run. We will generally t
 
  \input{DogWalkerFig.tex}
 
-
+\newpage
 
 The following theorem states the guarantees of the Dog-Walker Protocol.
 
@@ -30,6 +30,40 @@ There exist constants $p_1$, $p_2$, $p_3$, $p_4=1-p_1-p_2-p_3$, and $\Delta>0$ s
 \end{itemize}
 \end{theorem}
 \noindent The proof of completeness is given in Lemma \ref{lem:dogwalker-completeness}, and proof of soundness is given in Lemma \ref{lem:dogwalker-soundness}. 
+
+
+\subsection{Completeness}
+
+\begin{lemma}\label{lem:dogwalker-completeness}
+Suppose $\ver$ executes the Dog-Walker Protocol with parameters $(p_1,p_2,p_3,p_4)$.
+There is a strategy for the provers such that, on any input $(Q,\ket{\vec{x}})$
+  such that $\norm{\Pi_0 Q\ket{\vec{x}}}^2\geq \frac{2}{3}$, $\ver$ accepts with
+  probability at least
+  $p_{\mathrm{compl}}=p_1(1-\delta_c)+p_2+\frac{2}{3}p_3+p_4$, for some $\delta_c = e^{-\Omega(n+t)}$.
+\end{lemma}
+
+\begin{proof}
+The provers $\pv$ and $\pp$ play the strategy described in Figures
+  \ref{fig:dogwalker-protocol-PV} and \ref{fig:dogwalker-protocol-PP}
+  respectively. In the Rigidity-Tomography run, the verification performed by
+  $\ver$ amounts to playing $\tom(\Sigma,n+t,m)$ with the provers (with an extra
+  constraint on the output $W$ of $\pv$ that is always satisfied by the honest
+  strategy). This game has perfect
+  completeness, which makes the $\ver$
+  accept with probability $1$ in the Rigidity-Tomography run.
+  In the Rigidity-Clifford run, $\ver$ plays $\rigid(\Sigma,m)$
+  with the provers. The game
+  has completeness at least $1-\delta_c$ for some $\delta_c=e^{-\Omega(n+t)}$,
+  since $m=\Omega(n+t)$, therefore their success probability in this run is
+  at least $1-\delta_c$.
+
+In the EPR run, the provers are exactly carrying out the EPR Protocol, with $\ver$ using $\pv$ to run $V_{EPR}^r$, and $\pp$ playing the role of $P_{EPR}$. Thus, test runs result in acceptance with probability $1$, and the computation run results in acceptance with probability $\norm{\Pi_0 Q\ket{\vec{x}}}^2$, by Theorem \ref{thm:EPR-correctness}. 
+\end{proof}
+
+
+
+
+
 
 %----------------%
 \begin{figure}[H]
@@ -126,33 +160,6 @@ If $\exists i$ s.t.\ the $i$-th $\sf T$ gate is odd and $c_i\neq a_i'+e_i$, $\sf
 \end{figure}
 
 
-\subsection{Completeness}
-
-\begin{lemma}\label{lem:dogwalker-completeness}
-Suppose $\ver$ executes the Dog-Walker Protocol with parameters $(p_1,p_2,p_3,p_4)$.
-There is a strategy for the provers such that, on any input $(Q,\ket{\vec{x}})$
-  such that $\norm{\Pi_0 Q\ket{\vec{x}}}^2\geq \frac{2}{3}$, $\ver$ accepts with
-  probability at least
-  $p_{\mathrm{compl}}=p_1(1-\delta_c)+p_2+\frac{2}{3}p_3+p_4$, for some $\delta_c = e^{-\Omega(n+t)}$.
-\end{lemma}
-
-\begin{proof}
-The provers $\pv$ and $\pp$ play the strategy described in Figures
-  \ref{fig:dogwalker-protocol-PV} and \ref{fig:dogwalker-protocol-PP}
-  respectively. In the Rigidity-Tomography run, the verification performed by
-  $\ver$ amounts to playing $\tom(\Sigma,n+t,m)$ with the provers (with an extra
-  constraint on the output $W$ of $\pv$ that is always satisfied by the honest
-  strategy). This game has perfect
-  completeness, which makes the $\ver$
-  accept with probability $1$ in the Rigidity-Tomography run.
-  In the Rigidity-Clifford run, $\ver$ plays $\rigid(\Sigma,m)$
-  with the provers. The game
-  has completeness at least $1-\delta_c$ for some $\delta_c=e^{-\Omega(n+t)}$,
-  since $m=\Omega(n+t)$, therefore their success probability in this run is
-  at least $1-\delta_c$.
-
-In the EPR run, the provers are exactly carrying out the EPR Protocol, with $\ver$ using $\pv$ to run $V_{EPR}^r$, and $\pp$ playing the role of $P_{EPR}$. Thus, test runs result in acceptance with probability $1$, and the computation run results in acceptance with probability $\norm{\Pi_0 Q\ket{\vec{x}}}^2$, by Theorem \ref{thm:EPR-correctness}. 
-\end{proof}
 
 
 \subsection{Soundness}
@@ -401,6 +408,7 @@ where recall from Lemma~\ref{lem:dogwalker-completeness} that
   -\Delta$, for some universal constant $\Delta>0$ and all $\eps,\eps'\geq 0$.
 \end{proof}
 
+\newpage
 
 
 \subsection{Two-prover game for QMA}\label{sec:qma}
@@ -476,6 +484,28 @@ Let $x$ be an instance of a language $L \in$ QMA and $V_x$ the associated verifi
 \begin{figure}[H]
 \rule[1ex]{\textwidth}{0.5pt}
 \vspace{-20pt}
+\begin{enumerate}
+  \item If $\pp$ receives a question ${W}'$ from $\ver$ (he is playing $\tom$ or $\rigid$):
+\begin{enumerate}
+     \item[]  Measure the $m$ qubits in the observable indicated by $W'$ --- for example, if $W'\in\Sigma^m$, for $i\in \{1,\ldots,m\}$, measure the $i$-th qubit in the basis indicated by $W_i'$ --- and report
+       the outcomes $\vec{e}'$ to~$\ver$.
+\end{enumerate}
+\item If $\pp$ receives $\vec{x}, \vec{z}$, and sets $N^w$,$N^a$, $T^0$ and $T^1$ from $\ver$ (he is playing the role of $P_{EPR}$ from the EPR Protocol):
+\begin{enumerate}
+     \item[] Run  prover $P_{EPR}$ from Figure
+       \ref{fig:original-protocol-PEPR} with the $V_x$ as the circuit $Q$, on input $\vec{z}$, \highlight{the $n_w$ qubits in $N^w$ as the witness}, the $n_a$ qubits in 
+        $N^a$ as the ancilla, and the $t$ qubits in $T^0\cup T^1$ for $\sf T$ gadgets.
+     Report the outputs $\vec{c}\in\{0,1\}^t$ and $c_f\in\{0,1\}$ of $P_{EPR}$  to $\ver$. 
+\end{enumerate}
+\end{enumerate}
+\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
+\caption{QMA Protocol: Honest strategy for $\pp$.}\label{fig:qma-protocol-PP}
+\end{figure}
+
+
+\begin{figure}[H]
+\rule[1ex]{\textwidth}{0.5pt}
+\vspace{-20pt}
 \begin{description}
 \item[Computation] Based on whether it's an \text{EPR} or a \text{Rigidity} Run:
 	\begin{description}
@@ -523,27 +553,6 @@ If $\exists i$ s.t.\ the $i$-th $\sf T$ gate is odd and $c_i\neq a_i'+e_i$, $\sf
 \caption{QMA Protocol: Step 2 of Verifier's point of view. Verifier's behavior in Step 2 is determined by the sub-run type (\textbf{Computation}, \textbf{X-Test} or \textbf{Z-Test}) as well as the run type (\textbf{EPR} or \textbf{Rigidity}).}\label{fig:qma-protocol-V-continued}
 \end{figure}
 
-
-\begin{figure}[H]
-\rule[1ex]{\textwidth}{0.5pt}
-\vspace{-20pt}
-\begin{enumerate}
-  \item If $\pp$ receives a question ${W}'$ from $\ver$ (he is playing $\tom$ or $\rigid$):
-\begin{enumerate}
-     \item[]  Measure the $m$ qubits in the observable indicated by $W'$ --- for example, if $W'\in\Sigma^m$, for $i\in \{1,\ldots,m\}$, measure the $i$-th qubit in the basis indicated by $W_i'$ --- and report
-       the outcomes $\vec{e}'$ to~$\ver$.
-\end{enumerate}
-\item If $\pp$ receives $\vec{x}, \vec{z}$, and sets $N^w$,$N^a$, $T^0$ and $T^1$ from $\ver$ (he is playing the role of $P_{EPR}$ from the EPR Protocol):
-\begin{enumerate}
-     \item[] Run  prover $P_{EPR}$ from Figure
-       \ref{fig:original-protocol-PEPR} with the $V_x$ as the circuit $Q$, on input $\vec{z}$, \highlight{the $n_w$ qubits in $N^w$ as the witness}, the $n_a$ qubits in 
-        $N^a$ as the ancilla, and the $t$ qubits in $T^0\cup T^1$ for $\sf T$ gadgets.
-     Report the outputs $\vec{c}\in\{0,1\}^t$ and $c_f\in\{0,1\}$ of $P_{EPR}$  to $\ver$. 
-\end{enumerate}
-\end{enumerate}
-\rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
-\caption{QMA Protocol: Honest strategy for $\pp$.}\label{fig:qma-protocol-PP}
-\end{figure}
 
 
 \begin{figure}[H]

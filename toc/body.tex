@@ -970,9 +970,6 @@ $T^1_{\ell}$ %, odd $\sf T$ gate auxiliaries
 \caption{How the verifier chooses index sets $T=T^0\cup T^1$ and $N$ for each type of run. These sets determine which systems are labeled by $\{{\cal T}_{i}\}_{i=1}^t$ and $\{{\cal X}_{j}\}_{j=1}^n$, respectively.}\label{tab:index-choices}
 \end{table}
 
-\noindent  Before describing the Delegation game, we present now the sequential version of the game $\rigid(\Sigma,m)$ (Figure~\ref{fig:consistency-game}). We notice that this sequential version is no different than $\rigid(\Sigma,m)$, except for the fact that certain subsets of questions and answers are exchanged sequentially, but with the same acceptance condition. Running the game sequentially only reduces the provers' ability to cheat, hence the guarantees from $\rigid(\Sigma,m)$ 
-hold verbatim for the sequential version. 
-
 
 \begin{figure}[H]
 \rule[1ex]{\textwidth}{0.5pt}
@@ -1001,9 +998,7 @@ Let $m$, $n$, and $t_1,\ldots,t_d$ be parameters provided as input, such that $m
 \end{figure} 
 
 
-We now give the precise protocols for the delegation game $\ver$ (Figure \ref{fig:leash-protocol-V})
-and honest provers $\pv$ (Figure \ref{fig:leash-protocol-PV}) and $\pp$ (Figure~
-\ref{fig:leash-protocol-PP}). 
+
 
 %----------------%
 \begin{figure}[H]
@@ -1061,6 +1056,15 @@ The verifier sends the sets $N$ and $T_\ell^0$, $T_\ell^1$, for all $\ell\in\{1,
 \caption{Honest strategy for $\pv$ in the Delegation game}\label{fig:leash-protocol-PV}
   \end{figure}
   
+	
+\noindent  Before describing the Delegation game, we present now the sequential version of the game $\rigid(\Sigma,m)$ (Figure~\ref{fig:consistency-game}). We notice that this sequential version is no different than $\rigid(\Sigma,m)$, except for the fact that certain subsets of questions and answers are exchanged sequentially, but with the same acceptance condition. Running the game sequentially only reduces the provers' ability to cheat, hence the guarantees from $\rigid(\Sigma,m)$ 
+hold verbatim for the sequential version. 
+
+
+We now give the precise protocols for the delegation game $\ver$ (Figure \ref{fig:leash-protocol-V})
+and honest provers $\pv$ (Figure \ref{fig:leash-protocol-PV}) and $\pp$ (Figure~
+\ref{fig:leash-protocol-PP}). 
+
   \begin{figure}[htbp]
 \rule[1ex]{\textwidth}{0.5pt}
 \vspace{-1.8em}
