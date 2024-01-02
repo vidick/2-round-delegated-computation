@@ -13,9 +13,7 @@ EPR and Rigidity. Within an EPR run are three
 types of sub-runs: 
 Computation sub-run, $X$-test sub-run, and $Z$-test sub-run. We will generally think of $X$- and $Z$-test sub-runs as one sub-run type (Test sub-run). Within a Rigidity run are two types of sub-runs: Tomography sub-run, which should be thought of as the Rigidity version of the EPR-Computation run; and Clifford sub-run, which should be thought of as the Rigidity version of the EPR-Test run. With some probability $p_1$, $\ver$ runs a Rigidity run, Clifford sub-run; with some probability $p_2$, $\ver$ runs an EPR run, Test sub-run; with some probability $p_3$, $\ver$ runs an EPR run, Computation sub-run; and with probability $p_4=1-p_1-p_2-p_3$, $\ver$ runs a Rigidity run, Tomography sub-run. This structure is illustrated in Figure~\ref{fig:DogWalkerFig}. We call this the Dog-Walker Protocol with parameters $(p_1,p_2,p_3,p_4)$.
 
- \input{DogWalkerFig.tex}
 
-\newpage
 
 The following theorem states the guarantees of the Dog-Walker Protocol.
 
@@ -31,6 +29,12 @@ There exist constants $p_1$, $p_2$, $p_3$, $p_4=1-p_1-p_2-p_3$, and $\Delta>0$ s
 \end{theorem}
 \noindent The proof of completeness is given in Lemma \ref{lem:dogwalker-completeness}, and proof of soundness is given in Lemma \ref{lem:dogwalker-soundness}. 
 
+
+
+
+ \input{DogWalkerFig.tex}
+ 
+ \clearpage
 
 \subsection{Completeness}
 
@@ -60,6 +64,7 @@ The provers $\pv$ and $\pp$ play the strategy described in Figures
 In the EPR run, the provers are exactly carrying out the EPR Protocol, with $\ver$ using $\pv$ to run $V_{EPR}^r$, and $\pp$ playing the role of $P_{EPR}$. Thus, test runs result in acceptance with probability $1$, and the computation run results in acceptance with probability $\norm{\Pi_0 Q\ket{\vec{x}}}^2$, by Theorem \ref{thm:EPR-correctness}. 
 \end{proof}
 
+\clearpage
 
 
 
@@ -349,7 +354,7 @@ there exist distributions $q_{\vec{c},\vec{z}}$ on $\Sigma^m\times\{\pm\}$ such 
 \Big\| \Tr_{\reg{A},\hat{\reg{B}}}\left((\Id_{\reg{A}}\otimes V_{\reg{B}} Q_{\vec{c},\vec{z}}^{u})\ket{\psi}\bra{\psi}_{\reg{AB}}(\Id_{\reg{A}}\otimes V_{\reg{B}} Q_{\vec{c},\vec{z}}^{u})^\dagger\right)
 - \sum_{\lambda\in\{\pm\}}q_{\vec{c},\vec{z}}(W',\lambda)\left(\bigotimes_{i=1}^m \frac{\sigma^{u_i}_{W_i',\lambda}}{2}\right)\Big\|_1. 
 \end{equation}
-Here we use the notation from Corollary \ref{cor:clifford-rigid} and
+Here we use the notation from Theorem~\ref{thm:clifford-rigid} and
   \ref{cor:clifford-rigid-adaptive}. The string
   $W'=W(\vec{c},\vec{z},\vec{u})\in\Sigma^m$ is uniquely determined by
   $\vec{c},\vec{z}$, and the outcomes ${u}$ reported by $\pv^*$; indeed it
@@ -392,7 +397,7 @@ q_1' &= 1- O(\delta_c), \\  q_2' &= 1-\eps'- \poly(\eps), \\ q_3' &= \frac13+w-
 \end{align*}
 where $q'_1$, $q'_2$, $q'_3$ and $q'_4$ are their success probabilities in the
   four types of runs, and $1-\delta_c$ is the completeness of the
-  $\rigid$ test; from Corollary~\ref{cor:clifford-rigid} we have $\delta_c = 2^{-\Omega(n+t)}$. Moreover $\pv'$ applies the honest strategy in all runs, while $\pp'$ applies the honest strategy in the Rigidity-Clifford and Rigidity-Tomography runs. Applying Lemma \ref{lem:PP-3}, it follows that 
+  $\rigid$ test; from Theorem~\ref{thm:clifford-rigid} we have $\delta_c = 2^{-\Omega(n+t)}$. Moreover $\pv'$ applies the honest strategy in all runs, while $\pp'$ applies the honest strategy in the Rigidity-Clifford and Rigidity-Tomography runs. Applying Lemma \ref{lem:PP-3}, it follows that 
 $$w \,\leq\, O(\eps') + \poly(\eps) +p_1 \cdot O(\delta_c).$$
 Therefore the prover's overall success probability is at most 
 \begin{align*}
@@ -475,7 +480,7 @@ Let $x$ be an instance of a language $L \in$ QMA and $V_x$ the associated verifi
   along with $\vec{x}$, $N^w$, $N^a$, $T^0$ and $T^1$, to $\pp$. Receive measurement outcomes $\vec{c}\in\{0,1\}^t$ and $c_f\in\{0,1\}$ from $\pp$.
 \item[Rigidity] Choose $W'$ according to $\mu(\cdot)$ and send it to $\pp$. Receive $\vec{e}'\in \{0,1\}^m$ from $\pp$. 
 \end{description}
-2. Select a sub-run type at random from \textbf{Computation}, \textbf{X-Test} or \textbf{Z-Test}. Based on this choice, as well as the run type (\textbf{EPR} or \text{Rigidity}), proceed as in Figure~\ref{fig:qma-protocol-V-continued}).
+2. Select a sub-run type at random from \textbf{Computation}, \textbf{X-Test} or \textbf{Z-Test}. Based on this choice, as well as the run type (\textbf{EPR} or \text{Rigidity}), proceed as in Figure~\ref{fig:qma-protocol-V-continued}). \\
 \rule[2ex]{\textwidth}{0.5pt}\vspace{-.5cm}
 \caption{QMA Protocol: Verifier's point of view.}\label{fig:qma-protocol-V}
 \end{figure}
@@ -502,6 +507,7 @@ Let $x$ be an instance of a language $L \in$ QMA and $V_x$ the associated verifi
 \caption{QMA Protocol: Honest strategy for $\pp$.}\label{fig:qma-protocol-PP}
 \end{figure}
 
+\clearpage
 
 \begin{figure}[H]
 \rule[1ex]{\textwidth}{0.5pt}

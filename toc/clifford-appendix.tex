@@ -12,7 +12,7 @@ Finally, in Section \ref{sec:pauli-group}, we show how to extend the results fro
 \subsection{The Magic Square game}
 \label{sec:ms}
 
-We use the Magic Square game~\cite{Mermin90} as a building block, noting that it  provides a robust self-test test for the two-qubit Weyl-Heisenberg group (see Section~\ref{sec:prelim-notation} for the definition). Questions in this game are specified by a triple of labels corresponding to the same row or column from the square pictured in Figure~\ref{fig:ms} (so a typical question could be $(IZ,XI,XZ)$; there are $6$ questions in total, each a triple). An answer is composed of three values in $\{\pm 1\}$, one for each of the labels making up the question. Answers from the prover should be entrywise consistent, and such that the product of the answers associated to any row or column except the last should be $+1$; for the last column it should be $-1$. The labels indicate the ``honest'' strategy for the game, which consists of each prover measuring two half-EPR pairs using the commuting Pauli observables indicated by the labels of his question. 
+We use the Magic Square game~\cite{Mermin90} as a building block, noting that it  provides a robust self-test test for the two-qubit Weyl-Heisenberg group (see Section~\ref{sec:prelim-notation} for the definition). A question in this game is specified, either by a label corresponding to an entry from the square pictured in Figure~\ref{fig:ms} ($9$ questions, labeled $IZ$, etc.), or by a triple of labels corresponding to the same row or column ($6$ questions, labeled $(IZ,XI,XZ)$, etc.); there are 15 questions in total. An answer is composed of three values in $\{\pm 1\}$, one for each of the labels making up the question. Answers from the prover should be entrywise consistent, and such that the product of the answers associated to any row or column except the last should be $+1$; for the last column it should be $-1$. The labels indicate the ``honest'' strategy for the game, which consists of each prover measuring two half-EPR pairs using the commuting Pauli observables indicated by the labels of his question. 
 
 \begin{figure}[H]
 \begin{center}
@@ -67,7 +67,7 @@ Test~$\act(X,Z)$:
 \begin{itemize}
     \item Inputs: $X$, $Z$ two observables on the same space $\mH$.
     \item Relation: $XZ=-ZX$.
-    \item Test: Execute the Magic Square game, using the label ``$X$'' for the ``$XI$'' query, and ``$Z$'' for the ``$ZI$'' query.  
+    \item Test: Execute the Magic Square game, using the label ``$X$'' for the ``$XI$'' query and ``$Z$'' for the ``$ZI$'' query. All other queries, such as $IZ$, or $(IZ,ZI,ZZ)$, are sent together with the pair $(X,Z)$. (So, for example, the query ``$ZI$'' in the Magic Square becomes ``$Z$'' here, whereas the query ``$IZ$'' becomes ``$IZ,(X,Z)$'', where the first $IZ$ are simply letters, whereas in $(X,Z)$ the $X$ and $Z$ should be replaced by the inputs to this test.)
 \end{itemize}
 
 Test~$\comt(A,B)$:
@@ -109,10 +109,10 @@ A_\reg{A} B_\reg{A} \otimes \Id_\reg{B}
 Here each approximation uses the consistency condition provided by the test, as explained in~\eqref{eq:consistency}. Thus $[A,B] = (AB-BA) \approx_{\sqrt{\eps}} 0$, as desired. 
 \end{proof}
 
-We will often make use of the following simple lemma, which expresses an application of the above tests. 
+We will often make use of the following simple lemma, which expresses an application of the above tests. Recall the notations $[A,B]$ for $AB-BA$ and $\{A,B\}$ for $AB+BA$. 
 
 \begin{lemma}\label{lem:pauli-c}
-Let $\ket{\psi} \in \mH_{\reg{A}} \otimes \mH_{\reg{B}}$ and $A,X$ observables on $\mH_{\reg{A}}$ such that there exists an isometry $\mH_{\reg{A}} \simeq \C^2 \otimes \mH_{\hat{\reg{A}}}$ under which the following conditions hold, for some $\delta_1,\delta_2,\delta_3$:\footnote{Note that we allow either $\delta_i$ to equal $1$, leading to a vacuous condition.}
+Let $\ket{\psi} \in \mH_{\reg{A}} \otimes \mH_{\reg{B}}$ and $A,X$ observables on $\mH_{\reg{A}}$ such that there exists an isometry $\mH_{\reg{A}} \simeq \C^2 \otimes \mH_{\hat{\reg{A}}}$ under which the following conditions hold, for some $\delta_1,\delta_2,\delta_3$:\footnote{Note that we allow either $\delta_i$ to equal $1$. The lemma is interesting when $\delta_1$ and \emph{either} $\delta_2$ \emph{or} $\delta_3$ is small (but it is correct for all triples of values in $[0,1]$)}
 \begin{enumerate}
 \item[(i)] There exists an observable $A'$ on $\mH_\reg{B}$ such that $A\otimes \Id \approx_{\delta_1} \Id \otimes A'$;
 \item[(ii)] $\ket{\psi} \simeq_{\delta_1} \ket{\EPR}\ket{\aux}$ and $X\simeq_{\delta_1} \sigma_X \otimes \Id$; 
@@ -275,9 +275,9 @@ where conditions (ii) and (iii) are meant on average over a uniformly random
   $a\in\{0,1\}^m$, and the last over a uniformly random $a$ such that $a\cdot c
   =1$. For any $P\in\{I,X,Y,Z\}^m$ let $x_P \in\{0,1\}^m$ be such that $(x_P)_i=1$ if and only if $P_i\in\{Y,Z\}$.
 Then there exists Hermitian $A_P$, for $P\in\{I,X,Y,Z\}^m$, on $\mH_{\hat{\reg{A}}}$ such that 
-\begin{align*}
-A \simeq_{\delta_1+\delta_2} \sum_{P\in\{I,X\}^n} \sigma_P \otimes A_P,\qquad\text{and}\qquad A \simeq_{\delta_1+\delta_3} \sum_{\substack{P\in\{I,X,Y,Z\}^m:\\ c_i=1 \implies P_i \in \{Y,Z\}\\  c_i=0 \implies P_i \in \{I,X\}}} \sigma_P \otimes A_P.
-\end{align*}
+\begin{align}
+A \simeq_{\delta_1+\delta_2} \sum_{P\in\{I,X\}^n} \sigma_P \otimes A_P,\qquad\text{and}\qquad A \simeq_{\delta_1+\delta_3} \sum_{\substack{P\in\{I,X,Y,Z\}^m:\\ c_i=1 \implies P_i \in \{Y,Z\}\\  c_i=0 \implies P_i \in \{I,X\}}} \sigma_P \otimes A_P.\label{eq:la6}
+\end{align}
  (A similar claim holds with the roles of $X$ and $Z$ exchanged.)
 \end{lemma}
 
@@ -393,7 +393,7 @@ Test~$\pbt(X,Y,Z)$:
 \item[(a)] Execute test $\pbt(X,Z)$. 
 \item[(b)] Let $W\in\{X,Z\}^m$ be chosen uniformly at random. Let $W'=Y^m$. 
 \begin{enumerate}
-\item[(i)] Let $c\in\{0,1\}^m$ be chosen uniformly at random. If $c$ has even Hamming weight then execute $\comt((W,c),(W',c))$. If it has odd Hamming weight then execute $\act((W,c),(W',c))$. 
+\item[(i)] Let $c,c'\in\{0,1\}^m$ be chosen uniformly at random. If $c\cdot c'=0$ then execute $\comt((W,c),(W',c'))$. If $c\cdot c'=1$ then execute $\act((W,c),(W',c'))$. 
 \item[(ii)]  Select $(a,a')\in\{0,1\}^m$. Execute test $\prodt((W',a),(W',a'),(W',a+a'))$. 
 \item[(iii)] Select $W''\in\{I,Y\}^m$ uniformly at random. Let $c$ be the indicator of the positions in $W''$ such that $W''_i=1$. Send one prover the string $W''$ and the other the pair $(W',c)$. Let $d$ be the string reported by the first prover and $e$ the bit reported by the second. Accept if and only if $e=c\cdot d$. 
 \end{enumerate}
@@ -436,9 +436,13 @@ where $\Delta_W(a) = \prod_i \Delta_{W_i}^{a_i} \in \Obs({\mH}_{\hat{\reg{A}}})$
 The existence of the isometries $V_A$ and $V_B$ follows Lemma~\ref{lem:pbt} and part (a) of $\pbt(X,Y,Z)$. 
  Under this isometry we have $W(a) \simeq_{\sqrt{\eps}} \sigma_W(a)$, on average over uniformly random $W\in\{X,Z\}^m$ and $a\in\{0,1\}^m$, and moreover $W_c \simeq \sigma_W^c$ on average over uniformly random $W\in\{X,Z\}^m$. 
 
-Applying Lemma~\ref{lem:pauli-c-n},  the  commutation and anti-commutation relations between $Y^m(c)$ and $W(c)$ verified in part (b)(i) of the test imply that under the same isometry,
-$$ Y(c) \simeq \sigma_Y(c) \otimes {\Delta}(c),$$
-for some observable ${\Delta}(c)$ on ${\mH}_{\hat{\reg{A}}}$. Here $Y(c)$ is shorthand for $Y^m(c)$. Using the linearity relations that are verified in part (b)(ii) we may in addition express $\Delta(c) = \prod_i \Delta_{i}^{c_i}$ for (perfectly) commuting observables $\Delta_i$. 
+Applying Lemma~\ref{lem:pauli-c-n}, the anti-commutation relations between $Y^m(c)$ and $W(c)$ verified in part (b)(i) of the test imply that under the same isometry,
+\begin{equation}\label{eq:la6b}
+ Y(c) \simeq \sigma_Y(c) \otimes {\Delta}(c)\;,
+\end{equation}
+for some observable ${\Delta}(c)$ on ${\mH}_{\hat{\reg{A}}}$. Here $Y(c)$ is shorthand for $Y^m(c)$. This is because, for any $c$, the test verifies that condition (iv) in Lemma~\ref{lem:pauli-c-n} is satisfied, where $X$ in the lemma is replaced by any $W\in\{X,Z\}^n$ (more precisely, the condition holds on the average, for $W\in\{X,Z\}^m$ and $a\in\{0,1\}^m$ both chosen uniformly at random). Thus the second centered equation in~\eqref{eq:la6} holds, where by varying the choice of $X$ in the lemma (corresponding to varying $W$ here) we get that if $c_i=1$ then $P_i\in \{Y,Z\}\cap \{Y,X\}=\{Y\}$ and if $c_i=0$ then $P_i\in \{I,X\}\cap\{I,Z\}=\{I\}$. Thus the lemma implies the claimed form~\eqref{eq:la6b}, where $\Delta(c)$ here is $A_P$ in the lemma for $P=Y(c)$. 
+
+Using the linearity relations that are verified in part (b)(ii) we may in addition express $\Delta(c) = \prod_i \Delta_{i}^{c_i}$ for (perfectly) commuting observables $\Delta_i$. 
 
 
 

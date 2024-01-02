@@ -50,7 +50,7 @@ We formulate our tests as two-player games in which both players are treated sym
  Taking advantage of this symmetry we often omit the subscript $\reg{A}$ or $\reg{B}$, as all statements involving observables for one player hold verbatim with the other player's observables as well. 
 
 With the exception of the Tomography Test $\tom$ presented in Section~\ref{subsec:tomography}, 
-all the games tests we consider implicitly include a ``consistency test'' which is meant to enforce that whenever both players are sent identical questions, they produce matching answers.\footnote{Here by a ``test'' we mean a named test, such as $\conj(A,B,R)$ or $\act(X,Z)$. Since $\conj(A,B,R)$ uses $\act(X,Z)$ as a subroutine, both the named subtest $\act(X,Z)$ and the named test $\conj(A,B,R)$ are endowed with an additional consistency test.} More precisely, let $T$ be any of the two-player tests described in the paper. Let $\Pr_T(W,W')$ be the distribution on questions $(W,W')$ to the players that is specified by $T$. Since the players are always treated symmetrically, $\Pr_T(\cdot,\cdot)$ is permutation-invariant. Let $\Pr_T(\cdot)$ denote the marginal on either player. Then, instead of executing the test $T$ as described, the verifier performs the following: 
+all the games we consider implicitly include a ``consistency test'' which is meant to enforce that whenever both players are sent identical questions, they produce matching answers.\footnote{Here by a ``test'' we mean a named test, such as $\conj(A,B,R)$ or $\act(X,Z)$. Since $\conj(A,B,R)$ uses $\act(X,Z)$ as a subroutine, both the named subtest $\act(X,Z)$ and the named test $\conj(A,B,R)$ are endowed with an additional consistency test.} More precisely, let $T$ be any of the two-player tests described in the paper. Let $\Pr_T(W,W')$ be the distribution on questions $(W,W')$ to the players that is specified by $T$. Since the players are always treated symmetrically, $\Pr_T(\cdot,\cdot)$ is permutation-invariant. Let $\Pr_T(\cdot)$ denote the marginal on either player. Then, instead of executing the test $T$ as described, the verifier performs the following: 
 \begin{enumerate}
 \item[(i)] With probability $1/2$, execute $T$.
 \item[(ii)] With probability $1/2$, select a random question $W$ according to $\Pr_T(W)$. Send $W$ to both players. Accept if and only if the players' answers are equal. 
@@ -71,8 +71,8 @@ consistency test with probability $1-2\eps$ we obtain $W_{\reg{A}}\otimes \Id
 \subsubsection{Relations}
 
 We use $\mathcal{R}$ to denote a set of relations over matrix variables $X,Z,W,\ldots,$ such as
-$$\mathcal{R}=\big\{XZXZ=-\Id,\, HX=ZH,\,X,Z,H\in\Obs\big\}.$$
-Here the constraint $X\in\Obs$ is itself a pair of relations, $X=X^\dagger$ and $X^2=\Id$ (since we consider only binary observables). Each relation implicitly imposes that the variables that appear in it have compatible dimension, e.g.\ $XZXZ=-\Id$ imposes that $X,Z$ have the same dimension. 
+$$\mathcal{R}=\big\{XZXZ=-\Id,\, HX=ZH,\,\{X,Z,H\}\in\Obs\big\}.$$
+Here the notation $\{X,Z,H\}\in\Obs$ means that each of the symbols in $\{X,Z,H\}$ satisfies the pair of relations, $\{X=X^\dagger,X^2=\Id\}$ (since we consider only binary observables) and similarly for $Z,H$. Each relation implicitly imposes that the variables that appear in it have compatible dimension, e.g.\ $XZXZ=-\Id$ imposes that $X,Z$ have the same dimension. 
 We only consider relations that can be expressed in the form of  one of the following
 equations:
 \begin{itemize}
@@ -120,7 +120,7 @@ X_R = \begin{pmatrix} 0 & R^\dagger\\ R & 0 \end{pmatrix}\qquad \text{and}\qquad
 \end{equation}
 such that moreover $X_R$ and $C$ commute. The fact that $X_R$ is an observable implies that $R$ is unitary,\footnote{Note that $R$ will not be directly accessed in the test, since by itself it does not necessarily correspond to a measurement.} while the commutation condition is equivalent to the relation $RAR^\dagger = B$. The test thus tests for the relations
 \begin{align*}
- \mathcal{C}\{R,C\} &= \big\{ X_R,C,X,Z\in \Obs\big\} \cup \big\{XZ=-ZX\big\}
+ \mathcal{C}\{R,C\} &= \big\{ \{X_R,C,X,Z\}\in \Obs\big\} \cup \big\{XZ=-ZX\big\}
 \cup \big\{ X_R C = C X_R,\, X_RZ=-Z X_R,\, C Z=ZC\big\}\;.
 \end{align*}
 Here the anti-commuting observables $X$ and $Z$ are used to specify a basis in which $X_R$ and $C$ can be block-diagonalized. The anti-commutation and commutation relations with $Z$ enforce that $X_R$ and $C$ have the form described in~\eqref{eq:def-xr}.
@@ -540,7 +540,7 @@ Success in $\rigid(\Sigma,m)$ allows us to apply Theorem~\ref{thm:clifford-rigid
 %\end{equation}
 %On the other hand, 
 Using that for any $i\in S$, $W_i=W'_i$ with constant probability $|\Sigma|^{-1}$, 
-it follows from~\eqref{eq:me-cor11} and~\eqref{eq:states-cor11} in Corollary~\ref{cor:clifford-rigid} that success in $\tom(\Sigma,m)$ implies the condition
+it follows from~\eqref{eq:clifford-rigid-statement-1} and~\eqref{eq:rigid-4} in Theorem~\ref{thm:clifford-rigid} that success in $\tom(\Sigma,m)$ implies the condition
 \begin{equation}\label{eq:tom-2}
 \Es{\substack{S\subseteq \{1,\ldots,m\}\\|S|=m'}}\, \sum_{W',\lambda,u}\,\Tr(\tau_\lambda)  \,\Tr\Big(\Big( \frac{|\Sigma|-1}{|\Sigma|}\Id + \frac{1}{|\Sigma|}\otimes_{i\in S}\sigma_{W'_i,\lambda}^{u_i} \Big) \rho_{\reg{A'},\lambda}^{W',u}\Big)  = 1- O(\poly(\eps)). 
 \end{equation}
