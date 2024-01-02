@@ -135,7 +135,7 @@ should be possible to obtain a scaling of the form $C\sqrt{\eps}$ for a
 reasonable constant~$C$. We discuss the test in Section~\ref{sec:intro-rigidity}. %The complete analysis can be found in the full version of the paper. 
 Next, we describe the two delegation protocols in a little more detail.
 
-\paragraph{Verifier-on-a-Leash Protocol}
+\paragraph{Verifier-on-a-Leash Protocol.}
 The first protocol, which we call \emph{Verifier-on-a-Leash
 Protocol}, or ``Leash Protocol'' for short, is divided into two sub-games; which game is played is chosen by the verifier by flipping a biased coin with appropriately chosen probabilities.
 \begin{itemize}[nolistsep]
@@ -157,7 +157,7 @@ The input to the circuit is hidden from the provers, meaning that the protocol c
 
 The completeness of the protocol follows directly from the completeness of Broadbent's EPR protocol and of the rigidity game $\rigid(\Sigma,m)$. Once we ensure the correct behavior of $\pv$ using our rigidity test, soundness follows from soundness of Broadbent's protocol as well, since the combined behavior of our verifier and an honest $\pv$ in the delegation game is nearly identical to that of the verifier in Broadbent's protocol.
 
-\paragraph{Dog-Walker Protocol}
+\paragraph{Dog-Walker Protocol.}
 The second protocol, which we refer to as the \emph{Dog-Walker Protocol}, also starts from Broadbent's protocol but modifies it in a
 different way to achieve a protocol that only requires a constant number of rounds of
 interaction. 
@@ -265,6 +265,8 @@ $$\ket{\EPR}\,=\,\frac{1}{\sqrt{2}}\left(\ket{00}+\ket{11}\right).$$
 We use capital letters $X,Z,W,\ldots$ to denote observables. We use greek letters $\sigma$, $\tau$ with a subscript $\sigma_W$, $\tau_W$, to emphasize that the observable $W$ specified as subscript acts in a particular basis. For example, $X$ is an arbitrary observable but $\sigma_X$ is specifically the Pauli $X$ matrix defined in~\eqref{eq:pauli-matrix}.
 
 For $a\in\{0,1\}^n$ and commuting observables $\sigma_{W_1},\ldots,\sigma_{W_n}$, we write $\sigma_W(a) = \prod_{i=1}^n (\sigma_{W_i})^{a_i}$. The associated projective measurements are $\{\sigma_{W_i}^0,\sigma_{W_i}^1\}$ where $\sigma_{W_i} = \sigma_{W_i}^0 - \sigma_{W_i}^1$ and $\{\sigma_W^u\}_{u\in\{0,1\}^n}$ where $\sigma_W^u = \Es{a} (-1)^{u\cdot a} \sigma_W(a)$.  Often the $\sigma_{W_i}$ will be single-qubit observables acting on distinct qubits, in which case each is implicitly tensored with the identity outside of the qubit on which it acts. 
+
+We recall the commutator notation $[A,B]$ for $AB+BA$ and anti-commutator notation $\{A,B\}$ for $AB+BA$, where $A,B$ are linear operators on the same Hilbert space. 
 
 
 \paragraph{Pauli and Clifford groups.}
@@ -719,7 +721,7 @@ Then for $D\in\{A,B\}$ there exists an isometry
 $$V_D: \mathcal{H}_\reg{D} \to (\C^2)^{\otimes m}_{\reg{D}'} \otimes {\mH}_{\widehat{\reg{D}}}$$
 and a state  $\ket{\aux}_{\widehat{\reg{A}}\widehat{\reg{B}}} \in {\mH}_{\widehat{\reg{A}}}\otimes {\mH}_{\widehat{\reg{B}}}$
 such that
-\begin{equation}
+\begin{equation}\label{eq:clifford-rigid-statement-1}
  \big\| (V_A \otimes V_B) \ket{\psi}_{\reg{AB}}  - \ket{\EPR}^{\otimes m} \otimes \ket{\aux}_{\widehat{\reg{A}}\widehat{\reg{B}}} \big\|^2 = O(\sqrt{\eps})\;,
 \end{equation}
 and positive semidefinite matrices $\tau_\lambda$ on $\widehat{\reg{A}}$ with orthogonal support, for $\lambda\in\{+,-\}$, such that $\Tr(\tau_+)+\Tr(\tau_-)=1$ and
